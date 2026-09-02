@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "Outil Tracé Ferroviaire BTE",
+  "bte_railpathtool.tool.density":        "Densité (pts/bloc)",
+  "bte_railpathtool.tool.snap_ground":    "Coller au sol",
+  "bte_railpathtool.tool.preview":        "Aperçu",
+  "bte_railpathtool.tool.confirm":        "Valider",
+  "bte_railpathtool.tool.cancel_last":    "Annuler dernier point",
+  "bte_railpathtool.tool.reset":          "Réinitialiser",
+  "bte_railpathtool.tool.points":         "Points : %d",
+  "bte_railpathtool.tool.hint":           "Clic droit : point | Entrée : valider | Suppr : annuler",
+  "bte_railpathtool.tool.no_axiom":       "Axiom introuvable – mod désactivé.",
+  "bte_railpathtool.tool.loaded":         "Chargé avec succès."
+}

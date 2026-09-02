@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "BTE 铁路路径工具",
+  "bte_railpathtool.tool.density":        "密度（点/方块）",
+  "bte_railpathtool.tool.snap_ground":    "吸附地面",
+  "bte_railpathtool.tool.preview":        "预览",
+  "bte_railpathtool.tool.confirm":        "确认",
+  "bte_railpathtool.tool.cancel_last":    "取消最后一个点",
+  "bte_railpathtool.tool.reset":          "重置",
+  "bte_railpathtool.tool.points":         "点数：%d",
+  "bte_railpathtool.tool.hint":           "右键：添加点 | 回车：确认 | 删除：取消",
+  "bte_railpathtool.tool.no_axiom":       "未找到 Axiom – 模组已禁用。",
+  "bte_railpathtool.tool.loaded":         "加载成功。"
+}

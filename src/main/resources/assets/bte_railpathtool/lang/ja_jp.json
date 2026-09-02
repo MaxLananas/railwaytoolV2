@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "BTE 鉄道パスツール",
+  "bte_railpathtool.tool.density":        "密度（点/ブロック）",
+  "bte_railpathtool.tool.snap_ground":    "地面にスナップ",
+  "bte_railpathtool.tool.preview":        "プレビュー",
+  "bte_railpathtool.tool.confirm":        "確定",
+  "bte_railpathtool.tool.cancel_last":    "最後の点を取り消す",
+  "bte_railpathtool.tool.reset":          "リセット",
+  "bte_railpathtool.tool.points":         "ポイント数: %d",
+  "bte_railpathtool.tool.hint":           "右クリック: 点追加 | Enter: 確定 | Del: キャンセル",
+  "bte_railpathtool.tool.no_axiom":       "Axiom が見つかりません – MOD 無効。",
+  "bte_railpathtool.tool.loaded":         "正常に読み込まれました。"
+}

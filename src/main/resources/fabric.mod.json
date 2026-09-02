@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "bte_railpathtool",
+  "version": "${version}",
+  "name": "BTE Rail Path Tool",
+  "description": "Axiom addon - Custom rail placement for BuildTheEarth",
+  "authors": ["MaxLananas <3"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.bte.railpathtool.RailPathToolMod"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.10"
+  },
+  "suggests": {
+    "axiom": "*"
+  }
+}

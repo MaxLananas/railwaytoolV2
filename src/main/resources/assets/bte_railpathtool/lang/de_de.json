@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "BTE Gleis-Pfad-Werkzeug",
+  "bte_railpathtool.tool.density":        "Dichte (Pkt/Block)",
+  "bte_railpathtool.tool.snap_ground":    "Am Boden einrasten",
+  "bte_railpathtool.tool.preview":        "Vorschau",
+  "bte_railpathtool.tool.confirm":        "Bestätigen",
+  "bte_railpathtool.tool.cancel_last":    "Letzten Punkt löschen",
+  "bte_railpathtool.tool.reset":          "Zurücksetzen",
+  "bte_railpathtool.tool.points":         "Punkte: %d",
+  "bte_railpathtool.tool.hint":           "Rechtsklick: Punkt | Enter: bestätigen | Entf: abbrechen",
+  "bte_railpathtool.tool.no_axiom":       "Axiom nicht gefunden – Mod deaktiviert.",
+  "bte_railpathtool.tool.loaded":         "Erfolgreich geladen."
+}

@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "Narzędzie Trasy Kolejowej BTE",
+  "bte_railpathtool.tool.density":        "Gęstość (pkt/blok)",
+  "bte_railpathtool.tool.snap_ground":    "Przyciągnij do ziemi",
+  "bte_railpathtool.tool.preview":        "Podgląd",
+  "bte_railpathtool.tool.confirm":        "Zatwierdź",
+  "bte_railpathtool.tool.cancel_last":    "Cofnij ostatni punkt",
+  "bte_railpathtool.tool.reset":          "Resetuj",
+  "bte_railpathtool.tool.points":         "Punkty: %d",
+  "bte_railpathtool.tool.hint":           "Prawy przycisk: punkt | Enter: zatwierdź | Del: anuluj",
+  "bte_railpathtool.tool.no_axiom":       "Nie znaleziono Axiom – mod wyłączony.",
+  "bte_railpathtool.tool.loaded":         "Załadowano pomyślnie."
+}

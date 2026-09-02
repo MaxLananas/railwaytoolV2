@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "Herramienta de Trazado Ferroviario BTE",
+  "bte_railpathtool.tool.density":        "Densidad (pts/bloque)",
+  "bte_railpathtool.tool.snap_ground":    "Adherir al suelo",
+  "bte_railpathtool.tool.preview":        "Vista previa",
+  "bte_railpathtool.tool.confirm":        "Confirmar",
+  "bte_railpathtool.tool.cancel_last":    "Cancelar último punto",
+  "bte_railpathtool.tool.reset":          "Reiniciar",
+  "bte_railpathtool.tool.points":         "Puntos: %d",
+  "bte_railpathtool.tool.hint":           "Clic derecho: punto | Enter: confirmar | Supr: cancelar",
+  "bte_railpathtool.tool.no_axiom":       "Axiom no encontrado – mod desactivado.",
+  "bte_railpathtool.tool.loaded":         "Cargado correctamente."
+}

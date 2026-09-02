@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "BTE Rail Path Tool",
+  "bte_railpathtool.tool.density":        "Density (pts/block)",
+  "bte_railpathtool.tool.snap_ground":    "Snap to Ground",
+  "bte_railpathtool.tool.preview":        "Preview",
+  "bte_railpathtool.tool.confirm":        "Confirm",
+  "bte_railpathtool.tool.cancel_last":    "Cancel Last Point",
+  "bte_railpathtool.tool.reset":          "Reset",
+  "bte_railpathtool.tool.points":         "Points: %d",
+  "bte_railpathtool.tool.hint":           "Right Click: point | Enter: confirm | Del: cancel",
+  "bte_railpathtool.tool.no_axiom":       "Axiom not found – mod disabled.",
+  "bte_railpathtool.tool.loaded":         "Loaded successfully."
+}

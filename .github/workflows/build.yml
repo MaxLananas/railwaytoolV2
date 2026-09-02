@@ -1,0 +1,199 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  AXIOM_VERSION: 5.4.2
+  AXIOM_JAR: Axiom-5.4.2-for-MC1.21.10.jar
+  AXIOM_URL: https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fix resources folder name if needed
+        run: |
+          if [ -d "src/main/ressources" ] && [ ! -d "src/main/resources" ]; then
+            cp -r src/main/ressources src/main/resources
+          fi
+
+      - name: Auto-bump patch version
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          CURRENT=$(grep "^mod_version" gradle.properties | cut -d'=' -f2 | tr -d ' \r\n')
+          MAJOR=$(echo "$CURRENT" | cut -d'.' -f1)
+          MINOR=$(echo "$CURRENT" | cut -d'.' -f2)
+          PATCH=$(echo "$CURRENT" | cut -d'.' -f3)
+          MC_VERSION=$(grep "^minecraft_version" gradle.properties | cut -d'=' -f2 | tr -d ' \r\n')
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+          NEW_TAG="v${NEW_VERSION}-mc${MC_VERSION}"
+
+          while git ls-remote --tags origin "refs/tags/$NEW_TAG" | grep -q "$NEW_TAG"; do
+            NEW_PATCH=$((NEW_PATCH + 1))
+            NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+            NEW_TAG="v${NEW_VERSION}-mc${MC_VERSION}"
+          done
+
+          sed -i "s/^mod_version=.*/mod_version=${NEW_VERSION}/" gradle.properties
+          echo "NEW_VERSION=${NEW_VERSION}" >> "$GITHUB_ENV"
+          echo "PREVIOUS_VERSION=${CURRENT}" >> "$GITHUB_ENV"
+          echo "Bumped version: ${CURRENT} -> ${NEW_VERSION}"
+
+      - name: Commit bumped version
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet gradle.properties; then
+            git add gradle.properties
+            git commit -m "chore: bump version to ${NEW_VERSION} [skip ci]"
+            git push
+          fi
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Download Axiom from Modrinth
+        run: |
+          mkdir -p libs
+          curl -L \
+            --retry 3 \
+            --retry-delay 5 \
+            --fail \
+            -o "libs/${{ env.AXIOM_JAR }}" \
+            "${{ env.AXIOM_URL }}"
+          echo "✅ Axiom ${{ env.AXIOM_VERSION }} téléchargé: $(du -sh libs/${{ env.AXIOM_JAR }} | cut -f1)"
+          ls -lh libs/
+          # Vérifier que le JAR contient bien les classes Axiom
+          jar tf "libs/${{ env.AXIOM_JAR }}" | grep "com/moulberry" | head -5
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: false
+          cache-read-only: false
+
+      - name: Clean Loom cache
+        run: |
+          rm -rf ~/.gradle/caches/fabric-loom
+          rm -rf .gradle/loom-cache
+          echo "✅ Cache Loom nettoyé"
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: |
+          ./gradlew build \
+            --no-daemon \
+            --parallel \
+            --warning-mode summary \
+            --stacktrace
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Xmx3G -Xms1G"
+
+      - name: Get mod version
+        id: version
+        run: |
+          VERSION=$(grep "^mod_version" gradle.properties | cut -d'=' -f2 | tr -d ' \r\n')
+          MC_VERSION=$(grep "^minecraft_version" gradle.properties | cut -d'=' -f2 | tr -d ' \r\n')
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "mc_version=${MC_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=v${VERSION}-mc${MC_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog
+        id: changelog
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
+          if [ -z "$LAST_TAG" ]; then
+            CHANGELOG="### 🎉 Version initiale"
+          else
+            CHANGELOG="### 📝 Changements depuis $LAST_TAG"$'\n\n'
+            
+            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s" --no-merges | grep -v "\[skip ci\]" || echo "")
+            
+            if [ -z "$COMMITS" ]; then
+              CHANGELOG+="- Améliorations mineures et corrections"
+            else
+              CHANGELOG+="$COMMITS"
+            fi
+          fi
+          
+          echo "changelog<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGELOG" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rail-path-tool-${{ steps.version.outputs.tag }}
+          path: |
+            build/libs/*.jar
+            !build/libs/*-dev.jar
+            !build/libs/*-sources.jar
+          if-no-files-found: error
+
+      - name: Check if tag exists
+        id: tag_check
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          if git ls-remote --tags origin "refs/tags/$TAG" | grep -q "$TAG"; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Release
+        if: >
+          github.event_name == 'push' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+          steps.tag_check.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "BTE Rail Path Tool ${{ steps.version.outputs.version }} — MC ${{ steps.version.outputs.mc_version }}"
+          body: |
+            ## Railway Tools for Axiom `${{ steps.version.outputs.version }}`
+
+            **Minecraft**: `${{ steps.version.outputs.mc_version }}`  
+            **Requis**: Axiom `${{ env.AXIOM_VERSION }}+`
+
+            ${{ steps.changelog.outputs.changelog }}
+
+            ### 📦 Installation
+            1. Téléchargez le fichier `.jar` ci-dessous
+            2. Placez-le dans votre dossier `mods/`
+            3. Assurez-vous d'avoir Axiom installé
+
+            ### 🔗 Dépendances
+            - [Télécharger Axiom ${{ env.AXIOM_VERSION }} sur Modrinth](https://modrinth.com/plugin/axiom/version/65TQdBZB)
+
+            ---
+            *Build automatisé — Loom 1.16.3 — Axiom ${{ env.AXIOM_VERSION }}*
+          files: build/libs/*[!-dev][!-sources].jar
+          draft: false
+          prerelease: false
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

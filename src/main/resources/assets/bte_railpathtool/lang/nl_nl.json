@@ -1,0 +1,13 @@
+{
+  "bte_railpathtool.tool.name":           "BTE Spoorpad Gereedschap",
+  "bte_railpathtool.tool.density":        "Dichtheid (ptn/blok)",
+  "bte_railpathtool.tool.snap_ground":    "Vastklikken aan grond",
+  "bte_railpathtool.tool.preview":        "Voorbeeld",
+  "bte_railpathtool.tool.confirm":        "Bevestigen",
+  "bte_railpathtool.tool.cancel_last":    "Laatste punt annuleren",
+  "bte_railpathtool.tool.reset":          "Opnieuw instellen",
+  "bte_railpathtool.tool.points":         "Punten: %d",
+  "bte_railpathtool.tool.hint":           "Rechtermuisknop: punt | Enter: bevestigen | Del: annuleren",
+  "bte_railpathtool.tool.no_axiom":       "Axiom niet gevonden – mod uitgeschakeld.",
+  "bte_railpathtool.tool.loaded":         "Succesvol geladen."
+}
