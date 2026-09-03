@@ -6,13 +6,6 @@ import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Railway Tools for Axiom — point d'entrée.
- *
- * Enregistre l'outil "Rail BTE" auprès d'Axiom via l'API officielle pour addons
- * (com.moulberry.axiomclientapi, chargée par ServiceLoader depuis le jar d'Axiom).
- * Si Axiom n'est pas installé, le mod ne fait simplement rien.
- */
 public class RailPathToolMod implements ClientModInitializer {
 
     public static final String MOD_ID = "bte_railpathtool";

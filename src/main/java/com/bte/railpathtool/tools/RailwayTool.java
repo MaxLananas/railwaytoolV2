@@ -30,36 +30,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * L'outil « Rail BTE » — UN SEUL outil pour tout le workflow du tuto BuildTheEarth :
- *
- *   clic droit : ajoute un point de contrôle de la spline (au-dessus du bloc visé)
- *   Suppr      : retire le dernier point
- *   Entrée     : enchaîne voxelisation 26-connexe → rectifications (nivelage,
- *                épuration des coins en L) → classification N-S/E-O/DIAG → design,
- *                puis pousse le résultat via Axiom (undo natif, sync serveur, ~0,5 s)
- *
- * L'aperçu fantôme se met à jour à chaque point/paramètre avec exactement le moteur
- * qui servira à la construction réelle : ce qu'on voit est ce qu'on obtient.
- */
 public class RailwayTool implements CustomTool {
 
     private static final int MAX_PLAN_BLOCKS = 60_000;
     private static final int MAX_GHOST_BLOCKS = 6_000;
 
-    // ---- Points & paramètres de génération ----
     private final List<BlockPos> control = new ArrayList<>();
     private final int[] density = {6};
     private final ImBoolean groundSnap = new ImBoolean(true);
     private final ImBoolean purgeCorners = new ImBoolean(true);
     private final ImBoolean showGhost = new ImBoolean(true);
 
-    // ---- Options design ----
     private final DesignOptions options = new DesignOptions();
     private TrackModel.OverrideMode overrideMode = TrackModel.OverrideMode.AUTO;
     private final int[][] soilPercentUI;
 
-    // ---- Plan calculé / fantôme ----
     private final Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
     private final LongOpenHashSet ghostPositions = new LongOpenHashSet();
     private boolean dirty = true;
@@ -79,10 +64,6 @@ public class RailwayTool implements CustomTool {
         return tr("tool.name");
     }
 
-    // ------------------------------------------------------------------
-    //  Cycle de vie
-    // ------------------------------------------------------------------
-
     @Override
     public void reset() {
         clearGhost();
@@ -97,7 +78,6 @@ public class RailwayTool implements CustomTool {
         }
     }
 
-    /** Appelé à chaque frame tant que l'outil est actif : recalcul à la demande. */
     @Override
     public void render(Camera camera, float partialTick, long nanos,
                        PoseStack poseStack, Matrix4f projection) {
@@ -106,10 +86,6 @@ public class RailwayTool implements CustomTool {
             recompute(Minecraft.getInstance());
         }
     }
-
-    // ------------------------------------------------------------------
-    //  Entrées (routées par Axiom)
-    // ------------------------------------------------------------------
 
     @Override
     public boolean callUseTool() {
@@ -123,7 +99,7 @@ public class RailwayTool implements CustomTool {
             return true;
         }
         BlockPos target = hit.getBlockPos();
-        // Point au-dessus du bloc visé (sauf s'il est déjà d'air).
+
         BlockPos point = mc.level.getBlockState(target).isAir() ? target : target.above();
         control.add(point);
         dirty = true;
@@ -146,10 +122,6 @@ public class RailwayTool implements CustomTool {
         }
         return true;
     }
-
-    // ------------------------------------------------------------------
-    //  Interface ImGui (panneau d'options de l'outil)
-    // ------------------------------------------------------------------
 
     @Override
     public void displayImguiOptions() {
@@ -283,11 +255,6 @@ public class RailwayTool implements CustomTool {
         }
     }
 
-    // ------------------------------------------------------------------
-    //  Moteur : points -> fantôme ; Entrée -> monde
-    // ------------------------------------------------------------------
-
-    /** Recalcule toute la chaîne (spline → rectif → analyse → design → fantôme). */
     private void recompute(Minecraft mc) {
         plan.clear();
         clearGhost();
@@ -296,14 +263,12 @@ public class RailwayTool implements CustomTool {
         }
         WorldView view = new WorldView(mc.level);
 
-        // 1) Spline Catmull-Rom + voxelisation 26-connexe.
         List<Vec3> samples = Spline.sample(control, density[0]);
         List<BlockPos> trace = Spline.voxelize(samples);
         for (BlockPos v : trace) {
             view.put(v.getX(), v.getY(), v.getZ(), Blocks.WHITE_WOOL.defaultBlockState());
         }
 
-        // 2) Rectifications (outils 1 & 2 du tuto fusionnés : nivelage + coins en L).
         if (groundSnap.get()) {
             trace = Grounding.apply(view, trace);
         }
@@ -311,7 +276,6 @@ public class RailwayTool implements CustomTool {
             trace = LCorners.purge(view, trace);
         }
 
-        // 3) Classification + design.
         TrackModel model = new TrackModel(view, trace, overrideMode);
         if (options.style == DesignOptions.Style.CLASSIC) {
             new ClassicDesign().emitCases(model, options, plan);
@@ -319,7 +283,6 @@ public class RailwayTool implements CustomTool {
             new NatureDesign().emitCases(model, options, plan);
         }
 
-        // 4) Fantôme = le plan (limité) + points de contrôle en orange.
         if (showGhost.get() && plan.size() <= MAX_GHOST_BLOCKS) {
             for (Map.Entry<Long, BlockState> e : plan.entrySet()) {
                 setGhost(e.getKey().longValue(), e.getValue());
@@ -336,7 +299,6 @@ public class RailwayTool implements CustomTool {
         }
     }
 
-    /** Entrée = construire pour de vrai (pipeline d'édition Axiom, undoable). */
     private void confirm(Minecraft mc) {
         if (dirty) {
             dirty = false;
@@ -362,8 +324,6 @@ public class RailwayTool implements CustomTool {
         setStatus(tr("ui.built", placed), false);
         dirty = true;
     }
-
-    // ------------------------------------------------------------------
 
     private void setGhost(long key, BlockState state) {
         if (!phantomAcquired) {

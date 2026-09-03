@@ -6,15 +6,6 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Rectification verticale de la trace — portage du script « track tool » n°1 :
- *  - une laine enterrée remonte au premier bloc d'air (max +15)
- *  - une laine en l'air redescend tant qu'elle est « instable » (max 20)
- *
- * L'instabilité est la définition exacte du script (test sur les blocs autour/dessous).
- * Écrit dans le {@link WorldView} : les voxels déplacés deviennent de la laine blanche
- * de trace dans l'overlay, le monde réel n'est pas touché avant validation.
- */
 public final class Grounding {
 
     public static final int MAX_UP = 15;
@@ -23,7 +14,6 @@ public final class Grounding {
     private Grounding() {
     }
 
-    /** Reprise exacte de la fonction is_unstable du script de rectification. */
     public static boolean isUnstable(WorldView view, int x, int y, int z) {
         boolean below = view.isAir(x, y - 1, z);
         boolean bn = view.isAir(x, y - 1, z - 1);
@@ -63,10 +53,6 @@ public final class Grounding {
         return c;
     }
 
-    /**
-     * Applique la rectification verticale à la trace (ordre conservé).
-     * Écrit la trace rematée en laine blanche dans l'overlay du {@link WorldView}.
-     */
     public static List<BlockPos> apply(WorldView view, List<BlockPos> trace) {
         List<BlockPos> moved = new ArrayList<>();
         for (BlockPos v : trace) {
@@ -78,7 +64,7 @@ public final class Grounding {
                 continue;
             }
             if (!view.isAir(x, y + 1, z)) {
-                // Remontée : cherche de l'air jusqu'à +15.
+
                 for (int dy = 1; dy <= MAX_UP; dy++) {
                     if (view.isAir(x, y + dy, z)) {
                         int ny = y + dy - 1;
@@ -90,7 +76,7 @@ public final class Grounding {
                 }
                 continue;
             }
-            // Descente tant qu'instable.
+
             int target = y;
             for (int i = 0; i < MAX_DOWN; i++) {
                 int nxt = target - 1;
@@ -98,7 +84,7 @@ public final class Grounding {
                     break;
                 }
                 if (view.at(x, nxt, z).is(Blocks.WHITE_WOOL)) {
-                    break; // trace posée juste dessous (escalier serré)
+                    break;
                 }
                 target = nxt;
             }

@@ -2,16 +2,8 @@ package com.bte.railpathtool.track;
 
 import static com.bte.railpathtool.track.TrackModel.DY_TOLERANCE;
 
-/**
- * « Agents » de scan le long de la trace — portage fidèle des scripts Lua.
- *
- * Chaque bloc de rail regarde sa ligne : combien de blocs la continuent de chaque côté,
- * de quel côté elle tourne quand elle s'arrête, et si elle repart après un décalage.
- * Ces mesures pilotent le choix muret vs side-block, les coraux et les murets d'angle.
- */
 public final class Agents {
 
-    /** Le script diagonal n'a pas de borne ; cap de sécurité (indépassable en pratique). */
     public static final int MAX_LINE_SCAN = 20;
     public static final int MAX_DIAG_SCAN = 64;
 
@@ -22,26 +14,17 @@ public final class Agents {
 
     public enum DiagSense {SWNE, SENW}
 
-    /** Résultat d'un scan axial (ligne N-S ou E-O). */
     public static final class LineScan {
-        public int dist = 0;             // blocs de trace continue trouvés
-        public Turn turn = Turn.NONE;    // direction du virage à la fin de la ligne
-        public int turnLen = 1;          // 2 = la ligne repart après décalage, 1 = virage net
+        public int dist = 0;
+        public Turn turn = Turn.NONE;
+        public int turnLen = 1;
     }
 
-    /** Résultat d'un scan diagonal. */
     public static final class DiagScan {
-        public int dist = 0;             // blocs DIAG continus
-        public TrackType exitType = null; // type de ce qui raccorde à l'extrémité (NS/EW/null)
+        public int dist = 0;
+        public TrackType exitType = null;
     }
 
-    /**
-     * Scan axial générique.
-     *
-     * @param step    direction de marche (ex : {0,-1} pour le nord)
-     * @param side1   premier côté testé quand la ligne s'arrête (ordre du script)
-     * @param side2   second côté testé
-     */
     public static LineScan scanLine(TrackModel model, int x, int y, int z, TrackType want,
                                     int[] step, int[] side1, Turn side1Turn,
                                     int[] side2, Turn side2Turn) {
@@ -87,7 +70,6 @@ public final class Agents {
         return a;
     }
 
-    /** Scans N-S standard (nord puis sud, virages est/ouest). */
     public static LineScan scanNorth(TrackModel m, int x, int y, int z) {
         return scanLine(m, x, y, z, TrackType.NS, new int[]{0, -1},
                 new int[]{1, 0}, Turn.EAST, new int[]{-1, 0}, Turn.WEST);
@@ -108,19 +90,6 @@ public final class Agents {
                 new int[]{0, 1}, Turn.SOUTH, new int[]{0, -1}, Turn.NORTH);
     }
 
-    // ------------------------------------------------------------------
-    //  Décision muret vs side-block (tables exactes du script, dédupliquées)
-    //  Règle : en bout de ligne qui tourne, le side-block est posé à l'OPPOSÉ
-    //  de la direction du virage ; le reste de la ligne est en murets, avec
-    //  répartition par tiers (Q = L/3, R = L%3) pour 3 <= L <= 40.
-    // ------------------------------------------------------------------
-
-    /**
-     * Décide du bloc latéral d'une ligne N-S (logique exacte du script 3) :
-     * position relative comptée depuis le sud ; le premier tiers suit le virage
-     * du côté sud, le dernier tiers celui du côté nord ; le side posé regarde
-     * à l'OPPOSÉ du virage. Résultat identique pour les deux côtés latéraux.
-     */
     public static LatSide decideNs(LineScan agentNord, LineScan agentSud) {
         int length = agentNord.dist + agentSud.dist + 1;
         int pos = agentSud.dist + 1;
@@ -149,7 +118,6 @@ public final class Agents {
         return LatSide.WALL_NS;
     }
 
-    /** Idem pour une ligne E-O (position relative comptée depuis l'est). */
     public static LatSide decideEw(LineScan agentOuest, LineScan agentEst) {
         int length = agentOuest.dist + agentEst.dist + 1;
         int pos = agentEst.dist + 1;
@@ -178,7 +146,6 @@ public final class Agents {
         return LatSide.WALL_EW;
     }
 
-    /** Ligne N-S : virage est -> side ouest (OPPOSITE_NS du script). */
     private static LatSide oppNs(Turn turn) {
         return switch (turn) {
             case EAST -> LatSide.SIDE_WEST;
@@ -187,7 +154,6 @@ public final class Agents {
         };
     }
 
-    /** Ligne E-O : virage sud -> side nord (OPPOSITE_EW du script). */
     private static LatSide oppEw(Turn turn) {
         return switch (turn) {
             case SOUTH -> LatSide.SIDE_NORTH;
@@ -196,13 +162,11 @@ public final class Agents {
         };
     }
 
-    /** Choix latéral résolu (muret d'axe, ou side-block orienté à poser). */
     public enum LatSide {
         WALL_NS(null), WALL_EW(null),
         SIDE_NORTH(Turn.NORTH), SIDE_SOUTH(Turn.SOUTH),
         SIDE_EAST(Turn.EAST), SIDE_WEST(Turn.WEST);
 
-        /** Facing du side-block à poser ; null si c'est le muret d'axe. */
         public final Turn sideFacing;
 
         LatSide(Turn sideFacing) {
@@ -214,17 +178,12 @@ public final class Agents {
         }
     }
 
-    // ------------------------------------------------------------------
-    //  Diagonales
-    // ------------------------------------------------------------------
-
-    /** Sens de la diagonale — mêmes priorités que le script (diag continue > axial > défaut). */
     public static DiagSense diagSense(TrackModel m, int x, int y, int z) {
         if (m.typeNear(x + 1, y, z - 1) == TrackType.DIAG
                 || m.typeNear(x - 1, y, z + 1) == TrackType.DIAG) {
             return DiagSense.SWNE;
         }
-        TrackType tNe = m.typeAt(x + 1, y, z - 1); // y exact (comme le script)
+        TrackType tNe = m.typeAt(x + 1, y, z - 1);
         TrackType tSo = m.typeAt(x - 1, y, z + 1);
         if (tNe == TrackType.NS || tNe == TrackType.EW
                 || tSo == TrackType.NS || tSo == TrackType.EW) {
@@ -233,7 +192,6 @@ public final class Agents {
         return DiagSense.SENW;
     }
 
-    /** Scan le long d'une diagonale (dx, dz) ; détecte le type de la raccordure. */
     public static DiagScan scanDiag(TrackModel m, int x, int y, int z, int dx, int dz) {
         DiagScan a = new DiagScan();
         int curY = y;
@@ -264,13 +222,12 @@ public final class Agents {
         return a;
     }
 
-    /** Résultat d'analyse d'un bloc diagonal. */
     public static final class DiagResult {
-        /** Type de corail central ; null => indéterminé (black_wool de signalisation). */
+
         public TrackType coreType;
-        /** Pose les 4 murets d'angle (transition / fausse diagonale). */
+
         public boolean transition;
-        /** Sinon, pose les deux murets du côté correspondant au type de corail. */
+
         public DiagSense sense;
 
         DiagResult(TrackType coreType, boolean transition, DiagSense sense) {
@@ -280,12 +237,6 @@ public final class Agents {
         }
     }
 
-    /**
-     * Décide du rendu d'un bloc DIAG.
-     *  - fausse diagonale (même type axial des 2 côtés) : corail de ce type + 4 murets
-     *  - vraie diagonale : moitiés colorées par leurs extrémités, 2 blocs centraux
-     *    de transition (4 murets), indéterminé => null.
-     */
     public static DiagResult analyseDiag(TrackModel m, int x, int y, int z) {
         DiagSense sense = diagSense(m, x, y, z);
         boolean swne = sense == DiagSense.SWNE;
@@ -308,7 +259,7 @@ public final class Agents {
             transition = true;
         } else {
             TrackType ext = rel <= mid ? south.exitType : north.exitType;
-            core = ext; // peut être null => indéterminé
+            core = ext;
             transition = rel == mid || rel == mid + 1;
         }
         return new DiagResult(core, transition, sense);

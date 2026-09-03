@@ -17,18 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Design « Nature » du tuto BTE France (variantes forestières) :
- *  - pupitre facing nord (NS) / est (EW) + pale_moss_carpet ; sur une marche haute,
- *    pale_moss_block + bouton de chêne alimenté à la place
- *  - gravier latéral, et gravier + litière (3 segments) aux intersections avec l'E-W
- *  - litière feuille (2 ou 3 segments) au-dessus de chaque côté, orientation et nombre
- *    décidés par la table exacte du script à partir des deux voisins de trace
- *  - les diagonales sont converties au type de leur extrémité (amélioration demandée)
- */
 public final class NatureDesign implements RailDesign {
 
-    /** Table litière NS : (paire de voisins) -> {segments1, facing1, segments2, facing2}. */
     private static final Object[][] LEAF_NS = {
             {new String[]{"N", "S"}, 2, "north", 2, "south"},
             {new String[]{"N", "SE"}, 3, "south", 2, "south"},
@@ -75,7 +65,6 @@ public final class NatureDesign implements RailDesign {
         }
     }
 
-    /** Place un rail Nature complet pour un voxel NS/EW (script 4 porté). */
     private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t) {
         int x = v.getX();
         int y = v.getY();
@@ -114,7 +103,6 @@ public final class NatureDesign implements RailDesign {
             w.put(x + off[0], y, z + off[1], Blocks.GRAVEL.defaultBlockState());
         }
 
-        // Intersections rouge/bleu : gravier + litière 3 segments orientée (NS seulement).
         if (dirNS) {
             for (int[] off : crossQuads) {
                 for (int dy : TrackModel.DY_TOLERANCE) {
@@ -128,7 +116,6 @@ public final class NatureDesign implements RailDesign {
             }
         }
 
-        // Litière latérale au-dessus : table exacte sur les 2 voisins de trace.
         List<String> nb = model.neighborDirections(x, y, z);
         String d1 = nb.isEmpty() ? "" : nb.get(0);
         String d2 = nb.size() > 1 ? nb.get(1) : "";
@@ -162,7 +149,6 @@ public final class NatureDesign implements RailDesign {
         return null;
     }
 
-    /** LEAF_FACING du script : {NE:east, NO:south, SE:north, SO:west}. */
     private static String crossFacing(int dx, int dz) {
         if (dx == 1 && dz == -1) {
             return "east";
@@ -188,11 +174,6 @@ public final class NatureDesign implements RailDesign {
         return ClassicDesign.Palette.setByName(st, "segment_amount", String.valueOf(segments));
     }
 
-    /**
-     * Poseur vers le plan + calque du WorldView. N'écrase jamais un bloc de la
-     * famille rail qui existait dans le monde avant ce build (protection au
-     * niveau du snapshot initial, comme la version renforcée du simulateur).
-     */
     private static final class Writer {
         private final WorldView view;
         private final Long2ObjectOpenHashMap<BlockState> plan;

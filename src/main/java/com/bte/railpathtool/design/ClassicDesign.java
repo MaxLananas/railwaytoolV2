@@ -20,16 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Design « Classique » du tuto BTE France :
- *  - centre NS : dead_bubble_coral_wall_fan facing sud ; centre EW : facing est
- *  - bordures : murets mud_brick_wall (sombre) / andesite_wall (clair), sans colonne
- *    centrale (up=false), murets d'angle aux virages et transitions de diagonale
- *  - side-blocks en bout de ligne : spruce_shelf powered side_chain=center (sombre)
- *    ou iron_door demi-haute (clair), orientés à l'opposé du virage
- *  - remplissage du sol : orange_wool (uni) ou mélange à 5 blocs pondérés (aléatoire)
- * Toutes les décisions suivent exactement les tables des scripts d'origine.
- */
 public final class ClassicDesign implements RailDesign {
 
     @Override
@@ -50,11 +40,10 @@ public final class ClassicDesign implements RailDesign {
             }
         }
 
-        // 1) Diagonales d'abord (leurs murets d'angle doivent être dessous si conflit).
         for (BlockPos v : diags) {
             emitDiag(model, pal, writer, v);
         }
-        // 2) Lignes N-S.
+
         for (BlockPos v : ns) {
             Agents.LineScan n = Agents.scanNorth(model, v.getX(), v.getY(), v.getZ());
             Agents.LineScan s = Agents.scanSouth(model, v.getX(), v.getY(), v.getZ());
@@ -64,7 +53,7 @@ public final class ClassicDesign implements RailDesign {
             writer.column(v.getX() - 1, v.getY(), v.getZ(), lat);
             writer.column(v.getX() + 1, v.getY(), v.getZ(), lat);
         }
-        // 3) Lignes E-O.
+
         for (BlockPos v : ew) {
             Agents.LineScan o = Agents.scanWest(model, v.getX(), v.getY(), v.getZ());
             Agents.LineScan e = Agents.scanEast(model, v.getX(), v.getY(), v.getZ());
@@ -82,7 +71,7 @@ public final class ClassicDesign implements RailDesign {
         int z = v.getZ();
         Agents.DiagResult r = Agents.analyseDiag(model, x, y, z);
         if (r.coreType == null) {
-            // Indéterminé : signal comme le script (black_wool).
+
             writer.column(x, y, z, Blocks.BLACK_WOOL.defaultBlockState());
             return;
         }
@@ -104,9 +93,6 @@ public final class ClassicDesign implements RailDesign {
         }
     }
 
-    // ------------------------------------------------------------------
-
-    /** Palette du thème (murets, side-blocks, coraux). */
     static final class Palette {
         final DesignOptions options;
         final Block wallBlock;
@@ -148,7 +134,6 @@ public final class ClassicDesign implements RailDesign {
                     .setValue(BlockStateProperties.WATERLOGGED, false);
         }
 
-        /** Side-block orienté selon le thème (étagère sapin / porte fer demi-haute). */
         BlockState side(Agents.Turn facing) {
             Direction dir = switch (facing) {
                 case NORTH -> Direction.NORTH;
@@ -170,7 +155,6 @@ public final class ClassicDesign implements RailDesign {
                     .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
         }
 
-        /** Pose une propriété par nom (robuste, comme le code éprouvé de la v1). */
         @SuppressWarnings({"unchecked", "rawtypes"})
         static BlockState setByName(BlockState state, String name, String wanted) {
             for (Property property : state.getProperties()) {
@@ -186,14 +170,6 @@ public final class ClassicDesign implements RailDesign {
         }
     }
 
-    // ------------------------------------------------------------------
-
-    /**
-     * Poseur de colonnes : sol + bloc + air au-dessus — exactement la fonction
-     * build_column du script (ne réécrit jamais un bloc de rail déjà posé).
-     * Les écritures vont dans le plan ET dans le calque du WorldView, pour que
-     * la suite de l'analyse voie les coraux/murets comme un vrai environnement.
-     */
     static final class ColumnWriter {
         private final TrackModel model;
         private final DesignOptions options;
@@ -248,7 +224,6 @@ public final class ClassicDesign implements RailDesign {
             return options.soilSlots[options.soilSlots.length - 1].state;
         }
 
-        /** Famille « rail déjà construit » (protégée des réécritures). */
         static boolean isProtectedRail(BlockState st) {
             Block b = st.getBlock();
             return b == Blocks.MUD_BRICK_WALL || b == Blocks.ANDESITE_WALL
@@ -258,7 +233,6 @@ public final class ClassicDesign implements RailDesign {
                     || b == Blocks.PALE_MOSS_BLOCK || b == Blocks.OAK_BUTTON;
         }
 
-        /** Famille rail incluant la litière et le gravier (écritures « Nature »). */
         static boolean isRailFamily(BlockState st) {
             return isProtectedRail(st)
                     || st.is(Blocks.LEAF_LITTER) || st.is(Blocks.GRAVEL);

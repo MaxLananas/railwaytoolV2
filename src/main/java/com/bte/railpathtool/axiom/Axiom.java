@@ -11,10 +11,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.ServiceLoader;
 
-/**
- * Accès centralisé aux services qu'Axiom expose aux addons
- * (découverts par ServiceLoader, comme le veut l'API officielle).
- */
 public final class Axiom {
 
     private static ToolRegistryService registry;
@@ -25,7 +21,6 @@ public final class Axiom {
     private Axiom() {
     }
 
-    /** À appeler une fois au démarrage du client. false => Axiom absent, ne rien faire. */
     public static boolean init() {
         if (ready) {
             return true;
@@ -58,17 +53,14 @@ public final class Axiom {
         registry.register(tool);
     }
 
-    /** Le raycast « éditeur » d'Axiom (passe à travers les overlays type Terrarenderer). */
     public static BlockHitResult raycastBlock() {
         return tools.raycastBlock();
     }
 
-    /** Le bloc actuellement choisi dans la barre "active block" d'Axiom. */
     public static BlockState getActiveBlock() {
         return tools.getActiveBlock();
     }
 
-    /** Envoie un lot de blocs dans le pipeline Axiom (undo natif + sync serveur). */
     public static void push(BlockRegion region) {
         tools.pushBlockRegionChange(region);
     }
@@ -80,8 +72,6 @@ public final class Axiom {
     public static BooleanRegion createBooleanRegion() {
         return regions.createBoolean();
     }
-
-    // --- Aperçu fantôme (override de rendu sans toucher au monde) ---
 
     public static void acquireChunkRenderOverrider(String id) {
         tools.acquireChunkRenderOverrider(id);

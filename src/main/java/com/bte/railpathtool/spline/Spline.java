@@ -7,19 +7,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-/**
- * Spline Catmull-Rom + voxelisation 26-connexe.
- *
- * La voxelisation relie chaque segment par interpolation pour ne jamais laisser de trou :
- * deux voxels consécutifs sont toujours adjacents (distance Chebyshev <= 1), ce qui est
- * la condition nécessaire pour que l'analyseur de trace fonctionne.
- */
 public final class Spline {
 
     private Spline() {
     }
 
-    /** Échantillonne la courbe de Catmull-Rom passant par les points de contrôle. */
     public static List<Vec3> sample(List<BlockPos> control, int samplesPerBlock) {
         List<Vec3> out = new ArrayList<>();
         if (control.size() < 2) {
@@ -63,10 +55,6 @@ public final class Spline {
                 + (-a + 3 * b - 3 * c + d) * t3);
     }
 
-    /**
-     * Convertit les échantillons en voxels ordonnés, 26-connexes, sans doublon.
-     * L'ordre est conservé (important pour le suivi de trace).
-     */
     public static List<BlockPos> voxelize(List<Vec3> samples) {
         List<BlockPos> voxels = new ArrayList<>();
         for (Vec3 v : samples) {
@@ -87,7 +75,7 @@ public final class Spline {
                 voxels.add(cur);
                 continue;
             }
-            // Reconnexion : voxels intermédiaires interpolés.
+
             for (int k = 1; k < n; k++) {
                 double f = (double) k / n;
                 voxels.add(new BlockPos(
