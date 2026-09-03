@@ -65,14 +65,19 @@ public final class Grounding {
             }
             if (!view.isAir(x, y + 1, z)) {
 
+                boolean movedUp = false;
                 for (int dy = 1; dy <= MAX_UP; dy++) {
                     if (view.isAir(x, y + dy, z)) {
                         int ny = y + dy - 1;
                         view.put(x, y, z, Blocks.AIR.defaultBlockState());
                         view.put(x, ny, z, Blocks.WHITE_WOOL.defaultBlockState());
                         moved.add(new BlockPos(x, ny, z));
+                        movedUp = true;
                         break;
                     }
+                }
+                if (!movedUp) {
+                    moved.add(v);
                 }
                 continue;
             }

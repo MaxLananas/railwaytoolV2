@@ -36,8 +36,15 @@ public final class LCorners {
     public static List<BlockPos> purge(WorldView view, List<BlockPos> trace) {
         List<BlockPos> kept = new ArrayList<>();
         for (BlockPos v : trace) {
-            if (isTrace(view, v.getX(), v.getY(), v.getZ())
-                    && isLCorner(view, v.getX(), v.getY(), v.getZ())) {
+            int x = v.getX();
+            int y = v.getY();
+            int z = v.getZ();
+            if (isTrace(view, x, y, z) && isLCorner(view, x, y, z)) {
+                boolean isolated = view.isAir(x + 1, y, z) && view.isAir(x - 1, y, z)
+                        && view.isAir(x, y, z + 1) && view.isAir(x, y, z - 1);
+                view.put(x, y, z, isolated
+                        ? Blocks.AIR.defaultBlockState()
+                        : Blocks.GRASS_BLOCK.defaultBlockState());
                 continue;
             }
             kept.add(v);

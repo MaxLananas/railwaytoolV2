@@ -31,9 +31,12 @@ public final class ClassicDesign implements RailDesign {
         List<BlockPos> diags = new ArrayList<>();
         List<BlockPos> ns = new ArrayList<>();
         List<BlockPos> ew = new ArrayList<>();
-        for (Map.Entry<Long, TrackType> entry : model.types().entrySet()) {
-            BlockPos pos = BlockPos.of(entry.getKey());
-            switch (entry.getValue()) {
+        for (BlockPos pos : model.orderedTrace()) {
+            TrackType t = model.typeOf(pos);
+            if (t == null) {
+                continue;
+            }
+            switch (t) {
                 case DIAG -> diags.add(pos);
                 case NS -> ns.add(pos);
                 case EW -> ew.add(pos);

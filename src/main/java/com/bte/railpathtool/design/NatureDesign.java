@@ -44,11 +44,15 @@ public final class NatureDesign implements RailDesign {
         List<BlockPos> diags = new ArrayList<>();
         List<BlockPos> ns = new ArrayList<>();
         List<BlockPos> ew = new ArrayList<>();
-        for (Map.Entry<Long, TrackType> entry : model.types().entrySet()) {
-            switch (entry.getValue()) {
-                case DIAG -> diags.add(BlockPos.of(entry.getKey()));
-                case NS -> ns.add(BlockPos.of(entry.getKey()));
-                case EW -> ew.add(BlockPos.of(entry.getKey()));
+        for (BlockPos pos : model.orderedTrace()) {
+            TrackType t = model.typeOf(pos);
+            if (t == null) {
+                continue;
+            }
+            switch (t) {
+                case DIAG -> diags.add(pos);
+                case NS -> ns.add(pos);
+                case EW -> ew.add(pos);
             }
         }
         Writer w = new Writer(model.view(), plan);
@@ -110,7 +114,6 @@ public final class NatureDesign implements RailDesign {
                         w.put(x, y + dy, z + off[1], Blocks.GRAVEL.defaultBlockState());
                         w.put(x, y + dy + 1, z + off[1],
                                 leafLitter(3, crossFacing(off[0], off[1])));
-                        break;
                     }
                 }
             }

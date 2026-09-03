@@ -21,6 +21,7 @@ public final class TrackModel {
     private final WorldView view;
     private final LongOpenHashSet trace;
     private final Long2ObjectOpenHashMap<TrackType> types;
+    private final List<BlockPos> orderedTrace;
 
     public TrackModel(WorldView view, List<BlockPos> traceVoxels, OverrideMode mode) {
         this.view = view;
@@ -28,10 +29,15 @@ public final class TrackModel {
         for (BlockPos p : traceVoxels) {
             trace.add(p.asLong());
         }
+        this.orderedTrace = java.util.List.copyOf(traceVoxels);
         this.types = new Long2ObjectOpenHashMap<>();
         for (BlockPos p : traceVoxels) {
             types.put(p.asLong(), classify(p, mode));
         }
+    }
+
+    public List<BlockPos> orderedTrace() {
+        return orderedTrace;
     }
 
     public LongOpenHashSet trace() {

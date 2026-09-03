@@ -659,10 +659,6 @@ def build_all(world, trace, opt):
     for (x, y, z) in [v for v in trace if model.types.get(v) == DIAG]:
         if opt.style == "classic":
             coral, sides = diag_design(model, x, y, z)
-            start_y = y + opt.base_dy
-            existing = world.get(x, start_y + 1, z)
-            if existing in PROTECTED:
-                continue
             if coral is None:
                 build_column(world, opt, x, y, z, "black_wool")
                 continue

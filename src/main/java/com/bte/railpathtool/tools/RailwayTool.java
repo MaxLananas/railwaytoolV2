@@ -275,6 +275,9 @@ public class RailwayTool implements CustomTool {
         if (purgeCorners.get()) {
             trace = LCorners.purge(view, trace);
         }
+        if (groundSnap.get()) {
+            trace = Grounding.apply(view, trace);
+        }
 
         TrackModel model = new TrackModel(view, trace, overrideMode);
         if (options.style == DesignOptions.Style.CLASSIC) {
