@@ -4,6 +4,28 @@ plugins {
     id 'idea'
 }
 
+// Axiom embarque l'API officielle des addons en jar-in-jar (META-INF/jars/axiomclientapi.jar).
+// On l'extrait dans libs/ dès la configuration pour que Loom le remappe avec les autres deps.
+def axiomJar = file("libs/Axiom-${project.axiom_version}-for-MC${project.minecraft_version}.jar")
+def axiomApi = file("libs/axiomclientapi.jar")
+if (axiomJar.exists() && !axiomApi.exists()) {
+    def zf = new java.util.zip.ZipFile(axiomJar)
+    try {
+        def nested = zf.entries().find {
+            it.name.startsWith("META-INF/jars/") && it.name.contains("axiomclientapi")
+                    && it.name.endsWith(".jar")
+        }
+        if (nested != null) {
+            axiomApi.withOutputStream { out -> out << zf.getInputStream(nested) }
+            println "axiomclientapi extrait de ${nested.name} -> libs/axiomclientapi.jar"
+        } else {
+            println "ATTENTION: axiomclientapi introuvable dans ${axiomJar.name}"
+        }
+    } finally {
+        zf.close()
+    }
+}
+
 version = project.mod_version
 group   = project.maven_group
 

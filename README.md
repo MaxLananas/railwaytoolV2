@@ -1,113 +1,96 @@
-# Railway Tools For Axioms
+# Railway Tools for Axiom — Rail BTE
 
-A professional-grade Axiom addon designed for BuildTheEarth projects, providing advanced railway path generation with smooth curves and intelligent block placement.
+Addon Axiom **tout-en-un** pour les voies ferrées de BuildTheEarth : il reproduit
+intégralement le système de rail du tutoriel ferroviaire BTE France, sans les 4
+scripts d'origine (spline → rectification → coloration → construction), avec un
+seul outil, en une fraction de seconde.
 
-## Overview
-
-Railway Tools For Axioms extends Axiom's toolset with a specialized rail path creation tool. This mod enables builders to quickly generate realistic railway corridors by placing control points and letting the tool generate smooth, natural-looking paths with appropriate support structures.
-
-## Features
-
-### Intelligent Path Generation
-
-The tool uses Catmull-Rom spline interpolation to create smooth, natural curves between your control points. This mathematical approach ensures that railway paths look organic and realistic, avoiding harsh angles and unnatural transitions.
-
-### Adaptive Block Placement
-
-The generator automatically selects appropriate blocks based on the path geometry:
-
-- **Center markers**: Dead fire coral wall fans oriented along the path tangent
-- **Straight sections**: Mud brick walls aligned with the direction of travel
-- **Diagonal segments**: Corner wall configurations that smoothly connect perpendicular sections
-- **Gentle curves**: Spruce shelves (or trapdoors on older versions) oriented outward from the curve
-
-### Configurable Parameters
-
-#### Density Control
-Adjust the sampling density from 2 to 32 points per block. Higher values produce smoother curves at the cost of more computation.
-
-#### Ground Snapping
-Enable automatic terrain following to have your railway path conform to the existing landscape. The tool searches vertically to find the nearest solid surface.
-
-#### Live Preview
-Toggle real-time visualization of the generated path before committing changes. The preview uses animated transparency to clearly show the planned placement.
-
-## Usage
-
-### Basic Workflow
-
-1. Select the BTE Rail Path tool from Axiom's tool palette (icon: `\ue912`)
-2. Right-click to place control points defining your desired path
-3. Observe the preview rendering between points
-4. Press Enter to confirm and place blocks, or Delete to remove the last point
-5. Press Escape to cancel and start over
-
-### Controls
-
-| Action | Function |
-|--------|----------|
-| Right-click | Add control point at target position |
-| Enter | Confirm and place the railway path |
-| Delete | Remove the last placed control point |
-| Escape | Clear all points and reset the tool |
-
-### Tool Settings
-
-Access the configuration panel in Axiom's tool settings:
-
-- **Density**: Controls curve smoothness (2-32 points/block)
-- **Snap to Ground**: Automatically adjust Y-coordinates to terrain
-- **Preview**: Toggle preview rendering
-
-## Technical Details
-
-### Dependencies
-
-- **Minecraft**: 1.21.10
-- **Fabric Loader**: ≥0.16.0
-- **Fabric API**: Required
-- **Axiom**: Required (not bundled)
-
-### Block Palette
-
-The tool uses the following blocks:
-- `minecraft:dead_fire_coral_wall_fan` - Path centerline markers
-- `minecraft:mud_brick_wall` - Side supports for straight and diagonal sections
-- `minecraft:spruce_shelf` or `minecraft:spruce_trapdoor` - Curve indicators
-
-### Algorithm
-
-The path generation employs a multi-stage process:
-
-1. **Spline interpolation**: Catmull-Rom curves generate smooth paths through control points
-2. **Discretization**: Continuous curves are sampled to block-aligned positions
-3. **Segment classification**: Each block is analyzed for movement type (straight, diagonal, or turning)
-4. **Tangent calculation**: Local path direction determines block orientation
-5. **Lateral placement**: Side blocks are positioned perpendicular to the path with type-appropriate states
-
-## BuildTheEarth Integration
-
-This tool was specifically developed for BuildTheEarth builders working on railway infrastructure. The block choices and curve parameters are optimized for creating survey markers and structural guides at 1:1 scale, particularly useful for:
-
-- Railway right-of-way planning
-- Track centerline marking
-- Curve layout verification
-- Infrastructure corridor establishment
-
-## Permissions
-
-Requires the following Axiom permissions:
-- `TOOL` - Access to custom tools
-- `BUILD_SECTION` - Block placement capability
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Support
-
-For issues, suggestions, or contributions, please visit the project repository.
+**Minecraft 1.21.10 · Fabric · Axiom 5.4.2+**
 
 ---
 
-**Note**: This mod is a client-side addon and requires Axiom to function. It will not load if Axiom is not present in your mod directory.
+## Le principe : un seul outil
+
+Le tutoriel BTE France demande 4 scripts Axiom exécutés à la main dans l'ordre
+(tracer la spline, niveler la laine, colorier, construire). **Rail BTE** fait tout
+cela automatiquement, en direct, pendant que vous posez des points :
+
+1. **Voxelisation 26-connexe** — la spline Catmull-Rom est convertie en un chemin
+   de blocs continu, sans trous.
+2. **Rectification** — la trace est nivellée (colle au relief, monte si enterrée,
+   descend si en l'air) et les coins en « L » sont épurés — exactement la logique
+   des scripts 1 et 2 du tuto.
+3. **Classification géométrique** — chaque bloc est analysé en N-S / E-O / diagonal
+   à partir de ses voisins (déterministe, sans script de coloration).
+4. **Construction** — le design choisi est construit dans le pipeline d'édition
+   d'Axiom : **annulation native (Ctrl+Z)** et synchronisation serveur.
+
+L'aperçu fantôme se recalcule à chaque point ou changement d'option : vous voyez le
+rail exact avant de le construire. Poser 8 points pour un virage, vérifier, Entrée,
+c'est fini — environ 0,5 seconde.
+
+## Utilisation
+
+| Action | Effet |
+|--------|-------|
+| **Clic droit** | Ajoute un point de contrôle (au-dessus du bloc visé) |
+| **Entrée** | Construit le rail (undoable via Axiom) |
+| **Suppr** | Retire le dernier point |
+
+Options du panneau :
+
+- **Densité de la spline** (2–12) : lissage du tracé.
+- **Coller au relief** : nivelage vertical (comme l'outil 1 du tuto).
+- **Épurer les coins en L** : redresse les artefacts de voxelisation (outil 2 du tuto).
+- **Aperçu fantôme** : affiche le rail calculé sans toucher au monde.
+- **Style** : *Classique* ou *Nature*.
+- **Orientation** : Auto, N-S, E-O ou Diagonale forcée.
+- **Classique** : thème Sombre (murets mud-brick + étagères en sapin) ou Clair
+  (murets en andésite + portes en fer), remplissage du sol uniforme (bloc
+  personnalisable — bouton *Bloc actif Axiom*) ou aléatoire (mélange de 5 blocs
+  pondérés, personnalisables), hauteur en surface ou enterrée.
+
+## Les deux designs (identiques au tuto)
+
+### Classique
+
+- Centre N-S : corail mort en bulle fixé au mur, face au **sud** ; centre E-O : face
+  à l'**est**.
+- Bordures : murets sans colonne centrale ; **murets d'angle** aux virages et
+  transitions de diagonales ; **side-blocks** (étagères ou portes) en bout de
+  lignes tournantes, aux tiers des longs segments — tables exactes des scripts.
+- Diagonales : vraies (moitiés corail S/E + blocs de transition à 4 murets) et
+  fausses (4 murets d'angle) gérées ; les cas indéterminés posent de la laine
+  noire de signalisation, comme le script d'origine.
+- Remplissage : laine orange ou mélange 45/40/10/4/2 %.
+
+### Nature
+
+- Traverses : pupitres (face nord/est) + tapis de mousse pâle ; sur les marches
+  hautes : bloc de mousse pâle + bouton de chêne alimenté.
+- Gravier latéral, litière de feuilles (2–3 segments orientés selon les voisins,
+  tables exactes du script), gravier + litière aux intersections N-S × E-O.
+- Les diagonales sont converties vers le type de leur extrémité (amélioration par
+  rapport au tuto, qui ne supportait que le design classique).
+
+## Robustesse
+
+- Le moteur lit « monde + plan en cours » : les coraux déjà construits servent
+  d'indices d'orientation exactement comme dans les scripts, sans toucher au monde
+  réel avant validation.
+- Un rail déjà construit n'est **jamais écrasé** (famille de blocs protégés).
+- Plafond de sécurité : 60 000 blocs par construction, 6 000 pour le fantôme.
+- Si Axiom n'est pas installé, le mod se désactive proprement.
+
+## Construction (développeurs)
+
+```bash
+./gradlew build
+```
+
+Le build extrait automatiquement `axiomclientapi.jar` (jar-in-jar d'Axiom) vers
+`libs/` pour la compilation. Le jar final est dans `build/libs/`.
+
+## Licence
+
+CC0 — domaine public.
