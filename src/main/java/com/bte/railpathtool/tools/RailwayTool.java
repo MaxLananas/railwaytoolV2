@@ -13,6 +13,7 @@ import com.moulberry.axiomclientapi.CustomTool;
 import com.moulberry.axiomclientapi.regions.BlockRegion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import imgui.moulberry92.ImGui;
+import imgui.moulberry92.type.ImBoolean;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.client.Camera;
@@ -49,9 +50,9 @@ public class RailwayTool implements CustomTool {
     // ---- Points & paramètres de génération ----
     private final List<BlockPos> control = new ArrayList<>();
     private final int[] density = {6};
-    private final boolean[] groundSnap = {true};
-    private final boolean[] purgeCorners = {true};
-    private final boolean[] showGhost = {true};
+    private final ImBoolean groundSnap = new ImBoolean(true);
+    private final ImBoolean purgeCorners = new ImBoolean(true);
+    private final ImBoolean showGhost = new ImBoolean(true);
 
     // ---- Options design ----
     private final DesignOptions options = new DesignOptions();
@@ -303,10 +304,10 @@ public class RailwayTool implements CustomTool {
         }
 
         // 2) Rectifications (outils 1 & 2 du tuto fusionnés : nivelage + coins en L).
-        if (groundSnap[0]) {
+        if (groundSnap.get()) {
             trace = Grounding.apply(view, trace);
         }
-        if (purgeCorners[0]) {
+        if (purgeCorners.get()) {
             trace = LCorners.purge(view, trace);
         }
 
@@ -319,7 +320,7 @@ public class RailwayTool implements CustomTool {
         }
 
         // 4) Fantôme = le plan (limité) + points de contrôle en orange.
-        if (showGhost[0] && plan.size() <= MAX_GHOST_BLOCKS) {
+        if (showGhost.get() && plan.size() <= MAX_GHOST_BLOCKS) {
             for (Map.Entry<Long, BlockState> e : plan.entrySet()) {
                 setGhost(e.getKey().longValue(), e.getValue());
             }

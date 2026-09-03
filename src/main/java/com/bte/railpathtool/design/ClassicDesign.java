@@ -167,7 +167,7 @@ public final class ClassicDesign implements RailDesign {
             }
             return Blocks.IRON_DOOR.defaultBlockState()
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, dir)
-                    .setValue(BlockStateProperties.HALF, DoubleBlockHalf.UPPER);
+                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
         }
 
         /** Pose une propriété par nom (robuste, comme le code éprouvé de la v1). */
