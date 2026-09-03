@@ -1,0 +1,7 @@
+
+# build artifacts
+.gradle/
+build/
+/libs/axiomclientapi.jar
+__pycache__/
+*.pyc
