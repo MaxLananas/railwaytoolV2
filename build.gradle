@@ -5,24 +5,32 @@ plugins {
 }
 
 // Axiom embarque l'API officielle des addons en jar-in-jar (META-INF/jars/axiomclientapi.jar).
-// On l'extrait dans libs/ dès la configuration pour que Loom le remappe avec les autres deps.
+// Extraction dans libs/ dès la configuration (API Gradle pure), pour que Loom
+// le remappe ensuite comme les autres dépendances de fileTree.
 def axiomJar = file("libs/Axiom-${project.axiom_version}-for-MC${project.minecraft_version}.jar")
 def axiomApi = file("libs/axiomclientapi.jar")
 if (axiomJar.exists() && !axiomApi.exists()) {
-    def zf = new java.util.zip.ZipFile(axiomJar)
-    try {
-        def nested = zf.entries().find {
-            it.name.startsWith("META-INF/jars/") && it.name.contains("axiomclientapi")
-                    && it.name.endsWith(".jar")
+    def tmp = layout.buildDirectory.dir("axiom-nested").get().asFile
+    delete(tmp)
+    mkdir(tmp)
+    copy {
+        from(zipTree(axiomJar)) {
+            include "META-INF/jars/*axiomclientapi*.jar"
         }
-        if (nested != null) {
-            axiomApi.withOutputStream { out -> out << zf.getInputStream(nested) }
-            println "axiomclientapi extrait de ${nested.name} -> libs/axiomclientapi.jar"
-        } else {
-            println "ATTENTION: axiomclientapi introuvable dans ${axiomJar.name}"
+        into tmp
+    }
+    def nested = fileTree(tmp) {
+        include "**/*.jar"
+    }.files.find { it.name.contains("axiomclientapi") }
+    if (nested != null) {
+        copy {
+            from nested
+            into "libs"
+            rename { "axiomclientapi.jar" }
         }
-    } finally {
-        zf.close()
+        println "axiomclientapi extrait de ${axiomJar.name} -> libs/axiomclientapi.jar"
+    } else {
+        println "ATTENTION: axiomclientapi introuvable dans ${axiomJar.name}"
     }
 }
 
