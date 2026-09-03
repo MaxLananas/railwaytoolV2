@@ -287,6 +287,14 @@ class TrackModel:
         st = self.world.get(x, y, z)
         if st in COLOR_OVERRIDE:
             return COLOR_OVERRIDE[st]
+        # Rail déjà construit : l'indice (corail/pupitre) est posé à y ou y+1
+        # après la construction (le voxel de trace est devenu le sol de la colonne).
+        for dy in (0, 1):
+            above = self.world.get(x, y + dy, z)
+            if above == "coral_south" or above == "lectern_north":
+                return NS
+            if above == "coral_east" or above == "lectern_east":
+                return EW
         v = self._neighbors_of(x, y, z)
         n, s = (0, -1) in v, (0, 1) in v
         e, o = (1, 0) in v, (-1, 0) in v
@@ -480,7 +488,9 @@ def diag_design(model, x, y, z):
 
 PROTECTED = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
              "side_east", "side_west", "side_north", "side_south",
-             "coral_south", "coral_east"}
+             "coral_south", "coral_east",
+             "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
+             "button_north", "button_east"}
 
 random.seed(42)
 SOIL_MIX = [("deepslate", 45), ("cobbled_deepslate", 40), ("pale_oak_wood", 10),
@@ -508,17 +518,36 @@ def pick_soil(opt):
 
 
 def build_column(world, opt, x, y, z, center):
-    """Pose sol/bloc/air comme le script (ne réécrit jamais un rail existant)."""
+    """Pose sol/bloc/air comme le script (ne réécrit jamais un rail existant).
+    Protection renforcée sur les 3 niveaux de la colonne : aucun bloc de rail
+    existant n'est jamais enfoncé (rebuild idempotent)."""
     start_y = y + opt.base_dy
-    existing = world.get(x, start_y + 1, z)
-    if existing in PROTECTED:
-        return
+    for yy in (start_y, start_y + 1, start_y + 2):
+        if world.get(x, yy, z) in PROTECTED:
+            return
     world.set(x, start_y + 2, z, AIR)
     world.set(x, start_y + 1, z, center)
     world.set(x, start_y, z, pick_soil(opt))
 
 
 LEAF_FACING = {(1, -1): "east", (-1, -1): "south", (1, 1): "north", (-1, 1): "west"}
+
+RAIL_FAMILY = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
+               "side_east", "side_west", "side_north", "side_south",
+               "coral_south", "coral_east", "gravel",
+               "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
+               "button_north", "button_east"} | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
+                                                 for f in ("north", "south", "east", "west")}
+
+# Positions de blocs de rail présents AVANT le build courant (protection dédiée nature).
+rail_before = set()
+
+
+def nature_set(world, x, y, z, state):
+    """Comme world.set mais n'écrase jamais un bloc de rail qui existait avant le build."""
+    if (x, y, z) in rail_before and world.get(x, y, z) in RAIL_FAMILY:
+        return
+    world.set(x, y, z, state)
 
 def ordered_neighbors(model, x, y, z):
     """Noms de direction des voisins de trace, dans l'ordre de collecte du script."""
@@ -593,22 +622,22 @@ def build_nature_block(model, world, opt, x, y, z, t):
 
     is_moss = any(model.type_at(x + dx, y - 1, z + dz) == t for dx, dz in moss_offsets)
     if not is_moss:
-        world.set(x, y, z, f"lectern_{facing}")
-        world.set(x, y + 1, z, "pale_moss_carpet")
+        nature_set(world, x, y, z, f"lectern_{facing}")
+        nature_set(world, x, y + 1, z, "pale_moss_carpet")
     else:
-        world.set(x, y, z, "pale_moss_block")
-        world.set(x, y + 1, z, f"button_{facing}")
+        nature_set(world, x, y, z, "pale_moss_block")
+        nature_set(world, x, y + 1, z, f"button_{facing}")
 
     for dx, dz in ortho:
-        world.set(x + dx, y, z + dz, "gravel")
+        nature_set(world, x + dx, y, z + dz, "gravel")
 
     # Intersections rouge/bleu (design nature, lignes NS uniquement)
     if t == NS:
         for dx, dz in cross_quads:
             for dy in (0, 1, -1):
                 if model.type_at(x + dx, y + dy, z + dz) == EW:
-                    world.set(x, y + dy, z + dz, "gravel")
-                    world.set(x, y + dy + 1, z + dz, f"leaf_3_{LEAF_FACING[(dx, dz)]}")
+                    nature_set(world, x, y + dy, z + dz, "gravel")
+                    nature_set(world, x, y + dy + 1, z + dz, f"leaf_3_{LEAF_FACING[(dx, dz)]}")
 
     nb = ordered_neighbors(model, x, y, z)
     d1 = nb[0] if len(nb) > 0 else ""
@@ -619,11 +648,13 @@ def build_nature_block(model, world, opt, x, y, z, t):
     else:
         a1, f1, a2, f2 = (2, "north", 2, "south") if t == NS else (2, "west", 2, "east")
     (dx1, dz1), (dx2, dz2) = leaf_pos
-    world.set(x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
-    world.set(x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
+    nature_set(world, x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
+    nature_set(world, x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
 
 
 def build_all(world, trace, opt):
+    global rail_before
+    rail_before = {pos for pos, st in world.blocks.items() if st in RAIL_FAMILY}
     model = TrackModel(world, trace)
     for (x, y, z) in [v for v in trace if model.types.get(v) == DIAG]:
         if opt.style == "classic":

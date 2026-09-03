@@ -210,9 +210,10 @@ public final class ClassicDesign implements RailDesign {
 
         void column(int x, int y, int z, BlockState center) {
             int startY = y + options.baseDy;
-            BlockState existing = view.at(x, startY + 1, z);
-            if (isProtectedRail(existing)) {
-                return;
+            for (int yy = startY; yy <= startY + 2; yy++) {
+                if (isProtectedRail(view.at(x, yy, z))) {
+                    return;
+                }
             }
             put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
             put(x, startY + 1, z, center);
@@ -247,12 +248,20 @@ public final class ClassicDesign implements RailDesign {
             return options.soilSlots[options.soilSlots.length - 1].state;
         }
 
-        /** Famille « rail déjà construit » (protégée des réécritures, comme le script). */
+        /** Famille « rail déjà construit » (protégée des réécritures). */
         static boolean isProtectedRail(BlockState st) {
             Block b = st.getBlock();
             return b == Blocks.MUD_BRICK_WALL || b == Blocks.ANDESITE_WALL
                     || b == Blocks.SPRUCE_SHELF || b == Blocks.IRON_DOOR
-                    || b == Blocks.DEAD_BUBBLE_CORAL_WALL_FAN;
+                    || b == Blocks.DEAD_BUBBLE_CORAL_WALL_FAN
+                    || b == Blocks.LECTERN || b == Blocks.PALE_MOSS_CARPET
+                    || b == Blocks.PALE_MOSS_BLOCK || b == Blocks.OAK_BUTTON;
+        }
+
+        /** Famille rail incluant la litière et le gravier (écritures « Nature »). */
+        static boolean isRailFamily(BlockState st) {
+            return isProtectedRail(st)
+                    || st.is(Blocks.LEAF_LITTER) || st.is(Blocks.GRAVEL);
         }
     }
 }

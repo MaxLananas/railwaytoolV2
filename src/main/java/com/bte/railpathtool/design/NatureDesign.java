@@ -188,7 +188,11 @@ public final class NatureDesign implements RailDesign {
         return ClassicDesign.Palette.setByName(st, "segment_amount", String.valueOf(segments));
     }
 
-    /** Poseur vers le plan + calque du WorldView. */
+    /**
+     * Poseur vers le plan + calque du WorldView. N'écrase jamais un bloc de la
+     * famille rail qui existait dans le monde avant ce build (protection au
+     * niveau du snapshot initial, comme la version renforcée du simulateur).
+     */
     private static final class Writer {
         private final WorldView view;
         private final Long2ObjectOpenHashMap<BlockState> plan;
@@ -199,6 +203,9 @@ public final class NatureDesign implements RailDesign {
         }
 
         void put(int x, int y, int z, BlockState state) {
+            if (ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, y, z))) {
+                return;
+            }
             plan.put(BlockPos.asLong(x, y, z), state);
             view.put(x, y, z, state);
         }

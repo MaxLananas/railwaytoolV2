@@ -357,8 +357,10 @@ public class RailwayTool implements CustomTool {
                     e.getValue());
         }
         Axiom.push(region);
-        setStatus(tr("ui.built", plan.size()), false);
-        reset(); // nettoie points, plan et fantôme (comme le workflow Axiom)
+        int placed = plan.size();
+        reset();
+        setStatus(tr("ui.built", placed), false);
+        dirty = true;
     }
 
     // ------------------------------------------------------------------

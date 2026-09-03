@@ -4,8 +4,10 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.BaseCoralWallFanBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
@@ -115,6 +117,11 @@ public final class TrackModel {
         if (st.is(Blocks.LIME_WOOL)) {
             return TrackType.DIAG;
         }
+        // Rail déjà construit : l'indice (corail/pupitre) pose à y ou y+1 dicte le type.
+        TrackType hint = hintRailAt(x, y, z);
+        if (hint != null) {
+            return hint;
+        }
 
         // Analyse géométrique pure sur les voisins 3x3 (tolérance verticale ±1).
         int x = voxel.getX();
@@ -154,6 +161,24 @@ public final class TrackModel {
             }
         }
         return false;
+    }
+
+    /** Type déduit d'un bloc de rail existant à y ou y+1 (corail / pupitre). */
+    public TrackType hintRailAt(int x, int y, int z) {
+        for (int dy = 0; dy <= 1; dy++) {
+            BlockState st = view.at(x, y + dy, z);
+            if (st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+                Direction f = st.getValue(BaseCoralWallFanBlock.FACING);
+                return f == Direction.NORTH || f == Direction.SOUTH
+                        ? TrackType.NS : TrackType.EW;
+            }
+            if (st.is(Blocks.LECTERN)) {
+                Direction f = st.getValue(LecternBlock.FACING);
+                return f == Direction.NORTH || f == Direction.SOUTH
+                        ? TrackType.NS : TrackType.EW;
+            }
+        }
+        return null;
     }
 
     /**
