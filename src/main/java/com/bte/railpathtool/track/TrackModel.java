@@ -117,6 +117,9 @@ public final class TrackModel {
         if (st.is(Blocks.LIME_WOOL)) {
             return TrackType.DIAG;
         }
+        int x = voxel.getX();
+        int y = voxel.getY();
+        int z = voxel.getZ();
         // Rail déjà construit : l'indice (corail/pupitre) pose à y ou y+1 dicte le type.
         TrackType hint = hintRailAt(x, y, z);
         if (hint != null) {
@@ -124,9 +127,6 @@ public final class TrackModel {
         }
 
         // Analyse géométrique pure sur les voisins 3x3 (tolérance verticale ±1).
-        int x = voxel.getX();
-        int y = voxel.getY();
-        int z = voxel.getZ();
         boolean n = has(x, y, z - 1), s = has(x, y, z + 1);
         boolean e = has(x + 1, y, z), o = has(x - 1, y, z);
         boolean ne = has(x + 1, y, z - 1), no = has(x - 1, y, z - 1);
