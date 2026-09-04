@@ -421,6 +421,7 @@ public class RailwayTool implements CustomTool {
             trace = Grounding.apply(view, trace,
                     smoothRidges.get() ? dugPositions : null);
         }
+        trace = Grounding.flattenTeeth(view, trace);
         splineLength = trace.size();
 
         int islands = countIslands(trace);

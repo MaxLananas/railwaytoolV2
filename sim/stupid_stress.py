@@ -222,6 +222,7 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
         trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER, dug=dug)
         trace = R.rectify_l(w, trace, R.SPLINE, R.CORNER)
         trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER, dug=dug)
+        trace = R.flatten_teeth(w, trace, R.SPLINE)
     except Exception as e:
         fail(name, f"EXCEPTION rectif: {e!r}")
         return

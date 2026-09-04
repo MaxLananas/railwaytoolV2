@@ -147,14 +147,87 @@ def l_corners_here(world, x, y, z, spline):
     return False
 
 
+def diag_segment(world, x, y, z, spline):
+    """Vrai si le voxel s'inscrit dans un segment diagonal regulier (spline aux
+    deux extremites diagonales opposees, tolerance y) : ce n'est PAS un coin L
+    a purger, c'est une diagonale fine que la purge script casserait."""
+    for dx, dz in ((1, 1), (1, -1)):
+        for dy1 in DY:
+            if world.get(x + dx, y + dy1, z + dz) != spline:
+                continue
+            for dy2 in DY:
+                if world.get(x - dx, y + dy2, z - dz) == spline:
+                    return True
+    return False
+
+
+def locally_connected_without(world, x, y, z, spline):
+    """Les voisins spline de (x,y,z) restent-ils mutuellement connectes (26-connexite,
+    dans le cube 3x3x3) si ce voxel disparait ? Empeche la purge L d'ouvrir un trou
+    dans une diagonale fine (rail manquant)."""
+    neigh = []
+    for dx in (-1, 0, 1):
+        for dy in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                if dx == 0 and dy == 0 and dz == 0:
+                    continue
+                if world.get(x + dx, y + dy, z + dz) == spline:
+                    neigh.append((x + dx, y + dy, z + dz))
+    if len(neigh) <= 1:
+        return True
+    allowed = set(neigh)
+    seen = {neigh[0]}
+    stack = [neigh[0]]
+    while stack:
+        cx, cy, cz = stack.pop()
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    p = (cx + dx, cy + dy, cz + dz)
+                    if p in allowed and p not in seen:
+                        seen.add(p)
+                        stack.append(p)
+    return len(seen) == len(neigh)
+
+
+def _trace_connected(s):
+    """True si l'ensemble de voxels est 26-connexe (un seul ilot)."""
+    if not s:
+        return False
+    it = iter(s)
+    seed = next(it)
+    seen = {seed}
+    stack = [seed]
+    while stack:
+        x, y, z = stack.pop()
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    nb = (x + dx, y + dy, z + dz)
+                    if nb in s and nb not in seen:
+                        seen.add(nb)
+                        stack.append(nb)
+    return len(seen) == len(s)
+
+
 def rectify_l(world, trace, spline, corner):
-    """Supprime/remplace les coins en L. Retourne la trace épurée (ordre préservé)."""
+    """Supprime/remplace les coins en L. Retourne la trace épurée (ordre préservé).
+    Triple garde anti-casse : (1) veto diagonale, (2) connexité locale 3^3,
+    (3) connexité GLOBALE de la trace — un retrait en chaîne peut passer les
+    deux premiers tout en sectionnant la voie (points d'articulation)."""
     removed = set()
+    trace_set = set(trace)
     for (x, y, z) in trace:
         if world.get(x, y, z) != spline:
             continue
         if not l_corners_here(world, x, y, z, spline):
             continue
+        if diag_segment(world, x, y, z, spline):
+            continue
+        if not locally_connected_without(world, x, y, z, spline):
+            continue
+        if not _trace_connected(trace_set - {(x, y, z)}):
+            continue  # point d'articulation : le retrait couperait la voie
         isolated = (world.get(x + 1, y, z) == AIR and world.get(x - 1, y, z) == AIR
                     and world.get(x, y, z + 1) == AIR and world.get(x, y, z - 1) == AIR)
         if isolated:
@@ -162,7 +235,31 @@ def rectify_l(world, trace, spline, corner):
         else:
             world.set(x, y, z, corner)
         removed.add((x, y, z))
+        trace_set.discard((x, y, z))
     return [v for v in trace if v not in removed]
+
+
+def flatten_teeth(world, trace, spline):
+    """Aplanit les dents de scie verticales : si le voxel i est decalé d'1 bloc
+    par rapport a ses deux voisins (a.y == c.y != b.y), on le realigne, si la
+    case cible est libre (ni laine ni rail). Leve les collisions de colonnes
+    laterales entre voxels a y differents sur terrain plat."""
+    if len(trace) < 3:
+        return trace
+    out = list(trace)
+    for i in range(1, len(out) - 1):
+        ax, ay, az = out[i - 1]
+        bx, by, bz = out[i]
+        cx, cy, cz = out[i + 1]
+        if ay != cy or by == ay or abs(by - ay) != 1:
+            continue
+        target = world.get(bx, ay, bz)
+        if target == spline or target in RAIL_FAMILY:
+            continue
+        world.set(bx, by, bz, AIR)
+        world.set(bx, ay, bz, spline)
+        out[i] = (bx, ay, bz)
+    return out
 
 
 def is_unstable(world, x, y, z):
@@ -502,7 +599,9 @@ def diag_design(model, x, y, z):
         transition = (rel == mid) or (rel == mid + 1)
 
     if coral is None:
-        return None, []  # indéterminé -> black_wool (signal)
+        # indetermine (exutoire des deux cotes nul) : fragment de transition NS
+        # plutot que le black_wool signal — le rail reste continu en jeu.
+        return "coral_south", four
     if transition:
         return coral, four
     if coral == "coral_south":

@@ -259,8 +259,15 @@ public final class Agents {
             transition = true;
         } else {
             TrackType ext = rel <= mid ? south.exitType : north.exitType;
-            core = ext;
-            transition = rel == mid || rel == mid + 1;
+            if (ext == null) {
+                // Diagonale indeterminee : fragment de transition NS plutot que
+                // le black_wool signal — la voie reste continue en jeu.
+                core = TrackType.NS;
+                transition = true;
+            } else {
+                core = ext;
+                transition = rel == mid || rel == mid + 1;
+            }
         }
         return new DiagResult(core, transition, sense);
     }

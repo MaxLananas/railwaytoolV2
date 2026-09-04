@@ -142,4 +142,41 @@ public final class Grounding {
         }
         return moved;
     }
+
+    /**
+     * Aplanit les dents de scie verticales : si le voxel i est decale d'1 bloc
+     * par rapport a ses deux voisins (a.y == c.y != b.y), on le realigne, si
+     * la case cible est libre (ni laine ni rail). Leve les collisions de
+     * colonnes laterales entre voxels a y differents sur terrain plat.
+     */
+    public static List<BlockPos> flattenTeeth(WorldView view, List<BlockPos> trace) {
+        if (trace.size() < 3) {
+            return trace;
+        }
+        BlockPos[] out = trace.toArray(new BlockPos[0]);
+        for (int i = 1; i < out.length - 1; i++) {
+            BlockPos a = out[i - 1];
+            BlockPos b = out[i];
+            BlockPos c = out[i + 1];
+            int ay = a.getY();
+            int by = b.getY();
+            int cy = c.getY();
+            if (ay != cy || by == ay || Math.abs(by - ay) != 1) {
+                continue;
+            }
+            int bx = b.getX();
+            int bz = b.getZ();
+            net.minecraft.world.level.block.state.BlockState target = view.at(bx, ay, bz);
+            if (target.is(Blocks.WHITE_WOOL)
+                    || com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(target)) {
+                continue;
+            }
+            view.put(bx, by, bz, Blocks.AIR.defaultBlockState());
+            view.put(bx, ay, bz, Blocks.WHITE_WOOL.defaultBlockState());
+            out[i] = new BlockPos(bx, ay, bz);
+        }
+        List<BlockPos> res = new ArrayList<>(out.length);
+        java.util.Collections.addAll(res, out);
+        return res;
+    }
 }
