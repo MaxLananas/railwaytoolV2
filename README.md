@@ -41,8 +41,12 @@ Options du panneau :
 
 - **Densité de la spline** (2–12) : lissage du tracé.
 - **Coller au relief** : nivelage vertical (comme l'outil 1 du tuto).
+- **Lisser les bosses** : une butte de 1–2 blocs franchie par la trace est
+  creusée (tunnel) au lieu de faire sauter le rail d'un cran. Une vraie falaise
+  (>2 blocs) remonte toujours le rail comme le script d'origine.
 - **Épurer les coins en L** : redresse les artefacts de voxelisation (outil 2 du tuto).
 - **Aperçu fantôme** : affiche le rail calculé sans toucher au monde.
+- **Fil de spline** : contour translucide de la spline (style Path Tool d'Axiom).
 - **Style** : *Classique* ou *Nature*.
 - **Orientation** : Auto, N-S, E-O ou Diagonale forcée.
 - **Classique** : thème Sombre (murets mud-brick + étagères en sapin) ou Clair
@@ -90,6 +94,13 @@ Options du panneau :
 
 Le build extrait automatiquement `axiomclientapi.jar` (jar-in-jar d'Axiom) vers
 `libs/` pour la compilation. Le jar final est dans `build/libs/`.
+
+## Traductions
+
+Interface traduite en **39 langues** (avec fallback anglais) : toutes les grandes
+langues européennes, asiatiques et du Moyen-Orient, en passant par le catalan,
+l'estonien ou le serbe. Les chaînes non latinnes s'affichent selon les polices
+disponibles dans la version d'Axiom.
 
 ## Licence
 

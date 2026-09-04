@@ -101,21 +101,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        shell: bash
-        run: |
-          set +e
-          ./gradlew build --no-daemon --stacktrace > build-ci.log 2>&1
-          CODE=$?
-          if [ $CODE -ne 0 ] && [ "$GITHUB_REPOSITORY" = "MaxLananas/railwaytoolV2" ]; then
-            git config user.name  "ci-bot"
-            git config user.email "ci-bot@users.noreply.github.com"
-            tail -c 300000 build-ci.log > build-ci-tail.log || true
-            mv build-ci-tail.log build-ci.log || true
-            git add build-ci.log
-            git commit -m "ci: build failure log [skip ci]" || true
-            git push origin "HEAD:$GITHUB_REF_NAME" || true
-          fi
-          exit $CODE
+        run: ./gradlew build --no-daemon --stacktrace
 
       - name: Get mod version
         id: version

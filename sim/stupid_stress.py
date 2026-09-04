@@ -184,8 +184,9 @@ def run_mega(name, trace, colors=None, terrain="flat",
 
 
 def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "nature"),
-                  colorize=None):
-    """Chaîne complète d'un joueur : spline -> voxelize -> rectif -> colors -> build."""
+                  colorize=None, smooth=False):
+    """Chaîne complète d'un joueur : spline -> voxelize -> rectif -> colors -> build.
+    smooth=True active le lissage de cretes (dug) comme l'option par defaut du mod."""
     counts["scenarios"] += 1
     try:
         floats = R.catmull_rom_points(control)
@@ -198,13 +199,24 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
         return
     w = make_hostile_world(vox, seed=hash(name) & 0xFFFF, terrain=terrain)
     trace = list(vox)
+    dug = set() if smooth else None
     try:
-        trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER)
+        trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER, dug=dug)
         trace = R.rectify_l(w, trace, R.SPLINE, R.CORNER)
-        trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER)
+        trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER, dug=dug)
     except Exception as e:
         fail(name, f"EXCEPTION rectif: {e!r}")
         return
+    if dug:
+        per_col = {}
+        for (x2, y2, z2) in dug:
+            per_col.setdefault((x2, z2), 0)
+            per_col[(x2, z2)] += 1
+            if per_col[(x2, z2)] > 2:
+                fail(name, f"colonne creusee >2: {(x2, z2)}")
+        for (x2, y2, z2) in dug:
+            if w.get(x2, y2, z2) in R.RAIL_FAMILY:
+                fail(name, f"dug a touche du rail {(x2, y2, z2)}")
     if colorize:
         colorize(w, trace)
     counts["voxels"] += len(trace)
@@ -394,6 +406,7 @@ def main():
     for name, ctrl in stupid_controls:
         full_pipeline(f"dumb-spline-{name}", ctrl)
         full_pipeline(f"dumb-spline-cliffs-{name}", ctrl, terrain="cliffs")
+        full_pipeline(f"dumb-spline-smooth-{name}", ctrl, terrain="cliffs", smooth=True)
 
     # D. Couleurs absurdes --------------------------------------------------
     cases_color = N_COLOR
@@ -497,6 +510,9 @@ def main():
                 for _ in range(n)]
         full_pipeline(f"terrain-{seed}", ctrl,
                       terrain=rnd.choice(("cliffs", "holes", "shelf", "chaos")))
+        full_pipeline(f"terrain-smooth-{seed}", ctrl,
+                      terrain=rnd.choice(("cliffs", "holes", "shelf", "chaos")),
+                      smooth=True)
 
     # I2. Traces volantes hautes (> max_down 20) + y negatifs -----------------
     for seed in range(N_VOID):
