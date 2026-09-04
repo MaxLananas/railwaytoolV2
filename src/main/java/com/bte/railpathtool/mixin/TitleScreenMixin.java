@@ -33,14 +33,15 @@ public abstract class TitleScreenMixin {
         }
         int h = graphics.guiHeight();
         // Titre agrandi (x1.8), doré, centré : mis en valeur dès l'arrivée.
+        // MC 1.21.8+ : pose() renvoie une Matrix3x2fStack (2D, sans z).
         var pose = graphics.pose();
-        pose.pushPose();
+        pose.pushMatrix();
         float scale = 1.8f;
-        pose.scale(scale, scale, 1.0f);
+        pose.scale(scale, scale);
         graphics.drawString(mc.font, BTE_RAIL$LINE_1,
                 (int) ((graphics.guiWidth() - mc.font.width(BTE_RAIL$LINE_1) * scale) / (2.0f * scale)),
                 (int) ((h - 40) / scale), 0xFFFFD54A, true);
-        pose.popPose();
+        pose.popMatrix();
         graphics.drawCenteredString(mc.font, BTE_RAIL$LINE_2, graphics.guiWidth() / 2, h - 24, 0xFFFFFFFF);
         graphics.drawCenteredString(mc.font, BTE_RAIL$LINE_3, graphics.guiWidth() / 2, h - 14, 0xFF8FF3FF);
     }
