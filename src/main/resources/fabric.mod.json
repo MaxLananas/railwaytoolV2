@@ -6,19 +6,43 @@
   "description": "Outil de voies ferrées tout-en-un pour Axiom (BuildTheEarth) : spline Catmull-Rom, nivelage, épuration des coins, construction automatique des rails selon le tutoriel BTE France.",
   "authors": ["MaxLananas"],
   "license": "CC0-1.0",
+  "icon": "assets/bte_railpathtool/icon.png",
   "environment": "client",
+  "contact": {
+    "homepage": "https://modrinth.com/user/maxlananass",
+    "sources": "https://github.com/MaxLananas/railwaytoolV2",
+    "issues": "https://github.com/MaxLananas/railwaytoolV2/issues"
+  },
   "entrypoints": {
     "client": [
       "com.bte.railpathtool.RailPathToolMod"
     ]
   },
-  "mixins": [],
+  "mixins": [
+    "bte_railpathtool.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.0",
     "fabric-api": "*",
     "minecraft": "~1.21.10"
   },
   "recommends": {
-    "axiom": ">=5.4"
+    "axiom": ">=5.4",
+    "modmenu": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/pnJhKuU2QK",
+        "modmenu.modrinth": "https://modrinth.com/user/maxlananass"
+      },
+      "update_checker": false
+    },
+    "fabric-api": {
+      "provided": []
+    }
   }
 }

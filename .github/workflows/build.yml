@@ -101,7 +101,18 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew build --no-daemon --stacktrace
+        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-ci.log
+
+      - name: Push build log on failure (debug)
+        if: failure() && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/arena/')
+        run: |
+          tail -c 300000 build-ci.log > build-ci-tail.log
+          mv build-ci-tail.log build-ci.log
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add build-ci.log
+          git commit -m "ci: build failure log [skip ci]" || echo "no log"
+          git push
 
       - name: Get mod version
         id: version
