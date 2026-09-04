@@ -125,11 +125,11 @@ public final class NatureDesign implements RailDesign {
         int a2;
         String f2;
         if (nb.size() >= 2) {
-            Object[] v = leafValues(dirNS, nb.get(0), nb.get(1));
-            a1 = (Integer) v[0];
-            f1 = (String) v[1];
-            a2 = (Integer) v[2];
-            f2 = (String) v[3];
+            Object[] lv = leafValues(dirNS, nb.get(0), nb.get(1));
+            a1 = (Integer) lv[0];
+            f1 = (String) lv[1];
+            a2 = (Integer) lv[2];
+            f2 = (String) lv[3];
         } else if (dirNS) {
             a1 = 2; f1 = "north"; a2 = 2; f2 = "south";
         } else {

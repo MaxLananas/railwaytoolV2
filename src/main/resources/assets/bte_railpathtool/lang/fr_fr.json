@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Blocs prévus : %s",
   "bte_railpathtool.ui.length": "Longueur de spline : %s blocs",
   "bte_railpathtool.ui.smooth_ridges": "Lisser les bosses (tunnel)",
-  "bte_railpathtool.ui.ghost_spline": "Fil de spline (contour)"
+  "bte_railpathtool.ui.ghost_spline": "Fil de spline (contour)",
+  "bte_railpathtool.ui.adaptive": "Échantillonnage adaptatif (courbure)",
+  "bte_railpathtool.ui.presets": "Présets",
+  "bte_railpathtool.ui.preset_load": "Charger",
+  "bte_railpathtool.ui.preset_save": "Sauver",
+  "bte_railpathtool.ui.debug": "Debug (temps)",
+  "bte_railpathtool.ui.simplify": "Épurer les points",
+  "bte_railpathtool.ui.disconnected": "Attention : %s morceau(x) de voie déconnectés."
 }

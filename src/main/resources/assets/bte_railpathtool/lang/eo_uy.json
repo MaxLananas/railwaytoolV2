@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Planitaj blokoj: %s",
   "bte_railpathtool.ui.length": "Longeco de splajno: %s blokoj",
   "bte_railpathtool.ui.smooth_ridges": "Glatigi montetojn (fosi tunelon)",
-  "bte_railpathtool.ui.ghost_spline": "Splajna konturo (padostila)"
+  "bte_railpathtool.ui.ghost_spline": "Splajna konturo (padostila)",
+  "bte_railpathtool.ui.adaptive": "Adapta specimeno (kurbeco)",
+  "bte_railpathtool.ui.presets": "Antaŭagordoj",
+  "bte_railpathtool.ui.preset_load": "Ŝargi",
+  "bte_railpathtool.ui.preset_save": "Konservi",
+  "bte_railpathtool.ui.debug": "Sencimigo (tempoj)",
+  "bte_railpathtool.ui.simplify": "Simpligi punktojn",
+  "bte_railpathtool.ui.disconnected": "Atentu: %s traka(j) parto(j) malkonektitaj."
 }

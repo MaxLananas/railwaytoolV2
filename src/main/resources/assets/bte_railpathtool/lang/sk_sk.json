@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Plánované bloky: %s",
   "bte_railpathtool.ui.length": "Dĺžka splajnu: %s blokov",
   "bte_railpathtool.ui.smooth_ridges": "Vyrovnávať hrče (vykopať tunel)",
-  "bte_railpathtool.ui.ghost_spline": "Čiara splajnu (obrys)"
+  "bte_railpathtool.ui.ghost_spline": "Čiara splajnu (obrys)",
+  "bte_railpathtool.ui.adaptive": "Adaptive sampling (curvature)",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Load",
+  "bte_railpathtool.ui.preset_save": "Save",
+  "bte_railpathtool.ui.debug": "Debug (timings)",
+  "bte_railpathtool.ui.simplify": "Simplify points",
+  "bte_railpathtool.ui.disconnected": "Warning: %s track segment(s) disconnected."
 }

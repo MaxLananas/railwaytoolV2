@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Planowane bloki: %s",
   "bte_railpathtool.ui.length": "Długość krzywej: %s bloków",
   "bte_railpathtool.ui.smooth_ridges": "Wygładzaj garby (wykop tunel)",
-  "bte_railpathtool.ui.ghost_spline": "Linia krzywej (obrys)"
+  "bte_railpathtool.ui.ghost_spline": "Linia krzywej (obrys)",
+  "bte_railpathtool.ui.adaptive": "Próbkowanie adaptacyjne (krzywizna)",
+  "bte_railpathtool.ui.presets": "Presety",
+  "bte_railpathtool.ui.preset_load": "Wczytaj",
+  "bte_railpathtool.ui.preset_save": "Zapisz",
+  "bte_railpathtool.ui.debug": "Debug (czasy)",
+  "bte_railpathtool.ui.simplify": "Uprość punkty",
+  "bte_railpathtool.ui.disconnected": "Uwaga: %s odcinek/i toru odłączony/ch."
 }

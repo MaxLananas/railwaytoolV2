@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Geplande blokken: %s",
   "bte_railpathtool.ui.length": "Spline-lengte: %s blokken",
   "bte_railpathtool.ui.smooth_ridges": "Bulten vlakken (tunnel graven)",
-  "bte_railpathtool.ui.ghost_spline": "Spline-lijn (omtrek)"
+  "bte_railpathtool.ui.ghost_spline": "Spline-lijn (omtrek)",
+  "bte_railpathtool.ui.adaptive": "Adaptieve bemonstering (kromming)",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Laden",
+  "bte_railpathtool.ui.preset_save": "Opslaan",
+  "bte_railpathtool.ui.debug": "Debug (tijden)",
+  "bte_railpathtool.ui.simplify": "Punten vereenvoudigen",
+  "bte_railpathtool.ui.disconnected": "Let op: %s spoorgedeelte(n) losgekoppeld."
 }

@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "योजनागत ब्लॉक: %s",
   "bte_railpathtool.ui.length": "स्पलाइन लंबाई: %s ब्लॉक",
   "bte_railpathtool.ui.smooth_ridges": "उभार समतल करें (सुरंग खोदें)",
-  "bte_railpathtool.ui.ghost_spline": "स्पलाइन रेखा (रूपरेखा)"
+  "bte_railpathtool.ui.ghost_spline": "स्पलाइन रेखा (रूपरेखा)",
+  "bte_railpathtool.ui.adaptive": "Adaptive sampling (curvature)",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Load",
+  "bte_railpathtool.ui.preset_save": "Save",
+  "bte_railpathtool.ui.debug": "Debug (timings)",
+  "bte_railpathtool.ui.simplify": "Simplify points",
+  "bte_railpathtool.ui.disconnected": "Warning: %s track segment(s) disconnected."
 }

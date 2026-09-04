@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Counted blocks: %s",
   "bte_railpathtool.ui.length": "Voyage length: %s blocks",
   "bte_railpathtool.ui.smooth_ridges": "Flatten the swells (dig a hold)",
-  "bte_railpathtool.ui.ghost_spline": "Chain outline (path-style)"
+  "bte_railpathtool.ui.ghost_spline": "Chain outline (path-style)",
+  "bte_railpathtool.ui.adaptive": "Crafty curve sampling",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Ahoy",
+  "bte_railpathtool.ui.preset_save": "Stow",
+  "bte_railpathtool.ui.debug": "Ship's log (tides)",
+  "bte_railpathtool.ui.simplify": "Trim points",
+  "bte_railpathtool.ui.disconnected": "Batten down: %s rail piece(s) adrift."
 }

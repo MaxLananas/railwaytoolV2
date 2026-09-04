@@ -4,6 +4,11 @@ import com.bte.railpathtool.axiom.Axiom;
 import com.bte.railpathtool.design.ClassicDesign;
 import com.bte.railpathtool.design.DesignOptions;
 import com.bte.railpathtool.design.NatureDesign;
+import com.bte.railpathtool.lib.algo.Rdp;
+import com.bte.railpathtool.lib.config.RailConfig;
+import com.bte.railpathtool.lib.curve.AdaptiveSampler;
+import com.bte.railpathtool.lib.graph.UnionFind;
+import com.bte.railpathtool.lib.stats.Profiler;
 import com.bte.railpathtool.spline.Spline;
 import com.bte.railpathtool.track.Grounding;
 import com.bte.railpathtool.track.LCorners;
@@ -45,6 +50,9 @@ public class RailwayTool implements CustomTool {
     private final ImBoolean purgeCorners = new ImBoolean(true);
     private final ImBoolean showGhost = new ImBoolean(true);
     private final ImBoolean showSplineGhost = new ImBoolean(true);
+    private final ImBoolean adaptive = new ImBoolean(true);
+    private final RailConfig config;
+    private boolean configLoaded = false;
 
     private final DesignOptions options = new DesignOptions();
     private TrackModel.OverrideMode overrideMode = TrackModel.OverrideMode.AUTO;
@@ -67,6 +75,7 @@ public class RailwayTool implements CustomTool {
     private boolean statusError = false;
 
     public RailwayTool() {
+        config = RailConfig.load();
         soilPercentUI = new int[options.soilSlots.length][1];
         for (int i = 0; i < options.soilSlots.length; i++) {
             soilPercentUI[i][0] = options.soilSlots[i].percent;
@@ -76,6 +85,25 @@ public class RailwayTool implements CustomTool {
     @Override
     public String name() {
         return tr("tool.name");
+    }
+
+    private void restoreConfigOnce() {
+        if (configLoaded) {
+            return;
+        }
+        configLoaded = true;
+        density[0] = Math.max(2, Math.min(12, config.density));
+        styleSel.set(config.styleIndex);
+        themeSel.set(config.themeIndex);
+        fillSel.set(config.fillIndex);
+        heightSel.set(config.heightIndex);
+        orientSel.set(config.orientIndex);
+        smoothRidges.set(config.smoothRidges);
+        purgeCorners.set(config.purgeCorners);
+        groundSnap.set(config.snapGround);
+        showGhost.set(config.showGhost);
+        showSplineGhost.set(config.showSplineGhost);
+        applySelections();
     }
 
     @Override
@@ -145,6 +173,7 @@ public class RailwayTool implements CustomTool {
     @Override
     public void displayImguiOptions() {
         Minecraft mc = Minecraft.getInstance();
+        restoreConfigOnce();
 
         ImGui.textDisabled(tr("ui.help_1"));
         ImGui.textDisabled(tr("ui.help_2"));
@@ -167,6 +196,12 @@ public class RailwayTool implements CustomTool {
             dirty = true;
         }
         ImGui.text(tr("ui.points", control.size()));
+        if (control.size() > 3) {
+            ImGui.sameLine();
+            if (ImGui.button(tr("ui.simplify"))) {
+                simplifyControl();
+            }
+        }
         if (planCount > 0) {
             ImGui.text(tr("ui.est_blocks", planCount));
             if (splineLength > 0) {
@@ -177,6 +212,9 @@ public class RailwayTool implements CustomTool {
 
         ImGui.textDisabled(tr("ui.gen"));
         if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
+            dirty = true;
+        }
+        if (ImGui.checkbox(tr("ui.adaptive"), adaptive)) {
             dirty = true;
         }
         if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
@@ -215,6 +253,93 @@ public class RailwayTool implements CustomTool {
         if (options.style == DesignOptions.Style.CLASSIC) {
             drawClassicOptions();
         }
+        drawPresets();
+        if (ImGui.collapsingHeader(tr("ui.debug"))) {
+            for (Map.Entry<String, Double> e : Profiler.summaryMs().entrySet()) {
+                ImGui.textDisabled(String.format(java.util.Locale.ROOT,
+                        "%s: %.3f ms", e.getKey(), e.getValue()));
+            }
+        }
+    }
+
+    private void drawPresets() {
+        if (!ImGui.collapsingHeader(tr("ui.presets"))) {
+            return;
+        }
+        RailConfig.Data[] slots = {config.preset1, config.preset2, config.preset3};
+        for (int i = 0; i < slots.length; i++) {
+            final int idx = i;
+            if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
+                applyData(slots[idx]);
+            }
+            ImGui.sameLine();
+            if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
+                slots[idx] = snapshotData();
+                persistConfig();
+            }
+            ImGui.sameLine();
+            ImGui.textDisabled("#" + (idx + 1));
+        }
+    }
+
+    private RailConfig.Data snapshotData() {
+        RailConfig.Data d = new RailConfig.Data();
+        d.density = density[0];
+        d.styleIndex = styleSel.get();
+        d.themeIndex = themeSel.get();
+        d.fillIndex = fillSel.get();
+        d.heightIndex = heightSel.get();
+        d.orientIndex = orientSel.get();
+        d.smoothRidges = smoothRidges.get();
+        d.purgeCorners = purgeCorners.get();
+        d.snapGround = groundSnap.get();
+        return d;
+    }
+
+    private void applyData(RailConfig.Data d) {
+        if (d == null) {
+            return;
+        }
+        density[0] = Math.max(2, Math.min(12, d.density));
+        styleSel.set(d.styleIndex);
+        themeSel.set(d.themeIndex);
+        fillSel.set(d.fillIndex);
+        heightSel.set(d.heightIndex);
+        orientSel.set(d.orientIndex);
+        smoothRidges.set(d.smoothRidges);
+        purgeCorners.set(d.purgeCorners);
+        groundSnap.set(d.snapGround);
+        applySelections();
+        dirty = true;
+    }
+
+    private void applySelections() {
+        options.style = styleSel.get() == 0
+                ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
+        options.theme = themeSel.get() == 0
+                ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
+        options.fillMode = fillSel.get() == 0
+                ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
+        options.baseDy = heightSel.get() == 0 ? 0 : -1;
+        overrideMode = TrackModel.OverrideMode.values()[
+                Math.max(0, Math.min(TrackModel.OverrideMode.values().length - 1,
+                        orientSel.get()))];
+    }
+
+    private void persistConfig() {
+        RailConfig.Data cur = snapshotData();
+        config.density = cur.density;
+        config.styleIndex = cur.styleIndex;
+        config.themeIndex = cur.themeIndex;
+        config.fillIndex = cur.fillIndex;
+        config.heightIndex = cur.heightIndex;
+        config.orientIndex = cur.orientIndex;
+        config.smoothRidges = cur.smoothRidges;
+        config.purgeCorners = cur.purgeCorners;
+        config.snapGround = cur.snapGround;
+        config.showGhost = showGhost.get();
+        config.showSplineGhost = showSplineGhost.get();
+        RailConfig.save(config);
     }
 
     private void drawClassicOptions() {
@@ -272,8 +397,14 @@ public class RailwayTool implements CustomTool {
         }
         WorldView view = new WorldView(mc.level);
 
-        List<Vec3> samples = Spline.sample(control, density[0]);
+        long t0 = Profiler.timeStart();
+        List<Vec3> samples = adaptive.get()
+                ? AdaptiveSampler.sample(control, density[0])
+                : Spline.sample(control, density[0]);
+        Profiler.timeEnd("sample", t0);
+        t0 = Profiler.timeStart();
         List<BlockPos> trace = Spline.voxelize(samples);
+        Profiler.timeEnd("voxelize", t0);
         for (BlockPos v : trace) {
             view.put(v.getX(), v.getY(), v.getZ(), Blocks.WHITE_WOOL.defaultBlockState());
         }
@@ -292,6 +423,12 @@ public class RailwayTool implements CustomTool {
         }
         splineLength = trace.size();
 
+        int islands = countIslands(trace);
+        if (islands > 1) {
+            setStatus(tr("ui.disconnected", islands), true);
+        }
+
+        t0 = Profiler.timeStart();
         TrackModel model = new TrackModel(view, trace, overrideMode);
         if (options.style == DesignOptions.Style.CLASSIC) {
             new ClassicDesign().emitCases(model, options, plan);
@@ -299,6 +436,7 @@ public class RailwayTool implements CustomTool {
             new NatureDesign().emitCases(model, options, plan);
         }
 
+        Profiler.timeEnd("design", t0);
         for (long k : dugPositions) {
             if (!plan.containsKey(k)) {
                 plan.put(k, Blocks.AIR.defaultBlockState());
@@ -349,11 +487,61 @@ public class RailwayTool implements CustomTool {
             region.addBlock(BlockPos.getX(k), BlockPos.getY(k), BlockPos.getZ(k),
                     e.getValue());
         }
+        persistConfig();
         Axiom.push(region);
         int placed = plan.size();
         reset();
         setStatus(tr("ui.built", placed), false);
         dirty = true;
+    }
+
+    private int countIslands(java.util.List<BlockPos> trace) {
+        int n = trace.size();
+        if (n == 0) {
+            return 0;
+        }
+        it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap idx =
+                new it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap();
+        idx.defaultReturnValue(-1);
+        for (int i = 0; i < n; i++) {
+            idx.put(trace.get(i).asLong(), i);
+        }
+        UnionFind uf = new UnionFind(n);
+        for (int i = 0; i < n; i++) {
+            BlockPos p = trace.get(i);
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dy = -1; dy <= 1; dy++) {
+                    for (int dz = -1; dz <= 1; dz++) {
+                        if (dx == 0 && dy == 0 && dz == 0) {
+                            continue;
+                        }
+                        int j = idx.get(BlockPos.asLong(p.getX() + dx,
+                                p.getY() + dy, p.getZ() + dz));
+                        if (j >= 0) {
+                            uf.union(i, j);
+                        }
+                    }
+                }
+            }
+        }
+        return uf.components();
+    }
+
+    /** Retire les points de controle quasi colineaires (RDP, 0.5 bloc). */
+    private void simplifyControl() {
+        java.util.List<Vec3> pts = new java.util.ArrayList<>();
+        for (BlockPos p : control) {
+            pts.add(Vec3.atCenterOf(p));
+        }
+        java.util.List<Vec3> kept = Rdp.simplify(pts, 0.5);
+        if (kept.size() < control.size()) {
+            control.clear();
+            for (Vec3 v : kept) {
+                control.add(BlockPos.containing(v));
+            }
+            setStatus(tr("ui.points", control.size()), false);
+            dirty = true;
+        }
     }
 
     private void setGhost(long key, BlockState state) {

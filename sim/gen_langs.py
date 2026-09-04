@@ -501,6 +501,139 @@ def flip_ud(s):
     return "%s".join(out)
 
 
+# Cles supplementaires v2 (par defaut: anglais partout)
+EXTRA = {
+    "ui.adaptive": "Adaptive sampling (curvature)",
+    "ui.presets": "Presets",
+    "ui.preset_load": "Load",
+    "ui.preset_save": "Save",
+    "ui.debug": "Debug (timings)",
+    "ui.simplify": "Simplify points",
+    "ui.disconnected": "Warning: %s track segment(s) disconnected.",
+}
+EXTRA_TRADS = {
+    "fr_fr.json": {"ui.adaptive": "Échantillonnage adaptatif (courbure)",
+        "ui.presets": "Présets", "ui.preset_load": "Charger",
+        "ui.preset_save": "Sauver", "ui.debug": "Debug (temps)",
+        "ui.simplify": "Épurer les points",
+        "ui.disconnected": "Attention : %s morceau(x) de voie déconnectés."},
+    "fr_ca.json": {"ui.adaptive": "Échantillonnage adaptatif (courbure)",
+        "ui.presets": "Présets", "ui.preset_load": "Charger",
+        "ui.preset_save": "Sauver", "ui.debug": "Debug (temps)",
+        "ui.simplify": "Épurer les points",
+        "ui.disconnected": "Attention : %s morceau(x) de voie déconnectés."},
+    "de_de.json": {"ui.adaptive": "Adaptive Abtastung (Krümmung)",
+        "ui.presets": "Presets", "ui.preset_load": "Laden",
+        "ui.preset_save": "Speichern", "ui.debug": "Debug (Zeiten)",
+        "ui.simplify": "Punkte vereinfachen",
+        "ui.disconnected": "Warnung: %s Gleisabschnitt(e) getrennt."},
+    "es_es.json": {"ui.adaptive": "Muestreo adaptativo (curvatura)",
+        "ui.presets": "Preajustes", "ui.preset_load": "Cargar",
+        "ui.preset_save": "Guardar", "ui.debug": "Depuración (tiempos)",
+        "ui.simplify": "Simplificar puntos",
+        "ui.disconnected": "Aviso: %s tramo(s) de vía desconectados."},
+    "es_mx.json": {"ui.adaptive": "Muestreo adaptativo (curvatura)",
+        "ui.presets": "Preajustes", "ui.preset_load": "Cargar",
+        "ui.preset_save": "Guardar", "ui.debug": "Depuración (tiempos)",
+        "ui.simplify": "Simplificar puntos",
+        "ui.disconnected": "Aviso: %s tramo(s) de vía desconectados."},
+    "pt_br.json": {"ui.adaptive": "Amostragem adaptativa (curvatura)",
+        "ui.presets": "Predefinições", "ui.preset_load": "Carregar",
+        "ui.preset_save": "Salvar", "ui.debug": "Debug (tempos)",
+        "ui.simplify": "Simplificar pontos",
+        "ui.disconnected": "Aviso: %s trecho(s) de via desconectados."},
+    "pt_pt.json": {"ui.adaptive": "Amostragem adaptativa (curvatura)",
+        "ui.presets": "Predefinições", "ui.preset_load": "Carregar",
+        "ui.preset_save": "Guardar", "ui.debug": "Debug (tempos)",
+        "ui.simplify": "Simplificar pontos",
+        "ui.disconnected": "Aviso: %s troço(s) de via desligados."},
+    "it_it.json": {"ui.adaptive": "Campionamento adattivo (curvatura)",
+        "ui.presets": "Preset", "ui.preset_load": "Carica",
+        "ui.preset_save": "Salva", "ui.debug": "Debug (tempi)",
+        "ui.simplify": "Semplifica punti",
+        "ui.disconnected": "Attenzione: %s tratta/e scollegata/e."},
+    "ru_ru.json": {"ui.adaptive": "Адаптивная выборка (кривизна)",
+        "ui.presets": "Пресеты", "ui.preset_load": "Загрузить",
+        "ui.preset_save": "Сохранить", "ui.debug": "Отладка (время)",
+        "ui.simplify": "Упростить точки",
+        "ui.disconnected": "Внимание: %s участка пути отсоединены."},
+    "uk_ua.json": {"ui.adaptive": "Адаптивна вибірка (кривина)",
+        "ui.presets": "Пресети", "ui.preset_load": "Завантажити",
+        "ui.preset_save": "Зберегти", "ui.debug": "Налагодження (час)",
+        "ui.simplify": "Спростити точки",
+        "ui.disconnected": "Увага: %s ділянки колії від'єднано."},
+    "zh_cn.json": {"ui.adaptive": "自适应采样(曲率)", "ui.presets": "预设",
+        "ui.preset_load": "读取", "ui.preset_save": "保存",
+        "ui.debug": "调试(耗时)", "ui.simplify": "简化点数",
+        "ui.disconnected": "警告: %s 段轨道未连通。"},
+    "zh_tw.json": {"ui.adaptive": "自適應取樣(曲率)", "ui.presets": "預設",
+        "ui.preset_load": "讀取", "ui.preset_save": "儲存",
+        "ui.debug": "除錯(耗時)", "ui.simplify": "簡化點數",
+        "ui.disconnected": "警告: %s 段軌道未連通。"},
+    "ja_jp.json": {"ui.adaptive": "適応サンプリング(曲率)",
+        "ui.presets": "プリセット", "ui.preset_load": "読み込み",
+        "ui.preset_save": "保存", "ui.debug": "デバッグ(時間)",
+        "ui.simplify": "ポイントを簡素化",
+        "ui.disconnected": "警告: 線路が %s 箇所分断されています。"},
+    "ko_kr.json": {"ui.adaptive": "적응형 샘플링(곡률)", "ui.presets": "프리셋",
+        "ui.preset_load": "불러오기", "ui.preset_save": "저장",
+        "ui.debug": "디버그(시간)", "ui.simplify": "포인트 단순화",
+        "ui.disconnected": "경고: 선로 %s 구간이 끊어져 있습니다."},
+    "nl_nl.json": {"ui.adaptive": "Adaptieve bemonstering (kromming)",
+        "ui.presets": "Presets", "ui.preset_load": "Laden",
+        "ui.preset_save": "Opslaan", "ui.debug": "Debug (tijden)",
+        "ui.simplify": "Punten vereenvoudigen",
+        "ui.disconnected": "Let op: %s spoorgedeelte(n) losgekoppeld."},
+    "pl_pl.json": {"ui.adaptive": "Próbkowanie adaptacyjne (krzywizna)",
+        "ui.presets": "Presety", "ui.preset_load": "Wczytaj",
+        "ui.preset_save": "Zapisz", "ui.debug": "Debug (czasy)",
+        "ui.simplify": "Uprość punkty",
+        "ui.disconnected": "Uwaga: %s odcinek/i toru odłączony/ch."},
+    "tr_tr.json": {"ui.adaptive": "Uyarlanır örnekleme (eğrilik)",
+        "ui.presets": "Ön ayarlar", "ui.preset_load": "Yükle",
+        "ui.preset_save": "Kaydet", "ui.debug": "Hata ayıklama (süre)",
+        "ui.simplify": "Noktaları sadeleştir",
+        "ui.disconnected": "Uyarı: %s hat parçası bağlantısız."},
+    "sv_se.json": {"ui.adaptive": "Adaptiv sampling (kurvatur)",
+        "ui.presets": "Förinställningar", "ui.preset_load": "Ladda",
+        "ui.preset_save": "Spara", "ui.debug": "Debug (tider)",
+        "ui.simplify": "Förenkla punkter",
+        "ui.disconnected": "Varning: %s spårdel(ar) frånkopplade."},
+    "la_la.json": {"ui.adaptive": "Specimina adaptiva (curvatura)",
+        "ui.presets": "Praefixa", "ui.preset_load": "Legere",
+        "ui.preset_save": "Servare", "ui.debug": "Debug (tempora)",
+        "ui.simplify": "Puncta purgare",
+        "ui.disconnected": "Monitio: %s segmenta traminis disiuncta."},
+    "eo_uy.json": {"ui.adaptive": "Adapta specimeno (kurbeco)",
+        "ui.presets": "Antaŭagordoj", "ui.preset_load": "Ŝargi",
+        "ui.preset_save": "Konservi", "ui.debug": "Sencimigo (tempoj)",
+        "ui.simplify": "Simpligi punktojn",
+        "ui.disconnected": "Atentu: %s traka(j) parto(j) malkonektitaj."},
+    "lol_us.json": {"ui.adaptive": "Smart curvy sampling", "ui.presets": "Presez",
+        "ui.preset_load": "Gimme", "ui.preset_save": "Keepz",
+        "ui.debug": "Debug (tiemz)", "ui.simplify": "Les pointz",
+        "ui.disconnected": "Oh noes: %s trak bitz not joined."},
+    "en_pt.json": {"ui.adaptive": "Crafty curve sampling", "ui.presets": "Presets",
+        "ui.preset_load": "Ahoy", "ui.preset_save": "Stow",
+        "ui.debug": "Ship's log (tides)", "ui.simplify": "Trim points",
+        "ui.disconnected": "Batten down: %s rail piece(s) adrift."},
+}
+
+
+def apply_extra(path, base_name):
+    import json as _json
+    try:
+        data = _json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return
+    for k, v in EXTRA.items():
+        data.setdefault(f"{K}.{k}", v)
+    for k, v in EXTRA_TRADS.get(base_name, {}).items():
+        data[f"{K}.{k}"] = v
+    with open(path, "w", encoding="utf-8") as f:
+        _json.dump(data, f, ensure_ascii=False, indent=2)
+
+
 def main():
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
     written = []
@@ -543,6 +676,9 @@ def main():
         json.dump(ud, f, ensure_ascii=False, indent=2)
     written.append("en_ud")
 
+    for fn in sorted(os.listdir(LANG_DIR)):
+        if fn.endswith(".json"):
+            apply_extra(os.path.join(LANG_DIR, fn), fn)
     total = len([fn for fn in os.listdir(LANG_DIR) if fn.endswith(".json")])
     print(f"generes/maj {len(written)} fichiers, total langues: {total}")
 

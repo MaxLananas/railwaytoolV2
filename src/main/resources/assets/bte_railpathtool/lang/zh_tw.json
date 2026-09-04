@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "預計方塊: %s",
   "bte_railpathtool.ui.length": "樣條長度: %s 個方塊",
   "bte_railpathtool.ui.smooth_ridges": "撫平隆起(挖掘隧道)",
-  "bte_railpathtool.ui.ghost_spline": "樣條輪廓(路徑風格)"
+  "bte_railpathtool.ui.ghost_spline": "樣條輪廓(路徑風格)",
+  "bte_railpathtool.ui.adaptive": "自適應取樣(曲率)",
+  "bte_railpathtool.ui.presets": "預設",
+  "bte_railpathtool.ui.preset_load": "讀取",
+  "bte_railpathtool.ui.preset_save": "儲存",
+  "bte_railpathtool.ui.debug": "除錯(耗時)",
+  "bte_railpathtool.ui.simplify": "簡化點數",
+  "bte_railpathtool.ui.disconnected": "警告: %s 段軌道未連通。"
 }

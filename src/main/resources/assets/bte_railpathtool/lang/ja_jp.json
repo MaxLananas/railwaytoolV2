@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "予定ブロック: %s",
   "bte_railpathtool.ui.length": "スプライン長: %s ブロック",
   "bte_railpathtool.ui.smooth_ridges": "凹凸をならす(トンネル)",
-  "bte_railpathtool.ui.ghost_spline": "スプライン線(輪郭)"
+  "bte_railpathtool.ui.ghost_spline": "スプライン線(輪郭)",
+  "bte_railpathtool.ui.adaptive": "適応サンプリング(曲率)",
+  "bte_railpathtool.ui.presets": "プリセット",
+  "bte_railpathtool.ui.preset_load": "読み込み",
+  "bte_railpathtool.ui.preset_save": "保存",
+  "bte_railpathtool.ui.debug": "デバッグ(時間)",
+  "bte_railpathtool.ui.simplify": "ポイントを簡素化",
+  "bte_railpathtool.ui.disconnected": "警告: 線路が %s 箇所分断されています。"
 }

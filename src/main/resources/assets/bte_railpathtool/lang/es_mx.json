@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Bloques previstos: %s",
   "bte_railpathtool.ui.length": "Longitud de la spline: %s bloques",
   "bte_railpathtool.ui.smooth_ridges": "Suavizar lomadas (cavar túnel)",
-  "bte_railpathtool.ui.ghost_spline": "Contorno de la spline (estilo trazo)"
+  "bte_railpathtool.ui.ghost_spline": "Contorno de la spline (estilo trazo)",
+  "bte_railpathtool.ui.adaptive": "Muestreo adaptativo (curvatura)",
+  "bte_railpathtool.ui.presets": "Preajustes",
+  "bte_railpathtool.ui.preset_load": "Cargar",
+  "bte_railpathtool.ui.preset_save": "Guardar",
+  "bte_railpathtool.ui.debug": "Depuración (tiempos)",
+  "bte_railpathtool.ui.simplify": "Simplificar puntos",
+  "bte_railpathtool.ui.disconnected": "Aviso: %s tramo(s) de vía desconectados."
 }

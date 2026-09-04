@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Geplante Blöcke: %s",
   "bte_railpathtool.ui.length": "Spline-Länge: %s Blöcke",
   "bte_railpathtool.ui.smooth_ridges": "Buckel glätten (Tunnel graben)",
-  "bte_railpathtool.ui.ghost_spline": "Spline-Linie (Umriss)"
+  "bte_railpathtool.ui.ghost_spline": "Spline-Linie (Umriss)",
+  "bte_railpathtool.ui.adaptive": "Adaptive Abtastung (Krümmung)",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Laden",
+  "bte_railpathtool.ui.preset_save": "Speichern",
+  "bte_railpathtool.ui.debug": "Debug (Zeiten)",
+  "bte_railpathtool.ui.simplify": "Punkte vereinfachen",
+  "bte_railpathtool.ui.disconnected": "Warnung: %s Gleisabschnitt(e) getrennt."
 }

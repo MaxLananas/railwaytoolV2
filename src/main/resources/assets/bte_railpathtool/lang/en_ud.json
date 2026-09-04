@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "%s :sʞɔolq pǝuuɐlԀ",
   "bte_railpathtool.ui.length": "sʞɔolq %s :ɥʇƃuǝl ǝuᴉldS",
   "bte_railpathtool.ui.smooth_ridges": "(lǝuunʇ ƃᴉp) sdɯnq ɥʇooɯS",
-  "bte_railpathtool.ui.ghost_spline": "(ǝlʎʇs-ɥʇɐd) ǝuᴉlʇno ǝuᴉldS"
+  "bte_railpathtool.ui.ghost_spline": "(ǝlʎʇs-ɥʇɐd) ǝuᴉlʇno ǝuᴉldS",
+  "bte_railpathtool.ui.adaptive": "Adaptive sampling (curvature)",
+  "bte_railpathtool.ui.presets": "Presets",
+  "bte_railpathtool.ui.preset_load": "Load",
+  "bte_railpathtool.ui.preset_save": "Save",
+  "bte_railpathtool.ui.debug": "Debug (timings)",
+  "bte_railpathtool.ui.simplify": "Simplify points",
+  "bte_railpathtool.ui.disconnected": "Warning: %s track segment(s) disconnected."
 }

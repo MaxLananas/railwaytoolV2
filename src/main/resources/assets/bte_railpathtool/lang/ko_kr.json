@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "예정 블록: %s",
   "bte_railpathtool.ui.length": "스플라인 길이: %s 블록",
   "bte_railpathtool.ui.smooth_ridges": "울퉁불퉁 다듬기(터널 굴착)",
-  "bte_railpathtool.ui.ghost_spline": "스플라인 윤곽선"
+  "bte_railpathtool.ui.ghost_spline": "스플라인 윤곽선",
+  "bte_railpathtool.ui.adaptive": "적응형 샘플링(곡률)",
+  "bte_railpathtool.ui.presets": "프리셋",
+  "bte_railpathtool.ui.preset_load": "불러오기",
+  "bte_railpathtool.ui.preset_save": "저장",
+  "bte_railpathtool.ui.debug": "디버그(시간)",
+  "bte_railpathtool.ui.simplify": "포인트 단순화",
+  "bte_railpathtool.ui.disconnected": "경고: 선로 %s 구간이 끊어져 있습니다."
 }

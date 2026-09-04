@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Planlanan bloklar: %s",
   "bte_railpathtool.ui.length": "Eğri uzunluğu: %s blok",
   "bte_railpathtool.ui.smooth_ridges": "Tümsekleri düzle (tünel kaz)",
-  "bte_railpathtool.ui.ghost_spline": "Eğri dış çizgisi (yol tarzı)"
+  "bte_railpathtool.ui.ghost_spline": "Eğri dış çizgisi (yol tarzı)",
+  "bte_railpathtool.ui.adaptive": "Uyarlanır örnekleme (eğrilik)",
+  "bte_railpathtool.ui.presets": "Ön ayarlar",
+  "bte_railpathtool.ui.preset_load": "Yükle",
+  "bte_railpathtool.ui.preset_save": "Kaydet",
+  "bte_railpathtool.ui.debug": "Hata ayıklama (süre)",
+  "bte_railpathtool.ui.simplify": "Noktaları sadeleştir",
+  "bte_railpathtool.ui.disconnected": "Uyarı: %s hat parçası bağlantısız."
 }

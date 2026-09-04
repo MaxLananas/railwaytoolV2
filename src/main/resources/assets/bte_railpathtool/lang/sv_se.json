@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Planerade block: %s",
   "bte_railpathtool.ui.length": "Spline-längd: %s block",
   "bte_railpathtool.ui.smooth_ridges": "Jämna ut pucklar (gräv tunnel)",
-  "bte_railpathtool.ui.ghost_spline": "Spline-linje (kontur)"
+  "bte_railpathtool.ui.ghost_spline": "Spline-linje (kontur)",
+  "bte_railpathtool.ui.adaptive": "Adaptiv sampling (kurvatur)",
+  "bte_railpathtool.ui.presets": "Förinställningar",
+  "bte_railpathtool.ui.preset_load": "Ladda",
+  "bte_railpathtool.ui.preset_save": "Spara",
+  "bte_railpathtool.ui.debug": "Debug (tider)",
+  "bte_railpathtool.ui.simplify": "Förenkla punkter",
+  "bte_railpathtool.ui.disconnected": "Varning: %s spårdel(ar) frånkopplade."
 }

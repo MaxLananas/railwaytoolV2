@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Заплановано блоків: %s",
   "bte_railpathtool.ui.length": "Довжина сплайна: %s блоків",
   "bte_railpathtool.ui.smooth_ridges": "Згладити горби (копати тунель)",
-  "bte_railpathtool.ui.ghost_spline": "Контур сплайна (стиль шляху)"
+  "bte_railpathtool.ui.ghost_spline": "Контур сплайна (стиль шляху)",
+  "bte_railpathtool.ui.adaptive": "Адаптивна вибірка (кривина)",
+  "bte_railpathtool.ui.presets": "Пресети",
+  "bte_railpathtool.ui.preset_load": "Завантажити",
+  "bte_railpathtool.ui.preset_save": "Зберегти",
+  "bte_railpathtool.ui.debug": "Налагодження (час)",
+  "bte_railpathtool.ui.simplify": "Спростити точки",
+  "bte_railpathtool.ui.disconnected": "Увага: %s ділянки колії від'єднано."
 }

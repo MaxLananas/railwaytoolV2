@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Quadrata destinata: %s",
   "bte_railpathtool.ui.length": "Longitudo spline: %s quadrata",
   "bte_railpathtool.ui.smooth_ridges": "Tumulos complanare (cuniculum fodere)",
-  "bte_railpathtool.ui.ghost_spline": "Linea spline (more itineris)"
+  "bte_railpathtool.ui.ghost_spline": "Linea spline (more itineris)",
+  "bte_railpathtool.ui.adaptive": "Specimina adaptiva (curvatura)",
+  "bte_railpathtool.ui.presets": "Praefixa",
+  "bte_railpathtool.ui.preset_load": "Legere",
+  "bte_railpathtool.ui.preset_save": "Servare",
+  "bte_railpathtool.ui.debug": "Debug (tempora)",
+  "bte_railpathtool.ui.simplify": "Puncta purgare",
+  "bte_railpathtool.ui.disconnected": "Monitio: %s segmenta traminis disiuncta."
 }

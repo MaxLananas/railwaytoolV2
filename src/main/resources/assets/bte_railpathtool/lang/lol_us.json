@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Blockz planned: %s",
   "bte_railpathtool.ui.length": "Spline longness: %s blockz",
   "bte_railpathtool.ui.smooth_ridges": "Smoov bumpz (dig tunnel)",
-  "bte_railpathtool.ui.ghost_spline": "Spline outline (path-style)"
+  "bte_railpathtool.ui.ghost_spline": "Spline outline (path-style)",
+  "bte_railpathtool.ui.adaptive": "Smart curvy sampling",
+  "bte_railpathtool.ui.presets": "Presez",
+  "bte_railpathtool.ui.preset_load": "Gimme",
+  "bte_railpathtool.ui.preset_save": "Keepz",
+  "bte_railpathtool.ui.debug": "Debug (tiemz)",
+  "bte_railpathtool.ui.simplify": "Les pointz",
+  "bte_railpathtool.ui.disconnected": "Oh noes: %s trak bitz not joined."
 }

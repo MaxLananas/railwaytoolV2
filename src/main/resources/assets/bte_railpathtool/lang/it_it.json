@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Blocchi previsti: %s",
   "bte_railpathtool.ui.length": "Lunghezza spline: %s blocchi",
   "bte_railpathtool.ui.smooth_ridges": "Lisciare le gobbe (scava tunnel)",
-  "bte_railpathtool.ui.ghost_spline": "Linea della spline (contorno)"
+  "bte_railpathtool.ui.ghost_spline": "Linea della spline (contorno)",
+  "bte_railpathtool.ui.adaptive": "Campionamento adattivo (curvatura)",
+  "bte_railpathtool.ui.presets": "Preset",
+  "bte_railpathtool.ui.preset_load": "Carica",
+  "bte_railpathtool.ui.preset_save": "Salva",
+  "bte_railpathtool.ui.debug": "Debug (tempi)",
+  "bte_railpathtool.ui.simplify": "Semplifica punti",
+  "bte_railpathtool.ui.disconnected": "Attenzione: %s tratta/e scollegata/e."
 }

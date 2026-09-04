@@ -42,5 +42,12 @@
   "bte_railpathtool.ui.est_blocks": "Планируется блоков: %s",
   "bte_railpathtool.ui.length": "Длина сплайна: %s блоков",
   "bte_railpathtool.ui.smooth_ridges": "Сглаживать бугры (рыть тоннель)",
-  "bte_railpathtool.ui.ghost_spline": "Линия сплайна (контур)"
+  "bte_railpathtool.ui.ghost_spline": "Линия сплайна (контур)",
+  "bte_railpathtool.ui.adaptive": "Адаптивная выборка (кривизна)",
+  "bte_railpathtool.ui.presets": "Пресеты",
+  "bte_railpathtool.ui.preset_load": "Загрузить",
+  "bte_railpathtool.ui.preset_save": "Сохранить",
+  "bte_railpathtool.ui.debug": "Отладка (время)",
+  "bte_railpathtool.ui.simplify": "Упростить точки",
+  "bte_railpathtool.ui.disconnected": "Внимание: %s участка пути отсоединены."
 }
