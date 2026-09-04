@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE-raide",
+  "bte_railpathtool.tool.name": "═ BTE-raide",
   "bte_railpathtool.ui.points": "Pisteet: %s",
   "bte_railpathtool.ui.undo": "Poista viimeinen piste",
   "bte_railpathtool.ui.confirm": "Rakenna",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Piste poistettu (%s jäljellä).",
   "bte_railpathtool.ui.built": "Raide rakennettu (%s lohkoa).",
   "bte_railpathtool.ui.nothing": "Ei rakennettavaa: aseta vähintään 2 pistettä.",
-  "bte_railpathtool.ui.plan_too_big": "Liian suuri suunnitelma (%s lohkoa, maks %s): lyhennä splinea."
+  "bte_railpathtool.ui.plan_too_big": "Liian suuri suunnitelma (%s lohkoa, maks %s): lyhennä splinea.",
+  "bte_railpathtool.ui.help_1": "1. Hiiren oikea: aseta pisteitä raiteen varteen.",
+  "bte_railpathtool.ui.help_2": "2. Tarkista kummitusesikatselu livenä.",
+  "bte_railpathtool.ui.help_3": "3. Enter: rakenna (Ctrl+Z kumotaksesi).",
+  "bte_railpathtool.ui.est_blocks": "Suunnitellut lohkot: %s",
+  "bte_railpathtool.ui.length": "Splinen pituus: %s lohkoa",
+  "bte_railpathtool.ui.smooth_ridges": "Tasoita möykyt (kaiva tunneli)",
+  "bte_railpathtool.ui.ghost_spline": "Splinen viiva (ääriviiva)"
 }

@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE鐵軌",
+  "bte_railpathtool.tool.name": "═ BTE鐵軌",
   "bte_railpathtool.ui.points": "控制點：%s",
   "bte_railpathtool.ui.undo": "移除最後一個點",
   "bte_railpathtool.ui.confirm": "建造",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "已移除點（剩餘%s個）。",
   "bte_railpathtool.ui.built": "鐵軌已建造（%s個方塊）。",
   "bte_railpathtool.ui.nothing": "無可建造內容：請至少放置2個點。",
-  "bte_railpathtool.ui.plan_too_big": "計畫過大（%s個方塊，上限%s）：請縮短樣條。"
+  "bte_railpathtool.ui.plan_too_big": "計畫過大（%s個方塊，上限%s）：請縮短樣條。",
+  "bte_railpathtool.ui.help_1": "1. 右鍵:沿鐵軌放置控制點",
+  "bte_railpathtool.ui.help_2": "2. 即時檢視幽靈預覽",
+  "bte_railpathtool.ui.help_3": "3. Enter建造(Ctrl+Z復原)",
+  "bte_railpathtool.ui.est_blocks": "預計方塊:%s",
+  "bte_railpathtool.ui.length": "樣條長度:%s 格",
+  "bte_railpathtool.ui.smooth_ridges": "撫平凸起(挖隧道)",
+  "bte_railpathtool.ui.ghost_spline": "樣條輪廓線"
 }

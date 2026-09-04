@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Rotaia BTE",
+  "bte_railpathtool.tool.name": "═ Rotaia BTE",
   "bte_railpathtool.ui.points": "Punti: %s",
   "bte_railpathtool.ui.undo": "Rimuovi ultimo punto",
   "bte_railpathtool.ui.confirm": "Costruisci",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punto rimosso (restano %s).",
   "bte_railpathtool.ui.built": "Rotaia costruita (%s blocchi).",
   "bte_railpathtool.ui.nothing": "Nulla da costruire: posiziona almeno 2 punti.",
-  "bte_railpathtool.ui.plan_too_big": "Piano troppo grande (%s blocchi, max %s): accorcia la spline."
+  "bte_railpathtool.ui.plan_too_big": "Piano troppo grande (%s blocchi, max %s): accorcia la spline.",
+  "bte_railpathtool.ui.help_1": "1. Tasto destro: posiziona i punti lungo la rotaia.",
+  "bte_railpathtool.ui.help_2": "2. Controlla l'anteprima fantasma dal vivo.",
+  "bte_railpathtool.ui.help_3": "3. Invio: costruisci (Ctrl+Z per annullare).",
+  "bte_railpathtool.ui.est_blocks": "Blocchi previsti: %s",
+  "bte_railpathtool.ui.length": "Lunghezza spline: %s blocchi",
+  "bte_railpathtool.ui.smooth_ridges": "Lisciare le gobbe (scava tunnel)",
+  "bte_railpathtool.ui.ghost_spline": "Linea della spline (contorno)"
 }

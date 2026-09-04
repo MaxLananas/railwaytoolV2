@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE रेल",
+  "bte_railpathtool.tool.name": "═ BTE रेल",
   "bte_railpathtool.ui.points": "अंक: %s",
   "bte_railpathtool.ui.undo": "अंतिम अंक हटाएँ",
   "bte_railpathtool.ui.confirm": "निर्माण",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "अंक हटाया गया (%s शेष)।",
   "bte_railpathtool.ui.built": "रेल बनाई गई (%s ब्लॉक)।",
   "bte_railpathtool.ui.nothing": "बनाने के लिए कुछ नहीं: कम से कम 2 अंक रखें।",
-  "bte_railpathtool.ui.plan_too_big": "योजना बहुत बड़ी (%s ब्लॉक, अधिकतम %s): स्पलाइन छोटा करें।"
+  "bte_railpathtool.ui.plan_too_big": "योजना बहुत बड़ी (%s ब्लॉक, अधिकतम %s): स्पलाइन छोटा करें।",
+  "bte_railpathtool.ui.help_1": "1. दायाँ क्लिक: रेल के साथ बिंदु लगाएँ",
+  "bte_railpathtool.ui.help_2": "2. पारदर्शी पूर्वावलोकन लाइव देखें",
+  "bte_railpathtool.ui.help_3": "3. Enter: निर्माण (Ctrl+Z से वापस लें)",
+  "bte_railpathtool.ui.est_blocks": "योजनागत ब्लॉक: %s",
+  "bte_railpathtool.ui.length": "स्पलाइन लंबाई: %s ब्लॉक",
+  "bte_railpathtool.ui.smooth_ridges": "उभार समतल करें (सुरंग खोदें)",
+  "bte_railpathtool.ui.ghost_spline": "स्पलाइन रेखा (रूपरेखा)"
 }

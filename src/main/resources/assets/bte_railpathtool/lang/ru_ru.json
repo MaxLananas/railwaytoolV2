@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Рельс BTE",
+  "bte_railpathtool.tool.name": "═ Рельс BTE",
   "bte_railpathtool.ui.points": "Точки: %s",
   "bte_railpathtool.ui.undo": "Убрать последнюю точку",
   "bte_railpathtool.ui.confirm": "Построить",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Точка убрана (осталось %s).",
   "bte_railpathtool.ui.built": "Рельс построен (%s блоков).",
   "bte_railpathtool.ui.nothing": "Нечего строить: поставьте минимум 2 точки.",
-  "bte_railpathtool.ui.plan_too_big": "Слишком большой план (%s блоков, макс. %s): укоротите сплайн."
+  "bte_railpathtool.ui.plan_too_big": "Слишком большой план (%s блоков, макс. %s): укоротите сплайн.",
+  "bte_railpathtool.ui.help_1": "1. ПКМ: ставьте точки вдоль пути.",
+  "bte_railpathtool.ui.help_2": "2. Проверяйте призрачный предпросмотр.",
+  "bte_railpathtool.ui.help_3": "3. Enter: построить (Ctrl+Z — отмена).",
+  "bte_railpathtool.ui.est_blocks": "Планируется блоков: %s",
+  "bte_railpathtool.ui.length": "Длина сплайна: %s блоков",
+  "bte_railpathtool.ui.smooth_ridges": "Сглаживать бугры (рыть тоннель)",
+  "bte_railpathtool.ui.ghost_spline": "Линия сплайна (контур)"
 }

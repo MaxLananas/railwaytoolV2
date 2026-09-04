@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Ray BTE",
+  "bte_railpathtool.tool.name": "═ Ray BTE",
   "bte_railpathtool.ui.points": "Điểm: %s",
   "bte_railpathtool.ui.undo": "Xóa điểm cuối",
   "bte_railpathtool.ui.confirm": "Xây dựng",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Đã xóa điểm (còn %s).",
   "bte_railpathtool.ui.built": "Đã xây ray (%s khối).",
   "bte_railpathtool.ui.nothing": "Không có gì để xây: đặt ít nhất 2 điểm.",
-  "bte_railpathtool.ui.plan_too_big": "Kế hoạch quá lớn (%s khối, tối đa %s): rút ngắn spline."
+  "bte_railpathtool.ui.plan_too_big": "Kế hoạch quá lớn (%s khối, tối đa %s): rút ngắn spline.",
+  "bte_railpathtool.ui.help_1": "1. Chuột phải: đặt điểm dọc theo đường ray.",
+  "bte_railpathtool.ui.help_2": "2. Kiểm tra bản xem trước ảo trực tiếp.",
+  "bte_railpathtool.ui.help_3": "3. Enter: xây dựng (Ctrl+Z để hoàn tác).",
+  "bte_railpathtool.ui.est_blocks": "Khối dự kiến: %s",
+  "bte_railpathtool.ui.length": "Độ dài spline: %s khối",
+  "bte_railpathtool.ui.smooth_ridges": "Làm phẳng gồ ghề (đào hầm)",
+  "bte_railpathtool.ui.ghost_spline": "Đường spline (đường viền)"
 }

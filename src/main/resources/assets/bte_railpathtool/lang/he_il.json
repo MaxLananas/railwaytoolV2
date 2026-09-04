@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "מסילת BTE",
+  "bte_railpathtool.tool.name": "═ מסילת BTE",
   "bte_railpathtool.ui.points": "נקודות: %s",
   "bte_railpathtool.ui.undo": "הסר נקודה אחרונה",
   "bte_railpathtool.ui.confirm": "בנה",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "הנקודה הוסרה (נותרו %s).",
   "bte_railpathtool.ui.built": "המסילה נבנתה (%s בלוקים).",
   "bte_railpathtool.ui.nothing": "אין מה לבנות: שים לפחות 2 נקודות.",
-  "bte_railpathtool.ui.plan_too_big": "תוכנית גדולה מדי (%s בלוקים, מקס %s): קצר את העקומה."
+  "bte_railpathtool.ui.plan_too_big": "תוכנית גדולה מדי (%s בלוקים, מקס %s): קצר את העקומה.",
+  "bte_railpathtool.ui.help_1": "1. קליק ימני: שים נקודות לאורך המסילה.",
+  "bte_railpathtool.ui.help_2": "2. בדוק את התצוגה השקופה בזמן אמת.",
+  "bte_railpathtool.ui.help_3": "3. Enter: בנה (Ctrl+Z לביטול).",
+  "bte_railpathtool.ui.est_blocks": "בלוקים מתוכננים: %s",
+  "bte_railpathtool.ui.length": "אורך העקומה: %s בלוקים",
+  "bte_railpathtool.ui.smooth_ridges": "יישור גבשושיות (חפירת מנהרה)",
+  "bte_railpathtool.ui.ghost_spline": "קו העקומה (קו מתאר)"
 }

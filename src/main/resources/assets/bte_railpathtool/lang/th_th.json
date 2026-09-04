@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "รางรถไฟ BTE",
+  "bte_railpathtool.tool.name": "═ รางรถไฟ BTE",
   "bte_railpathtool.ui.points": "จุด: %s",
   "bte_railpathtool.ui.undo": "ลบจุดสุดท้าย",
   "bte_railpathtool.ui.confirm": "สร้าง",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "ลบจุดแล้ว (เหลือ %s)",
   "bte_railpathtool.ui.built": "สร้างรางแล้ว (%s บล็อก)",
   "bte_railpathtool.ui.nothing": "ไม่มีอะไรให้สร้าง: วางจุดอย่างน้อย 2 จุด",
-  "bte_railpathtool.ui.plan_too_big": "แผนใหญ่เกินไป (%s บล็อก สูงสุด %s): ทำ spline ให้สั้นลง"
+  "bte_railpathtool.ui.plan_too_big": "แผนใหญ่เกินไป (%s บล็อก สูงสุด %s): ทำ spline ให้สั้นลง",
+  "bte_railpathtool.ui.help_1": "1. คลิกขวา: วางจุดตามแนวราง",
+  "bte_railpathtool.ui.help_2": "2. ตรวจสอบภาพตัวอย่างโปร่งแบบสด",
+  "bte_railpathtool.ui.help_3": "3. Enter: สร้าง (Ctrl+Z เพื่อยกเลิก)",
+  "bte_railpathtool.ui.est_blocks": "บล็อกที่วางแผน: %s",
+  "bte_railpathtool.ui.length": "ความยาว spline: %s บล็อก",
+  "bte_railpathtool.ui.smooth_ridges": "เกลี่ยเนิน (ขุดอุโมงค์)",
+  "bte_railpathtool.ui.ghost_spline": "เส้น spline (เส้นขอบ)"
 }

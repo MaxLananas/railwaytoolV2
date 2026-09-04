@@ -1,5 +1,6 @@
 package com.bte.railpathtool.track;
 
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 
@@ -54,6 +55,11 @@ public final class Grounding {
     }
 
     public static List<BlockPos> apply(WorldView view, List<BlockPos> trace) {
+        return apply(view, trace, null);
+    }
+
+    public static List<BlockPos> apply(WorldView view, List<BlockPos> trace,
+                                       LongOpenHashSet dug) {
         List<BlockPos> moved = new ArrayList<>();
         for (BlockPos v : trace) {
             int x = v.getX();
@@ -65,6 +71,39 @@ public final class Grounding {
             }
             if (!view.isAir(x, y + 1, z)) {
 
+                boolean dugHere = false;
+                if (dug != null) {
+                    int[][] toDig = new int[2][];
+                    int count = 0;
+                    boolean ok = true;
+                    for (int dy = 1; dy <= 2; dy++) {
+                        net.minecraft.world.level.block.state.BlockState st = view.at(x, y + dy, z);
+                        if (st.isAir()) {
+                            break;
+                        }
+                        if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(st)
+                                || st.is(net.minecraft.tags.BlockTags.WOOL)) {
+                            ok = false;
+                            break;
+                        }
+                        toDig[count++] = new int[]{x, y + dy, z};
+                    }
+                    if (ok && count > 0 && !view.isAir(x, y + count + 1, z)) {
+                        ok = false;
+                    }
+                    if (ok && count > 0) {
+                        for (int i = 0; i < count; i++) {
+                            view.put(toDig[i][0], toDig[i][1], toDig[i][2],
+                                    Blocks.AIR.defaultBlockState());
+                            dug.add(BlockPos.asLong(toDig[i][0], toDig[i][1], toDig[i][2]));
+                        }
+                        dugHere = true;
+                    }
+                }
+                if (dugHere) {
+                    moved.add(v);
+                    continue;
+                }
                 boolean movedUp = false;
                 for (int dy = 1; dy <= MAX_UP; dy++) {
                     if (view.isAir(x, y + dy, z)) {

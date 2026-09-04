@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE-räls",
+  "bte_railpathtool.tool.name": "═ BTE-skena",
   "bte_railpathtool.ui.points": "Punkter: %s",
   "bte_railpathtool.ui.undo": "Ta bort sista punkten",
   "bte_railpathtool.ui.confirm": "Bygg",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punkt borttagen (%s kvar).",
   "bte_railpathtool.ui.built": "Räls byggd (%s block).",
   "bte_railpathtool.ui.nothing": "Inget att bygga: placera minst 2 punkter.",
-  "bte_railpathtool.ui.plan_too_big": "För stor plan (%s block, max %s): korta splinen."
+  "bte_railpathtool.ui.plan_too_big": "För stor plan (%s block, max %s): korta splinen.",
+  "bte_railpathtool.ui.help_1": "1. Högerklicka: sätt punkter längs skenan.",
+  "bte_railpathtool.ui.help_2": "2. Kontrollera spökvyn live.",
+  "bte_railpathtool.ui.help_3": "3. Enter: bygg (Ctrl+Z för att ångra).",
+  "bte_railpathtool.ui.est_blocks": "Planerade block: %s",
+  "bte_railpathtool.ui.length": "Spline-längd: %s block",
+  "bte_railpathtool.ui.smooth_ridges": "Jämna ut pucklar (gräv tunnel)",
+  "bte_railpathtool.ui.ghost_spline": "Spline-linje (kontur)"
 }

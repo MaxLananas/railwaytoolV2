@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE Ray",
+  "bte_railpathtool.tool.name": "═ BTE Rayı",
   "bte_railpathtool.ui.points": "Noktalar: %s",
   "bte_railpathtool.ui.undo": "Son noktayı kaldır",
   "bte_railpathtool.ui.confirm": "İnşa et",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Nokta kaldırıldı (%s kaldı).",
   "bte_railpathtool.ui.built": "Ray inşa edildi (%s blok).",
   "bte_railpathtool.ui.nothing": "İnşa edilecek bir şey yok: en az 2 nokta yerleştir.",
-  "bte_railpathtool.ui.plan_too_big": "Plan çok büyük (%s blok, maks %s): spline'ı kısalt."
+  "bte_railpathtool.ui.plan_too_big": "Plan çok büyük (%s blok, maks %s): spline'ı kısalt.",
+  "bte_railpathtool.ui.help_1": "1. Sağ tık: ray boyunca noktalar koy.",
+  "bte_railpathtool.ui.help_2": "2. Hayalet önizlemeyi canlı kontrol et.",
+  "bte_railpathtool.ui.help_3": "3. Enter: inşa et (Ctrl+Z geri al).",
+  "bte_railpathtool.ui.est_blocks": "Planlanan bloklar: %s",
+  "bte_railpathtool.ui.length": "Spline uzunluğu: %s blok",
+  "bte_railpathtool.ui.smooth_ridges": "Tümsekleri düzle (tünel kaz)",
+  "bte_railpathtool.ui.ghost_spline": "Spline çizgisi (kontur)"
 }

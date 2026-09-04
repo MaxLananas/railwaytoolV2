@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Șină BTE",
+  "bte_railpathtool.tool.name": "═ Șină BTE",
   "bte_railpathtool.ui.points": "Puncte: %s",
   "bte_railpathtool.ui.undo": "Elimină ultimul punct",
   "bte_railpathtool.ui.confirm": "Construiește",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punct eliminat (au rămas %s).",
   "bte_railpathtool.ui.built": "Șină construită (%s blocuri).",
   "bte_railpathtool.ui.nothing": "Nimic de construit: pune cel puțin 2 puncte.",
-  "bte_railpathtool.ui.plan_too_big": "Plan prea mare (%s blocuri, max %s): scurtează spline-ul."
+  "bte_railpathtool.ui.plan_too_big": "Plan prea mare (%s blocuri, max %s): scurtează spline-ul.",
+  "bte_railpathtool.ui.help_1": "1. Clic dreapta: pune puncte de-a lungul șinei.",
+  "bte_railpathtool.ui.help_2": "2. Verifică previzualizarea fantomă live.",
+  "bte_railpathtool.ui.help_3": "3. Enter: construiește (Ctrl+Z pentru anulare).",
+  "bte_railpathtool.ui.est_blocks": "Blocuri planificate: %s",
+  "bte_railpathtool.ui.length": "Lungimea spline-ului: %s blocuri",
+  "bte_railpathtool.ui.smooth_ridges": "Netezirea denivelărilor (sapare tunel)",
+  "bte_railpathtool.ui.ghost_spline": "Linia spline-ului (contur)"
 }

@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE-Schiene",
+  "bte_railpathtool.tool.name": "═ BTE-Schiene",
   "bte_railpathtool.ui.points": "Punkte: %s",
   "bte_railpathtool.ui.undo": "Letzten Punkt entfernen",
   "bte_railpathtool.ui.confirm": "Bauen",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punkt entfernt (noch %s).",
   "bte_railpathtool.ui.built": "Schiene gebaut (%s Blöcke).",
   "bte_railpathtool.ui.nothing": "Nichts zu bauen: mindestens 2 Punkte setzen.",
-  "bte_railpathtool.ui.plan_too_big": "Plan zu groß (%s Blöcke, max %s): Spline kürzen."
+  "bte_railpathtool.ui.plan_too_big": "Plan zu groß (%s Blöcke, max %s): Spline kürzen.",
+  "bte_railpathtool.ui.help_1": "1. Rechtsklick: Kontrollpunkte entlang der Schiene setzen.",
+  "bte_railpathtool.ui.help_2": "2. Geistervorschau live prüfen.",
+  "bte_railpathtool.ui.help_3": "3. Enter: bauen (Strg+Z zum Rückgängigmachen).",
+  "bte_railpathtool.ui.est_blocks": "Geplante Blöcke: %s",
+  "bte_railpathtool.ui.length": "Spline-Länge: %s Blöcke",
+  "bte_railpathtool.ui.smooth_ridges": "Buckel glätten (Tunnel graben)",
+  "bte_railpathtool.ui.ghost_spline": "Spline-Linie (Umriss)"
 }

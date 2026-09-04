@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE-rail",
+  "bte_railpathtool.tool.name": "═ BTE-rail",
   "bte_railpathtool.ui.points": "Punten: %s",
   "bte_railpathtool.ui.undo": "Laatste punt verwijderen",
   "bte_railpathtool.ui.confirm": "Bouwen",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punt verwijderd (nog %s).",
   "bte_railpathtool.ui.built": "Rail gebouwd (%s blokken).",
   "bte_railpathtool.ui.nothing": "Niets te bouwen: plaats minstens 2 punten.",
-  "bte_railpathtool.ui.plan_too_big": "Plan te groot (%s blokken, max %s): maak de spline korter."
+  "bte_railpathtool.ui.plan_too_big": "Plan te groot (%s blokken, max %s): maak de spline korter.",
+  "bte_railpathtool.ui.help_1": "1. Rechtermuisklik: punten langs de rail plaatsen.",
+  "bte_railpathtool.ui.help_2": "2. Controleer de spookpreview live.",
+  "bte_railpathtool.ui.help_3": "3. Enter: bouwen (Ctrl+Z om ongedaan te maken).",
+  "bte_railpathtool.ui.est_blocks": "Geplande blokken: %s",
+  "bte_railpathtool.ui.length": "Spline-lengte: %s blokken",
+  "bte_railpathtool.ui.smooth_ridges": "Bulten vlakken (tunnel graven)",
+  "bte_railpathtool.ui.ghost_spline": "Spline-lijn (omtrek)"
 }

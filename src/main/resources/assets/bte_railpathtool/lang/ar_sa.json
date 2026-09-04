@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "سكة BTE",
+  "bte_railpathtool.tool.name": "═ سكة BTE",
   "bte_railpathtool.ui.points": "النقاط: %s",
   "bte_railpathtool.ui.undo": "إزالة آخر نقطة",
   "bte_railpathtool.ui.confirm": "إنشاء",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "تمت إزالة نقطة (المتبقي %s).",
   "bte_railpathtool.ui.built": "تم إنشاء السكة (%s كتلة).",
   "bte_railpathtool.ui.nothing": "لا شيء للبناء: ضع نقطتين على الأقل.",
-  "bte_railpathtool.ui.plan_too_big": "الخطة كبيرة جدًا (%s كتلة، الحد %s): قصّر المنحنى."
+  "bte_railpathtool.ui.plan_too_big": "الخطة كبيرة جدًا (%s كتلة، الحد %s): قصّر المنحنى.",
+  "bte_railpathtool.ui.help_1": "1. زر الفأرة الأيمن: ضع نقاطًا على امتداد السكة.",
+  "bte_railpathtool.ui.help_2": "2. تحقق من المعاينة الشفافة مباشرة.",
+  "bte_railpathtool.ui.help_3": "3. Enter: إنشاء (Ctrl+Z للتراجع).",
+  "bte_railpathtool.ui.est_blocks": "الكتل المخططة: %s",
+  "bte_railpathtool.ui.length": "طول المنحنى: %s كتلة",
+  "bte_railpathtool.ui.smooth_ridges": "تسوية النتوءات (حفر نفق)",
+  "bte_railpathtool.ui.ghost_spline": "خط المنحنى (المحيط)"
 }

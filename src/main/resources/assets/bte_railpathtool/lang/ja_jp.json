@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTEレール",
+  "bte_railpathtool.tool.name": "═ BTEレール",
   "bte_railpathtool.ui.points": "ポイント: %s",
   "bte_railpathtool.ui.undo": "最後のポイントを削除",
   "bte_railpathtool.ui.confirm": "建設",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "ポイントを削除しました(残り%s)。",
   "bte_railpathtool.ui.built": "レールを建設しました(%sブロック)。",
   "bte_railpathtool.ui.nothing": "建設するものがありません。2ポイント以上置いてください。",
-  "bte_railpathtool.ui.plan_too_big": "計画が大きすぎます(%sブロック、上限%s)。スプラインを短くしてください。"
+  "bte_railpathtool.ui.plan_too_big": "計画が大きすぎます(%sブロック、上限%s)。スプラインを短くしてください。",
+  "bte_railpathtool.ui.help_1": "1. 右クリック: レールに沿って点を置く",
+  "bte_railpathtool.ui.help_2": "2. ゴーストプレビューを確認",
+  "bte_railpathtool.ui.help_3": "3. Enterで建設 (Ctrl+Zで取り消し)",
+  "bte_railpathtool.ui.est_blocks": "予定ブロック: %s",
+  "bte_railpathtool.ui.length": "スプライン長: %s ブロック",
+  "bte_railpathtool.ui.smooth_ridges": "凹凸をならす(トンネル)",
+  "bte_railpathtool.ui.ghost_spline": "スプライン線(輪郭)"
 }

@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Tory BTE",
+  "bte_railpathtool.tool.name": "═ Szyna BTE",
   "bte_railpathtool.ui.points": "Punkty: %s",
   "bte_railpathtool.ui.undo": "Usuń ostatni punkt",
   "bte_railpathtool.ui.confirm": "Buduj",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Usunięto punkt (zostało %s).",
   "bte_railpathtool.ui.built": "Tory zbudowane (%s bloków).",
   "bte_railpathtool.ui.nothing": "Nic do budowy: postaw co najmniej 2 punkty.",
-  "bte_railpathtool.ui.plan_too_big": "Plan za duży (%s bloków, maks. %s): skróć splajn."
+  "bte_railpathtool.ui.plan_too_big": "Plan za duży (%s bloków, maks. %s): skróć splajn.",
+  "bte_railpathtool.ui.help_1": "1. PPM: stawiaj punkty wzdłuż toru.",
+  "bte_railpathtool.ui.help_2": "2. Sprawdź podgląd-widmo na żywo.",
+  "bte_railpathtool.ui.help_3": "3. Enter: buduj (Ctrl+Z, by cofnąć).",
+  "bte_railpathtool.ui.est_blocks": "Planowane bloki: %s",
+  "bte_railpathtool.ui.length": "Długość krzywej: %s bloków",
+  "bte_railpathtool.ui.smooth_ridges": "Wygładzaj garby (wykop tunel)",
+  "bte_railpathtool.ui.ghost_spline": "Linia krzywej (obrys)"
 }

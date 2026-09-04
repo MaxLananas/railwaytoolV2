@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE-skinne",
+  "bte_railpathtool.tool.name": "═ BTE-skinne",
   "bte_railpathtool.ui.points": "Punkter: %s",
   "bte_railpathtool.ui.undo": "Fjern siste punkt",
   "bte_railpathtool.ui.confirm": "Bygg",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Punkt fjernet (%s igjen).",
   "bte_railpathtool.ui.built": "Skinne bygd (%s blokker).",
   "bte_railpathtool.ui.nothing": "Ingenting å bygge: plasser minst 2 punkter.",
-  "bte_railpathtool.ui.plan_too_big": "For stor plan (%s blokker, maks %s): kort ned splinen."
+  "bte_railpathtool.ui.plan_too_big": "For stor plan (%s blokker, maks %s): kort ned splinen.",
+  "bte_railpathtool.ui.help_1": "1. Høyreklikk: sett punkter langs skinnen.",
+  "bte_railpathtool.ui.help_2": "2. Sjekk spøkelsesvisningen live.",
+  "bte_railpathtool.ui.help_3": "3. Enter: bygg (Ctrl+Z for å angre).",
+  "bte_railpathtool.ui.est_blocks": "Planlagte blokker: %s",
+  "bte_railpathtool.ui.length": "Spline-lengde: %s blokker",
+  "bte_railpathtool.ui.smooth_ridges": "Jevne ut humper (grav tunnel)",
+  "bte_railpathtool.ui.ghost_spline": "Spline-linje (kontur)"
 }

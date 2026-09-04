@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE Rail",
+  "bte_railpathtool.tool.name": "═ BTE Rail",
   "bte_railpathtool.ui.points": "Points: %s",
   "bte_railpathtool.ui.undo": "Remove last point",
   "bte_railpathtool.ui.confirm": "Build",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Point removed (%s left).",
   "bte_railpathtool.ui.built": "Rail built (%s blocks).",
   "bte_railpathtool.ui.nothing": "Nothing to build: place at least 2 points.",
-  "bte_railpathtool.ui.plan_too_big": "Plan too large (%s blocks, max %s): shorten the spline."
+  "bte_railpathtool.ui.plan_too_big": "Plan too large (%s blocks, max %s): shorten the spline.",
+  "bte_railpathtool.ui.help_1": "1. Right-click: place control points along the rail.",
+  "bte_railpathtool.ui.help_2": "2. Check the ghost preview as you wish.",
+  "bte_railpathtool.ui.help_3": "3. Enter: build (Ctrl+Z to undo in Axiom).",
+  "bte_railpathtool.ui.est_blocks": "Planned blocks: %s",
+  "bte_railpathtool.ui.length": "Spline length: %s blocks",
+  "bte_railpathtool.ui.smooth_ridges": "Smooth bumps (dig tunnel)",
+  "bte_railpathtool.ui.ghost_spline": "Spline outline (path-style)"
 }

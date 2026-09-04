@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Rel BTE",
+  "bte_railpathtool.tool.name": "═ Rel BTE",
   "bte_railpathtool.ui.points": "Titik: %s",
   "bte_railpathtool.ui.undo": "Hapus titik terakhir",
   "bte_railpathtool.ui.confirm": "Bangun",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Titik dihapus (sisa %s).",
   "bte_railpathtool.ui.built": "Rel dibangun (%s blok).",
   "bte_railpathtool.ui.nothing": "Tidak ada yang dibangun: letakkan minimal 2 titik.",
-  "bte_railpathtool.ui.plan_too_big": "Rencana terlalu besar (%s blok, maks %s): pendekkan spline."
+  "bte_railpathtool.ui.plan_too_big": "Rencana terlalu besar (%s blok, maks %s): pendekkan spline.",
+  "bte_railpathtool.ui.help_1": "1. Klik kanan: letakkan titik di sepanjang rel.",
+  "bte_railpathtool.ui.help_2": "2. Periksa pratinjau hantu secara langsung.",
+  "bte_railpathtool.ui.help_3": "3. Enter: bangun (Ctrl+Z untuk batal).",
+  "bte_railpathtool.ui.est_blocks": "Blok terencana: %s",
+  "bte_railpathtool.ui.length": "Panjang spline: %s blok",
+  "bte_railpathtool.ui.smooth_ridges": "Ratakan tonjolan (gali terowongan)",
+  "bte_railpathtool.ui.ghost_spline": "Garis spline (kontur)"
 }

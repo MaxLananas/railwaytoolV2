@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Kolaj BTE",
+  "bte_railpathtool.tool.name": "═ Koľaj BTE",
   "bte_railpathtool.ui.points": "Body: %s",
   "bte_railpathtool.ui.undo": "Odobrať posledný bod",
   "bte_railpathtool.ui.confirm": "Postaviť",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Bod odobraný (zostáva %s).",
   "bte_railpathtool.ui.built": "Kolaj postavená (%s blokov).",
   "bte_railpathtool.ui.nothing": "Niet čo stavať: položte aspoň 2 body.",
-  "bte_railpathtool.ui.plan_too_big": "Príliš veľký plán (%s blokov, max %s): skráťte spline."
+  "bte_railpathtool.ui.plan_too_big": "Príliš veľký plán (%s blokov, max %s): skráťte spline.",
+  "bte_railpathtool.ui.help_1": "1. Pravé tlačidlo: kladiete body pozdĺž koľaje.",
+  "bte_railpathtool.ui.help_2": "2. Kontrolujte živý náhľad-ducha.",
+  "bte_railpathtool.ui.help_3": "3. Enter: postaviť (Ctrl+Z späť).",
+  "bte_railpathtool.ui.est_blocks": "Plánované bloky: %s",
+  "bte_railpathtool.ui.length": "Dĺžka splajnu: %s blokov",
+  "bte_railpathtool.ui.smooth_ridges": "Vyrovnávať hrče (vykopať tunel)",
+  "bte_railpathtool.ui.ghost_spline": "Čiara splajnu (obrys)"
 }

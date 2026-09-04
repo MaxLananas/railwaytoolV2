@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Рейка BTE",
+  "bte_railpathtool.tool.name": "═ Рейка BTE",
   "bte_railpathtool.ui.points": "Точки: %s",
   "bte_railpathtool.ui.undo": "Прибрати останню точку",
   "bte_railpathtool.ui.confirm": "Побудувати",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Точку прибрано (залишилось %s).",
   "bte_railpathtool.ui.built": "Рейку побудовано (%s блоків).",
   "bte_railpathtool.ui.nothing": "Нема чого будувати: поставте щонайменше 2 точки.",
-  "bte_railpathtool.ui.plan_too_big": "Занадто великий план (%s блоків, макс. %s): вкоротіть сплайн."
+  "bte_railpathtool.ui.plan_too_big": "Занадто великий план (%s блоків, макс. %s): вкоротіть сплайн.",
+  "bte_railpathtool.ui.help_1": "1. ПКМ: ставте точки вздовж колії.",
+  "bte_railpathtool.ui.help_2": "2. Перевіряйте примарний перегляд.",
+  "bte_railpathtool.ui.help_3": "3. Enter: будувати (Ctrl+Z — скасувати).",
+  "bte_railpathtool.ui.est_blocks": "Заплановано блоків: %s",
+  "bte_railpathtool.ui.length": "Довжина сплайна: %s блоків",
+  "bte_railpathtool.ui.smooth_ridges": "Згладжувати горби (рити тунель)",
+  "bte_railpathtool.ui.ghost_spline": "Лінія сплайна (контур)"
 }

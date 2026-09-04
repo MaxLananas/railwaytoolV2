@@ -193,15 +193,42 @@ def is_unstable(world, x, y, z):
     return sum((ne, so, no, se)) >= 3
 
 
-def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20):
-    """Remonte les laines enterrées, redescend celles en l'air (comme le script 1)."""
+def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=None):
+    """Remonte les laines enterrées, redescend celles en l'air (comme le script 1).
+    Amélioration du mod : si rectif pleine hauteur impossible, le bloc au-dessus de
+    la laine est une crête de 1-2 blocs non-rail : on la creuse (tunnel) plutôt que
+    de faire sauter le rail d'un cran (dug collecte les positions à purger en AIR)."""
     moved_trace = []
     for (x, y, z) in trace:
         if world.get(x, y, z) != spline:
             moved_trace.append((x, y, z))
             continue
-        # Remontée : bloc au-dessus non-air -> cherche de l'air jusqu'à +15
+        # Remontée : bloc au-dessus non-air -> crête 1-2 creusée, sinon air jusqu'à +15.
         if world.get(x, y + 1, z) != AIR:
+            dug_here = False
+            if dug is not None:
+                to_dig = []
+                ok = True
+                for dy in (1, 2):
+                    st = world.get(x, y + dy, z)
+                    if st == AIR:
+                        break
+                    if st in RAIL_FAMILY or st == spline or is_wool(st):
+                        ok = False
+                        break
+                    to_dig.append((x, y + dy, z))
+                if ok and to_dig:
+                    above = world.get(x, y + len(to_dig) + 1, z)
+                    if above != AIR:
+                        ok = False
+                if ok and to_dig:
+                    for pos in to_dig:
+                        world.set(pos[0], pos[1], pos[2], AIR)
+                        dug.add(pos)
+                    dug_here = True
+            if dug_here:
+                moved_trace.append((x, y, z))
+                continue
             for dy in range(1, max_up + 1):
                 if world.get(x, y + dy, z) == AIR:
                     world.set(x, y, z, corner)

@@ -173,7 +173,7 @@ public final class ClassicDesign implements RailDesign {
         }
     }
 
-    static final class ColumnWriter {
+    public static final class ColumnWriter {
         private final TrackModel model;
         private final DesignOptions options;
         private final Long2ObjectOpenHashMap<BlockState> plan;
@@ -227,7 +227,7 @@ public final class ClassicDesign implements RailDesign {
             return options.soilSlots[options.soilSlots.length - 1].state;
         }
 
-        static boolean isProtectedRail(BlockState st) {
+        public static boolean isProtectedRail(BlockState st) {
             Block b = st.getBlock();
             return b == Blocks.MUD_BRICK_WALL || b == Blocks.ANDESITE_WALL
                     || b == Blocks.SPRUCE_SHELF || b == Blocks.IRON_DOOR
@@ -236,7 +236,7 @@ public final class ClassicDesign implements RailDesign {
                     || b == Blocks.PALE_MOSS_BLOCK || b == Blocks.OAK_BUTTON;
         }
 
-        static boolean isRailFamily(BlockState st) {
+        public static boolean isRailFamily(BlockState st) {
             return isProtectedRail(st)
                     || st.is(Blocks.LEAF_LITTER) || st.is(Blocks.GRAVEL);
         }

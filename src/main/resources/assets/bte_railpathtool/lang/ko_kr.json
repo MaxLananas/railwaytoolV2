@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE 레일",
+  "bte_railpathtool.tool.name": "═ BTE 레일",
   "bte_railpathtool.ui.points": "포인트: %s",
   "bte_railpathtool.ui.undo": "마지막 포인트 제거",
   "bte_railpathtool.ui.confirm": "건설",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "포인트 제거됨 (%s 남음).",
   "bte_railpathtool.ui.built": "레일 건설됨 (%s 블록).",
   "bte_railpathtool.ui.nothing": "건설할 것이 없습니다: 최소 2개의 포인트를 놓으세요.",
-  "bte_railpathtool.ui.plan_too_big": "계획이 너무 큽니다 (%s 블록, 최대 %s): 스플라인을 줄이세요."
+  "bte_railpathtool.ui.plan_too_big": "계획이 너무 큽니다 (%s 블록, 최대 %s): 스플라인을 줄이세요.",
+  "bte_railpathtool.ui.help_1": "1. 우클릭: 레일을 따라 포인트 놓기",
+  "bte_railpathtool.ui.help_2": "2. 고스트 미리보기를 실시간 확인",
+  "bte_railpathtool.ui.help_3": "3. Enter: 건설 (Ctrl+Z로 실행 취소)",
+  "bte_railpathtool.ui.est_blocks": "예정 블록: %s",
+  "bte_railpathtool.ui.length": "스플라인 길이: %s 블록",
+  "bte_railpathtool.ui.smooth_ridges": "울퉁불퉁 다듬기(터널 굴착)",
+  "bte_railpathtool.ui.ghost_spline": "스플라인 윤곽선"
 }

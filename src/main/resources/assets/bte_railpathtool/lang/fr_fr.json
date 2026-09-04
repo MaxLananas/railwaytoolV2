@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Rail BTE",
+  "bte_railpathtool.tool.name": "═ Rail BTE",
   "bte_railpathtool.ui.points": "Points : %s",
   "bte_railpathtool.ui.undo": "Retirer dernier point",
   "bte_railpathtool.ui.confirm": "Construire",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Point retiré (reste %s).",
   "bte_railpathtool.ui.built": "Rail construit (%s blocs).",
   "bte_railpathtool.ui.nothing": "Rien à construire : placez au moins 2 points.",
-  "bte_railpathtool.ui.plan_too_big": "Plan trop grand (%s blocs, max %s) : raccourcissez la spline."
+  "bte_railpathtool.ui.plan_too_big": "Plan trop grand (%s blocs, max %s) : raccourcissez la spline.",
+  "bte_railpathtool.ui.help_1": "1. Clic droit : posez des points le long du rail.",
+  "bte_railpathtool.ui.help_2": "2. Vérifiez l'aperçu fantôme en direct.",
+  "bte_railpathtool.ui.help_3": "3. Entrée : construit (Ctrl+Z pour annuler).",
+  "bte_railpathtool.ui.est_blocks": "Blocs prévus : %s",
+  "bte_railpathtool.ui.length": "Longueur de spline : %s blocs",
+  "bte_railpathtool.ui.smooth_ridges": "Lisser les bosses (tunnel)",
+  "bte_railpathtool.ui.ghost_spline": "Fil de spline (contour)"
 }

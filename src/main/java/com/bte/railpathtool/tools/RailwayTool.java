@@ -10,7 +10,9 @@ import com.bte.railpathtool.track.LCorners;
 import com.bte.railpathtool.track.TrackModel;
 import com.bte.railpathtool.track.WorldView;
 import com.moulberry.axiomclientapi.CustomTool;
+import com.moulberry.axiomclientapi.Effects;
 import com.moulberry.axiomclientapi.regions.BlockRegion;
+import com.moulberry.axiomclientapi.regions.BooleanRegion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import imgui.moulberry92.ImGui;
 import imgui.moulberry92.type.ImBoolean;
@@ -38,8 +40,10 @@ public class RailwayTool implements CustomTool {
     private final List<BlockPos> control = new ArrayList<>();
     private final int[] density = {6};
     private final ImBoolean groundSnap = new ImBoolean(true);
+    private final ImBoolean smoothRidges = new ImBoolean(true);
     private final ImBoolean purgeCorners = new ImBoolean(true);
     private final ImBoolean showGhost = new ImBoolean(true);
+    private final ImBoolean showSplineGhost = new ImBoolean(true);
 
     private final DesignOptions options = new DesignOptions();
     private TrackModel.OverrideMode overrideMode = TrackModel.OverrideMode.AUTO;
@@ -47,6 +51,10 @@ public class RailwayTool implements CustomTool {
 
     private final Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
     private final LongOpenHashSet ghostPositions = new LongOpenHashSet();
+    private final LongOpenHashSet dugPositions = new LongOpenHashSet();
+    private BooleanRegion splineGhost;
+    private int planCount = 0;
+    private int splineLength = 0;
     private boolean dirty = true;
     private boolean phantomAcquired = false;
     private String status = "";
@@ -67,8 +75,10 @@ public class RailwayTool implements CustomTool {
     @Override
     public void reset() {
         clearGhost();
+        clearSplineGhost();
         control.clear();
         plan.clear();
+        planCount = 0;
         dirty = true;
         status = "";
         statusError = false;
@@ -84,6 +94,9 @@ public class RailwayTool implements CustomTool {
         if (dirty) {
             dirty = false;
             recompute(Minecraft.getInstance());
+        }
+        if (splineGhost != null) {
+            splineGhost.render(camera, Vec3.ZERO, poseStack, projection, nanos, Effects.OUTLINE);
         }
     }
 
@@ -126,10 +139,14 @@ public class RailwayTool implements CustomTool {
     @Override
     public void displayImguiOptions() {
         Minecraft mc = Minecraft.getInstance();
-        ImGui.text(tr("ui.points", control.size()));
+
+        ImGui.textDisabled(tr("ui.help_1"));
+        ImGui.textDisabled(tr("ui.help_2"));
+        ImGui.textDisabled(tr("ui.help_3"));
         if (!status.isEmpty()) {
-            ImGui.textWrapped(status);
+            ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
         }
+        ImGui.separator();
 
         if (ImGui.button(tr("ui.undo"))) {
             callDelete();
@@ -143,79 +160,81 @@ public class RailwayTool implements CustomTool {
             control.clear();
             dirty = true;
         }
-        ImGui.textDisabled(tr("ui.hint"));
+        ImGui.text(tr("ui.points", control.size()));
+        if (planCount > 0) {
+            ImGui.text(tr("ui.est_blocks", planCount));
+            if (splineLength > 0) {
+                ImGui.text(tr("ui.length", splineLength));
+            }
+        }
         ImGui.separator();
 
-        ImGui.text(tr("ui.gen"));
+        ImGui.textDisabled(tr("ui.gen"));
         if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
             dirty = true;
         }
         if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
             dirty = true;
         }
+        if (groundSnap.get()) {
+            if (ImGui.checkbox(tr("ui.smooth_ridges"), smoothRidges)) {
+                dirty = true;
+            }
+        }
         if (ImGui.checkbox(tr("ui.purge_corners"), purgeCorners)) {
             dirty = true;
         }
-        ImGui.checkbox(tr("ui.ghost"), showGhost);
-        ImGui.separator();
-
-        ImGui.text(tr("ui.style"));
-        if (ImGui.radioButton(tr("ui.style.classic"),
-                options.style == DesignOptions.Style.CLASSIC)) {
-            options.style = DesignOptions.Style.CLASSIC;
+        if (ImGui.checkbox(tr("ui.ghost"), showGhost)) {
             dirty = true;
         }
-        ImGui.sameLine();
-        if (ImGui.radioButton(tr("ui.style.nature"),
-                options.style == DesignOptions.Style.NATURE)) {
-            options.style = DesignOptions.Style.NATURE;
+        if (ImGui.checkbox(tr("ui.ghost_spline"), showSplineGhost)) {
+            dirty = true;
+        }
+        ImGui.separator();
+
+        String[] styles = {tr("ui.style.classic"), tr("ui.style.nature")};
+        int[] styleIdx = {options.style == DesignOptions.Style.CLASSIC ? 0 : 1};
+        if (ImGui.combo(tr("ui.style"), styleIdx, styles)) {
+            options.style = styleIdx[0] == 0
+                    ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
+            dirty = true;
+        }
+        String[] orients = {tr("ui.orient.auto"), tr("ui.orient.ns"),
+                tr("ui.orient.ew"), tr("ui.orient.diag")};
+        TrackModel.OverrideMode[] modes = TrackModel.OverrideMode.values();
+        int[] orientIdx = {indexOf(modes, overrideMode)};
+        if (ImGui.combo(tr("ui.orientation"), orientIdx, orients)) {
+            overrideMode = modes[orientIdx[0]];
             dirty = true;
         }
 
         if (options.style == DesignOptions.Style.CLASSIC) {
             drawClassicOptions();
         }
-        ImGui.separator();
+    }
 
-        ImGui.text(tr("ui.orientation"));
-        TrackModel.OverrideMode[] modes = TrackModel.OverrideMode.values();
-        String[] labels = {tr("ui.orient.auto"), tr("ui.orient.ns"),
-                tr("ui.orient.ew"), tr("ui.orient.diag")};
+    private static int indexOf(TrackModel.OverrideMode[] modes, TrackModel.OverrideMode mode) {
         for (int i = 0; i < modes.length; i++) {
-            if (i > 0) {
-                ImGui.sameLine();
-            }
-            if (ImGui.radioButton(labels[i], overrideMode == modes[i])) {
-                overrideMode = modes[i];
-                dirty = true;
+            if (modes[i] == mode) {
+                return i;
             }
         }
+        return 0;
     }
 
     private void drawClassicOptions() {
-        ImGui.text(tr("ui.theme"));
-        if (ImGui.radioButton(tr("ui.theme.dark"),
-                options.theme == DesignOptions.Theme.DARK)) {
-            options.theme = DesignOptions.Theme.DARK;
+        String[] themes = {tr("ui.theme.dark"), tr("ui.theme.light")};
+        int[] themeIdx = {options.theme == DesignOptions.Theme.DARK ? 0 : 1};
+        if (ImGui.combo(tr("ui.theme"), themeIdx, themes)) {
+            options.theme = themeIdx[0] == 0
+                    ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
             dirty = true;
         }
-        ImGui.sameLine();
-        if (ImGui.radioButton(tr("ui.theme.light"),
-                options.theme == DesignOptions.Theme.LIGHT)) {
-            options.theme = DesignOptions.Theme.LIGHT;
-            dirty = true;
-        }
-
-        ImGui.text(tr("ui.fill"));
-        if (ImGui.radioButton(tr("ui.fill.uniform"),
-                options.fillMode == DesignOptions.FillMode.UNIFORM)) {
-            options.fillMode = DesignOptions.FillMode.UNIFORM;
-            dirty = true;
-        }
-        ImGui.sameLine();
-        if (ImGui.radioButton(tr("ui.fill.random"),
-                options.fillMode == DesignOptions.FillMode.RANDOM)) {
-            options.fillMode = DesignOptions.FillMode.RANDOM;
+        String[] fills = {tr("ui.fill.random"), tr("ui.fill.uniform")};
+        int[] fillIdx = {options.fillMode == DesignOptions.FillMode.RANDOM ? 0 : 1};
+        if (ImGui.combo(tr("ui.fill"), fillIdx, fills)) {
+            options.fillMode = fillIdx[0] == 0
+                    ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
             dirty = true;
         }
 
@@ -243,21 +262,19 @@ public class RailwayTool implements CustomTool {
             }
         }
 
-        ImGui.text(tr("ui.height"));
-        if (ImGui.radioButton(tr("ui.height.surface"), options.baseDy == 0)) {
-            options.baseDy = 0;
-            dirty = true;
-        }
-        ImGui.sameLine();
-        if (ImGui.radioButton(tr("ui.height.buried"), options.baseDy == -1)) {
-            options.baseDy = -1;
+        String[] heights = {tr("ui.height.surface"), tr("ui.height.buried")};
+        int[] heightIdx = {options.baseDy == 0 ? 0 : 1};
+        if (ImGui.combo(tr("ui.height"), heightIdx, heights)) {
+            options.baseDy = heightIdx[0] == 0 ? 0 : -1;
             dirty = true;
         }
     }
 
     private void recompute(Minecraft mc) {
         plan.clear();
+        planCount = 0;
         clearGhost();
+        clearSplineGhost();
         if (mc.level == null || control.size() < 2) {
             return;
         }
@@ -269,15 +286,19 @@ public class RailwayTool implements CustomTool {
             view.put(v.getX(), v.getY(), v.getZ(), Blocks.WHITE_WOOL.defaultBlockState());
         }
 
+        dugPositions.clear();
         if (groundSnap.get()) {
-            trace = Grounding.apply(view, trace);
+            trace = Grounding.apply(view, trace,
+                    smoothRidges.get() ? dugPositions : null);
         }
         if (purgeCorners.get()) {
             trace = LCorners.purge(view, trace);
         }
         if (groundSnap.get()) {
-            trace = Grounding.apply(view, trace);
+            trace = Grounding.apply(view, trace,
+                    smoothRidges.get() ? dugPositions : null);
         }
+        splineLength = trace.size();
 
         TrackModel model = new TrackModel(view, trace, overrideMode);
         if (options.style == DesignOptions.Style.CLASSIC) {
@@ -286,12 +307,27 @@ public class RailwayTool implements CustomTool {
             new NatureDesign().emitCases(model, options, plan);
         }
 
+        for (long k : dugPositions) {
+            if (!plan.containsKey(k)) {
+                plan.put(k, Blocks.AIR.defaultBlockState());
+            }
+        }
+        planCount = plan.size();
+
         if (showGhost.get() && plan.size() <= MAX_GHOST_BLOCKS) {
             for (Map.Entry<Long, BlockState> e : plan.entrySet()) {
                 setGhost(e.getKey().longValue(), e.getValue());
             }
             for (BlockPos p : control) {
                 setGhost(p.asLong(), Blocks.ORANGE_WOOL.defaultBlockState());
+            }
+        }
+        if (showSplineGhost.get() && !trace.isEmpty() && plan.size() <= MAX_GHOST_BLOCKS) {
+            splineGhost = Axiom.createBooleanRegion();
+            if (splineGhost != null) {
+                for (BlockPos v : trace) {
+                    splineGhost.add(v.getX(), v.getY(), v.getZ());
+                }
             }
         }
         if (plan.size() > MAX_PLAN_BLOCKS) {
@@ -344,6 +380,13 @@ public class RailwayTool implements CustomTool {
                     BlockPos.getZ(key), null);
         }
         ghostPositions.clear();
+    }
+
+    private void clearSplineGhost() {
+        if (splineGhost != null) {
+            splineGhost.close();
+            splineGhost = null;
+        }
     }
 
     private void setStatus(String s, boolean error) {

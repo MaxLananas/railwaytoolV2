@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "BTE Sín",
+  "bte_railpathtool.tool.name": "═ BTE sín",
   "bte_railpathtool.ui.points": "Pontok: %s",
   "bte_railpathtool.ui.undo": "Utolsó pont törlése",
   "bte_railpathtool.ui.confirm": "Építés",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Pont törölve (maradt %s).",
   "bte_railpathtool.ui.built": "Sín felépítve (%s blokk).",
   "bte_railpathtool.ui.nothing": "Nincs mit építeni: helyezz el legalább 2 pontot.",
-  "bte_railpathtool.ui.plan_too_big": "Túl nagy terv (%s blokk, max %s): rövidítsd a spline-t."
+  "bte_railpathtool.ui.plan_too_big": "Túl nagy terv (%s blokk, max %s): rövidítsd a spline-t.",
+  "bte_railpathtool.ui.help_1": "1. Jobb klikk: pontok elhelyezése a sín mentén.",
+  "bte_railpathtool.ui.help_2": "2. Ellenőrizd az élő szellemmegjelenítést.",
+  "bte_railpathtool.ui.help_3": "3. Enter: építés (Ctrl+Z visszavonáshoz).",
+  "bte_railpathtool.ui.est_blocks": "Tervezett blokkok: %s",
+  "bte_railpathtool.ui.length": "Spline hossza: %s blokk",
+  "bte_railpathtool.ui.smooth_ridges": "Dudorok egyengetése (alagút ásása)",
+  "bte_railpathtool.ui.ghost_spline": "Spline-vonal (körvonal)"
 }

@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "Ράγα BTE",
+  "bte_railpathtool.tool.name": "═ Ράγα BTE",
   "bte_railpathtool.ui.points": "Σημεία: %s",
   "bte_railpathtool.ui.undo": "Αφαίρεση τελευταίου σημείου",
   "bte_railpathtool.ui.confirm": "Κατασκευή",
@@ -35,5 +35,12 @@
   "bte_railpathtool.ui.point_removed": "Σημείο αφαιρέθηκε (απομένουν %s).",
   "bte_railpathtool.ui.built": "Ράγα κατασκευάστηκε (%s μπλοκ).",
   "bte_railpathtool.ui.nothing": "Τίποτα προς κατασκευή: βάλε τουλάχιστον 2 σημεία.",
-  "bte_railpathtool.ui.plan_too_big": "Πολύ μεγάλο σχέδιο (%s μπλοκ, μέγιστο %s): συντόμευσε το spline."
+  "bte_railpathtool.ui.plan_too_big": "Πολύ μεγάλο σχέδιο (%s μπλοκ, μέγιστο %s): συντόμευσε το spline.",
+  "bte_railpathtool.ui.help_1": "1. Δεξί κλικ: βάλε σημεία κατά μήκος της ράγας.",
+  "bte_railpathtool.ui.help_2": "2. Έλεγξε την ζωντανή προεπισκόπηση.",
+  "bte_railpathtool.ui.help_3": "3. Enter: κατασκευή (Ctrl+Z για αναίρεση).",
+  "bte_railpathtool.ui.est_blocks": "Προγραμματισμένα μπλοκ: %s",
+  "bte_railpathtool.ui.length": "Μήκος spline: %s μπλοκ",
+  "bte_railpathtool.ui.smooth_ridges": "Εξομάλυνση εξογκωμάτων (σκάψε τούνελ)",
+  "bte_railpathtool.ui.ghost_spline": "Γραμμή spline (περίγραμμα)"
 }
