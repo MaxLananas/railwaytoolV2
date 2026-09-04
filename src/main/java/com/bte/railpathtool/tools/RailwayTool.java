@@ -16,6 +16,7 @@ import com.moulberry.axiomclientapi.regions.BooleanRegion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import imgui.moulberry92.ImGui;
 import imgui.moulberry92.type.ImBoolean;
+import imgui.moulberry92.type.ImInt;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.client.Camera;
@@ -48,6 +49,11 @@ public class RailwayTool implements CustomTool {
     private final DesignOptions options = new DesignOptions();
     private TrackModel.OverrideMode overrideMode = TrackModel.OverrideMode.AUTO;
     private final int[][] soilPercentUI;
+    private final ImInt styleSel = new ImInt(0);
+    private final ImInt orientSel = new ImInt(0);
+    private final ImInt themeSel = new ImInt(0);
+    private final ImInt fillSel = new ImInt(0);
+    private final ImInt heightSel = new ImInt(0);
 
     private final Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
     private final LongOpenHashSet ghostPositions = new LongOpenHashSet();
@@ -193,18 +199,16 @@ public class RailwayTool implements CustomTool {
         ImGui.separator();
 
         String[] styles = {tr("ui.style.classic"), tr("ui.style.nature")};
-        int[] styleIdx = {options.style == DesignOptions.Style.CLASSIC ? 0 : 1};
-        if (ImGui.combo(tr("ui.style"), styleIdx, styles)) {
-            options.style = styleIdx[0] == 0
+        if (ImGui.combo(tr("ui.style"), styleSel, styles)) {
+            options.style = styleSel.get() == 0
                     ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
             dirty = true;
         }
         String[] orients = {tr("ui.orient.auto"), tr("ui.orient.ns"),
                 tr("ui.orient.ew"), tr("ui.orient.diag")};
         TrackModel.OverrideMode[] modes = TrackModel.OverrideMode.values();
-        int[] orientIdx = {indexOf(modes, overrideMode)};
-        if (ImGui.combo(tr("ui.orientation"), orientIdx, orients)) {
-            overrideMode = modes[orientIdx[0]];
+        if (ImGui.combo(tr("ui.orientation"), orientSel, orients)) {
+            overrideMode = modes[orientSel.get()];
             dirty = true;
         }
 
@@ -213,27 +217,16 @@ public class RailwayTool implements CustomTool {
         }
     }
 
-    private static int indexOf(TrackModel.OverrideMode[] modes, TrackModel.OverrideMode mode) {
-        for (int i = 0; i < modes.length; i++) {
-            if (modes[i] == mode) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     private void drawClassicOptions() {
         String[] themes = {tr("ui.theme.dark"), tr("ui.theme.light")};
-        int[] themeIdx = {options.theme == DesignOptions.Theme.DARK ? 0 : 1};
-        if (ImGui.combo(tr("ui.theme"), themeIdx, themes)) {
-            options.theme = themeIdx[0] == 0
+        if (ImGui.combo(tr("ui.theme"), themeSel, themes)) {
+            options.theme = themeSel.get() == 0
                     ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
             dirty = true;
         }
         String[] fills = {tr("ui.fill.random"), tr("ui.fill.uniform")};
-        int[] fillIdx = {options.fillMode == DesignOptions.FillMode.RANDOM ? 0 : 1};
-        if (ImGui.combo(tr("ui.fill"), fillIdx, fills)) {
-            options.fillMode = fillIdx[0] == 0
+        if (ImGui.combo(tr("ui.fill"), fillSel, fills)) {
+            options.fillMode = fillSel.get() == 0
                     ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
             dirty = true;
         }
@@ -263,9 +256,8 @@ public class RailwayTool implements CustomTool {
         }
 
         String[] heights = {tr("ui.height.surface"), tr("ui.height.buried")};
-        int[] heightIdx = {options.baseDy == 0 ? 0 : 1};
-        if (ImGui.combo(tr("ui.height"), heightIdx, heights)) {
-            options.baseDy = heightIdx[0] == 0 ? 0 : -1;
+        if (ImGui.combo(tr("ui.height"), heightSel, heights)) {
+            options.baseDy = heightSel.get() == 0 ? 0 : -1;
             dirty = true;
         }
     }
