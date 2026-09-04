@@ -33,7 +33,8 @@ RAIL_STATES = {
     "leaf_2_north", "leaf_2_south", "leaf_2_east", "leaf_2_west",
     "leaf_3_north", "leaf_3_south", "leaf_3_east", "leaf_3_west",
     "leaf_4_north", "leaf_4_south", "leaf_4_east", "leaf_4_west",
-}
+} | {f"door_{h}_{f}" for h in ("lower", "upper")
+     for f in ("north", "south", "east", "west")}
 SOIL = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
         "deepslate_iron_ore", "deepslate_coal_ore", "orange_wool"}
 IGNORED = {R.GROUND, "white_wool", "red_wool", "blue_wool", "lime_wool", R.AIR}

@@ -41,6 +41,8 @@ RAIL_STATES = {
     "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
     "button_north", "button_east", "gravel",
 } | {f"leaf_{a}_{f}" for a in "1234" for f in ("north", "south", "east", "west")}
+RAIL_STATES |= {f"door_{h}_{f}" for h in ("lower", "upper")
+                for f in ("north", "south", "east", "west")}
 SOIL = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
         "deepslate_iron_ore", "deepslate_coal_ore", "orange_wool"}
 IGNORED = {R.GROUND, "white_wool", "red_wool", "blue_wool", "lime_wool",
@@ -61,6 +63,21 @@ def check_states(case, world):
             continue
         if st not in RAIL_STATES and st not in SOIL:
             fail(case, f"etat inconnu '{st}' a {pos}")
+
+
+def check_doors(case, world):
+    """Portes completes : lower a (x,y,z) <=> upper meme facing a (x,y+1,z)."""
+    blocks = world.blocks
+    for (x, y, z), st in blocks.items():
+        if not isinstance(st, str) or not st.startswith("door_"):
+            continue
+        half, facing = st.split("_", 2)[1], st.rsplit("_", 1)[1]
+        if half == "lower":
+            if blocks.get((x, y + 1, z)) != f"door_upper_{facing}":
+                fail(case, f"porte orpheline: {st} a {(x, y, z)} sans upper {facing}")
+        else:
+            if blocks.get((x, y - 1, z)) != f"door_lower_{facing}":
+                fail(case, f"porte orpheline: {st} a {(x, y, z)} sans lower {facing}")
 
 
 def check_corridor(case, world, trace):
@@ -175,6 +192,7 @@ def run_mega(name, trace, colors=None, terrain="flat",
                     fail(f"{name}/{base_style}/pass{p}-protect",
                          f"rail detruit: {d[:3]}")
             check_states(f"{name}/{base_style}/pass{p}", w)
+            check_doors(f"{name}/{base_style}/pass{p}", w)
             check_all_typed(f"{name}/{base_style}/pass{p}", model, trace)
             last = after
         check_corridor(f"{name}/{base_style}", w, trace)
@@ -221,19 +239,22 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
         colorize(w, trace)
     counts["voxels"] += len(trace)
     for style in styles:
-        before = snapshot(w)
-        t0 = time.time()
-        try:
-            model = R.build_all(w, trace, R.Options(style=style))
-        except Exception as e:
-            fail(f"{name}/{style}", f"EXCEPTION build: {e!r}")
-            continue
-        counts["builds"] += 1
-        _ = model
-        check_states(f"{name}/{style}", w)
-        d = rail_destroyed(before, snapshot(w))
-        if d:
-            fail(f"{name}/{style}", f"build initial casse du rail: {d[:3]}")
+        for theme in (1, 2):
+            tag = f"{style}/th{theme}"
+            before = snapshot(w)
+            t0 = time.time()
+            try:
+                model = R.build_all(w, trace, R.Options(style=style, theme=theme))
+            except Exception as e:
+                fail(f"{name}/{tag}", f"EXCEPTION build: {e!r}")
+                continue
+            counts["builds"] += 1
+            _ = model
+            check_states(f"{name}/{tag}", w)
+            check_doors(f"{name}/{tag}", w)
+            d = rail_destroyed(before, snapshot(w))
+            if d:
+                fail(f"{name}/{tag}", f"build initial casse du rail: {d[:3]}")
 
 
 # =====================================================================

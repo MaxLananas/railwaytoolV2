@@ -120,18 +120,16 @@ public final class NatureDesign implements RailDesign {
         }
 
         List<String> nb = model.neighborDirections(x, y, z);
-        String d1 = nb.isEmpty() ? "" : nb.get(0);
-        String d2 = nb.size() > 1 ? nb.get(1) : "";
         int a1;
         String f1;
         int a2;
         String f2;
-        Object[] found = findLeaf(dirNS, d1, d2);
-        if (found != null) {
-            a1 = (Integer) found[1];
-            f1 = (String) found[2];
-            a2 = (Integer) found[3];
-            f2 = (String) found[4];
+        if (nb.size() >= 2) {
+            Object[] v = leafValues(dirNS, nb.get(0), nb.get(1));
+            a1 = (Integer) v[0];
+            f1 = (String) v[1];
+            a2 = (Integer) v[2];
+            f2 = (String) v[3];
         } else if (dirNS) {
             a1 = 2; f1 = "north"; a2 = 2; f2 = "south";
         } else {
@@ -141,15 +139,36 @@ public final class NatureDesign implements RailDesign {
         w.put(x + leafPos[1][0], y + 1, z + leafPos[1][1], leafLitter(a2, f2));
     }
 
-    private static Object[] findLeaf(boolean dirNS, String d1, String d2) {
+    private static final java.util.Set<String> CARD_N = java.util.Set.of("N", "NE", "NO");
+    private static final java.util.Set<String> CARD_S = java.util.Set.of("S", "SE", "SO");
+    private static final java.util.Set<String> CARD_E = java.util.Set.of("E", "NE", "SE");
+    private static final java.util.Set<String> CARD_O = java.util.Set.of("O", "NO", "SO");
+
+    /** Valeurs {a1, f1, a2, f2} : script Rouquinator pour les 8 paires canoniques,
+     * extension cohérente (litière à 3 segments tournée vers le creux du virage)
+     * pour toutes les autres paires — virages durs, traces dégénérées. */
+    private static Object[] leafValues(boolean dirNS, String d1, String d2) {
         for (Object[] row : dirNS ? LEAF_NS : LEAF_EW) {
             String[] pair = (String[]) row[0];
             if ((d1.equals(pair[0]) && d2.equals(pair[1]))
                     || (d1.equals(pair[1]) && d2.equals(pair[0]))) {
-                return row;
+                return new Object[]{row[1], row[2], row[3], row[4]};
             }
         }
-        return null;
+        boolean nDom = CARD_N.contains(d1) || CARD_N.contains(d2);
+        boolean sDom = CARD_S.contains(d1) || CARD_S.contains(d2);
+        String f1 = (nDom && !sDom) ? "south" : "north";
+        boolean eDom = CARD_E.contains(d1) || CARD_E.contains(d2);
+        boolean oDom = CARD_O.contains(d1) || CARD_O.contains(d2);
+        String f2;
+        if (eDom && !oDom) {
+            f2 = "east";
+        } else if (oDom && !eDom) {
+            f2 = "west";
+        } else {
+            f2 = f1;
+        }
+        return new Object[]{3, f1, 3, f2};
     }
 
     private static String crossFacing(int dx, int dz) {

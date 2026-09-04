@@ -517,7 +517,12 @@ PROTECTED = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
              "side_east", "side_west", "side_north", "side_south",
              "coral_south", "coral_east",
              "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
-             "button_north", "button_east"}
+             "button_north", "button_east",
+             "door_lower", "door_upper"} | {f"door_{h}_{f}" for h in ("lower", "upper")
+                                            for f in ("north", "south", "east", "west")}
+
+DOOR_FACING = {"side_north": "door_north", "side_south": "door_south",
+               "side_east": "door_east", "side_west": "door_west"}
 
 random.seed(42)
 SOIL_MIX = [("deepslate", 45), ("cobbled_deepslate", 40), ("pale_oak_wood", 10),
@@ -547,13 +552,20 @@ def pick_soil(opt):
 def build_column(world, opt, x, y, z, center):
     """Pose sol/bloc/air comme le script (ne réécrit jamais un rail existant).
     Protection renforcée sur les 3 niveaux de la colonne : aucun bloc de rail
-    existant n'est jamais enfoncé (rebuild idempotent)."""
+    existant n'est jamais enfoncé (rebuild idempotent).
+    Thème clair : le side-block est une porte de fer COMPLETE (lower y+1 / upper y+2),
+    sinon la moitié haute seule casse en jeu (c'est le bug du theme clair)."""
     start_y = y + opt.base_dy
     for yy in (start_y, start_y + 1, start_y + 2):
         if world.get(x, yy, z) in PROTECTED:
             return
-    world.set(x, start_y + 2, z, AIR)
-    world.set(x, start_y + 1, z, center)
+    if opt.theme == 2 and center in DOOR_FACING:
+        f = DOOR_FACING[center].split("_", 1)[1]
+        world.set(x, start_y + 2, z, f"door_upper_{f}")
+        world.set(x, start_y + 1, z, f"door_lower_{f}")
+    else:
+        world.set(x, start_y + 2, z, AIR)
+        world.set(x, start_y + 1, z, center)
     world.set(x, start_y, z, pick_soil(opt))
 
 
@@ -563,8 +575,11 @@ RAIL_FAMILY = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
                "side_east", "side_west", "side_north", "side_south",
                "coral_south", "coral_east", "gravel",
                "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
-               "button_north", "button_east"} | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
-                                                 for f in ("north", "south", "east", "west")}
+               "button_north", "button_east",
+               "door_lower", "door_upper",
+               } | {f"door_{h}_{f}" for h in ("lower", "upper")
+                    for f in ("north", "south", "east", "west")} | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
+                                              for f in ("north", "south", "east", "west")}
 
 # Positions de blocs de rail présents AVANT le build courant (protection dédiée nature).
 rail_before = set()
@@ -622,12 +637,30 @@ LEAF_EW = [
     (("NO", "SE"), (3, "south", 3, "north")),
 ]
 
+_CARD_NS = ({"N", "NE", "NO"}, {"S", "SE", "SO"})
+_CARD_HO = ({"E", "NE", "SE"}, {"O", "NO", "SO"})
+
 
 def leaf_pair(table, d1, d2):
+    """Valeurs (a1, f1, a2, f2) pour une paire de voisins (script Rouquinator exact).
+    Pour les paires jamais couvertes par le script (virages durs, traces dégénérées) :
+    extension cohérente — litière à 3 segments orientée vers le creux du virage."""
     for pair, val in table:
         if pm(d1, d2, *pair):
             return val
-    return None
+    pair = {d1, d2}
+    n_dom = bool(pair & _CARD_NS[0])
+    s_dom = bool(pair & _CARD_NS[1])
+    f_1 = "south" if (n_dom and not s_dom) else "north"
+    e_dom = bool(pair & _CARD_HO[0])
+    o_dom = bool(pair & _CARD_HO[1])
+    if e_dom and not o_dom:
+        f_2 = "east"
+    elif o_dom and not e_dom:
+        f_2 = "west"
+    else:
+        f_2 = f_1
+    return (3, f_1, 3, f_2)
 
 
 def build_nature_block(model, world, opt, x, y, z, t):
@@ -669,20 +702,39 @@ def build_nature_block(model, world, opt, x, y, z, t):
     nb = ordered_neighbors(model, x, y, z)
     d1 = nb[0] if len(nb) > 0 else ""
     d2 = nb[1] if len(nb) > 1 else ""
-    pair = leaf_pair(table, d1, d2)
-    if pair:
-        a1, f1, a2, f2 = pair
-    else:
-        a1, f1, a2, f2 = (2, "north", 2, "south") if t == NS else (2, "west", 2, "east")
+    a1, f1, a2, f2 = leaf_pair(table, d1, d2) if len(nb) >= 2 else \
+        ((2, "north", 2, "south") if t == NS else (2, "west", 2, "east"))
     (dx1, dz1), (dx2, dz2) = leaf_pos
     nature_set(world, x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
     nature_set(world, x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
+
+
+def orphan_diag_conversion(model, x, y, z):
+    """Un voxel DIAG sans aucun voxel de TRACE en diagonale (fragment perpendiculaire
+    isolé, ex trace qui 'saute' d'une ligne) rend un vilain 4-murets corail de
+    l'autre sens. On le convertit vers le type axial dominant (défaut NS).
+    Critère géométrique (trace brute, pas les types) : stable au rebuild — les
+    indices corail du 1er build ne peuvent pas reclassifier un voisin et créer
+    du churn (idempotence préservée)."""
+    nb = model._neighbors_of(x, y, z)
+    for dx, dz in ((1, 1), (1, -1), (-1, 1), (-1, -1)):
+        if (dx, dz) in nb:
+            return None
+    has_ns = model.type_near(x, y, z - 1) == NS or model.type_near(x, y, z + 1) == NS
+    has_ew = model.type_near(x + 1, y, z) == EW or model.type_near(x - 1, y, z) == EW
+    if has_ew and not has_ns:
+        return EW
+    return NS
 
 
 def build_all(world, trace, opt):
     global rail_before
     rail_before = {pos for pos, st in world.blocks.items() if st in RAIL_FAMILY}
     model = TrackModel(world, trace)
+    for v in [v for v in trace if model.types.get(v) == DIAG]:
+        conv = orphan_diag_conversion(model, *v)
+        if conv is not None:
+            model.types[v] = conv
     for (x, y, z) in [v for v in trace if model.types.get(v) == DIAG]:
         if opt.style == "classic":
             coral, sides = diag_design(model, x, y, z)

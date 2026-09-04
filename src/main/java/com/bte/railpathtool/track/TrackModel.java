@@ -34,6 +34,48 @@ public final class TrackModel {
         for (BlockPos p : traceVoxels) {
             types.put(p.asLong(), classify(p, mode));
         }
+        if (mode == OverrideMode.AUTO) {
+            convertOrphanDiags();
+        }
+    }
+
+    /**
+     * Un voxel DIAG sans aucun voxel de TRACE en diagonale est un fragment
+     * perpendiculaire isolé (trace qui « saute » d'une ligne, ex-rail détruit) :
+     * il rend 4 murets + corail de l'autre sens. On le convertit vers le type
+     * axial dominant de son voisinage (NS par défaut). Critère géométrique sur
+     * la trace brute (pas les types) : stable au rebuild, idempotence préservée.
+     */
+    private void convertOrphanDiags() {
+        int[][] diag = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+        for (BlockPos p : orderedTrace) {
+            if (types.get(p.asLong()) != TrackType.DIAG) {
+                continue;
+            }
+            int x = p.getX();
+            int y = p.getY();
+            int z = p.getZ();
+            boolean hasDiagNeighbor = false;
+            for (int[] d : diag) {
+                for (int dy : DY_TOLERANCE) {
+                    if (trace.contains(BlockPos.asLong(x + d[0], y + dy, z + d[1]))) {
+                        hasDiagNeighbor = true;
+                        break;
+                    }
+                }
+                if (hasDiagNeighbor) {
+                    break;
+                }
+            }
+            if (hasDiagNeighbor) {
+                continue;
+            }
+            boolean hasNs = typeNear(x, y, z - 1) == TrackType.NS
+                    || typeNear(x, y, z + 1) == TrackType.NS;
+            boolean hasEw = typeNear(x + 1, y, z) == TrackType.EW
+                    || typeNear(x - 1, y, z) == TrackType.EW;
+            types.put(p.asLong(), (hasEw && !hasNs) ? TrackType.EW : TrackType.NS);
+        }
     }
 
     public List<BlockPos> orderedTrace() {

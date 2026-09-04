@@ -194,6 +194,15 @@ public final class ClassicDesign implements RailDesign {
                     return;
                 }
             }
+            if (center.getBlock() == Blocks.IRON_DOOR) {
+                // Thème clair : une porte complète (lower + upper) — une moitié
+                // upper orpheline se casse en jeu et fait disparaître le tracé.
+                put(x, startY + 2, z, center);
+                put(x, startY + 1, z, center.setValue(
+                        BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
+                put(x, startY, z, pickSoil());
+                return;
+            }
             put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
             put(x, startY + 1, z, center);
             put(x, startY, z, pickSoil());
