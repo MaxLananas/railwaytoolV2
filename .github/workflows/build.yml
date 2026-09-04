@@ -101,7 +101,9 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-ci.log
+        run: |
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee build-ci.log
 
       - name: Push build log on failure (debug)
         if: failure() && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/arena/')
