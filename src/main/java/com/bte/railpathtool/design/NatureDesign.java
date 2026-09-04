@@ -67,6 +67,7 @@ public final class NatureDesign implements RailDesign {
         for (BlockPos v : ew) {
             emitBlock(model, w, v, TrackType.EW);
         }
+        w.fillSupports();
     }
 
     private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t) {
@@ -125,7 +126,21 @@ public final class NatureDesign implements RailDesign {
         int a2;
         String f2;
         if (nb.size() >= 2) {
-            Object[] lv = leafValues(dirNS, nb.get(0), nb.get(1));
+            String d1 = nb.get(0);
+            String d2 = nb.get(1);
+            // Derive en coin (le troncon glisse d'1 en X ou Z) : la paire
+            // droite (N,S)/(E,O) masque le voisin diagonal — on le substitue
+            // pour rendre la litiere a 3 segments du script dans les coins.
+            if ((d1.equals("N") && d2.equals("S")) || (d1.equals("S") && d2.equals("N"))
+                    || (d1.equals("E") && d2.equals("O")) || (d1.equals("O") && d2.equals("E"))) {
+                for (String d : nb) {
+                    if (d.equals("NE") || d.equals("NO") || d.equals("SE") || d.equals("SO")) {
+                        d2 = d;
+                        break;
+                    }
+                }
+            }
+            Object[] lv = leafValues(dirNS, d1, d2);
             a1 = (Integer) lv[0];
             f1 = (String) lv[1];
             a2 = (Integer) lv[2];
@@ -211,6 +226,44 @@ public final class NatureDesign implements RailDesign {
             }
             plan.put(BlockPos.asLong(x, y, z), state);
             view.put(x, y, z, state);
+        }
+
+        /**
+         * Comble sous les blocs poses qui flottent : aucun bloc du build ne
+         * garde de l'air directement sous lui (contrat du script, la voie
+         * repose toujours sur le sol — remplissage gravier, max 6 blocs).
+         */
+        void fillSupports() {
+            final int depthMax = 4;
+            long[] keys = plan.keySet().toLongArray();
+            for (long key : keys) {
+                BlockState st = plan.get(key);
+                if (st == null || st.isAir()) {
+                    continue;
+                }
+                int x = BlockPos.getX(key);
+                int y = BlockPos.getY(key);
+                int z = BlockPos.getZ(key);
+                // Mesure d'abord le trou réel sous le bloc : un gap plus profond
+                // que depthMax est un pont/viaduc volontaire — ne RIEN faire
+                // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air).
+                int gap = 0;
+                while (view.isAir(x, y - 1 - gap, z) && gap < 64) {
+                    gap++;
+                }
+                if (gap == 0 || gap > depthMax) {
+                    continue;
+                }
+                for (int yy = y - 1; yy >= y - gap; yy--) {
+                    long k = BlockPos.asLong(x, yy, z);
+                    if (!plan.containsKey(k)
+                            && !ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, yy, z))) {
+                        BlockState fill = Blocks.GRAVEL.defaultBlockState();
+                        plan.put(k, fill);
+                        view.put(x, yy, z, fill);
+                    }
+                }
+            }
         }
     }
 }

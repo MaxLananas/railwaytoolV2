@@ -61,6 +61,19 @@ def run_scenario(seed):
             snap_before = dict(w.blocks)
             try:
                 model = R.build_all(w, trace, R.Options(style=style, theme=theme))
+                # flottant plat : air directement sous + solide dans les 6
+                for fp, fst in w.blocks.items():
+                    verif += 1
+                    if fst not in R.RAIL_FAMILY or fp in snap_before:
+                        continue
+                    if w.get(fp[0], fp[1] - 1, fp[2]) not in (R.AIR, None):
+                        continue
+                    for dg in range(2, 6):
+                        verif += 1
+                        if w.get(fp[0], fp[1] - dg, fp[2]) not in (R.AIR, None):
+                            viol.append(f"seed{seed}/{style}/th{theme}: flottant plat {fst} {fp}")
+                            break
+
             except Exception as e:  # noqa: BLE001
                 viol.append(f"seed{seed}/{style}/th{theme}: EXCEPTION {e!r}")
                 continue
@@ -96,7 +109,7 @@ def check_invariants(w, trace, model, before, viol, tag):
     ys = [t[1] for t in trace]
     zs = [t[2] for t in trace]
     x0, x1 = min(xs) - 3, max(xs) + 3
-    y0, y1 = min(ys) - 3, max(ys) + 3
+    y0, y1 = min(ys) - 9, max(ys) + 3  # marge basse : supports jusqu'a 6
     z0, z1 = min(zs) - 3, max(zs) + 3
     for (x, y, z), st in w.blocks.items():
         if st in IGNORED or st == R.GROUND or st in SOIL:
@@ -104,16 +117,13 @@ def check_invariants(w, trace, model, before, viol, tag):
         v += 1
         if not (x0 <= x <= x1 and y0 <= y <= y1 and z0 <= z <= z1):
             viol.append(f"{tag}: hors corridor {st} {(x, y, z)}")
-    # portes completes
+    # panneaux de porte basse uniquement (rendu script) : pas de moitie upper
     for (x, y, z), st in w.blocks.items():
         if isinstance(st, str) and st.startswith("door_"):
             v += 1
-            half, facing = st.split("_", 2)[1], st.rsplit("_", 1)[1]
-            if half == "lower":
-                if w.blocks.get((x, y + 1, z)) != f"door_upper_{facing}":
-                    viol.append(f"{tag}: porte orpheline {st} {(x, y, z)}")
-            elif w.blocks.get((x, y - 1, z)) != f"door_lower_{facing}":
-                viol.append(f"{tag}: porte orpheline {st} {(x, y, z)}")
+            half = st.split("_", 2)[1]
+            if half != "lower":
+                viol.append(f"{tag}: porte complete interdite {st} {(x, y, z)}")
     # types assignes
     for t in trace:
         v += 1

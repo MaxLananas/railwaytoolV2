@@ -66,6 +66,8 @@ public final class ClassicDesign implements RailDesign {
             writer.column(v.getX(), v.getY(), v.getZ() - 1, lat);
             writer.column(v.getX(), v.getY(), v.getZ() + 1, lat);
         }
+
+        writer.fillSupports(null);
     }
 
     private void emitDiag(TrackModel model, Palette pal, ColumnWriter writer, BlockPos v) {
@@ -155,7 +157,7 @@ public final class ClassicDesign implements RailDesign {
             }
             return Blocks.IRON_DOOR.defaultBlockState()
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, dir)
-                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
+                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
         }
 
         @SuppressWarnings({"unchecked", "rawtypes"})
@@ -195,11 +197,10 @@ public final class ClassicDesign implements RailDesign {
                 }
             }
             if (center.getBlock() == Blocks.IRON_DOOR) {
-                // Thème clair : une porte complète (lower + upper) — une moitié
-                // upper orpheline se casse en jeu et fait disparaître le tracé.
-                put(x, startY + 2, z, center);
-                put(x, startY + 1, z, center.setValue(
-                        BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
+                // Thème clair : panneau de porte basse uniquement (moitié lower),
+                // fidèle au script — pas de porte complète à 2 blocs.
+                put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
+                put(x, startY + 1, z, center);
                 put(x, startY, z, pickSoil());
                 return;
             }
@@ -212,6 +213,47 @@ public final class ClassicDesign implements RailDesign {
             long key = BlockPos.asLong(x, y, z);
             plan.put(key, state);
             view.put(x, y, z, state);
+        }
+
+        /**
+         * Comble sous les blocs de rail qui flottent (descente bloquee, dents
+         * residuelles, derive des points de controle) : aucun bloc pose par ce
+         * build ne garde de l'air directement sous lui — contrat du script,
+         * la voie repose toujours sur le sol (remplissage max 6 blocs).
+         *
+         * @param soilOverride sol a utiliser (null = melange du theme courant)
+         */
+        void fillSupports(BlockState soilOverride) {
+            final int depthMax = 4;
+            long[] keys = plan.keySet().toLongArray();
+            for (long key : keys) {
+                BlockState st = plan.get(key);
+                if (st == null || st.isAir()) {
+                    continue;
+                }
+                int x = BlockPos.getX(key);
+                int y = BlockPos.getY(key);
+                int z = BlockPos.getZ(key);
+                // Mesure d'abord le trou réel sous le bloc : un gap plus profond
+                // que depthMax est un pont/viaduc volontaire — ne RIEN faire
+                // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air,
+                // exactement le bug des fragments flottants signalé).
+                int gap = 0;
+                while (view.isAir(x, y - 1 - gap, z) && gap < 64) {
+                    gap++;
+                }
+                if (gap == 0 || gap > depthMax) {
+                    continue;
+                }
+                for (int yy = y - 1; yy >= y - gap; yy--) {
+                    long k = BlockPos.asLong(x, yy, z);
+                    if (!plan.containsKey(k)) {
+                        BlockState fill = soilOverride != null ? soilOverride : pickSoil();
+                        plan.put(k, fill);
+                        view.put(x, yy, z, fill);
+                    }
+                }
+            }
         }
 
         private BlockState pickSoil() {

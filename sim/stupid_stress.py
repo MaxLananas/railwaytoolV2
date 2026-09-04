@@ -66,34 +66,41 @@ def check_states(case, world):
 
 
 def check_doors(case, world):
-    """Portes completes : lower a (x,y,z) <=> upper meme facing a (x,y+1,z)."""
+    """Panneaux de porte basse uniquement (rendu script) : pas de moitie upper."""
     blocks = world.blocks
     for (x, y, z), st in blocks.items():
         if not isinstance(st, str) or not st.startswith("door_"):
             continue
-        half, facing = st.split("_", 2)[1], st.rsplit("_", 1)[1]
-        if half == "lower":
-            if blocks.get((x, y + 1, z)) != f"door_upper_{facing}":
-                fail(case, f"porte orpheline: {st} a {(x, y, z)} sans upper {facing}")
-        else:
-            if blocks.get((x, y - 1, z)) != f"door_lower_{facing}":
-                fail(case, f"porte orpheline: {st} a {(x, y, z)} sans lower {facing}")
+        half = st.split("_", 2)[1]
+        if half != "lower":
+            fail(case, f"porte complete interdite: {st} a {(x, y, z)} (upper inattendu)")
 
 
-def check_corridor(case, world, trace):
+def check_corridor(case, world, trace, pre_keys=frozenset()):
     if not trace:
         return
     xs = [v[0] for v in trace]
     ys = [v[1] for v in trace]
     zs = [v[2] for v in trace]
     x0, x1, y0, y1, z0, z1 = (min(xs) - 3, max(xs) + 3,
-                              min(ys) - 3, max(ys) + 3,
+                              min(ys) - 9, max(ys) + 3,
                               min(zs) - 3, max(zs) + 3)
     for (x, y, z), st in world.blocks.items():
         if st in IGNORED or st == R.GROUND:
             continue
         if not (x0 <= x <= x1 and y0 <= y <= y1 and z0 <= z <= z1):
             fail(case, f"hors corridor: {st} a {(x, y, z)}")
+    # flottant de terrain plat : air DIRECTEMENT sous + solide dans les 6
+    # blocs en dessous (sinon c'est un pont/bosse volontaire : pas un bug).
+    for (x, y, z), st in world.blocks.items():
+        if st not in R.RAIL_FAMILY or (x, y, z) in pre_keys:
+            continue
+        if world.get(x, y - 1, z) not in (R.AIR, None):
+            continue
+        for depth_gap in range(2, 6):
+            if world.get(x, y - depth_gap, z) not in (R.AIR, None):
+                fail(case, f"flottant plat: {st} a {(x, y, z)} ({depth_gap - 1} air sous lui)")
+                break
 
 
 def check_all_typed(case, model, trace):
@@ -168,6 +175,7 @@ def run_mega(name, trace, colors=None, terrain="flat",
             for pos, c in colors.items():
                 if w.get(*pos) != R.AIR or True:
                     w.set(pos[0], pos[1], pos[2], c)
+        pre0 = set(w.blocks.keys())
         t0 = time.time()
         last = snapshot(w)
         for p in range(passes):
@@ -195,7 +203,7 @@ def run_mega(name, trace, colors=None, terrain="flat",
             check_doors(f"{name}/{base_style}/pass{p}", w)
             check_all_typed(f"{name}/{base_style}/pass{p}", model, trace)
             last = after
-        check_corridor(f"{name}/{base_style}", w, trace)
+        check_corridor(f"{name}/{base_style}", w, trace, pre_keys=pre0)
         dt = time.time() - t0
         if len(trace) > 200 and dt > 5.0:
             warn(name, f"lent: {dt:.1f}s pour {len(trace)} voxels x {passes} passes")

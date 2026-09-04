@@ -144,36 +144,56 @@ public final class Grounding {
     }
 
     /**
-     * Aplanit les dents de scie verticales : si le voxel i est decale d'1 bloc
-     * par rapport a ses deux voisins (a.y == c.y != b.y), on le realigne, si
-     * la case cible est libre (ni laine ni rail). Leve les collisions de
-     * colonnes laterales entre voxels a y differents sur terrain plat.
+     * Aplanit les dents de scie verticales : pics unitaires ET plateaux courts
+     * (3 voxels max) decales d'1 bloc entre deux segments au meme niveau
+     * (a.y == c.y != run.y). Realigne chaque voxel du plateau si sa case cible
+     * est libre (ni laine ni rail). Leve les collisions de colonnes laterales
+     * et les fragments de voie « volants » sur terrain plat.
      */
     public static List<BlockPos> flattenTeeth(WorldView view, List<BlockPos> trace) {
         if (trace.size() < 3) {
             return trace;
         }
         BlockPos[] out = trace.toArray(new BlockPos[0]);
-        for (int i = 1; i < out.length - 1; i++) {
-            BlockPos a = out[i - 1];
-            BlockPos b = out[i];
-            BlockPos c = out[i + 1];
-            int ay = a.getY();
-            int by = b.getY();
-            int cy = c.getY();
-            if (ay != cy || by == ay || Math.abs(by - ay) != 1) {
+        int n = out.length;
+        int i = 1;
+        while (i < n - 1) {
+            int ay = out[i - 1].getY();
+            int by = out[i].getY();
+            if (by == ay || Math.abs(by - ay) != 1) {
+                i++;
                 continue;
             }
-            int bx = b.getX();
-            int bz = b.getZ();
-            net.minecraft.world.level.block.state.BlockState target = view.at(bx, ay, bz);
-            if (target.is(Blocks.WHITE_WOOL)
-                    || com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(target)) {
-                continue;
+            int j = i;
+            while (j < n && out[j].getY() == by) {
+                j++;
             }
-            view.put(bx, by, bz, Blocks.AIR.defaultBlockState());
-            view.put(bx, ay, bz, Blocks.WHITE_WOOL.defaultBlockState());
-            out[i] = new BlockPos(bx, ay, bz);
+            int runLen = j - i;
+            boolean endsOk = j < n && out[j].getY() == ay;
+            if (endsOk && runLen <= 3) {
+                boolean ok = true;
+                for (int k = i; k < j; k++) {
+                    net.minecraft.world.level.block.state.BlockState target =
+                            view.at(out[k].getX(), ay, out[k].getZ());
+                    if (target.is(Blocks.WHITE_WOOL)
+                            || com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(target)) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    for (int k = i; k < j; k++) {
+                        view.put(out[k].getX(), by, out[k].getZ(), Blocks.AIR.defaultBlockState());
+                    }
+                    for (int k = i; k < j; k++) {
+                        int bx = out[k].getX();
+                        int bz = out[k].getZ();
+                        view.put(bx, ay, bz, Blocks.WHITE_WOOL.defaultBlockState());
+                        out[k] = new BlockPos(bx, ay, bz);
+                    }
+                }
+            }
+            i = j;
         }
         List<BlockPos> res = new ArrayList<>(out.length);
         java.util.Collections.addAll(res, out);

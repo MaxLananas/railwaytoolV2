@@ -445,18 +445,30 @@ public class RailwayTool implements CustomTool {
         }
         planCount = plan.size();
 
-        if (showGhost.get() && plan.size() <= MAX_GHOST_BLOCKS) {
+        if (showGhost.get()) {
+            // Plan trop grand pour un rendu complet : echantillonnage regulier
+            // sur toute la ligne (le fantome ne disparait plus jamais).
+            int stride = plan.size() > MAX_GHOST_BLOCKS
+                    ? (int) Math.ceil(plan.size() / (double) MAX_GHOST_BLOCKS)
+                    : 1;
+            int idx = 0;
             for (Map.Entry<Long, BlockState> e : plan.entrySet()) {
-                setGhost(e.getKey().longValue(), e.getValue());
+                if ((idx++ % stride) == 0) {
+                    setGhost(e.getKey().longValue(), e.getValue());
+                }
             }
             for (BlockPos p : control) {
                 setGhost(p.asLong(), Blocks.ORANGE_WOOL.defaultBlockState());
             }
         }
-        if (showSplineGhost.get() && !trace.isEmpty() && plan.size() <= MAX_GHOST_BLOCKS) {
+        if (showSplineGhost.get() && !trace.isEmpty()) {
             splineGhost = Axiom.createBooleanRegion();
             if (splineGhost != null) {
-                for (BlockPos v : trace) {
+                int stride = trace.size() > MAX_GHOST_BLOCKS
+                        ? (int) Math.ceil(trace.size() / (double) MAX_GHOST_BLOCKS)
+                        : 1;
+                for (int i = 0; i < trace.size(); i += stride) {
+                    BlockPos v = trace.get(i);
                     splineGhost.add(v.getX(), v.getY(), v.getZ());
                 }
             }

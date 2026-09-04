@@ -52,7 +52,8 @@ def check_corridor(case, world, trace):
     xs = [v[0] for v in trace]
     ys = [v[1] for v in trace]
     zs = [v[2] for v in trace]
-    box = (min(xs) - 2, max(xs) + 2, min(ys) - 2, max(ys) + 2, min(zs) - 2, max(zs) + 2)
+    # marge basse +6 : le remplissage de support (gravel/sol) descend sous la trace
+    box = (min(xs) - 2, max(xs) + 2, min(ys) - 8, max(ys) + 2, min(zs) - 2, max(zs) + 2)
     for (x, y, z), st in world.blocks.items():
         if st in IGNORED or st == R.GROUND:
             continue

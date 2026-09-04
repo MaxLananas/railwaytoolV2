@@ -240,25 +240,45 @@ def rectify_l(world, trace, spline, corner):
 
 
 def flatten_teeth(world, trace, spline):
-    """Aplanit les dents de scie verticales : si le voxel i est decalé d'1 bloc
-    par rapport a ses deux voisins (a.y == c.y != b.y), on le realigne, si la
-    case cible est libre (ni laine ni rail). Leve les collisions de colonnes
-    laterales entre voxels a y differents sur terrain plat."""
+    """Aplanit les dents de scie verticales : pics unitaires ET plateaux courts
+    (<= 3 voxels) décalés d'1 bloc entre deux segments au meme niveau
+    (a.y == c.y != run.y, |run.y - a.y| == 1). Chaque voxel du plateau est
+    realigné si sa case cible est libre (ni laine ni rail). Leve les
+    collisions de colonnes laterales et les fragments de voie « volants »
+    visibles en jeu sur terrain plat quand la voxelisation oscille a y±1."""
     if len(trace) < 3:
         return trace
     out = list(trace)
-    for i in range(1, len(out) - 1):
-        ax, ay, az = out[i - 1]
-        bx, by, bz = out[i]
-        cx, cy, cz = out[i + 1]
-        if ay != cy or by == ay or abs(by - ay) != 1:
+    n = len(out)
+    i = 1
+    while i < n - 1:
+        ay = out[i - 1][1]
+        by = out[i][1]
+        if by == ay or abs(by - ay) != 1:
+            i += 1
             continue
-        target = world.get(bx, ay, bz)
-        if target == spline or target in RAIL_FAMILY:
-            continue
-        world.set(bx, by, bz, AIR)
-        world.set(bx, ay, bz, spline)
-        out[i] = (bx, ay, bz)
+        j = i
+        while j < n and out[j][1] == by:
+            j += 1
+        run_len = j - i
+        ends_ok = j < n and out[j][1] == ay
+        if ends_ok and run_len <= 3:
+            ok = True
+            for k in range(i, j):
+                x0, _, z0 = out[k]
+                t = world.get(x0, ay, z0)
+                if t == spline or t in RAIL_FAMILY:
+                    ok = False
+                    break
+            if ok:
+                for k in range(i, j):
+                    x0, _, z0 = out[k]
+                    world.set(x0, by, z0, AIR)
+                for k in range(i, j):
+                    x0, _, z0 = out[k]
+                    world.set(x0, ay, z0, spline)
+                    out[k] = (x0, ay, z0)
+        i = j
     return out
 
 
@@ -371,7 +391,12 @@ class TrackModel:
         self.types = {v: self._classify(v) for v in trace_voxels}
 
     def is_trace(self, x, y, z):
-        return is_wool(self.world.get(x, y, z))
+        # Requête "est-ce un voxel de la trace courante ?" : on lit le SET de
+        # trace, PAS le monde live — sinon pendant le build, après qu'un voxel
+        # a été remplacé (coral/lectern/grass), ses voisins diagonaux
+        # disparaissent et la littérature des coins voisinnants change à la
+        # volée (c'est le bug des leaf_2 avec derive X ou Z).
+        return (x, y, z) in self.trace
 
     def type_at(self, x, y, z):
         """Type effectif du voxel (None si pas de trace, ou bloc indice corail)."""
@@ -652,15 +677,15 @@ def build_column(world, opt, x, y, z, center):
     """Pose sol/bloc/air comme le script (ne réécrit jamais un rail existant).
     Protection renforcée sur les 3 niveaux de la colonne : aucun bloc de rail
     existant n'est jamais enfoncé (rebuild idempotent).
-    Thème clair : le side-block est une porte de fer COMPLETE (lower y+1 / upper y+2),
-    sinon la moitié haute seule casse en jeu (c'est le bug du theme clair)."""
+    Thème clair : le side-block est un PANNEAU de porte basse (moitié lower,
+    y+1 seulement), fidèle au script — pas de porte complète à 2 blocs."""
     start_y = y + opt.base_dy
     for yy in (start_y, start_y + 1, start_y + 2):
         if world.get(x, yy, z) in PROTECTED:
             return
     if opt.theme == 2 and center in DOOR_FACING:
         f = DOOR_FACING[center].split("_", 1)[1]
-        world.set(x, start_y + 2, z, f"door_upper_{f}")
+        world.set(x, start_y + 2, z, AIR)
         world.set(x, start_y + 1, z, f"door_lower_{f}")
     else:
         world.set(x, start_y + 2, z, AIR)
@@ -801,8 +826,16 @@ def build_nature_block(model, world, opt, x, y, z, t):
     nb = ordered_neighbors(model, x, y, z)
     d1 = nb[0] if len(nb) > 0 else ""
     d2 = nb[1] if len(nb) > 1 else ""
-    a1, f1, a2, f2 = leaf_pair(table, d1, d2) if len(nb) >= 2 else \
-        ((2, "north", 2, "south") if t == NS else (2, "west", 2, "east"))
+    if len(nb) >= 2:
+        # Dérive en coin (le tronçon glisse d'1 en X ou Z) : la paire droite
+        # (N,S)/(E,O) est un passage tout droit qui masque le voisin diagonal —
+        # on le substitue pour rendre la litière à 3 segments du script.
+        diag_nb = [d for d in nb if d in ("NE", "NO", "SE", "SO")]
+        if diag_nb and ({d1, d2} == {"N", "S"} or {d1, d2} == {"E", "O"}):
+            d2 = diag_nb[0]
+        a1, f1, a2, f2 = leaf_pair(table, d1, d2)
+    else:
+        a1, f1, a2, f2 = (2, "north", 2, "south") if t == NS else (2, "west", 2, "east")
     (dx1, dz1), (dx2, dz2) = leaf_pos
     nature_set(world, x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
     nature_set(world, x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
@@ -826,9 +859,34 @@ def orphan_diag_conversion(model, x, y, z):
     return NS
 
 
+def support_fill(world, opt, pre_keys, depth_max=4):
+    """Comble sous les blocs de rail qui flottent (descente bloquee, dents
+    residuelles, derive de controle) : aucun bloc pose par ce build ne garde
+    de l'air directement sous lui — y compris un bloc survive d'une
+    passe precedente dont le support a ete recreuse depuis. Le script pose
+    toujours la voie sur le sol — c'est le meme contrat, jusqu'a depth_max blocs de remplissage
+    (petits residuels de 1-4 blocs ; une ligne volontairement haute est un
+    pont legitime, pas une dent)."""
+    placed = [(pos, st) for pos, st in world.blocks.items()
+              if st in RAIL_FAMILY]
+    for (x, y, z), st in placed:
+        # Mesure d'abord le vrai trou sous le bloc : s'il est plus profond que
+        # depth_max, c'est un pont legitime — un remplissage tronque laisserait
+        # lui-meme 1-4 blocs d'air et referait le bug. Sinon on comble tout.
+        gap = 0
+        while world.get(x, y - 1 - gap, z) in (AIR, None) and gap < 64:
+            gap += 1
+        if gap == 0 or gap > depth_max:
+            continue
+        soil = "gravel" if opt.style == "nature" else pick_soil(opt)
+        for yy in range(y - 1, y - 1 - gap, -1):
+            world.set(x, yy, z, soil)
+
+
 def build_all(world, trace, opt):
     global rail_before
     rail_before = {pos for pos, st in world.blocks.items() if st in RAIL_FAMILY}
+    pre_keys = set(world.blocks.keys())
     model = TrackModel(world, trace)
     for v in [v for v in trace if model.types.get(v) == DIAG]:
         conv = orphan_diag_conversion(model, *v)
@@ -868,6 +926,7 @@ def build_all(world, trace, opt):
             build_column(world, opt, x, y, z + 1, side)
         else:
             build_nature_block(model, world, opt, x, y, z, EW)
+    support_fill(world, opt, pre_keys)
     return model
 
 # =============================================================================

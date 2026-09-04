@@ -217,7 +217,13 @@ public final class TrackModel {
                     continue;
                 }
                 for (int dy : DY_TOLERANCE) {
-                    if (isWoolTrace(x + dx, y + dy, z + dz)) {
+                    // Voisin = voxel de la trace courante : on lit d'abord le
+                    // set de types (fige a la construction), PAS seulement le
+                    // monde live — sinon le build d'un voxel precedent a deja
+                    // remplace la laine (corail/pupitre) et le voisin diagonal
+                    // disparait avant que le suivant pose sa litiere de coin.
+                    long k = BlockPos.asLong(x + dx, y + dy, z + dz);
+                    if (types.containsKey(k) || isWoolTrace(x + dx, y + dy, z + dz)) {
                         out.add(directionName(dx, dz));
                         break;
                     }
