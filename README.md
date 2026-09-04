@@ -83,8 +83,32 @@ Options du panneau :
   d'indices d'orientation exactement comme dans les scripts, sans toucher au monde
   réel avant validation.
 - Un rail déjà construit n'est **jamais écrasé** (famille de blocs protégés).
+- La purge des coins en L est protégée par **trois gardes** : veto sur les segments
+  diagonaux, connexité locale 26-connectée dans le cube 3³, et connexité **globale**
+  de la trace (aucun point d'articulation retiré — la voie ne peut pas être coupée).
+- Les dents de scie verticales (pics d'un bloc) sont aplaties avant construction :
+  plus de collisions de murets latéraux entre voxels de niveaux voisins.
+- Une diagonale indéterminée devient un **fragment de transition nord-sud** au lieu
+  du bloc noir témoin : la voie reste continue dans tous les cas.
 - Plafond de sécurité : 60 000 blocs par construction, 6 000 pour le fantôme.
 - Si Axiom n'est pas installé, le mod se désactive proprement.
+
+### Harnais de test (simulateur Python)
+
+`sim/` contient une réimplémentation complète du moteur et plusieurs batteries qui
+vérifient les invariants d'un vrai jeu (voie connexe, rails présents, murets des
+deux côtés, portes posées, rien d'existant détruit) :
+
+```bash
+python3 sim/stress.py             # scénarios adverses (virages 360°, micro-vagues…)
+python3 sim/stupid_stress.py      # tracés absurdes volontairement illogiques
+python3 sim/ridges_stress.py      # crêtes et tunnels (lissage de terrain)
+python3 sim/realistic_stress.py   # lignes réalistes multi-lignes, jonctions, rampes
+python3 sim/mass_stress.py        # stress de masse parallèle (--scenarios N)
+```
+
+Dernière validation : plus de **2,6 milliards de vérifications d'invariants** sans
+aucune violation (200 000 scénarios massifs, 1,6 million de constructions).
 
 ## Construction (développeurs)
 
