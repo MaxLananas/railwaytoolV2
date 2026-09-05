@@ -50,11 +50,11 @@ public final class ClassicDesign implements RailDesign {
         // (jogs latéraux rapprochés) des captures.
         List<long[]> centers = new ArrayList<>();
         List<long[]> decors = new ArrayList<>();
+        List<BlockState> decorStates = new ArrayList<>();
         java.util.Map<Long, BlockState> centerState = new java.util.HashMap<>();
-        java.util.Map<Long, BlockState> decorState = new java.util.HashMap<>();
 
         for (BlockPos v : diags) {
-            planDiag(model, pal, v, centers, decors, centerState, decorState);
+            planDiag(model, pal, v, centers, decors, decorStates, centerState);
         }
 
         for (BlockPos v : ns) {
@@ -65,9 +65,9 @@ public final class ClassicDesign implements RailDesign {
             centers.add(new long[]{v.getX(), v.getY(), v.getZ()});
             centerState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ()), pal.coralSouth);
             decors.add(new long[]{v.getX() - 1, v.getY(), v.getZ()});
-            decorState.put(BlockPos.asLong(v.getX() - 1, v.getY(), v.getZ()), lat);
+            decorStates.add(lat);
             decors.add(new long[]{v.getX() + 1, v.getY(), v.getZ()});
-            decorState.put(BlockPos.asLong(v.getX() + 1, v.getY(), v.getZ()), lat);
+            decorStates.add(lat);
         }
 
         for (BlockPos v : ew) {
@@ -78,18 +78,23 @@ public final class ClassicDesign implements RailDesign {
             centers.add(new long[]{v.getX(), v.getY(), v.getZ()});
             centerState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ()), pal.coralEast);
             decors.add(new long[]{v.getX(), v.getY(), v.getZ() - 1});
-            decorState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ() - 1), lat);
+            decorStates.add(lat);
             decors.add(new long[]{v.getX(), v.getY(), v.getZ() + 1});
-            decorState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ() + 1), lat);
+            decorStates.add(lat);
         }
 
         for (long[] c : centers) {
             writer.column((int) c[0], (int) c[1], (int) c[2],
                     centerState.get(BlockPos.asLong((int) c[0], (int) c[1], (int) c[2])));
         }
-        for (long[] d : decors) {
+        // Chaque entrée porte SON état : deux décors ciblant la même cellule
+        // ne partagent plus un slot d'une map par position (sinon le dernier
+        // état mis — EW après NS — remplacait aussi l'écriture du premier :
+        // wall_ns devenait wall_eo aux coins — bug « palissade tournée »).
+        for (int i = 0; i < decors.size(); i++) {
+            long[] d = decors.get(i);
             writer.column((int) d[0], (int) d[1], (int) d[2],
-                    decorState.get(BlockPos.asLong((int) d[0], (int) d[1], (int) d[2])));
+                    decorStates.get(i));
         }
 
         writer.fillSupports(null);
@@ -97,8 +102,8 @@ public final class ClassicDesign implements RailDesign {
 
     private void planDiag(TrackModel model, Palette pal, BlockPos v,
                           List<long[]> centers, List<long[]> decors,
-                          java.util.Map<Long, BlockState> centerState,
-                          java.util.Map<Long, BlockState> decorState) {
+                          List<BlockState> decorStates,
+                          java.util.Map<Long, BlockState> centerState) {
         int x = v.getX();
         int y = v.getY();
         int z = v.getZ();
@@ -128,7 +133,7 @@ public final class ClassicDesign implements RailDesign {
         }
         for (int i = 0; i < cells.length; i++) {
             decors.add(new long[]{cells[i][0], cells[i][1], cells[i][2]});
-            decorState.put(BlockPos.asLong(cells[i][0], cells[i][1], cells[i][2]), states[i]);
+            decorStates.add(states[i]);
         }
     }
 
