@@ -187,6 +187,9 @@ public final class ParityHarness {
                         System.out.println("  [TYPE] " + k + " sim=" + simT
                                 + " java=" + jts);
                     }
+                    if (typeMism < 2) {
+                        System.out.println("    [WHY] " + model.debugExplain(v));
+                    }
                     typeMism++;
                 }
                 String jn = String.join(",", model.neighborDirections(

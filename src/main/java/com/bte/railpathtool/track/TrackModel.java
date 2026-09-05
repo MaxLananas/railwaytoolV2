@@ -209,6 +209,21 @@ public final class TrackModel {
         return null;
     }
 
+    /** Debug dév (harnais de parité) : détaille les entrées de classify. */
+    public String debugExplain(BlockPos voxel) {
+        int x = voxel.getX();
+        int y = voxel.getY();
+        int z = voxel.getZ();
+        BlockState st = view.at(voxel);
+        return "st=" + net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getKey(st.getBlock())
+                + " hint=" + hintRailAt(x, y, z)
+                + " n=" + has(x, y, z - 1) + " s=" + has(x, y, z + 1)
+                + " e=" + has(x + 1, y, z) + " o=" + has(x - 1, y, z)
+                + " ne=" + has(x + 1, y, z - 1) + " no=" + has(x - 1, y, z - 1)
+                + " se=" + has(x + 1, y, z + 1) + " so=" + has(x - 1, y, z + 1);
+    }
+
     public java.util.List<String> neighborDirections(int x, int y, int z) {
         java.util.List<String> out = new java.util.ArrayList<>();
         for (int dx = -1; dx <= 1; dx++) {
