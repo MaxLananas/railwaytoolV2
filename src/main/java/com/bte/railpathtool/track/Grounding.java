@@ -298,6 +298,12 @@ public final class Grounding {
 
             int target = y;
             boolean wasUnstable = isUnstable(view, x, y, z);
+            boolean db = "1".equals(System.getProperty("grounding.debug"));
+            if (db) {
+                System.out.println("[GD] " + x + "," + y + "," + z
+                        + " unstable=" + wasUnstable
+                        + " below=" + view.at(x, y - 1, z).getBlock());
+            }
             for (int i = 0; i < MAX_DOWN; i++) {
                 int nxt = target - 1;
                 if (!isUnstable(view, x, target, z)) {

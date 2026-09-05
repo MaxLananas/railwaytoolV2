@@ -176,6 +176,15 @@ public final class ParityHarness {
         return out;
     }
 
+    private static List<String> toTraceLines(
+            java.util.List<BlockPos> voxels) {
+        List<String> out = new ArrayList<>(voxels.size());
+        for (BlockPos v : voxels) {
+            out.add(v.getX() + "," + v.getY() + "," + v.getZ());
+        }
+        return out;
+    }
+
     /** Bloc par nom de registre (défaut air si inconnu — jamais le cas ici). */
     private static Block blockByName(String name) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
@@ -246,7 +255,19 @@ public final class ParityHarness {
                 }
             }
             LongOpenHashSet dug = new LongOpenHashSet();
+            boolean db = sc.id.equals(
+                    System.getProperty("parity.debugScene", ""));
+            if (db) {
+                System.out.println("[DBG " + sc.id + "] avant: "
+                        + toTraceLines(trace).subList(0,
+                                Math.min(10, trace.size())));
+            }
             trace = Grounding.apply(view, trace, dug);
+            if (db) {
+                System.out.println("[DBG " + sc.id + "] apresG1: "
+                        + toTraceLines(trace).subList(0,
+                                Math.min(10, trace.size())));
+            }
             // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
             // intermediaire — le Grounding gere lui-meme la laine.
             trace = LCorners.purge(view, trace);
@@ -257,7 +278,9 @@ public final class ParityHarness {
             for (BlockPos v : trace) {
                 traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
             }
-            TrackModel model = new TrackModel(view, trace, TrackModel.OverrideMode.AUTO);
+            java.util.List<String> ignored = toTraceLines(trace);
+            TrackModel model = new TrackModel(view, trace,
+                    TrackModel.OverrideMode.AUTO);
             long typeMism = 0;
             long nbMism = 0;
             for (BlockPos v : trace) {

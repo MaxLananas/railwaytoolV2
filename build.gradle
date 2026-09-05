@@ -99,6 +99,10 @@ tasks.register('parityCheck', JavaExec) {
     mainClass = 'com.bte.railpathtool.dev.ParityHarness'
     args('sim/parity/scenes.txt')
     workingDir = rootProject.projectDir
+    if (project.hasProperty('parityDebugScene')) {
+        systemProperty 'parity.debugScene', project.property('parityDebugScene')
+        systemProperty 'grounding.debug', '1'
+    }
 }
 // La parité fait partie de la porte `check` : impossible de livrer un build
 // dont le vrai pipeline Java diverge du simulateur validé.
