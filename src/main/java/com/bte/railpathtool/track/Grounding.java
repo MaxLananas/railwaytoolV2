@@ -3,7 +3,6 @@ package com.bte.railpathtool.track;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.tags.BlockTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +75,10 @@ public final class Grounding {
         for (BlockPos v : trace) {
             net.minecraft.world.level.block.state.BlockState st =
                     view.at(v.getX(), v.getY(), v.getZ());
-            if (st != null && st.is(BlockTags.WOOL)) {
+            // Nom de registre, pas BlockTags.WOOL : hors runtime serveur
+            // (harnais Bootstrap) les tags ne sont jamais charges et
+            // is(TagKey) renvoie toujours false — cf. note TrackModel.
+            if (st != null && isTraceWool(st)) {
                 wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
             }
         }
