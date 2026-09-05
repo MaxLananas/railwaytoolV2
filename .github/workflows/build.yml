@@ -62,7 +62,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p ci
-          tail -220 /tmp/parity.log > ci/parity-failure.log
+          grep -E "\[DBG|\[GD" /tmp/parity.log | head -120 > ci/parity-failure.log
+          echo "=== tail ===" >> ci/parity-failure.log
+          tail -180 /tmp/parity.log >> ci/parity-failure.log
           git add ci/parity-failure.log
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
