@@ -1,22 +1,12 @@
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.16.3
-axiomclientapi extrait de Axiom-5.4.2-for-MC1.21.10.jar -> libs/axiomclientapi.jar
-
-> Task :compileJava
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:77: error: cannot find symbol
-            BlockState st = view.at(v.getX(), v.getY(), v.getZ());
-            ^
-  symbol:   class BlockState
-  location: class Grounding
+                          ^
+  symbol:   variable extra
+  location: class ParityHarness
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
-1 error
+2 errors
 
 > Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788634665859.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788642797985.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
@@ -26,13 +16,18 @@ FAILURE: Build failed with an exception.
 Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
 > Compilation failed; see the compiler output below.
   Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:77: error: cannot find symbol
-              BlockState st = view.at(v.getX(), v.getY(), v.getZ());
-              ^
-    symbol:   class BlockState
-    location: class Grounding
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
+              if (missing + extra > 0) {
+                  ^
+    symbol:   variable missing
+    location: class ParityHarness
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
+              if (missing + extra > 0) {
+                            ^
+    symbol:   variable extra
+    location: class ParityHarness
   Note: Some input files use or override a deprecated API.
-  1 error
+  2 errors
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
@@ -74,14 +69,19 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:77: error: cannot find symbol
-            BlockState st = view.at(v.getX(), v.getY(), v.getZ());
-            ^
-  symbol:   class BlockState
-  location: class Grounding
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
+            if (missing + extra > 0) {
+                ^
+  symbol:   variable missing
+  location: class ParityHarness
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
+            if (missing + extra > 0) {
+                          ^
+  symbol:   variable extra
+  location: class ParityHarness
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
-1 error
+2 errors
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
@@ -216,5 +216,5 @@ Note: Recompile with -Xlint:deprecation for details.
 	... 30 more
 
 
-BUILD FAILED in 31s
+BUILD FAILED in 33s
 1 actionable task: 1 executed
