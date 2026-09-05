@@ -202,6 +202,7 @@ public final class Grounding {
                     + " below=" + view.at(f.getX(), f.getY() - 1,
                             f.getZ()).getBlock());
         }
+        boolean dbgK = "1".equals(System.getProperty("grounding.debug"));
         for (BlockPos v : trace) {
             int x = v.getX();
             int y = v.getY();
@@ -210,6 +211,17 @@ public final class Grounding {
             // (rail/stone preexistants sous la case) passent sans effet —
             // sinon le coin-laisse d'une remontee ecraserait un corail.
             if (!wool.contains(BlockPos.asLong(x, y, z))) {
+                if (dbgK) {
+                    long probe = wool.isEmpty() ? 0L
+                            : wool.iterator().nextLong();
+                    System.out.println("[GDC] skip=" + x + "," + y + "," + z
+                            + " key=" + Long.toHexString(
+                                    BlockPos.asLong(x, y, z))
+                            + " woolProbe=" + Long.toHexString(probe)
+                            + " probePos=" + BlockPos.getX(probe) + ","
+                            + BlockPos.getY(probe) + "," + BlockPos.getZ(probe));
+                    dbgK = false;
+                }
                 moved.add(v);
                 continue;
             }
