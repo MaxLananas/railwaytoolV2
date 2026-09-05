@@ -260,13 +260,13 @@ public final class ParityHarness {
             if (db) {
                 System.out.println("[DBG " + sc.id + "] avant: "
                         + toTraceLinesBP(trace).subList(0,
-                                Math.min(10, trace.size())));
+                                Math.min(64, trace.size())));
             }
             trace = Grounding.apply(view, trace, dug);
             if (db) {
                 System.out.println("[DBG " + sc.id + "] apresG1: "
                         + toTraceLinesBP(trace).subList(0,
-                                Math.min(10, trace.size())));
+                                Math.min(64, trace.size())));
             }
             // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
             // intermediaire — le Grounding gere lui-meme la laine.
@@ -274,7 +274,7 @@ public final class ParityHarness {
             if (db) {
                 System.out.println("[DBG " + sc.id + "] apresL: "
                         + toTraceLinesBP(trace).subList(0,
-                                Math.min(10, trace.size())));
+                                Math.min(64, trace.size())));
             }
             trace = Grounding.apply(view, trace, dug);
             trace = Grounding.flattenTeeth(view, trace);
@@ -282,7 +282,7 @@ public final class ParityHarness {
             if (db) {
                 System.out.println("[DBG " + sc.id + "] fin: "
                         + toTraceLinesBP(trace).subList(0,
-                                Math.min(10, trace.size())));
+                                Math.min(64, trace.size())));
             }
 
             for (BlockPos v : trace) {
