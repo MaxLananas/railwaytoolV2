@@ -301,9 +301,10 @@ public final class ParityHarness {
                             + " supplementaires=" + extra);
                 }
             }
-            // DEBUG parite : dump la trace java (post-passes) si divergences
-            // probables (trace inconnue du sim ou inverse).
-            if (missing + extra > 0) {
+            // DEBUG parite : dump la trace java (post-passes) — utile pour
+            // localiser les desynchronisations vue cote CI.
+            if (Boolean.parseBoolean(System.getProperty("parity.traceDump",
+                    "true"))) {
                 StringBuilder sb = new StringBuilder("  [JAVA-TRACE] n="
                         + trace.size() + " ");
                 int lim = Math.min(trace.size(), 12);
