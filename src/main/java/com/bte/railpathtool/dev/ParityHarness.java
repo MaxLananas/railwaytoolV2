@@ -135,8 +135,11 @@ public final class ParityHarness {
         int ok = 0;
         int fail = 0;
         List<String> report = new ArrayList<>();
+        Map<String, List<String>> javaTraces = new LinkedHashMap<>();
         for (Scene sc : scenes.values()) {
-            List<String> diffs = run(sc);
+            List<int[]> dump = new ArrayList<>();
+            List<String> diffs = run(sc, dump);
+            javaTraces.put(sc.id, toTraceLines(dump));
             if (diffs.isEmpty()) {
                 ok++;
             } else {
@@ -152,9 +155,25 @@ public final class ParityHarness {
             System.out.println(r);
         }
         System.out.println(ok + " OK / " + fail + " DIFFERENT");
+        for (Map.Entry<String, List<String>> e : javaTraces.entrySet()) {
+            String id = e.getKey();
+            if (report.stream().anyMatch(r -> r.startsWith(id + " :"))) {
+                List<String> tl = e.getValue();
+                System.out.println("  [JAVA-TRACE] " + id + " n=" + tl.size()
+                        + " " + String.join(" ", tl.subList(0, Math.min(14, tl.size()))));
+            }
+        }
         if (fail > 0) {
             System.exit(1);
         }
+    }
+
+    private static List<String> toTraceLines(List<int[]> dump) {
+        List<String> out = new ArrayList<>(dump.size());
+        for (int[] v : dump) {
+            out.add(v[0] + "," + v[1] + "," + v[2]);
+        }
+        return out;
     }
 
     /** Bloc par nom de registre (défaut air si inconnu — jamais le cas ici). */
@@ -165,6 +184,10 @@ public final class ParityHarness {
 
     /** Rejoue la scène côté Java réel et retourne la liste des divergences. */
     private static List<String> run(Scene sc) {
+        return run(sc, new ArrayList<>());
+    }
+
+    private static List<String> run(Scene sc, List<int[]> traceDump) {
         WorldView view = new WorldView(null);
         Map<String, String> initial = new TreeMap<>();
         for (Box b : sc.boxes) {
@@ -231,6 +254,9 @@ public final class ParityHarness {
             trace = Grounding.flattenTeeth(view, trace);
             trace = Grounding.dedupeColumns(view, trace);
 
+            for (BlockPos v : trace) {
+                traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
+            }
             TrackModel model = new TrackModel(view, trace, TrackModel.OverrideMode.AUTO);
             long typeMism = 0;
             long nbMism = 0;
@@ -300,20 +326,6 @@ public final class ParityHarness {
                     System.out.println("  -> trace: manquants=" + missing
                             + " supplementaires=" + extra);
                 }
-            }
-            // DEBUG parite : dump la trace java (post-passes) — utile pour
-            // localiser les desynchronisations vue cote CI.
-            if (Boolean.parseBoolean(System.getProperty("parity.traceDump",
-                    "true"))) {
-                StringBuilder sb = new StringBuilder("  [JAVA-TRACE] n="
-                        + trace.size() + " ");
-                int lim = Math.min(trace.size(), 12);
-                for (int i2 = 0; i2 < lim; i2++) {
-                    BlockPos v = trace.get(i2);
-                    sb.append(v.getX()).append(',').append(v.getY())
-                            .append(',').append(v.getZ()).append(' ');
-                }
-                System.out.println(sb);
             }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
             if (options.style == DesignOptions.Style.CLASSIC) {
