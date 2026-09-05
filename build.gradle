@@ -54,11 +54,6 @@ dependencies {
 
     modCompileOnly fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Harness de parité Java/sim (src/test) : mêmes briques MC que le mod.
-    // Loom remappe minecraft() dans N'IMPORTE quelle configuration — un brut
-    // "com.mojang:minecraft:..." n'existe sur aucun dépôt.
-    testImplementation(minecraft("com.mojang:minecraft:${minecraft_version}"))
-    testImplementation "net.fabricmc:fabric-loader:${loader_version}"
 }
 
 idea {
@@ -99,9 +94,9 @@ jar {
 tasks.register('parityCheck', JavaExec) {
     group = 'verification'
     description = 'Parité Java/sim : le mod réel vs les scènes auto-validées'
-    dependsOn 'compileJava', 'compileTestJava'
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'com.bte.railpathtool.parity.ParityHarness'
+    dependsOn 'classes'
+    classpath = sourceSets.main.output + sourceSets.main.compileClasspath
+    mainClass = 'com.bte.railpathtool.dev.ParityHarness'
     args('sim/parity/scenes.txt')
     workingDir = rootProject.projectDir
 }
