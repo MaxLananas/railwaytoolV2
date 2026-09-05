@@ -1,287 +1,238 @@
-[23:08:02] [main/INFO]: [STDOUT]: jun-10 : 11 differences
-[23:08:02] [main/INFO]: [STDOUT]: jun-48 : 27 differences
-[23:08:02] [main/INFO]: [STDOUT]: rock-6 : 16 differences
-[23:08:02] [main/INFO]: [STDOUT]: rock-30 : 16 differences
-[23:08:02] [main/INFO]: [STDOUT]: rock-32 : 14 differences
-[23:08:02] [main/INFO]: [STDOUT]: rock-41 : 8 differences
-[23:08:02] [main/INFO]: [STDOUT]: 746 OK / 6 DIFFERENT
-[23:07:59] [main/INFO]: [STDOUT]: [DBG rock-41] avant: [4,60,9, 4,61,9, 4,62,9, 3,62,9, 3,62,10, 2,62,10, 2,62,11, 1,62,11, 1,62,12, 1,61,12]
-[23:07:59] [main/INFO]: [STDOUT]: [DBG rock-41] apresG1: [4,58,9, 4,59,9, 4,60,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,62,12, 1,58,12]
-[23:07:59] [main/INFO]: [STDOUT]: [DBG rock-41] apresL: [4,58,9, 4,59,9, 4,60,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,62,12, 1,58,12]
-[23:07:59] [main/INFO]: [STDOUT]: [DBG rock-41] fin: [4,58,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,58,12, 0,58,12, 0,58,13, -1,58,13]
-[23:07:59] [main/INFO]: [STDOUT]: [WORLDDBG rock-41] finalTok:
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,47,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,48,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,49,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,50,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,51,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,52,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,-9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,0 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,10 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,11 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,12 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,13 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,14 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,15 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,16 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,17 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,18 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,19 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,20 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,5 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,6 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,7 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,8 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,53,9 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,54,-1 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,54,-2 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,54,-3 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,54,-4 = grass_block
-[23:07:59] [main/INFO]: [STDOUT]:   [FW] -1,54,-5 = grass_block
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:47] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:pale_moss_carpet}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
-[23:07:48] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:54] [main/INFO]: [STDOUT]: jun-10 : 11 differences
+[23:13:54] [main/INFO]: [STDOUT]: jun-48 : 27 differences
+[23:13:54] [main/INFO]: [STDOUT]: rock-6 : 16 differences
+[23:13:54] [main/INFO]: [STDOUT]: rock-30 : 16 differences
+[23:13:54] [main/INFO]: [STDOUT]: rock-32 : 14 differences
+[23:13:54] [main/INFO]: [STDOUT]: rock-41 : 8 differences
+[23:13:54] [main/INFO]: [STDOUT]: 746 OK / 6 DIFFERENT
+[23:13:50] [main/INFO]: [STDOUT]: [DBG rock-41] avant: [4,60,9, 4,61,9, 4,62,9, 3,62,9, 3,62,10, 2,62,10, 2,62,11, 1,62,11, 1,62,12, 1,61,12]
+[23:13:50] [main/INFO]: [STDOUT]: [DBG rock-41] apresG1: [4,58,9, 4,59,9, 4,60,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,62,12, 1,58,12]
+[23:13:50] [main/INFO]: [STDOUT]: [DBG rock-41] apresL: [4,58,9, 4,59,9, 4,60,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,62,12, 1,58,12]
+[23:13:50] [main/INFO]: [STDOUT]: [DBG rock-41] fin: [4,58,9, 3,58,9, 3,58,10, 2,58,10, 2,58,11, 1,58,11, 1,58,12, 0,58,12, 0,58,13, -1,58,13]
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-10 n=95 4,57,25 5,57,25 6,57,25 7,57,25 8,57,25 9,57,25 10,57,25 11,57,25 12,57,25 13,57,25 14,58,25 15,58,25 16,58,25 17,58,25
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-48 n=81 10,57,22 11,57,22 12,57,22 13,58,22 14,58,22 15,58,22 16,58,21 17,58,21 18,58,21 19,58,21 20,58,21 21,58,21 22,58,21 23,58,21
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-6 n=25 7,58,3 7,58,4 7,58,5 7,58,6 6,58,6 6,58,7 6,58,8 6,58,9 5,59,4 4,59,4 3,59,4 2,58,4 2,58,5 3,58,5
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-30 n=29 6,58,9 6,58,10 5,58,10 5,58,11 4,58,11 4,58,12 4,58,13 3,58,13 3,58,14 2,58,14 2,58,15 1,58,16 0,58,16 1,58,15
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-32 n=43 12,58,12 12,60,13 11,58,13 11,60,14 11,58,15 11,58,16 10,58,16 10,58,17 10,58,18 10,58,19 9,58,19 9,58,20 10,58,20 11,58,20
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-41 n=49 4,58,9 3,58,9 3,58,10 2,58,10 2,58,11 1,58,11 1,58,12 0,58,12 0,58,13 -1,58,13 -1,58,12 -1,58,11 -1,58,10 -1,58,9
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,11 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,12 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,13 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,10 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,11 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,12 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,13 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,8 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -1,59,9 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,-2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,-3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,4 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,5 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,58,6 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,-1 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,-2 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,-3 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,0 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,1 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,2 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,3 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,4 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,5 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -10,59,6 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,4 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,58,5 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,-1 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,0 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,1 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,2 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,3 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,4 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -11,59,5 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,59,-1 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,59,0 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,59,1 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -12,59,2 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,59,0 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,59,1 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,59,2 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -13,59,3 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,59,1 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,59,2 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -14,59,3 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -15,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -15,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -15,59,2 = side_west
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -15,59,3 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,11 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,12 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,13 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,7 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,10 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,11 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,12 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,13 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,7 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,8 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,59,9 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,61,-4 = stone
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -2,61,1 = andesite
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,58,7 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,59,10 = side_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,59,7 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,59,8 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -3,59,9 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,59,-7 = stone
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,59,10 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,59,8 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -4,59,9 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,59,10 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,59,8 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,59,9 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,60,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -5,61,8 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,58,10 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,58,7 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,58,9 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,59,10 = wall_eo
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,59,7 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,59,8 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,59,9 = coral_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,60,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -6,61,8 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,-2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,6 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,7 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,-1 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,-2 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,0 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,6 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,7 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,59,8 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,60,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -7,61,8 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,-2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,5 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,6 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,7 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,58,8 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,-1 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,-2 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,0 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,1 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,2 = side_east
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,5 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,6 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,7 = coral_south
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,59,8 = wall_ns
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -8,60,-4 = stone
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,-1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,-2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,0 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,1 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,2 = soil
+[23:13:50] [main/INFO]: [STDOUT]:   [FW] -9,58,3 = soil
+[23:13:50] [main/INFO]: [STDOUT]: [WORLDDBG rock-41] finalTok:
+[23:13:36] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:pale_moss_carpet}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[23:13:37] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
 === tail ===
-[23:08:02] [main/INFO]: [STDOUT]:    -5,61,8 attendu=air obtenu=wall_ns
-[23:08:02] [main/INFO]: [STDOUT]:    -6,59,8 attendu=coral_south obtenu=wall_ns
-[23:08:02] [main/INFO]: [STDOUT]:    -6,60,8 attendu=air obtenu=soil
-[23:08:02] [main/INFO]: [STDOUT]:    -6,61,8 attendu=air obtenu=coral_south
-[23:08:02] [main/INFO]: [STDOUT]:    -7,60,8 attendu=air obtenu=soil
-[23:08:02] [main/INFO]: [STDOUT]:    -7,61,8 attendu=air obtenu=wall_ns
-[23:08:02] [main/INFO]: [STDOUT]: 746 OK / 6 DIFFERENT
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-10 n=95 4,57,25 5,57,25 6,57,25 7,57,25 8,57,25 9,57,25 10,57,25 11,57,25 12,57,25 13,57,25 14,58,25 15,58,25 16,58,25 17,58,25
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-48 n=81 10,57,22 11,57,22 12,57,22 13,58,22 14,58,22 15,58,22 16,58,21 17,58,21 18,58,21 19,58,21 20,58,21 21,58,21 22,58,21 23,58,21
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-6 n=25 7,58,3 7,58,4 7,58,5 7,58,6 6,58,6 6,58,7 6,58,8 6,58,9 5,59,4 4,59,4 3,59,4 2,58,4 2,58,5 3,58,5
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-30 n=29 6,58,9 6,58,10 5,58,10 5,58,11 4,58,11 4,58,12 4,58,13 3,58,13 3,58,14 2,58,14 2,58,15 1,58,16 0,58,16 1,58,15
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-32 n=43 12,58,12 12,60,13 11,58,13 11,60,14 11,58,15 11,58,16 10,58,16 10,58,17 10,58,18 10,58,19 9,58,19 9,58,20 10,58,20 11,58,20
-[23:08:02] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-41 n=49 4,58,9 3,58,9 3,58,10 2,58,10 2,58,11 1,58,11 1,58,12 0,58,12 0,58,13 -1,58,13 -1,58,12 -1,58,11 -1,58,10 -1,58,9
+[23:13:54] [main/INFO]: [STDOUT]:    -5,61,8 attendu=air obtenu=wall_ns
+[23:13:54] [main/INFO]: [STDOUT]:    -6,59,8 attendu=coral_south obtenu=wall_ns
+[23:13:54] [main/INFO]: [STDOUT]:    -6,60,8 attendu=air obtenu=soil
+[23:13:54] [main/INFO]: [STDOUT]:    -6,61,8 attendu=air obtenu=coral_south
+[23:13:54] [main/INFO]: [STDOUT]:    -7,60,8 attendu=air obtenu=soil
+[23:13:54] [main/INFO]: [STDOUT]:    -7,61,8 attendu=air obtenu=wall_ns
+[23:13:54] [main/INFO]: [STDOUT]: 746 OK / 6 DIFFERENT
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-10 n=95 4,57,25 5,57,25 6,57,25 7,57,25 8,57,25 9,57,25 10,57,25 11,57,25 12,57,25 13,57,25 14,58,25 15,58,25 16,58,25 17,58,25
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] jun-48 n=81 10,57,22 11,57,22 12,57,22 13,58,22 14,58,22 15,58,22 16,58,21 17,58,21 18,58,21 19,58,21 20,58,21 21,58,21 22,58,21 23,58,21
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-6 n=25 7,58,3 7,58,4 7,58,5 7,58,6 6,58,6 6,58,7 6,58,8 6,58,9 5,59,4 4,59,4 3,59,4 2,58,4 2,58,5 3,58,5
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-30 n=29 6,58,9 6,58,10 5,58,10 5,58,11 4,58,11 4,58,12 4,58,13 3,58,13 3,58,14 2,58,14 2,58,15 1,58,16 0,58,16 1,58,15
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-32 n=43 12,58,12 12,60,13 11,58,13 11,60,14 11,58,15 11,58,16 10,58,16 10,58,17 10,58,18 10,58,19 9,58,19 9,58,20 10,58,20 11,58,20
+[23:13:54] [main/INFO]: [STDOUT]:   [JAVA-TRACE] rock-41 n=49 4,58,9 3,58,9 3,58,10 2,58,10 2,58,11 1,58,11 1,58,12 0,58,12 0,58,13 -1,58,13 -1,58,12 -1,58,11 -1,58,10 -1,58,9
 
 > Task :parityCheck FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788649639422.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788649982408.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
@@ -444,5 +395,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 47s
+BUILD FAILED in 56s
 3 actionable tasks: 3 executed
