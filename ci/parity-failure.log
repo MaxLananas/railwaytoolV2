@@ -1,75 +1,35 @@
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,36 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=33 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,17 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,17 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,18 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,37 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,35 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,36 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,8 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,9 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,10 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=19 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,24 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,23 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,23 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=39 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,19 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,19 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,19 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=23 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,31 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,32 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,33 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,24 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,23 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,22 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,12 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,13 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
-[18:30:25] [main/INFO]: [STDOUT]:   -> trace: manquants=25 supplementaires=0
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,23 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,22 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,21 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,57,15 que java n'a pas
-[18:30:26] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[18:30:29] [main/INFO]: [STDOUT]: === PARITY 752 scenes ===
-[18:30:29] [main/INFO]: [STDOUT]: jun-70 : 10 differences
-[18:30:29] [main/INFO]: [STDOUT]:    21,58,25 attendu=soil obtenu=grass_block
-[18:30:29] [main/INFO]: [STDOUT]:    21,59,25 attendu=wall_nw obtenu=soil
-[18:30:29] [main/INFO]: [STDOUT]:    21,60,24 attendu=soil obtenu=air
-[18:30:29] [main/INFO]: [STDOUT]:    21,60,25 attendu=air obtenu=wall_nw
-[18:30:29] [main/INFO]: [STDOUT]:    21,61,24 attendu=wall_ns obtenu=air
-[18:30:29] [main/INFO]: [STDOUT]:    22,58,26 attendu=soil obtenu=grass_block
-[18:30:29] [main/INFO]: [STDOUT]:    22,59,26 attendu=wall_se obtenu=soil
-[18:30:29] [main/INFO]: [STDOUT]:    22,60,24 attendu=soil obtenu=grass_block
-[18:30:29] [main/INFO]: [STDOUT]: 751 OK / 1 DIFFERENT
-
-> Task :parityCheck FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788632980364.json
-
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
-> Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:6: error: cannot find symbol
+  import net.minecraft.world.level.block.WoolBlock;
+                                        ^
+    symbol:   class WoolBlock
+    location: package net.minecraft.world.level.block
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:77: error: cannot find symbol
+              BlockState st = view.at(v.getX(), v.getY(), v.getZ());
+              ^
+    symbol:   class BlockState
+    location: class Grounding
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:78: error: cannot find symbol
+              if (st != null && st.getBlock() instanceof WoolBlock) {
+                                                         ^
+    symbol:   class WoolBlock
+    location: class Grounding
+  Note: Some input files use or override a deprecated API.
+  3 errors
 
 * Try:
-> Run with --info or --debug option to get more log output.
+> Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
@@ -103,13 +63,59 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':parityC
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
-	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:459)
-	at org.gradle.process.internal.DefaultJavaExecAction.execute(DefaultJavaExecAction.java:58)
-	at org.gradle.api.tasks.JavaExec.exec(JavaExec.java:167)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:6: error: cannot find symbol
+import net.minecraft.world.level.block.WoolBlock;
+                                      ^
+  symbol:   class WoolBlock
+  location: package net.minecraft.world.level.block
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:77: error: cannot find symbol
+            BlockState st = view.at(v.getX(), v.getY(), v.getZ());
+            ^
+  symbol:   class BlockState
+  location: class Grounding
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:78: error: cannot find symbol
+            if (st != null && st.getBlock() instanceof WoolBlock) {
+                                                       ^
+  symbol:   class WoolBlock
+  location: class Grounding
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
+	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
+	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$3(JavaCompile.java:206)
+	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
+	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
+	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
+	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
@@ -181,7 +187,7 @@ Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/usr/
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
@@ -210,11 +216,5 @@ Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/usr/
 	... 30 more
 
 
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD FAILED in 54s
-3 actionable tasks: 3 executed
+BUILD FAILED in 30s
+1 actionable task: 1 executed
