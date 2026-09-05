@@ -67,7 +67,7 @@ public final class NatureDesign implements RailDesign {
         for (BlockPos v : ew) {
             emitBlock(model, w, v, TrackType.EW);
         }
-        w.fillSupports();
+        w.fillSupports(options);
     }
 
     private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t) {
@@ -284,7 +284,7 @@ public final class NatureDesign implements RailDesign {
          * garde de l'air directement sous lui (contrat du script, la voie
          * repose toujours sur le sol — remplissage gravier, max 6 blocs).
          */
-        void fillSupports() {
+        void fillSupports(DesignOptions options) {
             final int depthMax = 4;
             // Tout le rail visible (overlay), comme le script qui parcourt le
             // monde entier : une trace suivante a pu recreuser le support d'un
@@ -294,7 +294,10 @@ public final class NatureDesign implements RailDesign {
                 BlockState st = view.overlay().get(key);
                 if (st == null || st.isAir()
                         || (!ClassicDesign.ColumnWriter.isRailFamily(st)
-                                && !ClassicDesign.ColumnWriter.isSupportSoil(st))) {
+                                && !ClassicDesign.ColumnWriter.isBaseSoil(st)
+                                && !(options.fillMode
+                                        == DesignOptions.FillMode.UNIFORM
+                                        && st.is(Blocks.ORANGE_WOOL)))) {
                     continue;
                 }
                 int x = BlockPos.getX(key);

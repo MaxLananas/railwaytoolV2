@@ -289,14 +289,23 @@ public final class ClassicDesign implements RailDesign {
          * fait pas partie : il s'incline devant un core de trace voisine
          * (jonctions denses — le rail visible passe avant le décor).
          */
-        /** Sols de support posés par les designs (remplissage + bases). */
+        /**
+         * Sols de support posés par les designs (remplissage + bases).
+         * La laine orange ne compte que si le remplissage UNIFORME est actif
+         * — sinon une laine orange posée par le joueur serait prise pour une
+         * souche de pilier et remplie par-dessous (miroir support_fill sim).
+         */
         public static boolean isSupportSoil(BlockState st) {
+            return isBaseSoil(st) || st.is(Blocks.ORANGE_WOOL);
+        }
+
+        /** Bases sans la laine orange du mode uniforme (variante filtrée). */
+        public static boolean isBaseSoil(BlockState st) {
             return st.is(Blocks.DEEPSLATE) || st.is(Blocks.COBBLED_DEEPSLATE)
                     || st.is(Blocks.PALE_OAK_WOOD)
                     || st.is(Blocks.DEEPSLATE_IRON_ORE)
                     || st.is(Blocks.DEEPSLATE_COAL_ORE)
-                    || st.is(Blocks.GRAVEL)
-                    || st.is(Blocks.ORANGE_WOOL);   // remplissage uniforme
+                    || st.is(Blocks.GRAVEL);
         }
 
         public static boolean isRailCore(BlockState st) {
@@ -332,7 +341,10 @@ public final class ClassicDesign implements RailDesign {
             for (long key : keys) {
                 BlockState st = view.overlay().get(key);
                 if (st == null || st.isAir()
-                        || (!isRailFamily(st) && !isSupportSoil(st))) {
+                        || (!isRailFamily(st) && !isBaseSoil(st)
+                                && !(options.fillMode
+                                        == DesignOptions.FillMode.UNIFORM
+                                        && st.is(Blocks.ORANGE_WOOL)))) {
                     continue;
                 }
                 int x = BlockPos.getX(key);
