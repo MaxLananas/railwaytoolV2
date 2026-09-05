@@ -188,6 +188,20 @@ public final class Grounding {
                             view.at(trace.get(0).getX(), trace.get(0).getY(),
                                     trace.get(0).getZ()).getBlock()));
         }
+        if ("1".equals(System.getProperty("grounding.debug"))
+                && !trace.isEmpty()) {
+            BlockPos f = trace.get(0);
+            System.out.println("[GDD] entry n=" + trace.size()
+                    + " first=" + f.getX() + "," + f.getY() + "," + f.getZ()
+                    + " self=" + view.at(f).getBlock()
+                    + " y+1=" + view.at(f.getX(), f.getY() + 1,
+                            f.getZ()).getBlock()
+                    + " inWool=" + wool.contains(f.asLong())
+                    + " unstable=" + isUnstable(view, f.getX(), f.getY(),
+                            f.getZ())
+                    + " below=" + view.at(f.getX(), f.getY() - 1,
+                            f.getZ()).getBlock());
+        }
         for (BlockPos v : trace) {
             int x = v.getX();
             int y = v.getY();
@@ -298,12 +312,6 @@ public final class Grounding {
 
             int target = y;
             boolean wasUnstable = isUnstable(view, x, y, z);
-            boolean db = "1".equals(System.getProperty("grounding.debug"));
-            if (db) {
-                System.out.println("[GD] " + x + "," + y + "," + z
-                        + " unstable=" + wasUnstable
-                        + " below=" + view.at(x, y - 1, z).getBlock());
-            }
             for (int i = 0; i < MAX_DOWN; i++) {
                 int nxt = target - 1;
                 if (!isUnstable(view, x, target, z)) {
