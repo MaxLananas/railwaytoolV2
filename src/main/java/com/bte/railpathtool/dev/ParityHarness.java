@@ -271,9 +271,19 @@ public final class ParityHarness {
             // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
             // intermediaire — le Grounding gere lui-meme la laine.
             trace = LCorners.purge(view, trace);
+            if (db) {
+                System.out.println("[DBG " + sc.id + "] apresL: "
+                        + toTraceLinesBP(trace).subList(0,
+                                Math.min(10, trace.size())));
+            }
             trace = Grounding.apply(view, trace, dug);
             trace = Grounding.flattenTeeth(view, trace);
             trace = Grounding.dedupeColumns(view, trace);
+            if (db) {
+                System.out.println("[DBG " + sc.id + "] fin: "
+                        + toTraceLinesBP(trace).subList(0,
+                                Math.min(10, trace.size())));
+            }
 
             for (BlockPos v : trace) {
                 traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
