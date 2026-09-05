@@ -54,7 +54,7 @@ jobs:
         id: parity
         run: |
           set -o pipefail
-          ./gradlew parityCheck -PparityDebugScene=jun-70 --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
+          ./gradlew parityCheck -PparityDebugScene=rock-41 --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
 
       - name: Debug - log parity en commentaire de commit
         if: always()
