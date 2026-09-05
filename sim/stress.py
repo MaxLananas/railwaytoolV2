@@ -278,6 +278,7 @@ def main():
             trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER)
             trace = R.rectify_l(w, trace, R.SPLINE, R.CORNER)
             trace = R.rectify_vertical(w, trace, R.SPLINE, R.CORNER)
+            trace = R.dedupe_columns(w, trace, R.SPLINE)
         except Exception as e:
             fail(f"spline-{seed}", f"EXCEPTION rectif: {e!r}")
             continue

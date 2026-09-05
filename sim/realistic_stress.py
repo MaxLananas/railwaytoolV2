@@ -286,23 +286,6 @@ def check_states_and_doors(name, world):
 def check_straight_walls(name, world, model, trace):
     """Sur un alignement a 2 voisins NS (ou EW), les 2 cotes doivent porter
     un etat rail (mur ou ecran/porte) a y+1 ou etre proteges par du rail."""
-    # Conforme au design : les decorations sont supprimees pres des noeuds
-    # denses (anti-chevalchement anti-spaghetti). On exonere donc les cellules
-    # dans le voisinage immediat (Chebyshev <= 1 en x/z, +-1 en y) d'un noeud
-    # de la coupe — meme logique de grappe que rail_sim.build_all.
-    cand = [v for v in dict.fromkeys(trace)
-            if R.is_dense_junction(model, v[0], v[1], v[2])]
-    junctions = set()
-    for (x, y, z) in cand:
-        n_close = sum(1 for (jx, jy, jz) in cand if (jx, jy, jz) != (x, y, z)
-                      and abs(jx - x) <= 3 and abs(jy - y) <= 1 and abs(jz - z) <= 3)
-        if n_close >= 2:
-            junctions.add((x, y, z))
-
-    def near_junction_cell(cx, cy, cz):
-        return any(abs(cx - jx) <= 1 and abs(cy - jy) <= 1 and abs(cz - jz) <= 1
-                   for (jx, jy, jz) in junctions)
-
     for (x, y, z) in trace:
         t = model.types.get((x, y, z))
         if t == R.NS:
@@ -316,9 +299,6 @@ def check_straight_walls(name, world, model, trace):
         else:
             continue
         if not (n1 and n2):
-            continue
-        if (x, y, z) in junctions or any(
-                near_junction_cell(sx, sy, sz) for (sx, sy, sz) in sides):
             continue
         counts["verif"] += 1
         for (sx, sy, sz) in sides:

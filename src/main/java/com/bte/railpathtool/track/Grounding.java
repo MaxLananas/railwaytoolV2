@@ -69,14 +69,32 @@ public final class Grounding {
                 moved.add(v);
                 continue;
             }
-            if (!view.isAir(x, y + 1, z)) {
+            // Jamais de remontée DANS/À TRAVERS une autre laine de la trace
+            // (doublon vertical des dents de spline) : la pile se figerait
+            // avec le corner laissé derrière. La descente, elle, reste
+            // autorisée — c'est elle qui dégonfle la pile ; l'arbitrage final
+            // revient à dedupeColumns.
+            if (!view.isAir(x, y + 1, z) && !view.at(x, y + 1, z).is(Blocks.WHITE_WOOL)) {
 
                 boolean dugHere = false;
                 if (dug != null) {
                     int[][] toDig = new int[2][];
                     int count = 0;
                     boolean ok = true;
-                    for (int dy = 1; dy <= 2; dy++) {
+                    // le tunnel ne perce qu'UNE crête : 2 blocs max par
+                    // colonne, tous passages confondus (esthétique).
+                    var dugIt = dug.iterator();
+                    int colDug = 0;
+                    while (dugIt.hasNext()) {
+                        long p = dugIt.nextLong();
+                        if (BlockPos.getX(p) == x && BlockPos.getZ(p) == z) {
+                            colDug++;
+                        }
+                    }
+                    if (colDug >= 2) {
+                        ok = false;
+                    }
+                    for (int dy = 1; ok && dy <= 2; dy++) {
                         net.minecraft.world.level.block.state.BlockState st = view.at(x, y + dy, z);
                         if (st.isAir()) {
                             break;
@@ -108,7 +126,15 @@ public final class Grounding {
                 for (int dy = 1; dy <= MAX_UP; dy++) {
                     if (view.isAir(x, y + dy, z)) {
                         int ny = y + dy - 1;
-                        view.put(x, y, z, Blocks.AIR.defaultBlockState());
+                        if (view.at(x, ny, z).is(Blocks.WHITE_WOOL)) {
+                            break;  // jamais d'atterrissage SUR une autre laine
+                        }
+                        // corner laissé derrière : seulement POSÉ, sinon une
+                        // herbe flottante verrouille la descente des voisins
+                        // (monticule des captures).
+                        view.put(x, y, z, view.isAir(x, y - 1, z)
+                                ? Blocks.AIR.defaultBlockState()
+                                : Blocks.GRASS_BLOCK.defaultBlockState());
                         view.put(x, ny, z, Blocks.WHITE_WOOL.defaultBlockState());
                         moved.add(new BlockPos(x, ny, z));
                         movedUp = true;
@@ -198,5 +224,105 @@ public final class Grounding {
         List<BlockPos> res = new ArrayList<>(out.length);
         java.util.Collections.addAll(res, out);
         return res;
+    }
+
+    /**
+     * Aucun empilement vertical : une colonne (x,z) ne doit jamais porter 2
+     * voxels de laine à des hauteurs différentes (dents y±1 de la spline +
+     * purge des L = piles figées, le « monticule / rail au-dessus » des
+     * captures). On garde le voxel LE PLUS BAS de la colonne et on dégage les
+     * autres, niveau par niveau, tant que le retrait ne sectionne pas
+     * davantage la voie (le nombre de composantes 26-connexes n'augmente
+     * pas — les piles parasites sont déjà des îlots). Seuls les blocs laine
+     * blanche ou l'air sont touchés : du rail déjà posé n'est jamais altéré.
+     */
+    public static List<BlockPos> dedupeColumns(WorldView view, List<BlockPos> trace) {
+        java.util.Map<Long, List<BlockPos>> byCol = new java.util.LinkedHashMap<>();
+        List<BlockPos> cur = new ArrayList<>(new java.util.LinkedHashSet<>(trace));
+        for (BlockPos v : cur) {
+            long key = BlockPos.asLong(v.getX(), 0, v.getZ());
+            byCol.computeIfAbsent(key, k -> new ArrayList<>()).add(v);
+        }
+        for (List<BlockPos> vals : byCol.values()) {
+            java.util.Set<Integer> ysSet = new java.util.TreeSet<>();
+            for (BlockPos v : vals) {
+                ysSet.add(v.getY());
+            }
+            if (ysSet.size() < 2) {
+                continue;
+            }
+            List<Integer> ys = new ArrayList<>(ysSet);
+            for (int i = ys.size() - 1; i >= 1; i--) {   // du haut vers le bas
+                int yy = ys.get(i);
+                List<BlockPos> victims = new ArrayList<>();
+                for (BlockPos v : vals) {
+                    if (v.getY() == yy && cur.contains(v)) {
+                        victims.add(v);
+                    }
+                }
+                if (victims.isEmpty()) {
+                    continue;
+                }
+                boolean touchable = true;
+                for (BlockPos v : victims) {
+                    net.minecraft.world.level.block.state.BlockState st =
+                            view.at(v.getX(), v.getY(), v.getZ());
+                    if (!st.isAir() && !st.is(Blocks.WHITE_WOOL)) {
+                        touchable = false;   // rail/terrain existant : on ne touche pas
+                        break;
+                    }
+                }
+                if (!touchable) {
+                    continue;
+                }
+                List<BlockPos> trial = new ArrayList<>(cur);
+                trial.removeAll(victims);
+                if (countComponents(trial) <= countComponents(cur)) {
+                    for (BlockPos v : victims) {
+                        view.put(v.getX(), v.getY(), v.getZ(), Blocks.AIR.defaultBlockState());
+                    }
+                    cur = trial;
+                }
+            }
+        }
+        return cur;
+    }
+
+    /** Nombre de composantes 26-connexes de la trace. */
+    private static int countComponents(List<BlockPos> trace) {
+        LongOpenHashSet rest = new LongOpenHashSet(trace.size() * 2);
+        for (BlockPos v : trace) {
+            rest.add(v.asLong());
+        }
+        int n = 0;
+        long[] stack = new long[Math.max(16, trace.size())];
+        while (!rest.isEmpty()) {
+            n++;
+            long seed = rest.iterator().nextLong();
+            rest.remove(seed);
+            int sp = 0;
+            stack[sp++] = seed;
+            while (sp > 0) {
+                long p = stack[--sp];
+                int x = BlockPos.getX(p);
+                int y = BlockPos.getY(p);
+                int z = BlockPos.getZ(p);
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dy = -1; dy <= 1; dy++) {
+                        for (int dz = -1; dz <= 1; dz++) {
+                            long nb = BlockPos.asLong(x + dx, y + dy, z + dz);
+                            if (rest.contains(nb)) {
+                                rest.remove(nb);
+                                if (sp == stack.length) {
+                                    stack = java.util.Arrays.copyOf(stack, sp * 2);
+                                }
+                                stack[sp++] = nb;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return n;
     }
 }

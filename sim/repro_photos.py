@@ -120,21 +120,6 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
                          f"continuite cassee : {missing}/{len(trace)} voxels "
                          f"sans aucun bloc dans leur colonne")
 
-            # --- C. lisibilite des noeuds ---------------------------------------
-            # Un voxel de noeud (>= 3 branches) n'emet AUCUN decor lateral :
-            # ses voisins horizontaux immediats ne peuvent contenir que des cores.
-            for (x, y, z) in trace:
-                if not R.is_dense_junction(model, x, y, z):
-                    continue
-                for (dx, dz) in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    for dy in (0, 1):
-                        st = w2.get(x + dx, y + dy, z + dz)
-                        if st.startswith(("wall_", "side_", "door_", "leaf_")) \
-                                and (x + dx, y + dy, z + dz) not in pre0:
-                            fail(f"{name}/{style}/t{theme}",
-                                 f"noeud ({x},{y},{z}) : decor {st} pose a "
-                                 f"({x + dx},{y + dy},{z + dz})")
-
             # --- E. pas de rail invisible (mode surface) -------------------------
             # Toute piece visible (core/decor/fill) doit avoir le ciel ou du rail
             # au-dessus : un solide hostile au-dessus = rail enterre = 'disparu'.

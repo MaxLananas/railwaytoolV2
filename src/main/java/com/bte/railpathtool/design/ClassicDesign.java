@@ -25,13 +25,6 @@ public final class ClassicDesign implements RailDesign {
     @Override
     public void emitCases(TrackModel model, DesignOptions options,
                           Long2ObjectOpenHashMap<BlockState> plan) {
-        // Nœuds denses : design minimal (core seul) pour la lisibilité des
-        // vrilles/carrefours (photo 3 du retour terrain). Détection telle que
-        // sim : voxels croisant les deux axes orthogonaux (ou grappe >= 4),
-        // et seulement en grappe (>= 2 autres denses à portée 3) — un virage
-        // doux de drift reste complet (murets/litière conservés).
-        java.util.Set<BlockPos> junctions = denseJunctions(model);
-
         Palette pal = new Palette(options);
         ColumnWriter writer = new ColumnWriter(model, options, plan);
 
@@ -50,161 +43,93 @@ public final class ClassicDesign implements RailDesign {
             }
         }
 
+        // DEUX passes : tous les cores (corails) d'abord, puis tous les
+        // décors latéraux. Sinon le côté d'un voisin s'écrit dans la case du
+        // core AVANT lui et la garde « colonne intacte » fait perdre le
+        // corail — c'est le « presque plus de rail » des lignes à dérive
+        // (jogs latéraux rapprochés) des captures.
+        List<long[]> centers = new ArrayList<>();
+        List<long[]> decors = new ArrayList<>();
+        java.util.Map<Long, BlockState> centerState = new java.util.HashMap<>();
+        java.util.Map<Long, BlockState> decorState = new java.util.HashMap<>();
+
         for (BlockPos v : diags) {
-            emitDiag(model, pal, writer, v, junctions);
+            planDiag(model, pal, v, centers, decors, centerState, decorState);
         }
 
         for (BlockPos v : ns) {
             Agents.LineScan n = Agents.scanNorth(model, v.getX(), v.getY(), v.getZ());
             Agents.LineScan s = Agents.scanSouth(model, v.getX(), v.getY(), v.getZ());
             Agents.LatSide side = Agents.decideNs(n, s);
-            writer.column(v.getX(), v.getY(), v.getZ(), pal.coralSouth);
-            if (!junctions.contains(v)) {
-                BlockState lat = side.isWall() ? pal.wallNs : pal.side(side.sideFacing);
-                if (!decorHitsJunction(junctions, v.getX() - 1, v.getY(), v.getZ())) {
-                    writer.column(v.getX() - 1, v.getY(), v.getZ(), lat);
-                }
-                if (!decorHitsJunction(junctions, v.getX() + 1, v.getY(), v.getZ())) {
-                    writer.column(v.getX() + 1, v.getY(), v.getZ(), lat);
-                }
-            }
+            BlockState lat = side.isWall() ? pal.wallNs : pal.side(side.sideFacing);
+            centers.add(new long[]{v.getX(), v.getY(), v.getZ()});
+            centerState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ()), pal.coralSouth);
+            decors.add(new long[]{v.getX() - 1, v.getY(), v.getZ()});
+            decorState.put(BlockPos.asLong(v.getX() - 1, v.getY(), v.getZ()), lat);
+            decors.add(new long[]{v.getX() + 1, v.getY(), v.getZ()});
+            decorState.put(BlockPos.asLong(v.getX() + 1, v.getY(), v.getZ()), lat);
         }
 
         for (BlockPos v : ew) {
             Agents.LineScan o = Agents.scanWest(model, v.getX(), v.getY(), v.getZ());
             Agents.LineScan e = Agents.scanEast(model, v.getX(), v.getY(), v.getZ());
             Agents.LatSide side = Agents.decideEw(o, e);
-            writer.column(v.getX(), v.getY(), v.getZ(), pal.coralEast);
-            if (!junctions.contains(v)) {
-                BlockState lat = side.isWall() ? pal.wallEw : pal.side(side.sideFacing);
-                if (!decorHitsJunction(junctions, v.getX(), v.getY(), v.getZ() - 1)) {
-                    writer.column(v.getX(), v.getY(), v.getZ() - 1, lat);
-                }
-                if (!decorHitsJunction(junctions, v.getX(), v.getY(), v.getZ() + 1)) {
-                    writer.column(v.getX(), v.getY(), v.getZ() + 1, lat);
-                }
-            }
+            BlockState lat = side.isWall() ? pal.wallEw : pal.side(side.sideFacing);
+            centers.add(new long[]{v.getX(), v.getY(), v.getZ()});
+            centerState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ()), pal.coralEast);
+            decors.add(new long[]{v.getX(), v.getY(), v.getZ() - 1});
+            decorState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ() - 1), lat);
+            decors.add(new long[]{v.getX(), v.getY(), v.getZ() + 1});
+            decorState.put(BlockPos.asLong(v.getX(), v.getY(), v.getZ() + 1), lat);
+        }
+
+        for (long[] c : centers) {
+            writer.column((int) c[0], (int) c[1], (int) c[2],
+                    centerState.get(BlockPos.asLong((int) c[0], (int) c[1], (int) c[2])));
+        }
+        for (long[] d : decors) {
+            writer.column((int) d[0], (int) d[1], (int) d[2],
+                    decorState.get(BlockPos.asLong((int) d[0], (int) d[1], (int) d[2])));
         }
 
         writer.fillSupports(null);
     }
 
-    private void emitDiag(TrackModel model, Palette pal, ColumnWriter writer, BlockPos v,
-                          java.util.Set<BlockPos> junctions) {
+    private void planDiag(TrackModel model, Palette pal, BlockPos v,
+                          List<long[]> centers, List<long[]> decors,
+                          java.util.Map<Long, BlockState> centerState,
+                          java.util.Map<Long, BlockState> decorState) {
         int x = v.getX();
         int y = v.getY();
         int z = v.getZ();
         Agents.DiagResult r = Agents.analyseDiag(model, x, y, z);
         if (r.coreType == null) {
-
-            writer.column(x, y, z, Blocks.BLACK_WOOL.defaultBlockState());
+            centers.add(new long[]{x, y, z});
+            centerState.put(v.asLong(), Blocks.BLACK_WOOL.defaultBlockState());
             return;
         }
-        writer.column(x, y, z, r.coreType == TrackType.NS ? pal.coralSouth : pal.coralEast);
-        if (junctions.contains(v)) {
-            return;  // nœud dense : core seul, pas de murets
-        }
+        centers.add(new long[]{x, y, z});
+        centerState.put(v.asLong(),
+                r.coreType == TrackType.NS ? pal.coralSouth : pal.coralEast);
         boolean swne = r.sense == Agents.DiagSense.SWNE;
         BlockState w1 = swne ? pal.wallNw : pal.wallSw;
         BlockState w2 = swne ? pal.wallSe : pal.wallNe;
+        int[][] cells;
+        BlockState[] states;
         if (r.transition) {
-            if (!decorHitsJunction(junctions, x - 1, y, z)) {
-                writer.column(x - 1, y, z, w1);
-            }
-            if (!decorHitsJunction(junctions, x + 1, y, z)) {
-                writer.column(x + 1, y, z, w2);
-            }
-            if (!decorHitsJunction(junctions, x, y, z - 1)) {
-                writer.column(x, y, z - 1, w1);
-            }
-            if (!decorHitsJunction(junctions, x, y, z + 1)) {
-                writer.column(x, y, z + 1, w2);
-            }
+            cells = new int[][]{{x - 1, y, z}, {x + 1, y, z}, {x, y, z - 1}, {x, y, z + 1}};
+            states = new BlockState[]{w1, w2, w1, w2};
         } else if (r.coreType == TrackType.NS) {
-            if (!decorHitsJunction(junctions, x - 1, y, z)) {
-                writer.column(x - 1, y, z, w1);
-            }
-            if (!decorHitsJunction(junctions, x + 1, y, z)) {
-                writer.column(x + 1, y, z, w2);
-            }
+            cells = new int[][]{{x - 1, y, z}, {x + 1, y, z}};
+            states = new BlockState[]{w1, w2};
         } else {
-            if (!decorHitsJunction(junctions, x, y, z - 1)) {
-                writer.column(x, y, z - 1, w1);
-            }
-            if (!decorHitsJunction(junctions, x, y, z + 1)) {
-                writer.column(x, y, z + 1, w2);
-            }
+            cells = new int[][]{{x, y, z - 1}, {x, y, z + 1}};
+            states = new BlockState[]{w1, w2};
         }
-    }
-
-    /**
-     * Ensemble des nœuds denses de la coupe. Règle identique au simulateur :
-     * un voxel est « candidat » s'il a des branches sur les DEUX axes (ou >= 4
-     * branches). Un candidat ne devient nœud qu'en grappe (>= 2 autres
-     * candidats à portée Chebyshev 3 en x/z, dy <= 1) — un virage doux de
-     * drift mixe lui aussi les axes et doit garder ses murets.
-     */
-    static java.util.Set<BlockPos> denseJunctions(TrackModel model) {
-        java.util.List<BlockPos> cand = new java.util.ArrayList<>();
-        for (BlockPos v : model.orderedTrace()) {
-            if (isDenseJunction(model, v.getX(), v.getY(), v.getZ())) {
-                cand.add(v);
-            }
+        for (int i = 0; i < cells.length; i++) {
+            decors.add(new long[]{cells[i][0], cells[i][1], cells[i][2]});
+            decorState.put(BlockPos.asLong(cells[i][0], cells[i][1], cells[i][2]), states[i]);
         }
-        // les doublons de voxels (spline) ne comptent pas dans la grappe
-        java.util.LinkedHashSet<BlockPos> uniq = new java.util.LinkedHashSet<>(cand);
-        java.util.Set<BlockPos> out = new java.util.HashSet<>();
-        for (BlockPos v : uniq) {
-            int nClose = 0;
-            for (BlockPos o : uniq) {
-                if (o == v || o.equals(v)) {
-                    continue;
-                }
-                if (Math.abs(o.getX() - v.getX()) <= 3
-                        && Math.abs(o.getY() - v.getY()) <= 1
-                        && Math.abs(o.getZ() - v.getZ()) <= 3) {
-                    nClose++;
-                }
-            }
-            if (nClose >= 2) {
-                out.add(v);
-            }
-        }
-        return out;
-    }
-
-    private static boolean isDenseJunction(TrackModel model, int x, int y, int z) {
-        java.util.List<String> nb = model.neighborDirections(x, y, z);
-        if (nb.size() <= 2) {
-            return false;
-        }
-        boolean ns = false;
-        boolean ew = false;
-        for (String d : nb) {
-            if (d.equals("N") || d.equals("S")) {
-                ns = true;
-            }
-            if (d.equals("E") || d.equals("O")) {
-                ew = true;
-            }
-        }
-        if (ns && ew) {
-            return true;
-        }
-        return nb.size() >= 4;
-    }
-
-    /** Vrai si la cellule de décor cible est collée au core d'un nœud. */
-    static boolean decorHitsJunction(java.util.Set<BlockPos> junctions,
-                                     int cx, int cy, int cz) {
-        for (BlockPos j : junctions) {
-            if (Math.abs(j.getX() - cx) <= 1
-                    && Math.abs(j.getY() - cy) <= 1
-                    && Math.abs(j.getZ() - cz) <= 1) {
-                return true;
-            }
-        }
-        return false;
     }
 
     static final class Palette {

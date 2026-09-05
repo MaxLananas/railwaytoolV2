@@ -172,7 +172,11 @@ public final class LCorners {
                     && traceConnectedWithout(remaining, v.asLong())) {
                 boolean isolated = view.isAir(x + 1, y, z) && view.isAir(x - 1, y, z)
                         && view.isAir(x, y, z + 1) && view.isAir(x, y, z - 1);
-                view.put(x, y, z, isolated
+                // Un coin L ne devient un marqueur 'corner' (herbe) que POSÉ :
+                // s'il flotte au-dessus du vide, il verrouille la descente d'un
+                // voxel au-dessus et crée le monticule des captures.
+                boolean supported = !view.isAir(x, y - 1, z);
+                view.put(x, y, z, (isolated || !supported)
                         ? Blocks.AIR.defaultBlockState()
                         : Blocks.GRASS_BLOCK.defaultBlockState());
                 remaining.remove(v.asLong());

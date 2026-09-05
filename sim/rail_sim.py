@@ -230,7 +230,13 @@ def rectify_l(world, trace, spline, corner):
             continue  # point d'articulation : le retrait couperait la voie
         isolated = (world.get(x + 1, y, z) == AIR and world.get(x - 1, y, z) == AIR
                     and world.get(x, y, z + 1) == AIR and world.get(x, y, z - 1) == AIR)
-        if isolated:
+        # Un coin L ne devient un marqueur 'corner' (herbe) que POSÉ : s'il
+        # flotte au-dessus du vide, il verrouillerait un voxel de laine au-
+        # dessus de lui (is_unstable : below non-air => pas de descente) et
+        # créerait le « monticule » des captures. En l'air -> AIR.
+        below = world.get(x, y - 1, z)
+        supported = below not in (AIR, None) and below != "water"
+        if isolated or not supported:
             world.set(x, y, z, AIR)
         else:
             world.set(x, y, z, corner)
@@ -239,7 +245,62 @@ def rectify_l(world, trace, spline, corner):
     return [v for v in trace if v not in removed]
 
 
-def flatten_teeth(world, trace, spline):
+def _count_components(s):
+    """Nombre de composantes 26-connexes de l'ensemble de voxels."""
+    rest = set(s)
+    n = 0
+    while rest:
+        n += 1
+        seed = rest.pop()
+        stack = [seed]
+        seen = {seed}
+        while stack:
+            x, y, z = stack.pop()
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    for dz in (-1, 0, 1):
+                        nb = (x + dx, y + dy, z + dz)
+                        if nb in rest and nb not in seen:
+                            seen.add(nb)
+                            stack.append(nb)
+        rest -= seen
+    return n
+
+
+def dedupe_columns(world, trace, spline):
+    """Aucun empilement vertical : une colonne (x,z) ne doit jamais porter 2
+    voxels de laine à des hauteurs différentes. Les dents y±1 de la spline
+    + la purge des L pouvaient figer une pile (corner herbe sous le wool
+    du dessus) = le « monticule / rail au-dessus » des captures. On garde le
+    voxel LE PLUS BAS de la colonne et on dégage les autres (AIR), niveau par
+    niveau. Un retrait est accepté s'il ne sectionne pas davantage la voie
+    (le nombre de composantes n'augmente pas — les piles parasites sont déjà
+    des îlots, leur retrait ne fait que du bien). Seuls les blocs laine purs
+    sont touchés : du rail déjà posé n'est jamais altéré."""
+    by_col = {}
+    for v in dict.fromkeys(trace):
+        by_col.setdefault((v[0], v[2]), []).append(v)
+    cur = list(dict.fromkeys(trace))
+    for vals in by_col.values():
+        ys = sorted({v[1] for v in vals})
+        if len(ys) < 2:
+            continue
+        for yy in ys[1:][::-1]:                # retirer du haut vers le bas
+            victims = [v for v in vals if v[1] == yy and v in cur]
+            if not victims:
+                continue
+            if any(world.get(v[0], v[1], v[2]) not in (spline, AIR)
+                   for v in victims):
+                continue                        # rail/terrain existant : on ne touche pas
+            trial = [v for v in cur if v not in victims]
+            if _count_components(trial) <= _count_components(cur):
+                for v in victims:
+                    world.set(v[0], v[1], v[2], AIR)
+                cur = trial
+    return cur
+
+
+def _flatten_teeth_impl(world, trace, spline):
     """Aplanit les dents de scie verticales : pics unitaires ET plateaux courts
     (<= 3 voxels) décalés d'1 bloc entre deux segments au meme niveau
     (a.y == c.y != run.y, |run.y - a.y| == 1). Chaque voxel du plateau est
@@ -282,6 +343,13 @@ def flatten_teeth(world, trace, spline):
     return out
 
 
+def flatten_teeth(world, trace, spline):
+    """Aplanissement complet : dents de scie, puis dédoublonnage vertical des
+    colonnes (anti-monticule). Point d'entrée unique utilisé par tous les
+    pipelines avant la construction."""
+    return dedupe_columns(world, _flatten_teeth_impl(world, trace, spline), spline)
+
+
 def is_unstable(world, x, y, z):
     """Reprise exacte de la fonction is_unstable du script de rectification."""
     below_is_air = world.get(x, y - 1, z) == AIR
@@ -321,11 +389,19 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
             moved_trace.append((x, y, z))
             continue
         # Remontée : bloc au-dessus non-air -> crête 1-2 creusée, sinon air jusqu'à +15.
-        if world.get(x, y + 1, z) != AIR:
+        # Cas particulier : case au-dessus = AUTRE laine de la trace (doublon
+        # vertical des dents de spline) — jamais de remontée dedans (piles),
+        # mais la descente reste autorisée : c'est elle qui dégonfle la pile.
+        if world.get(x, y + 1, z) != AIR and world.get(x, y + 1, z) != spline:
             dug_here = False
             if dug is not None:
                 to_dig = []
                 ok = True
+                # le tunnel ne perce qu'UNE crête : 2 blocs grand max par
+                # colonne, tous passages confondus — sinon on tailleade le
+                # terrain (invariant stupid_stress « colonne creusée > 2 »).
+                if sum(1 for (dx2, _, dz2) in dug if dx2 == x and dz2 == z) >= 2:
+                    ok = False
                 for dy in (1, 2):
                     st = world.get(x, y + dy, z)
                     if st == AIR:
@@ -348,9 +424,17 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 continue
             for dy in range(1, max_up + 1):
                 if world.get(x, y + dy, z) == AIR:
-                    world.set(x, y, z, corner)
-                    world.set(x, y + dy - 1, z, spline)
-                    y = y + dy - 1
+                    landy = y + dy - 1
+                    if world.get(x, landy, z) == spline:
+                        break  # jamais d'atterrissage SUR une autre laine
+                    # corner laissé derrière : seulement posé, sinon une herbe
+                    # flottante verrouille la descente d'un voisin (monticule).
+                    below = world.get(x, y - 1, z)
+                    world.set(x, y, z,
+                              corner if below not in (AIR, None) and below != "water"
+                              else AIR)
+                    world.set(x, landy, z, spline)
+                    y = landy
                     moved_trace.append((x, y, z))
                     break
             else:
@@ -809,20 +893,8 @@ def leaf_pair(table, d1, d2):
     return (3, f_1, 3, f_2)
 
 
-def build_nature_block(model, world, opt, x, y, z, t, junction=False,
-                       junction_cells=None):
-    """Place le rail 'Nature' pour un voxel NS ou EW (script 4 porté).
-    junction=True (voxel de noeud) : design minimal — core (pupitre/mousse +
-    tapis/bouton) seul, PAS de litière ni de croisillons. C'est ce qui rend
-    les vrilles illogiques lisibles au lieu du tas de feuilles/placettes
-    orienté au hasard (photo 3 du retour terrain).
-    junction_cells : positions des noeuds de la coupe — sa litière est aussi
-    supprimée quand SA cellule cible est collée au core d'un noeud."""
-    def _hits_junction(cx, cy, cz):
-        if not junction_cells:
-            return False
-        return any(abs(cx - jx) <= 1 and abs(cy - jy) <= 1 and abs(cz - jz) <= 1
-                   for (jx, jy, jz) in junction_cells)
+def build_nature_block(model, world, opt, x, y, z, t):
+    """Place le rail 'Nature' pour un voxel NS ou EW (script 4 porté)."""
     if t == NS:
         moss_offsets = [(0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         facing = "north"
@@ -850,15 +922,13 @@ def build_nature_block(model, world, opt, x, y, z, t, junction=False,
         nature_decor_set(world, x + dx, y, z + dz, "gravel")
 
     # Intersections rouge/bleu (design nature, lignes NS uniquement)
-    if t == NS and not junction:
+    if t == NS:
         for dx, dz in cross_quads:
             for dy in (0, 1, -1):
                 if model.type_at(x + dx, y + dy, z + dz) == EW:
                     nature_decor_set(world, x, y + dy, z + dz, "gravel")
                     nature_decor_set(world, x, y + dy + 1, z + dz, f"leaf_3_{LEAF_FACING[(dx, dz)]}")
 
-    if junction:
-        return
     nb = ordered_neighbors(model, x, y, z)
     d1 = nb[0] if len(nb) > 0 else ""
     d2 = nb[1] if len(nb) > 1 else ""
@@ -873,25 +943,8 @@ def build_nature_block(model, world, opt, x, y, z, t, junction=False,
     else:
         a1, f1, a2, f2 = (2, "north", 2, "south") if t == NS else (2, "west", 2, "east")
     (dx1, dz1), (dx2, dz2) = leaf_pos
-    if not _hits_junction(x + dx1, y + 1, z + dz1):
-        nature_decor_set(world, x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
-    if not _hits_junction(x + dx2, y + 1, z + dz2):
-        nature_decor_set(world, x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
-
-
-def is_dense_junction(model, x, y, z):
-    """Vrai si le voxel est un nœud dense d'où partent des branches sur les
-    DEUX axes orthogonaux (ou une grappe >= 4 branches) : carrefours, vrilles,
-    nœuds serrés. Un drift mono-axe (même traversé de diagonales) reste un
-    simple virage doux — il garde ses décors (leaf_3, murets de transition)."""
-    dirs = model._neighbors_of(x, y, z)
-    if len(dirs) <= 2:
-        return False
-    ns = bool(dirs & {(0, -1), (0, 1)})
-    ew = bool(dirs & {(-1, 0), (1, 0)})
-    if ns and ew:
-        return True
-    return len(dirs) >= 4
+    nature_decor_set(world, x + dx1, y + 1, z + dz1, f"leaf_{a1}_{f1}")
+    nature_decor_set(world, x + dx2, y + 1, z + dz2, f"leaf_{a2}_{f2}")
 
 
 def orphan_diag_conversion(model, x, y, z):
@@ -942,88 +995,59 @@ def build_all(world, trace, opt):
     pre_keys = set(world.blocks.keys())
     model = TrackModel(world, trace)
 
-    # Noeuds denses : design minimal (core seul) pour rester lisible — sinon
-    # les virages serrés/spirales deviennent un tas de murs et de feuilles
-    # orientés au hasard (photo 3 du retour terrain). Un « jog doux » (drift :
-    # branches sur UN seul axe + diagonales) n'est PAS un noeud : il garde son
-    # design complet (leaf_3 nature / murets classic), sinon on casse la règle
-    # « litière à 3 dans les coins » réclamée par l'utilisateur.
-    # Un « noeud » n'existe qu'en grappe : seuls les voxels denses ENTRES de
-    # >= 2 autres voxels denses (Chebyshev <= 3 x/z, dy <= 1) forment un vrai
-    # nœud (vrille/carrefour). Un jog solitaire mixe aussi les axes par sa
-    # nature (virage L) mais reste un virage doux : il garde ses décors.
-    cand = list(dict.fromkeys(v for v in trace
-                              if is_dense_junction(model, v[0], v[1], v[2])))
-    junction_voxels = set()
-    for (x, y, z) in cand:
-        n_close = sum(1 for (jx, jy, jz) in cand
-                      if (jx, jy, jz) != (x, y, z)
-                      and abs(jx - x) <= 3 and abs(jy - y) <= 1 and abs(jz - z) <= 3)
-        if n_close >= 2:
-            junction_voxels.add((x, y, z))
-
-    # Garde de proximité chirurgicale : une décoration latérale est supprimée
-    # si SA cellule cible est collée au core d'un noeud (Chebyshev <= 1 x/z) —
-    # sinon elle s'accroche visuellement aux cores du noeud (casse reproduite
-    # dans repro_photos). Le décor régulier plus loin des noeuds est intact.
-    def decor_hits_junction(cx, cy, cz):
-        return any(abs(cx - jx) <= 1 and abs(cy - jy) <= 1 and abs(cz - jz) <= 1
-                   for (jx, jy, jz) in junction_voxels)
-
-    def near_junction(x, y, z):
-        """Vrai si (x,y,z) est un noeud (design minimal)."""
-        return (x, y, z) in junction_voxels
+    # Design classic en DEUX passes : tous les cores (corails) d'abord, puis
+    # tous les décors latéraux (murets/panneaux). Sinon, le côté d'un voisin
+    # s'écrit dans la case du core AVANT lui et la garde « colonne intacte »
+    # fait perdre le corail = « presque plus de rail » sur les lignes à
+    # dérive (jogs latéraux rapprochés). Passes séparées : le core gagne
+    # toujours sa case ; le décor, émis ensuite, s'efface devant tout rail
+    # déjà présent (build_column protégé par cellule).
+    classic_centers = []
+    classic_sides = []
 
     for v in [v for v in trace if model.types.get(v) == DIAG]:
         conv = orphan_diag_conversion(model, *v)
         if conv is not None:
             model.types[v] = conv
     for (x, y, z) in [v for v in trace if model.types.get(v) == DIAG]:
-        junction = near_junction(x, y, z)
         if opt.style == "classic":
             coral, sides = diag_design(model, x, y, z)
             if coral is None:
-                build_column(world, opt, x, y, z, "black_wool")
+                classic_centers.append((x, y, z, "black_wool"))
                 continue
-            build_column(world, opt, x, y, z, coral)
-            if not junction:
-                for dx, dz, w in sides:
-                    if decor_hits_junction(x + dx, y, z + dz):
-                        continue
-                    build_column(world, opt, x + dx, y, z + dz, w)
+            classic_centers.append((x, y, z, coral))
+            for dx, dz, w in sides:
+                classic_sides.append((x + dx, y, z + dz, w))
         else:
             # Design nature : diagonale convertie selon son extrémité (amélioration)
             c, _ = diag_design(model, x, y, z)
             t = NS if c != "coral_east" else EW
-            build_nature_block(model, world, opt, x, y, z, t, junction=junction, junction_cells=junction_voxels)
+            build_nature_block(model, world, opt, x, y, z, t)
     for (x, y, z) in [v for v in trace if model.types.get(v) == NS]:
-        junction = near_junction(x, y, z)
         if opt.style == "classic":
             n = scan_straight(model, x, y, z, NS, (0, -1), (1, 0), "east", (-1, 0), "west")
             s = scan_straight(model, x, y, z, NS, (0, +1), (1, 0), "east", (-1, 0), "west")
             side = decide_side_ns(n, s)
-            build_column(world, opt, x, y, z, "coral_south")
-            if not junction:
-                for sdx in (-1, 1):
-                    if decor_hits_junction(x + sdx, y, z):
-                        continue
-                    build_column(world, opt, x + sdx, y, z, side)
+            classic_centers.append((x, y, z, "coral_south"))
+            classic_sides.append((x - 1, y, z, side))
+            classic_sides.append((x + 1, y, z, side))
         else:
-            build_nature_block(model, world, opt, x, y, z, NS, junction=junction, junction_cells=junction_voxels)
+            build_nature_block(model, world, opt, x, y, z, NS)
     for (x, y, z) in [v for v in trace if model.types.get(v) == EW]:
-        junction = near_junction(x, y, z)
         if opt.style == "classic":
             o = scan_straight(model, x, y, z, EW, (-1, 0), (0, +1), "south", (0, -1), "north")
             e = scan_straight(model, x, y, z, EW, (+1, 0), (0, +1), "south", (0, -1), "north")
             side = decide_side_ew(o, e)
-            build_column(world, opt, x, y, z, "coral_east")
-            if not junction:
-                for sdz in (-1, 1):
-                    if decor_hits_junction(x, y, z + sdz):
-                        continue
-                    build_column(world, opt, x, y, z + sdz, side)
+            classic_centers.append((x, y, z, "coral_east"))
+            classic_sides.append((x, y, z - 1, side))
+            classic_sides.append((x, y, z + 1, side))
         else:
-            build_nature_block(model, world, opt, x, y, z, EW, junction=junction, junction_cells=junction_voxels)
+            build_nature_block(model, world, opt, x, y, z, EW)
+
+    for (x, y, z, c) in classic_centers:
+        build_column(world, opt, x, y, z, c)
+    for (x, y, z, w) in classic_sides:
+        build_column(world, opt, x, y, z, w)
     support_fill(world, opt, pre_keys)
     return model
 

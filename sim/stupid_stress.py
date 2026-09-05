@@ -582,6 +582,7 @@ def main():
     tr = R.rectify_vertical(w, tr, R.SPLINE, R.CORNER)
     tr = R.rectify_l(w, tr, R.SPLINE, R.CORNER)
     tr = R.rectify_vertical(w, tr, R.SPLINE, R.CORNER)
+    tr = R.dedupe_columns(w, tr, R.SPLINE)
     R.build_all(w, tr, R.Options(style="nature"))
     n_lect = sum(1 for s in w.blocks.values() if s.startswith("lectern"))
     n_leaf = sum(1 for s in w.blocks.values() if s.startswith("leaf_"))

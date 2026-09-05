@@ -56,23 +56,21 @@ public final class NatureDesign implements RailDesign {
             }
         }
         Writer w = new Writer(model.view(), plan);
-        java.util.Set<BlockPos> junctions = ClassicDesign.denseJunctions(model);
         for (BlockPos v : diags) {
             Agents.DiagResult r = Agents.analyseDiag(model, v.getX(), v.getY(), v.getZ());
             TrackType t = r.coreType != TrackType.EW ? TrackType.NS : TrackType.EW;
-            emitBlock(model, w, v, t, junctions.contains(v), junctions);
+            emitBlock(model, w, v, t);
         }
         for (BlockPos v : ns) {
-            emitBlock(model, w, v, TrackType.NS, junctions.contains(v), junctions);
+            emitBlock(model, w, v, TrackType.NS);
         }
         for (BlockPos v : ew) {
-            emitBlock(model, w, v, TrackType.EW, junctions.contains(v), junctions);
+            emitBlock(model, w, v, TrackType.EW);
         }
         w.fillSupports();
     }
 
-    private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t,
-                          boolean junction, java.util.Set<BlockPos> junctions) {
+    private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t) {
         int x = v.getX();
         int y = v.getY();
         int z = v.getZ();
@@ -110,7 +108,7 @@ public final class NatureDesign implements RailDesign {
             w.putDecorVisible(x + off[0], y, z + off[1], Blocks.GRAVEL.defaultBlockState());
         }
 
-        if (dirNS && !junction) {
+        if (dirNS) {
             for (int[] off : crossQuads) {
                 for (int dy : TrackModel.DY_TOLERANCE) {
                     if (model.typeAt(x + off[0], y + dy, z + off[1]) == TrackType.EW) {
@@ -152,17 +150,8 @@ public final class NatureDesign implements RailDesign {
         } else {
             a1 = 2; f1 = "west"; a2 = 2; f2 = "east";
         }
-        if (junction) {
-            return;  // nœud dense : core (pupitre/mousse + tapis/bouton) seul
-        }
-        if (!ClassicDesign.decorHitsJunction(junctions,
-                x + leafPos[0][0], y + 1, z + leafPos[0][1])) {
-            w.putDecorVisible(x + leafPos[0][0], y + 1, z + leafPos[0][1], leafLitter(a1, f1));
-        }
-        if (!ClassicDesign.decorHitsJunction(junctions,
-                x + leafPos[1][0], y + 1, z + leafPos[1][1])) {
-            w.putDecorVisible(x + leafPos[1][0], y + 1, z + leafPos[1][1], leafLitter(a2, f2));
-        }
+        w.putDecorVisible(x + leafPos[0][0], y + 1, z + leafPos[0][1], leafLitter(a1, f1));
+        w.putDecorVisible(x + leafPos[1][0], y + 1, z + leafPos[1][1], leafLitter(a2, f2));
     }
 
     private static final java.util.Set<String> CARD_N = java.util.Set.of("N", "NE", "NO");
