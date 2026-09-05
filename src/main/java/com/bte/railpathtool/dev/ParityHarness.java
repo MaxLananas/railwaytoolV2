@@ -47,6 +47,8 @@ public final class ParityHarness {
         final List<int[]> boxes = new ArrayList<>();       // x0,x1,y0,y1,z0,z1
         final Map<Integer, List<int[]>> controls = new LinkedHashMap<>();
         final Map<String, String> expect = new TreeMap<>();
+        final Map<String, String> simTypes = new TreeMap<>();    // D
+        final Map<String, String> simNeighbors = new TreeMap<>(); // N
     }
 
     public static void main(String[] args) throws Exception {
@@ -93,6 +95,8 @@ public final class ParityHarness {
                 case "C" -> cur.controls.computeIfAbsent(i(p[1]), k -> new ArrayList<>())
                         .add(new int[]{i(p[2]), i(p[3]), i(p[4])});
                 case "E" -> cur.expect.put(key(i(p[1]), i(p[2]), i(p[3])), p[4]);
+                case "D" -> cur.simTypes.put(key(i(p[1]), i(p[2]), i(p[3])), p[4]);
+                case "N" -> cur.simNeighbors.put(key(i(p[1]), i(p[2]), i(p[3])), p[4]);
                 default -> {
                 }
             }
@@ -169,6 +173,38 @@ public final class ParityHarness {
             trace = Grounding.dedupeColumns(view, trace);
 
             TrackModel model = new TrackModel(view, trace, TrackModel.OverrideMode.AUTO);
+            long typeMism = 0;
+            long nbMism = 0;
+            for (BlockPos v : trace) {
+                String k = key(v.getX(), v.getY(), v.getZ());
+                String simT = sc.simTypes.get(k);
+                String simN = sc.simNeighbors.get(k);
+                TrackType jt = model.typeOf(v);
+                String jts = jt == null ? "?" : jt.name();
+                if (simT != null && !simT.equals(jts)) {
+                    if (typeMism < 4) {
+                        System.out.println("  [TYPE] " + k + " sim=" + simT
+                                + " java=" + jts);
+                    }
+                    typeMism++;
+                }
+                String jn = String.join(",", model.neighborDirections(
+                        v.getX(), v.getY(), v.getZ()));
+                if (jn.isEmpty()) {
+                    jn = "-";
+                }
+                if (simN != null && !simN.equals(jn)) {
+                    if (nbMism < 4) {
+                        System.out.println("  [NB] " + k + " sim=" + simN
+                                + " java=" + jn);
+                    }
+                    nbMism++;
+                }
+            }
+            if (typeMism > 0 || nbMism > 0) {
+                System.out.println("  -> types divergents=" + typeMism
+                        + " voisinages divergents=" + nbMism);
+            }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
             if (options.style == DesignOptions.Style.CLASSIC) {
                 new ClassicDesign().emitCases(model, options, plan);

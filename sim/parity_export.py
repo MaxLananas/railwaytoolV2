@@ -126,13 +126,14 @@ class Scene:
         world = make_world(x0, x1, z0, z1, self.h)
         opt = R.Options(style=self.style, theme=self.theme, buried=self.buried)
         traces = []
+        models = []
         for ctrl in self.controls:
             dug = set()
             tr = build_trace_seq(world, ctrl, dug)
             traces.append(tr)
-            R.build_all(world, tr, opt)
+            models.append(R.build_all(world, tr, opt))
         bad = self.checks(world, traces, opt)
-        return world, traces, bad
+        return world, traces, bad, models
 
     def checks(self, world, traces, opt):
         return self_check(self.sid, world, traces, opt)
@@ -227,7 +228,7 @@ def main():
         f.write("# scenes de parite Java/sim - genere par sim/parity_export.py\n")
         f.write("# @id / O options / R boites terrain / C n x y z / E x y z token\n")
         for sc in scenes():
-            world, traces, bad = sc.run()
+            world, traces, bad, models = sc.run()
             if bad:
                 total_bad += len(bad)
                 print(f"[SCENE INVALIDE] {sc.sid}: {bad[:4]}")
@@ -250,6 +251,13 @@ def main():
             for i, ctrl in enumerate(sc.controls):
                 for (x, y, z) in ctrl:
                     f.write(f"C {i} {x} {y} {z}\n")
+            # types + voisinage ordonné du SIM (post build) — référence de
+            # classification pour le harnais Java
+            for tr, mo in zip(traces, models):
+                for (x, y, z) in sorted(set(tr)):
+                    t = mo.types.get((x, y, z)) or "?"
+                    nb = ",".join(R.ordered_neighbors(mo, x, y, z)) or "-"
+                    f.write(f"D {x} {y} {z} {t}\nN {x} {y} {z} {nb}\n")
             for (x, y, z), st in sorted(world.blocks.items(),
                                         key=lambda kv: (kv[0][0], kv[0][1], kv[0][2])):
                 f.write(f"E {x} {y} {z} {tok(st)}\n")
