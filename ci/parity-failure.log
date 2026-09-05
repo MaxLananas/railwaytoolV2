@@ -1,295 +1,295 @@
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:05] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:05] [main/INFO]: [STDOUT]: [GDC] skip=30,61,60 key=7800003c03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:dead_bubble_coral_wall_fan} inWool=false unstable=false below=Block{minecraft:pale_oak_wood}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:dead_bubble_coral_wall_fan} inWool=false unstable=false below=Block{minecraft:pale_oak_wood}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:dead_bubble_coral_wall_fan} inWool=false unstable=false below=Block{minecraft:pale_oak_wood}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:dead_bubble_coral_wall_fan} inWool=false unstable=false below=Block{minecraft:pale_oak_wood}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=8,61,30 key=2000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:lectern} y+1=Block{minecraft:pale_moss_carpet} inWool=false unstable=false below=Block{minecraft:gravel}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:lectern} y+1=Block{minecraft:pale_moss_carpet} inWool=false unstable=false below=Block{minecraft:gravel}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=24,61,30 key=6000001e03d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=6,61,6 key=1800000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,22 key=1000001603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=20,61,4 key=5000000403d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,62,22 key=1000001603e woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=46,63,28 key=b800001c03f woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,6 key=1000000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,6 key=1000000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,6 key=1000000603d woolProbe=0 probePos=0,0,0
-[21:48:06] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=false unstable=true below=Block{minecraft:air}
-[21:48:06] [main/INFO]: [STDOUT]: [GDC] skip=4,61,6 key=1000000603d woolProbe=0 probePos=0,0,0
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,61,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=89 first=30,58,60 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:dead_bubble_coral_wall_fan}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=8,58,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,61,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=24,60,30 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:pale_moss_carpet}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=55 first=6,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=52 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:04] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,61,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=20,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,62,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=33 first=4,58,22 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,59,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,59,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,63,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=179 first=46,59,28 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,57,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,57,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=141 first=4,57,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=83 first=8,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=83 first=8,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=80 first=9,61,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=80 first=9,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=96 first=0,61,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=96 first=0,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=51 first=-1,62,-5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=51 first=-1,60,-5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=59 first=6,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=59 first=6,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=80 first=0,61,-2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=80 first=0,58,-2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=128 first=9,61,-1 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=128 first=9,58,-1 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=64 first=-2,62,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=64 first=-2,57,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=113 first=4,60,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=113 first=4,58,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=40 first=11,61,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=40 first=11,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=136 first=17,61,17 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=136 first=17,59,17 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=101 first=1,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=101 first=1,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=98 first=6,61,0 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:05] [main/INFO]: [STDOUT]: [GDD] entry n=98 first=6,57,0 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=92 first=1,62,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=92 first=1,58,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=122 first=1,61,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=122 first=1,57,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=116 first=10,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=116 first=10,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=13,61,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=13,58,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=127 first=-2,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=127 first=-2,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=120 first=2,61,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:white_wool}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=120 first=2,61,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=-1,61,15 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=-1,57,15 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=121 first=7,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=121 first=7,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=96 first=1,60,-4 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=96 first=1,58,-4 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=56 first=1,62,1 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=56 first=1,58,1 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=54 first=7,61,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=54 first=7,58,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=117 first=-2,62,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=117 first=-2,57,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=101 first=3,62,0 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=101 first=3,58,0 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=132 first=15,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=132 first=15,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=124 first=3,60,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=124 first=3,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=106 first=1,61,20 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:06] [main/INFO]: [STDOUT]: [GDD] entry n=106 first=1,57,20 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=false below=Block{minecraft:grass_block}
 === tail ===
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-67 n=21 13,60,7 14,60,7 15,60,7 16,60,7 17,61,7 18,61,7 19,61,7 20,60,7 21,60,7 22,60,7 23,60,7 24,60,7 25,60,7 26,60,7
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-68 n=34 6,61,10 6,61,11 6,61,12 6,60,13 6,60,14 6,60,15 6,60,16 6,61,17 6,61,18 6,61,19 6,60,20 6,60,21 6,60,22 6,60,23
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-69 n=53 4,60,9 3,60,9 3,60,10 2,61,10 2,61,11 1,61,11 0,61,12 0,61,13 -1,61,13 -1,61,14 -2,61,14 -2,61,15 -2,61,16 -3,61,16
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-70 n=42 6,61,10 6,60,11 5,60,11 5,60,12 5,60,13 5,60,14 5,61,15 4,61,15 4,61,16 4,61,17 3,61,17 2,60,17 2,60,18 1,60,18
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-71 n=39 7,60,4 7,60,3 7,60,2 7,60,1 7,60,0 7,60,-1 7,61,-2 7,61,-3 7,61,-4 7,61,-5 7,61,-6 7,61,-7 7,60,-8 7,60,-9
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-72 n=20 7,60,11 7,60,12 7,61,13 7,60,14 7,60,15 7,60,16 7,60,17 7,61,18 7,61,19 7,61,20 7,60,21 7,60,22 7,60,23 7,60,24
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-73 n=20 9,60,10 9,60,11 9,60,12 9,60,13 9,60,14 9,61,15 9,61,16 9,61,17 9,61,18 9,61,19 9,61,20 9,61,21 9,61,22 9,61,23
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-74 n=49 9,61,9 9,61,10 10,60,10 10,60,11 11,60,11 11,60,12 12,60,12 12,60,13 13,60,13 14,61,14 14,61,15 15,61,15 15,61,16 15,61,17
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-75 n=32 11,61,9 12,61,9 12,61,10 13,61,10 14,60,10 15,60,11 16,60,11 17,60,11 17,61,12 18,61,12 18,61,13 19,61,13 19,61,14 20,60,14
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-76 n=65 9,61,4 10,61,4 10,60,3 11,60,3 11,60,2 12,60,2 13,60,1 13,60,0 14,60,0 14,61,-1 15,61,-1 15,61,-2 16,61,-3 17,61,-3
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-77 n=25 6,61,12 6,61,13 6,60,14 6,60,15 6,60,16 6,60,17 6,60,18 6,60,19 6,61,20 6,61,21 6,60,22 6,60,23 6,60,24 6,61,25
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-78 n=51 7,61,5 6,60,5 6,60,4 5,60,4 4,60,4 4,60,3 3,60,3 2,61,3 2,61,2 1,61,2 0,61,2 0,61,1 -1,61,1 -1,61,0
-[21:48:22] [main/INFO]: [STDOUT]:   [JAVA-TRACE] teeth-79 n=41 7,60,5 7,60,4 7,60,3 7,61,2 6,61,2 6,61,1 5,61,1 5,61,0 4,61,0 3,61,0 2,61,0 2,61,-1 1,60,-1 1,60,-2
-
-> Task :parityCheck FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788644851529.json
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=40 first=0,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=40 first=0,65,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=6,60,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:grass_block} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=6,66,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=48 first=8,60,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=48 first=8,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=17 first=10,60,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=17 first=10,58,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=71 first=12,60,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=71 first=12,58,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=75 first=3,61,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=75 first=3,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=18 first=7,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=18 first=7,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=26 first=7,61,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=26 first=7,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=6,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=6,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=4,60,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=37 first=4,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=76 first=6,60,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=76 first=6,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=69 first=9,61,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:white_wool}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=69 first=9,61,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=41 first=5,61,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=41 first=5,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=8,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=8,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=10,61,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:white_wool}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=10,61,2 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=5,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=5,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=41 first=14,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=41 first=14,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=39 first=10,61,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=39 first=10,58,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=9,60,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=9,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=59 first=8,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=59 first=8,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=8,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=8,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=11,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=11,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=23 first=10,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=23 first=10,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=70 first=9,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=70 first=9,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=10,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=10,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=7,60,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=7,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=46 first=14,60,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=46 first=14,58,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=10,60,14 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=10,58,14 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=6,60,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=6,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=82 first=6,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=82 first=6,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [DBG teeth-28] avant: [8,60,6, 9,60,6, 10,60,6, 10,61,6, 11,61,6, 12,61,6, 13,61,6, 14,61,6, 15,61,6, 16,61,6]
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=25 first=8,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [DBG teeth-28] apresG1: [8,58,6, 9,58,6, 10,58,6, 10,59,6, 11,58,6, 12,58,6, 13,58,6, 14,58,6, 15,58,6, 16,58,6]
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=25 first=8,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=27 first=7,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=27 first=7,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=8,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=8,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=42 first=6,60,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=42 first=6,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=10,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=10,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=8,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=8,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=32 first=9,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=32 first=9,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=11,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=11,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=46 first=10,60,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=46 first=10,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=56 first=5,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=56 first=5,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=7,60,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=7,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=13,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=13,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=9,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=9,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=9,60,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=9,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=51 first=9,60,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=51 first=9,58,13 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=65 first=13,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=65 first=13,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=30 first=10,60,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=30 first=10,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:white_wool} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=65 first=12,60,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=65 first=12,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=32 first=10,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=32 first=10,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=68 first=3,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=68 first=3,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=45 first=12,60,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=27 first=12,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=79 first=14,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:18] [main/INFO]: [STDOUT]: [GDD] entry n=79 first=14,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=82 first=5,61,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=82 first=5,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=25 first=7,61,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=25 first=7,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=7,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=43 first=7,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=10,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=29 first=10,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=39 first=6,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=39 first=6,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=7,61,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=7,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=8,60,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=34 first=8,58,8 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=5,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=31 first=5,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=4,60,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=4,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=8,60,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=44 first=8,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=62 first=6,61,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=62 first=6,58,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=24 first=11,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=24 first=11,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=60 first=7,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=60 first=7,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=8,61,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=36 first=8,58,3 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=66 first=6,61,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=66 first=6,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=8,61,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=28 first=8,58,6 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=8,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=21 first=8,58,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=27 first=13,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:white_wool}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=27 first=13,61,7 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=6,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=38 first=6,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=57 first=4,60,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=57 first=4,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=6,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=6,58,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=7,60,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=47 first=7,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=24 first=7,60,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=24 first=7,58,11 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=23 first=9,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:white_wool}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=23 first=9,61,10 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=53 first=9,61,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=53 first=9,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=11,61,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=35 first=11,58,9 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=73 first=9,61,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=73 first=9,58,4 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=30 first=6,61,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=30 first=6,58,12 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=57 first=7,61,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=57 first=7,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=42 first=7,60,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=true below=Block{minecraft:air}
+[21:52:19] [main/INFO]: [STDOUT]: [GDD] entry n=25 first=7,58,5 self=Block{minecraft:white_wool} y+1=Block{minecraft:air} inWool=true unstable=false below=Block{minecraft:grass_block}
+[21:52:19] [main/INFO]: [STDOUT]: === PARITY 752 scenes ===
+[21:52:19] [main/INFO]: [STDOUT]: 752 OK / 0 DIFFERENT
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788645087303.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
-> Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
-
-* Try:
-> Run with --info or --debug option to get more log output.
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
-
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
-	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
-	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
-	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
-	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
-	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
-	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
-	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
-	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
-	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
-	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
-	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:459)
-	at org.gradle.process.internal.DefaultJavaExecAction.execute(DefaultJavaExecAction.java:58)
-	at org.gradle.api.tasks.JavaExec.exec(JavaExec.java:167)
-	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:244)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:227)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:210)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:176)
-	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:167)
-	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:47)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:137)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:134)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:134)
-	at org.gradle.internal.execution.steps.ExecuteStep$Mutable.execute(ExecuteStep.java:80)
-	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
-	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
-	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:51)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:29)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:67)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:39)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:42)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:24)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:39)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:28)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
-	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:76)
-	at org.gradle.internal.Either$Right.fold(Either.java:176)
-	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:74)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:49)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:46)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:35)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
-	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:70)
-	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:32)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:69)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:37)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:63)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:34)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:79)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:65)
-	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:99)
-	at org.gradle.internal.execution.steps.ValidateStep$Mutable.execute(ValidateStep.java:65)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.executeMutable(CaptureMutableStateBeforeExecutionStep.java:86)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
-	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:305)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
-	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
-	... 30 more
-
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -297,5 +297,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 55s
+BUILD SUCCESSFUL in 58s
 3 actionable tasks: 3 executed
