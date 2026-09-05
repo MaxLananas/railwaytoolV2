@@ -65,7 +65,8 @@ jobs:
           # Les [GDD] (debug global) inondent tout : on extrait d'abord
           # les rares [DBG]/[FW]/[WORLDDBG] (scene cible) SANS quota
           # commun, puis un petit echantillon de GDD/GDC au cas ou.
-          { grep -E "\[DBG|\[FW|\[WORLDDBG" /tmp/parity.log | head -220
+          { grep -E "OK / | DIFFERENT|differences$|AssertionError" /tmp/parity.log | tail -40
+            grep -E "\[DBG|\[FW|\[WORLDDBG" /tmp/parity.log | head -220
             grep -E "\[GDD|\[GDC" /tmp/parity.log | head -40
           } > ci/parity-failure.log
           echo "=== tail ===" >> ci/parity-failure.log
