@@ -62,7 +62,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p ci
-          grep -E "STDOUT|PARITY|error|FAILED" /tmp/parity.log | head -420 > ci/parity-failure.log
+          grep -E "PARITY|error|FAILED" /tmp/parity.log > ci/parity-failure.log
+          grep -E "STDOUT.*(differences|attendu|TYPE|WHY|\[NB\])" /tmp/parity.log >> ci/parity-failure.log
           git add ci/parity-failure.log
           git commit -m "ci(debug): log echec parity [skip ci]" || true
           git push || true
