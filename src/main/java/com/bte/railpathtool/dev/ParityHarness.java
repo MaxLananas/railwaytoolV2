@@ -381,6 +381,11 @@ public final class ParityHarness {
         // (initial, final, attendu). Une cellule absente de E vaut son bloc
         // initial (l'export n'écrit que les changements) ; toute différence
         // finale vs initiale non exportée = fuite, où qu'elle soit.
+        if (sc.id.equals(System.getProperty("parity.debugScene", ""))) {
+            System.out.println("[WORLDDBG " + sc.id + "] finalTok:");
+            finalTok.forEach((k, tk) -> System.out.println(
+                    "  [FW] " + k + " = " + tk));
+        }
         TreeSet<String> keys = new TreeSet<>();
         keys.addAll(initial.keySet());
         keys.addAll(finalTok.keySet());
