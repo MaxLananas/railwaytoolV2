@@ -3,7 +3,7 @@ package com.bte.railpathtool.track;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.WoolBlock;
+import net.minecraft.tags.BlockTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public final class Grounding {
         LongOpenHashSet wool = new LongOpenHashSet();
         for (BlockPos v : trace) {
             BlockState st = view.at(v.getX(), v.getY(), v.getZ());
-            if (st != null && st.getBlock() instanceof WoolBlock) {
+            if (st != null && st.is(BlockTags.WOOL)) {
                 wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
             }
         }
