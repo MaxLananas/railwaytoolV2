@@ -1,3 +1,383 @@
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: lturn-cs : 152 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: lturn-cl : 152 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: lturn-na : 162 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: lturn-buried : 152 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: tjun-cs : 173 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: tjun-cl : 173 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: tjun-na : 204 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: xlvl-cs : 173 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: xlvl-cl : 173 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: xlvl-na : 204 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: spiral-cs : 318 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=side_south obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]: spiral-cl : 318 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=door_lower_south obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]: spiral-na : 352 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_south obtenu=pale_moss_carpet
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=leaf_3_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_east obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: zigzag-cs : 67 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]: zigzag-cl : 67 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]: zigzag-na : 14 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_north obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=pale_moss_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=button_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=gravel
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=leaf_3_east
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_south
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-0 : 50 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=door_lower_east obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-1 : 104 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_se obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-2 : 112 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=gravel
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=gravel
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=gravel
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=leaf_3_east
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=pale_moss_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_north obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-3 : 105 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-4 : 106 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=leaf_3_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_north obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=button_east obtenu=button_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-flat-5 : 109 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-6 : 91 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=door_lower_east obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-7 : 171 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-8 : 116 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=button_east obtenu=button_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_north obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=gravel
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-9 : 65 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-10 : 198 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-11 : 106 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_north obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=button_east obtenu=button_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-12 : 155 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ne obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_sw obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-13 : 85 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_east obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_2_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-14 : 191 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-hills-15 : 130 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-16 : 82 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-17 : 241 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_eo obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=coral_east obtenu=coral_south
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-flat-18 : 134 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=pale_moss_carpet obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_south obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_west obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=leaf_3_south obtenu=leaf_3_west
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=lectern_east obtenu=lectern_north
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=gravel obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: fuzz-chaos-19 : 85 differences
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_east
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=soil
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=wall_ns
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=grass_block obtenu=air
+[03:17:52] [main/INFO]: [STDOUT]:    attendu=soil obtenu=grass_block
+[03:17:52] [main/INFO]: [STDOUT]: 0 OK / 42 DIFFERENT
+
+> Task :parityCheck FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788578238419.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
+> Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
+
+* Try:
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
@@ -116,5 +496,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 42s
+BUILD FAILED in 39s
 3 actionable tasks: 3 executed
