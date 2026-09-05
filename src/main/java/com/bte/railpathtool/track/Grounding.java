@@ -180,6 +180,14 @@ public final class Grounding {
                                        LongOpenHashSet dug) {
         List<BlockPos> moved = new ArrayList<>();
         LongOpenHashSet wool = laidWool(view, trace);
+        // DEBUG transitoire CI : laine posee vs attendue par la passe.
+        if (wool.size() != trace.size()) {
+            System.out.println("[WD] wool=" + wool.size()
+                    + " trace=" + trace.size()
+                    + " echantillon=" + (trace.isEmpty() ? "-" :
+                            view.at(trace.get(0).getX(), trace.get(0).getY(),
+                                    trace.get(0).getZ()).getBlock()));
+        }
         for (BlockPos v : trace) {
             int x = v.getX();
             int y = v.getY();
