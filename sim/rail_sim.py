@@ -602,7 +602,8 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 d1 = world.get(x, y - 1, z)
                 d2 = world.get(x, y - 2, z)
                 d3 = world.get(x, y - 3, z)
-                if (d1 in DECOR_TOKENS and d2 in SOIL_TOKENS
+                if (d1 in DECOR_TOKENS
+                        and (d2 in SOIL_TOKENS or d2 == "orange_wool")
                         and d3 not in (None, AIR, "water")
                         and not is_wool(d3) and d3 not in NATURE_CORES):
                     world.set(x, y, z, AIR)
