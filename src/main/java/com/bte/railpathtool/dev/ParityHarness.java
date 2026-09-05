@@ -301,6 +301,19 @@ public final class ParityHarness {
                             + " supplementaires=" + extra);
                 }
             }
+            // DEBUG parite : dump la trace java (post-passes) si divergences
+            // probables (trace inconnue du sim ou inverse).
+            if (missing + extra > 0) {
+                StringBuilder sb = new StringBuilder("  [JAVA-TRACE] n="
+                        + trace.size() + " ");
+                int lim = Math.min(trace.size(), 12);
+                for (int i2 = 0; i2 < lim; i2++) {
+                    BlockPos v = trace.get(i2);
+                    sb.append(v.getX()).append(',').append(v.getY())
+                            .append(',').append(v.getZ()).append(' ');
+                }
+                System.out.println(sb);
+            }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
             if (options.style == DesignOptions.Style.CLASSIC) {
                 new ClassicDesign().emitCases(model, options, plan);
