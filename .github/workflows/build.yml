@@ -15,6 +15,8 @@ env:
 jobs:
   parity:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,9 +51,21 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Parity check (real Java pipeline vs validated sim)
+        id: parity
         run: |
           set -o pipefail
-          ./gradlew parityCheck --no-daemon --stacktrace
+          ./gradlew parityCheck --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
+
+      - name: Debug - commit log tail on failure
+        if: failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p ci
+          tail -120 /tmp/parity.log > ci/parity-failure.log
+          git add ci/parity-failure.log
+          git commit -m "ci(debug): log echec parity [skip ci]" || true
+          git push || true
 
   build:
     runs-on: ubuntu-24.04
