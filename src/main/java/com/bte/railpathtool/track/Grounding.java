@@ -37,11 +37,16 @@ public final class Grounding {
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
                 .getKey(st.getBlock()).getPath();
         return switch (id) {
+            // Les sols du mix design (et le gravel) restent re-tracables :
+            // un support pose par une trace anterieure ne doit jamais
+            // devier la trace suivante — sinon la GEOMETRIE dependrait du
+            // tirage aleatoire du mix (non reproductible sim<->java).
             case "grass_block", "water", "stone", "dirt", "coarse_dirt",
                  "sand", "sandstone", "terracotta", "clay", "snow_block",
                  "ice", "mud", "andesite", "granite", "diorite",
-                 "deepslate", "cobbled_deepslate", "oak_leaves",
-                 "spruce_leaves" -> true;
+                 "deepslate", "cobbled_deepslate", "pale_oak_wood",
+                 "deepslate_iron_ore", "deepslate_coal_ore", "gravel",
+                 "oak_leaves", "spruce_leaves" -> true;
             default -> false;
         };
     }

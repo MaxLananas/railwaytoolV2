@@ -35,13 +35,18 @@ TOK_SOIL = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
             "deepslate_iron_ore", "deepslate_coal_ore"}
 
 # Blocs qui acceptent la laine de trace (miroir EXACT de
-# Grounding.isWoolLayable cote Java). Tout le reste — rail, laine, decor,
-# supports — est protege : une trace ne peut pas ecraser la voie d'une autre.
+# Grounding.isWoolLayable cote Java). Tout le reste — rail, laine, decor —
+# est protege : une trace ne peut pas ecraser la voie d'une autre.
+# TOUS les sols du mix design (et le gravel nature) figurent ici : un
+# support pose par une trace anterieure ne doit jamais devier la trace
+# suivante — sinon la GEOMETRIE dependrait du tirage aleatoire du mix
+# (scenes jun-70 & co : pale_oak_wood tire => trace refusee/deplacee).
 NATURAL_SOFT = {R.AIR, None, "grass_block", "water", "stone", "dirt",
                 "coarse_dirt", "sand", "sandstone", "terracotta", "clay",
                 "snow_block", "ice", "mud", "andesite", "granite", "diorite",
-                "deepslate", "cobbled_deepslate", "oak_leaves",
-                "spruce_leaves"}
+                "deepslate", "cobbled_deepslate", "pale_oak_wood",
+                "deepslate_iron_ore", "deepslate_coal_ore", "gravel",
+                "oak_leaves", "spruce_leaves"}
 
 WOOL_PREFIX = "_wool"
 RAIL_CORE_TOKEN = "black_wool"   # pilier noir = rail, pas une laine residuelle

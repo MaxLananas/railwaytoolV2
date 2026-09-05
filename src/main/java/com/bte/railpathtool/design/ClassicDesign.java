@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.properties.WallSide;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public final class ClassicDesign implements RailDesign {
 
@@ -215,6 +215,8 @@ public final class ClassicDesign implements RailDesign {
     }
 
     public static final class ColumnWriter {
+        /** RNG du mix de sol : seedee => tirages reproductibles run-to-run. */
+        private static final Random SOIL_RNG = new Random(20240913L);
         private final TrackModel model;
         private final DesignOptions options;
         private static final boolean DBG = Boolean.getBoolean("railparity.debug");
@@ -391,7 +393,12 @@ public final class ClassicDesign implements RailDesign {
             if (total <= 0) {
                 return options.soilSlots[0].state;
             }
-            int roll = ThreadLocalRandom.current().nextInt(total);
+            // RNG dediee et semee (jamais ThreadLocalRandom) : le choix du
+            // sol doit etre reproductible run-to-run. La geometrie ne
+            // depend de toute facon plus du tirage (tous les sols du mix
+            // sont wool-layable), mais un tirage stable garde les captures
+            // et la parite reproductibles bloc pour bloc.
+            int roll = SOIL_RNG.nextInt(total);
             int acc = 0;
             for (DesignOptions.SoilSlot slot : options.soilSlots) {
                 acc += Math.max(0, slot.percent);

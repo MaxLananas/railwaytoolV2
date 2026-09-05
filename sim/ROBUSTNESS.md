@@ -53,6 +53,20 @@ Suites de stress locales (sim) — toutes vertes :
 - `pillar_scan.py` : chaque pilier, absence de parasite + diagrammes
   (`sim/pillar_report.txt`).
 
+### Déterminisme strict : le tirage du sol ne décide jamais la géométrie
+
+Le mix de sol (deepslate / cobbled / pale_oak / minerais / gravel) est tiré
+aléatoirement **mais tous ses blocs sont `wool-layable`** (sim
+`NATURAL_SOFT` = Java `Grounding.isWoolLayable`) : une trace ultérieure qui
+repasse exactement sur un support posé par une trace antérieure continue
+sans dévier. Sinon la position des voies dépendrait du RNG — non
+reproductible entre le sim et le port Java, et instable d'un run à l'autre
+(scène témoin `jun-70`, croisement 3 traces : un `pale_oak_wood` tiré
+déviait la 3ᵉ trace d'une case). Le RNG Java de `pickSoil` est en outre
+**seedé** (`Random(20240913)`, jamais `ThreadLocalRandom`) : captures et
+parité reproductibles bloc pour bloc, tous les blocs du mix tokenisant
+`soil` des deux côtés.
+
 ## 3. Règles de priorité (qui gagne une case ?)
 
 1. **Un core (corail/pilier noir/pupitre/mousse) n'est JAMAIS écrasé** —
