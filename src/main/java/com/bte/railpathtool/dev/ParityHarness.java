@@ -243,12 +243,12 @@ public final class ParityHarness {
                 got = "air";
             }
             if (!got.equals(ex.getValue())) {
-                diffs.put(ex.getKey(), "attendu=" + ex.getValue() + " obtenu=" + got);
+                diffs.put(ex.getKey(), ex.getKey() + " attendu=" + ex.getValue() + " obtenu=" + got);
             }
         }
         for (Map.Entry<String, String> g : finalTok.entrySet()) {
             if (!sc.expect.containsKey(g.getKey())) {
-                diffs.put(g.getKey(), "attendu=air obtenu=" + g.getValue());
+                diffs.put(g.getKey(), g.getKey() + " attendu=air obtenu=" + g.getValue());
             }
         }
         return new ArrayList<>(diffs.values());
