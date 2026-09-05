@@ -62,10 +62,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p ci
-          {
-            grep -E "PARITY|error|FAILED" /tmp/parity.log || true
-            grep -E "STDOUT.*(differences|attendu|TYPE|WHY|\[NB\]|\[COL\] (2[34],5[0-9],-?[0-3]|[678],5[89],2[6-9]))" /tmp/parity.log || true
-          } > ci/parity-failure.log
+          tail -220 /tmp/parity.log > ci/parity-failure.log
           git add ci/parity-failure.log
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
