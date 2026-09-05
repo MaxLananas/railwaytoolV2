@@ -239,12 +239,17 @@ public final class ClassicDesign implements RailDesign {
                         .BuiltInRegistries.BLOCK.getKey(
                                 view.at(x, y + 1, z).getBlock()).getPath());
             }
+            boolean coreWrite = isRailCore(center);
             for (int yy = startY; yy <= startY + 2; yy++) {
-                // Garde anti-écrasement anti-valse : la cellule d'un bloc rail
-                // (y compris gravier/litière posés par un autre voxel ou un
-                // ancien build) n'est JAMAIS réécrite — sinon on casse le
-                // rail d'un voisin sur les traverses et les nœuds (photo 1).
-                if (isRailFamily(view.at(x, yy, z))) {
+                // Garde anti-valse à deux vitesses : (1) un core existant
+                // n'est JAMAIS écrasé ; (2) une pose de DÉCOR cède devant
+                // n'importe quel bloc de rail existant — sinon un rebuild
+                // réécrirait les murets en panneaux/portes (valse des
+                // décors, portes orphelines). Mais une pose de CORE reprend
+                // la case d'un décor : les jonctions denses ne perdent
+                // jamais leur rail visible.
+                BlockState cur = view.at(x, yy, z);
+                if (isRailCore(cur) || (!coreWrite && isRailFamily(cur))) {
                     if (DBG) {
                         System.out.println("[COLREFUSE] " + x + "," + yy + "," + z
                                 + " center=" + net.minecraft.core.registries
@@ -252,6 +257,14 @@ public final class ClassicDesign implements RailDesign {
                                 + " cur=" + net.minecraft.core.registries
                                 .BuiltInRegistries.BLOCK.getKey(
                                         view.at(x, yy, z).getBlock()));
+                    }
+                    if (isRailCore(cur)
+                            && view.at(x, startY, z).is(Blocks.WHITE_WOOL)) {
+                        // La laine fraîche du voxel est consommée malgré
+                        // tout : son core est précisément celui qui occupe
+                        // la case (croisement = colonne partagée) — sinon
+                        // elle resterait visible à jamais sans rail.
+                        put(x, startY, z, Blocks.AIR.defaultBlockState());
                     }
                     return;
                 }
@@ -267,6 +280,32 @@ public final class ClassicDesign implements RailDesign {
             put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
             put(x, startY + 1, z, center);
             put(x, startY, z, pickSoil());
+        }
+
+        /**
+         * Cores de voie des deux designs (corail/pilier noir/pupitre/mousse) :
+         * JAMAIS écrasés, même par une trace suivante. Miroir de
+         * rail_sim.NATURE_CORES — le décor (murets, portes, panneaux) n'en
+         * fait pas partie : il s'incline devant un core de trace voisine
+         * (jonctions denses — le rail visible passe avant le décor).
+         */
+        /** Sols de support posés par les designs (remplissage + bases). */
+        static boolean isSupportSoil(BlockState st) {
+            return st.is(Blocks.DEEPSLATE) || st.is(Blocks.COBBLED_DEEPSLATE)
+                    || st.is(Blocks.PALE_OAK_WOOD)
+                    || st.is(Blocks.DEEPSLATE_IRON_ORE)
+                    || st.is(Blocks.DEEPSLATE_COAL_ORE)
+                    || st.is(Blocks.GRAVEL)
+                    || st.is(Blocks.ORANGE_WOOL);   // remplissage uniforme
+        }
+
+        static boolean isRailCore(BlockState st) {
+            if (st.is(Blocks.BLACK_WOOL) || st.is(Blocks.LECTERN)
+                    || st.is(Blocks.PALE_MOSS_BLOCK)
+                    || st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+                return true;
+            }
+            return false;
         }
 
         private void put(int x, int y, int z, BlockState state) {
@@ -292,7 +331,8 @@ public final class ClassicDesign implements RailDesign {
             long[] keys = view.overlay().keySet().toLongArray();
             for (long key : keys) {
                 BlockState st = view.overlay().get(key);
-                if (st == null || st.isAir() || !isRailFamily(st)) {
+                if (st == null || st.isAir()
+                        || (!isRailFamily(st) && !isSupportSoil(st))) {
                     continue;
                 }
                 int x = BlockPos.getX(key);
@@ -302,8 +342,15 @@ public final class ClassicDesign implements RailDesign {
                 // que depthMax est un pont/viaduc volontaire — ne RIEN faire
                 // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air,
                 // exactement le bug des fragments flottants signalé).
+                // L'eau n'est pas un support : un rail au-dessus d'une mare
+                // flotte — le pilier traverse l'eau jusqu'au lit (<= depthMax
+                // blocs, sinon c'est un pont legitime et on ne touche a rien).
                 int gap = 0;
-                while (view.isAir(x, y - 1 - gap, z) && gap < 64) {
+                while (gap < 64) {
+                    BlockState below = view.at(x, y - 1 - gap, z);
+                    if (!below.isAir() && !below.is(Blocks.WATER)) {
+                        break;
+                    }
                     gap++;
                 }
                 if (gap == 0 || gap > depthMax) {
@@ -311,7 +358,8 @@ public final class ClassicDesign implements RailDesign {
                 }
                 for (int yy = y - 1; yy >= y - gap; yy--) {
                     long k = BlockPos.asLong(x, yy, z);
-                    if (view.isAir(x, yy, z)) {
+                    BlockState cur = view.at(x, yy, z);
+                    if (cur.isAir() || cur.is(Blocks.WATER)) {
                         BlockState fill = soilOverride != null ? soilOverride : pickSoil();
                         plan.put(k, fill);
                         view.put(x, yy, z, fill);

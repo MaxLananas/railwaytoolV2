@@ -250,7 +250,15 @@ public final class NatureDesign implements RailDesign {
             BlockState cur = planned ? plan.get(key) : view.at(x, y, z);
             if (!planned
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
-                return;
+                if (ClassicDesign.ColumnWriter.isRailCore(cur)) {
+                    return;                    // jamais d'écrasement d'un core
+                }
+                if (!ClassicDesign.ColumnWriter.isRailCore(state)) {
+                    // décor ultérieur ne touche ni au décor ni au lit d'une
+                    // voie antérieure — mais un CORE la reprend (jonctions :
+                    // le rail visible passe avant la litière d'à côté).
+                    return;
+                }
             }
             // Anti-chevauchement intra-build, à priorité : un CORE (pupitre/
             // mousse) gagne toujours sa case — sinon la litière d'un voxel bas
@@ -285,7 +293,8 @@ public final class NatureDesign implements RailDesign {
             for (long key : keys) {
                 BlockState st = view.overlay().get(key);
                 if (st == null || st.isAir()
-                        || !ClassicDesign.ColumnWriter.isRailFamily(st)) {
+                        || (!ClassicDesign.ColumnWriter.isRailFamily(st)
+                                && !ClassicDesign.ColumnWriter.isSupportSoil(st))) {
                     continue;
                 }
                 int x = BlockPos.getX(key);
@@ -295,14 +304,21 @@ public final class NatureDesign implements RailDesign {
                 // que depthMax est un pont/viaduc volontaire — ne RIEN faire
                 // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air).
                 int gap = 0;
-                while (view.isAir(x, y - 1 - gap, z) && gap < 64) {
+                // L'eau n'est pas un support (pilier de gravier jusqu'au lit).
+                while (gap < 64) {
+                    BlockState belowSt = view.at(x, y - 1 - gap, z);
+                    if (!belowSt.isAir() && !belowSt.is(Blocks.WATER)) {
+                        break;
+                    }
                     gap++;
                 }
+
                 if (gap == 0 || gap > depthMax) {
                     continue;
                 }
                 for (int yy = y - 1; yy >= y - gap; yy--) {
-                    if (view.isAir(x, yy, z)) {
+                    BlockState curSt = view.at(x, yy, z);
+                    if (curSt.isAir() || curSt.is(Blocks.WATER)) {
                         BlockState fill = Blocks.GRAVEL.defaultBlockState();
                         plan.put(BlockPos.asLong(x, yy, z), fill);
                         view.put(x, yy, z, fill);

@@ -406,7 +406,13 @@ public class RailwayTool implements CustomTool {
         List<BlockPos> trace = Spline.voxelize(samples);
         Profiler.timeEnd("voxelize", t0);
         for (BlockPos v : trace) {
-            view.put(v.getX(), v.getY(), v.getZ(), Blocks.WHITE_WOOL.defaultBlockState());
+            // Jamais par-dessus du rail/de la laine existants (jonctions) ;
+            // terrain naturel uniquement (miroir rail_sim.build_trace_seq).
+            if (com.bte.railpathtool.track.Grounding.isWoolLayable(
+                    view.at(v.getX(), v.getY(), v.getZ()))) {
+                view.put(v.getX(), v.getY(), v.getZ(),
+                        Blocks.WHITE_WOOL.defaultBlockState());
+            }
         }
 
         dugPositions.clear();

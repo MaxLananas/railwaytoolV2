@@ -53,6 +53,35 @@ WOOL = {f"{c}_wool" for c in (
 GROUND = "grass_block"
 AIR = "air"
 
+# Positions des voxels de la trace EN COURS de traitement par les passes
+# basses (grounding/purge/flatten/dedupe). C'est LA référence d'appartenance
+# — jamais `block == *_wool` : un remplissage uniforme en laine orange (le
+# défaut du mod !) ou une laine décorative posée par le joueur ne doit JAMAIS
+# être confondu avec un voxel de voie.
+_TRACE_WOOL = {}
+
+
+def _wool_at(x, y, z):
+    return (x, y, z) in _TRACE_WOOL
+
+
+def _set_trace_wool(world, trace):
+    """Enregistre les voxels de la trace dont la case contient VRAIMENT la
+    laine posée par ce build (famille laine). Un voxel dont la case est déjà
+    occupée (rail d'une voie précédente, pierre, sol) n'appartient PAS au
+    jeu : les passes ne doivent pas le traiter comme une laine déplaçable —
+    sinon le coin-laissé d'une remontée écrase un corail voisin (jun-45)."""
+    global _TRACE_WOOL
+    _TRACE_WOOL = {(v[0], v[1], v[2]): world.get(*v) for v in trace
+                   if is_wool(world.get(*v))}
+
+
+def _move_trace_wool(frm, to):
+    st = _TRACE_WOOL.pop((frm[0], frm[1], frm[2]), None)
+    if st is not None:
+        _TRACE_WOOL[(to[0], to[1], to[2])] = st
+
+
 def is_wool(state):
     return state in WOOL
 
@@ -179,7 +208,9 @@ L_DY_PAIRS = _l_patterns()
 def l_corners_here(world, x, y, z, spline):
     """Vrai si le bloc de spline en (x,y,z) forme un coin en 'L' (4 orientations)."""
     def is_spline(dx, dy, dz):
-        return world.get(x + dx, y + dy, z + dz) == spline
+        # appartenance par POSITION (laine orange de remplissage ou laine
+        # décorative du joueur = simple solide, jamais un voxel de voie).
+        return _wool_at(x + dx, y + dy, z + dz)
     # Orientations : (nord, est), (nord, ouest), (sud, est), (sud, ouest)
     for d_vert in (0, 0, -1), (0, 0, 1):
         for d_hori in (1, 0, 0), (-1, 0, 0):
@@ -195,10 +226,10 @@ def diag_segment(world, x, y, z, spline):
     a purger, c'est une diagonale fine que la purge script casserait."""
     for dx, dz in ((1, 1), (1, -1)):
         for dy1 in DY:
-            if world.get(x + dx, y + dy1, z + dz) != spline:
+            if not _wool_at(x + dx, y + dy1, z + dz):
                 continue
             for dy2 in DY:
-                if world.get(x - dx, y + dy2, z - dz) == spline:
+                if _wool_at(x - dx, y + dy2, z - dz):
                     return True
     return False
 
@@ -213,7 +244,7 @@ def locally_connected_without(world, x, y, z, spline):
             for dz in (-1, 0, 1):
                 if dx == 0 and dy == 0 and dz == 0:
                     continue
-                if world.get(x + dx, y + dy, z + dz) == spline:
+                if _wool_at(x + dx, y + dy, z + dz):
                     neigh.append((x + dx, y + dy, z + dz))
     if len(neigh) <= 1:
         return True
@@ -259,8 +290,9 @@ def rectify_l(world, trace, spline, corner):
     deux premiers tout en sectionnant la voie (points d'articulation)."""
     removed = set()
     trace_set = set(trace)
+    _set_trace_wool(world, trace)
     for (x, y, z) in trace:
-        if world.get(x, y, z) != spline:
+        if not _wool_at(x, y, z):
             continue
         if not l_corners_here(world, x, y, z, spline):
             continue
@@ -284,7 +316,33 @@ def rectify_l(world, trace, spline, corner):
             world.set(x, y, z, corner)
         removed.add((x, y, z))
         trace_set.discard((x, y, z))
+        _TRACE_WOOL.pop((x, y, z), None)
     return [v for v in trace if v not in removed]
+
+
+def components_ribbon(pts):
+    """Composantes d'un ensemble de voxels, métrique du RUBAN DE VOIE : deux
+    points sont liés si leurs colonnes se touchent (|dx|<=1 et |dz|<=1, quel
+    que soit dy — un escalier de montagne est une voie continue) ou s'ils
+    partagent la même colonne. C'est le contrat visible (I2) : seul un trou
+    HORIZONTAL dans le ruban est une cassure."""
+    pts = list(pts)
+    parent = {p: p for p in pts}
+
+    def find(p):
+        while parent[p] != p:
+            parent[p] = parent[parent[p]]
+            p = parent[p]
+        return p
+
+    for i in range(len(pts)):
+        for j in range(i + 1, len(pts)):
+            a, b = pts[i], pts[j]
+            if max(abs(a[0] - b[0]), abs(a[2] - b[2])) <= 1:
+                ra, rb = find(a), find(b)
+                if ra != rb:
+                    parent[ra] = rb
+    return len({find(p) for p in pts})
 
 
 def _count_components(s):
@@ -323,6 +381,7 @@ def dedupe_columns(world, trace, spline):
     for v in dict.fromkeys(trace):
         by_col.setdefault((v[0], v[2]), []).append(v)
     cur = list(dict.fromkeys(trace))
+    _set_trace_wool(world, trace)
     for vals in by_col.values():
         ys = sorted({v[1] for v in vals})
         if len(ys) < 2:
@@ -337,13 +396,20 @@ def dedupe_columns(world, trace, spline):
             victims = [v for v in vals if v[1] == yy and v in cur]
             if not victims:
                 continue
-            if any(world.get(v[0], v[1], v[2]) not in (spline, AIR)
+            if any((v[0], v[1], v[2]) in _TRACE_WOOL
+                   and world.get(v[0], v[1], v[2]) not in (AIR, None)
+                   and world.get(v[0], v[1], v[2]) != "white_wool"
                    for v in victims):
                 continue                        # rail/terrain existant : on ne touche pas
             trial = [v for v in cur if v not in victims]
-            if _count_components(trial) <= _count_components(cur):
+            # Métrique ruban (comme I2) : un niveau jetable ne doit pas
+            # ouvrir de trou HORIZONTAL ; les escaliers/croisements empilés
+            # ne comptent plus comme des obstacles au nettoyage de pile —
+            # c'est ce qui figeait les piles [60,65] des tunnels serpentins.
+            if components_ribbon(trial) <= components_ribbon(cur):
                 for v in victims:
                     world.set(v[0], v[1], v[2], AIR)
+                    _TRACE_WOOL.pop((v[0], v[1], v[2]), None)
                 cur = trial
                 remaining.remove(yy)
     return cur
@@ -359,6 +425,7 @@ def _flatten_teeth_impl(world, trace, spline):
     if len(trace) < 3:
         return trace
     out = list(trace)
+    _set_trace_wool(world, trace)
     n = len(out)
     i = 1
     while i < n - 1:
@@ -377,7 +444,7 @@ def _flatten_teeth_impl(world, trace, spline):
             for k in range(i, j):
                 x0, _, z0 = out[k]
                 t = world.get(x0, ay, z0)
-                if t == spline or t in RAIL_FAMILY:
+                if _wool_at(x0, ay, z0) or is_wool(t) or t in RAIL_FAMILY:
                     ok = False
                     break
             if ok:
@@ -386,7 +453,9 @@ def _flatten_teeth_impl(world, trace, spline):
                     world.set(x0, by, z0, AIR)
                 for k in range(i, j):
                     x0, _, z0 = out[k]
-                    world.set(x0, ay, z0, spline)
+                    # la dent garde sa couleur (laine forcée possible)
+                    world.set(x0, ay, z0, world.get(x0, by, z0) or spline)
+                    _move_trace_wool((x0, by, z0), (x0, ay, z0))
                     out[k] = (x0, ay, z0)
         i = j
     return out
@@ -433,15 +502,17 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
     la laine est une crête de 1-2 blocs non-rail : on la creuse (tunnel) plutôt que
     de faire sauter le rail d'un cran (dug collecte les positions à purger en AIR)."""
     moved_trace = []
+    _set_trace_wool(world, trace)
     for (x, y, z) in trace:
-        if world.get(x, y, z) != spline:
+        own = world.get(x, y, z)
+        if not _wool_at(x, y, z) or own == AIR or own is None:
             moved_trace.append((x, y, z))
             continue
         # Remontée : bloc au-dessus non-air -> crête 1-2 creusée, sinon air jusqu'à +15.
         # Cas particulier : case au-dessus = AUTRE laine de la trace (doublon
         # vertical des dents de spline) — jamais de remontée dedans (piles),
         # mais la descente reste autorisée : c'est elle qui dégonfle la pile.
-        if world.get(x, y + 1, z) != AIR and world.get(x, y + 1, z) != spline:
+        if world.get(x, y + 1, z) != AIR and not _wool_at(x, y + 1, z):
             dug_here = False
             if dug is not None:
                 to_dig = []
@@ -454,7 +525,8 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                     st = world.get(x, y + dy, z)
                     if st == AIR:
                         break
-                    if st in RAIL_FAMILY or st == spline or is_wool(st):
+                    if st in RAIL_FAMILY or st == spline or is_wool(st) \
+                            or (x, y + dy, z) in _TRACE_WOOL:
                         ok = False
                         break
                     to_dig.append((x, y + dy, z))
@@ -472,10 +544,11 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
             if dug_here:
                 moved_trace.append((x, y, z))
                 continue
+            moved_up = False
             for dy in range(1, max_up + 1):
                 if world.get(x, y + dy, z) == AIR:
                     landy = y + dy - 1
-                    if world.get(x, landy, z) == spline:
+                    if _wool_at(x, landy, z):
                         break  # jamais d'atterrissage SUR une autre laine
                     if world.get(x, landy, z) in RAIL_FAMILY:
                         break  # jamais d'atterrissage DANS du rail existant
@@ -485,11 +558,16 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                     world.set(x, y, z,
                               corner if below not in (AIR, None) and below != "water"
                               else AIR)
-                    world.set(x, landy, z, spline)
+                    world.set(x, landy, z, own)
+                    _move_trace_wool((x, y, z), (x, landy, z))
                     y = landy
                     moved_trace.append((x, y, z))
+                    moved_up = True
                     break
-            else:
+            if not moved_up:
+                # Remontée refusée ou impossible : le voxel RESTE (sa laine
+                # est toujours là) — jamais d'abandon silencieux, sinon la
+                # laine restait visible sans jamais devenir du rail.
                 moved_trace.append((x, y, z))
             continue
         # Descente
@@ -499,7 +577,7 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 nxt = target - 1
                 if not is_unstable(world, x, target, z):
                     break
-                if world.get(x, nxt, z) == spline:
+                if _wool_at(x, nxt, z):
                     break
                 # Jamais d'écrasement du rail existant : la laine d'une 2e
                 # trace qui descend sur la voie de la 1re S'ARRETE dessus
@@ -511,8 +589,27 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 target = nxt
             if target != y:
                 world.set(x, y, z, AIR)
-                world.set(x, target, z, spline)
+                world.set(x, target, z, own)
+                _move_trace_wool((x, y, z), (x, target, z))
                 y = target
+            # JONCTION : la laine s'est arrêtée SUR une colonne de décor
+            # d'une autre voie [sol de support + décor, AUCUN core]. Sans la
+            # reprise, son rail se poserait 2 blocs au-dessus de ceux de ses
+            # voisins = ruban cassé à la croisée. La colonne de décor est
+            # récupérée : la laine descend DANS la base de support, son
+            # core remplacera le décor — croisement continu au même niveau.
+            if not is_unstable(world, x, y, z):
+                d1 = world.get(x, y - 1, z)
+                d2 = world.get(x, y - 2, z)
+                d3 = world.get(x, y - 3, z)
+                if (d1 in DECOR_TOKENS and d2 in SOIL_TOKENS
+                        and d3 not in (None, AIR, "water")
+                        and not is_wool(d3) and d3 not in NATURE_CORES):
+                    world.set(x, y, z, AIR)
+                    world.set(x, y - 1, z, AIR)
+                    world.set(x, y - 2, z, own)
+                    _move_trace_wool((x, y, z), (x, y - 2, z))
+                    y = y - 2
         moved_trace.append((x, y, z))
     return moved_trace
 
@@ -780,6 +877,19 @@ def diag_design(model, x, y, z):
 # 6. CONSTRUCTION
 # =============================================================================
 
+# Décor de voie (jamais un core) : peut être repris par une jonction.
+DECOR_TOKENS = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
+                "side_east", "side_west", "side_north", "side_south",
+                "pale_moss_carpet", "button_north", "button_east",
+                "door_lower", "door_upper"} \
+    | {f"door_{h}_{f}" for h in ("lower", "upper")
+       for f in ("north", "south", "east", "west")} \
+    | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
+       for f in ("north", "south", "east", "west")}
+# Base de support posée par les designs (recyclable en base de jonction).
+SOIL_TOKENS = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
+               "deepslate_iron_ore", "deepslate_coal_ore", "gravel"}
+
 PROTECTED = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
              "side_east", "side_west", "side_north", "side_south",
              "coral_south", "coral_east", "black_wool",
@@ -825,11 +935,27 @@ def build_column(world, opt, x, y, z, center):
     Thème clair : le side-block est un PANNEAU de porte basse (moitié lower,
     y+1 seulement), fidèle au script — pas de porte complète à 2 blocs."""
     start_y = y + opt.base_dy
+    is_core_write = center in NATURE_CORES
     for yy in (start_y, start_y + 1, start_y + 2):
-        if world.get(x, yy, z) in PROTECTED:
+        # Garde anti-valse à deux vitesses : (1) un core existant n'est
+        # JAMAIS écrasé ; (2) une pose de DÉCOR cède devant n'importe quel
+        # bloc de rail existant — sinon un rebuild réécrirait les murets
+        # en panneaux/portes (valse des décors, portes orphelines). Mais
+        # une pose de CORE reprend la case d'un décor : les jonctions
+        # denses ne perdent jamais leur rail visible.
+        cur = world.get(x, yy, z)
+        if cur in NATURE_CORES or (not is_core_write
+                                   and cur in RAIL_FAMILY):
             if os.environ.get("RAIL_DEBUG"):
                 print(f"[COLREFUSE] {x},{yy},{z} center={center}"
                       f" cur={world.get(x, yy, z)}")
+            # La laine du voxel est consommée malgré tout : son core est
+            # précisément celui qui occupe la case (croisement = colonne
+            # partagée) — sinon elle resterait visible à jamais sans rail.
+            if world.get(x, start_y, z) == "white_wool":
+                # strictement la laine fraîche de trace — jamais un sol de
+                # remplissage laineux ni une laine décorative du joueur.
+                world.set(x, start_y, z, AIR)
             return
     if opt.theme == 2 and center in DOOR_FACING:
         f = DOOR_FACING[center].split("_", 1)[1]
@@ -893,7 +1019,13 @@ def nature_set(world, x, y, z, state):
     jamais le rail d'un voisin (traverses, nœuds, micro-drifts, escaliers)."""
     cur = world.get(x, y, z)
     if (x, y, z) in rail_before and cur in RAIL_FAMILY:
-        return
+        if cur in NATURE_CORES:
+            return                       # jamais d'écrasement d'un core
+        if _rail_prio(state) < 3:
+            # décor ultérieur ne touche ni au décor ni au lit de gravier
+            # d'une voie antérieure — mais un CORE la reprend (jonctions :
+            # le rail visible passe avant la litière/le muret d'à côté).
+            return
     if cur == state:
         return
     if _rail_prio(cur) > _rail_prio(state):
@@ -1054,20 +1186,28 @@ def support_fill(world, opt, pre_keys, depth_max=4):
     toujours la voie sur le sol — c'est le meme contrat, jusqu'a depth_max blocs de remplissage
     (petits residuels de 1-4 blocs ; une ligne volontairement haute est un
     pont legitime, pas une dent)."""
+    # Les bases de colonne (sol/des supports des passes précédentes) reçoivent
+    # le même pilier que les rails : une souche de terre en plein ciel à
+    # côté d'un pilier serait une verrue visible (contrat captures).
     placed = [(pos, st) for pos, st in world.blocks.items()
-              if st in RAIL_FAMILY]
+              if st in RAIL_FAMILY or st in SOIL_TOKENS
+              or (opt.fill_mode == 1 and st == "orange_wool")]
     for (x, y, z), st in placed:
         # Mesure d'abord le vrai trou sous le bloc : s'il est plus profond que
         # depth_max, c'est un pont legitime — un remplissage tronque laisserait
         # lui-meme 1-4 blocs d'air et referait le bug. Sinon on comble tout.
         gap = 0
-        while world.get(x, y - 1 - gap, z) in (AIR, None) and gap < 64:
+        # l'eau n'est pas un support : un rail au-dessus d'une mare flotte,
+        # le pilier traverse l'eau jusqu'au lit (<= depth_max, sinon pont).
+        while (world.get(x, y - 1 - gap, z) in (AIR, None, "water")
+               and gap < 64):
             gap += 1
         if gap == 0 or gap > depth_max:
             continue
         soil = "gravel" if opt.style == "nature" else pick_soil(opt)
         for yy in range(y - 1, y - 1 - gap, -1):
-            world.set(x, yy, z, soil)
+            if world.get(x, yy, z) in (AIR, None, "water"):
+                world.set(x, yy, z, soil)
 
 
 def build_all(world, trace, opt):

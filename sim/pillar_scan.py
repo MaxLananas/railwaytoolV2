@@ -133,13 +133,15 @@ def diagram(world, x, z, base, top, parasites):
 report = []
 
 
-def process(sid, world, pre_keys):
+def process(sid, world, pre_keys, seeds=()):
     stats["scenes"] += 1
     pillars = find_pillars(world, pre_keys)
     stats["pillars"] += len(pillars)
     dirty = 0
+    seeded = {(sx, sy, sz) for (sx, sy, sz, _b) in seeds}
     for (x, z, base, top) in pillars:
-        parasites = scan_pillar(world, x, z, base, top)
+        parasites = [p for p in scan_pillar(world, x, z, base, top)
+                     if (p[0], p[1], p[2]) not in seeded]
         # Diagramme complet dans le rapport, parasite ou non — l'utilisateur
         # veut pouvoir inspecter chaque pilier visuellement.
         report.append(
@@ -177,13 +179,12 @@ def scenes_vallees():
 def main():
     scenes = pe.scenes() + scenes_vallees()
     for sc in scenes:
-        world, traces, bad, models = sc.run()
+        world, initial, traces, bad, models = sc.run()
         if bad:
             violations.append(f"[{sc.sid}] self-check invalide: {bad[:2]}")
             continue
-        pre_keys = set()  # le run ne rend pas les pre-clés : tout le monde
-        # pré-existant est terrain (grass/GROUND) => filtré par TERRAIN.
-        process(sc.sid, world, pre_keys)
+        # Tout le pré-existant est terrain/graines/eau : filtré côté scan.
+        process(sc.sid, world, set(), getattr(sc, "seeds", ()))
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "pillar_report.txt")
     with open(out, "w") as f:

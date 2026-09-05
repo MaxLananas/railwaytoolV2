@@ -3,21 +3,15 @@ package com.bte.railpathtool.dev;
 import com.bte.railpathtool.design.ClassicDesign;
 import com.bte.railpathtool.design.DesignOptions;
 import com.bte.railpathtool.design.NatureDesign;
-import com.bte.railpathtool.lib.curve.AdaptiveSampler;
+import com.bte.railpathtool.spline.AdaptiveSampler;
 import com.bte.railpathtool.spline.Spline;
-import com.bte.railpathtool.track.Grounding;
 import com.bte.railpathtool.track.LCorners;
+import com.bte.railpathtool.track.Grounding;
 import com.bte.railpathtool.track.TrackModel;
 import com.bte.railpathtool.track.TrackType;
-import com.bte.railpathtool.track.WorldView;
+import com.bte.railpathtool.world.WorldView;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import net.minecraft.SharedConstants;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.Bootstrap;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -25,31 +19,61 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import net.minecraft.SharedConstants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.Bootstrap;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 
 /**
- * Harnais de PARITÉ Java/simulateur : rejoue le VRAI pipeline du mod
- * (sampler adaptatif 6 → voxelize → Grounding ×2 → LCorners → flattenTeeth
- * → dedupeColumns → TrackModel → design, tunnel actif = défaut produit) sur
- * les scènes de sim/parity/scenes.txt, puis compare le monde final, bloc par
- * bloc, avec la sortie attendue du simulateur (auto-validée : aucun core
- * manquant, aucun flottant, aucun doublon vertical). Toute différence est
- * un bug visible en jeu — le job CI `parity` échoue alors.
+ * Harnais de parité : rejoue les scènes sim/parity/scenes.txt (générées par
+ * sim/parity_export.py, auto-validées par les invariants du simulateur) avec
+ * le VRAI pipeline Java (sampler adaptatif 6 → voxelize → Grounding×2 →
+ * LCorners → flattenTeeth → dedupeColumns → TrackModel → design), puis exige
+ * une carte de blocs IDENTIQUE.
+ *
+ * Format de scène :
+ *   @id                         début de scène
+ *   O style=.. theme=.. buried=0|1
+ *   R x0 x1 y0 y1 z0 z1 [bloc]  boîte de terrain (grass_block par défaut)
+ *   Q x0 x1 y0 y1 z0 z1         boîte d'eau
+ *   W x y z bloc                bloc isolé (laine forcée, pierre, rail…)
+ *   C n x y z                   point de contrôle de la trace n (entier)
+ *   D x y z TYPE / N x y z nb   classification/voisinage attendus du sim
+ *   E x y z token               cellule CHANGÉE attendue (vs état initial)
+ *   @end
+ *
+ * La comparaison est en « ensemble de changements » bidirectionnelle : toute
+ * cellule dont le bloc final diffère du bloc initial doit apparaître en E,
+ * et réciproquement — aucune fuite nulle part dans le monde n'est possible.
  */
 public final class ParityHarness {
 
-    private ParityHarness() {
+    /** Boîte de blocs initiaux (terrain/eau). */
+    private record Box(int x0, int x1, int y0, int y1, int z0, int z1,
+                       String block) {
+    }
+
+    /** Bloc isolé posé avant les traces (laine forcée, pierre, rail…). */
+    private record Seed(int x, int y, int z, String block) {
     }
 
     private static final class Scene {
         String id;
-        String style;
-        String theme;
+        String style = "classic";
+        String theme = "dark";
         boolean buried;
-        final List<int[]> boxes = new ArrayList<>();       // x0,x1,y0,y1,z0,z1
+        final List<Box> boxes = new ArrayList<>();
+        final List<Box> waters = new ArrayList<>();
+        final List<Seed> seeds = new ArrayList<>();
         final Map<Integer, List<int[]>> controls = new LinkedHashMap<>();
         final Map<String, String> expect = new TreeMap<>();
-        final Map<String, String> simTypes = new TreeMap<>();    // D
-        final Map<String, String> simNeighbors = new TreeMap<>(); // N
+        final Map<String, String> simTypes = new TreeMap<>();
+        final Map<String, String> simNeighbors = new TreeMap<>();
     }
 
     public static void main(String[] args) throws Exception {
@@ -91,8 +115,13 @@ public final class ParityHarness {
                         }
                     }
                 }
-                case "R" -> cur.boxes.add(new int[]{i(p[1]), i(p[2]), i(p[3]),
-                        i(p[4]), i(p[5]), i(p[6])});
+                case "R" -> cur.boxes.add(new Box(i(p[1]), i(p[2]), i(p[3]),
+                        i(p[4]), i(p[5]), i(p[6]),
+                        p.length > 7 ? p[7] : "grass_block"));
+                case "Q" -> cur.waters.add(new Box(i(p[1]), i(p[2]), i(p[3]),
+                        i(p[4]), i(p[5]), i(p[6]), "water"));
+                case "W" -> cur.seeds.add(new Seed(i(p[1]), i(p[2]), i(p[3]),
+                        p[4]));
                 case "C" -> cur.controls.computeIfAbsent(i(p[1]), k -> new ArrayList<>())
                         .add(new int[]{i(p[2]), i(p[3]), i(p[4])});
                 case "E" -> cur.expect.put(key(i(p[1]), i(p[2]), i(p[3])), p[4]);
@@ -128,19 +157,43 @@ public final class ParityHarness {
         }
     }
 
+    /** Bloc par nom de registre (défaut air si inconnu — jamais le cas ici). */
+    private static Block blockByName(String name) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
+                ResourceLocation.withDefaultNamespace(name));
+    }
+
     /** Rejoue la scène côté Java réel et retourne la liste des divergences. */
     private static List<String> run(Scene sc) {
         WorldView view = new WorldView(null);
-        for (int[] b : sc.boxes) {
-            for (int x = b[0]; x <= b[1]; x++) {
-                for (int y = b[2]; y <= b[3]; y++) {
-                    for (int z = b[4]; z <= b[5]; z++) {
-                        view.put(x, y, z,
-                                net.minecraft.world.level.block.Blocks.GRASS_BLOCK
-                                        .defaultBlockState());
+        Map<String, String> initial = new TreeMap<>();
+        for (Box b : sc.boxes) {
+            BlockState st = blockByName(b.block()).defaultBlockState();
+            String tk = token(st);
+            for (int x = b.x0(); x <= b.x1(); x++) {
+                for (int y = b.y0(); y <= b.y1(); y++) {
+                    for (int z = b.z0(); z <= b.z1(); z++) {
+                        view.put(x, y, z, st);
+                        initial.put(key(x, y, z), tk);
                     }
                 }
             }
+        }
+        for (Box b : sc.waters) {
+            BlockState st = Blocks.WATER.defaultBlockState();
+            for (int x = b.x0(); x <= b.x1(); x++) {
+                for (int y = b.y0(); y <= b.y1(); y++) {
+                    for (int z = b.z0(); z <= b.z1(); z++) {
+                        view.put(x, y, z, st);
+                        initial.put(key(x, y, z), "water");
+                    }
+                }
+            }
+        }
+        for (Seed sd : sc.seeds) {
+            BlockState st = blockByName(sd.block()).defaultBlockState();
+            view.put(sd.x(), sd.y(), sd.z(), st);
+            initial.put(key(sd.x(), sd.y(), sd.z()), token(st));
         }
 
         DesignOptions options = new DesignOptions();
@@ -162,9 +215,12 @@ public final class ParityHarness {
                     AdaptiveSampler.sample(control, 6);
             List<BlockPos> trace = Spline.voxelize(samples);
             for (BlockPos v : trace) {
-                view.put(v.getX(), v.getY(), v.getZ(),
-                        net.minecraft.world.level.block.Blocks.WHITE_WOOL
-                                .defaultBlockState());
+                // IDENTIQUE a RailwayTool.recompute (helper partage).
+                if (Grounding.isWoolLayable(
+                        view.at(v.getX(), v.getY(), v.getZ()))) {
+                    view.put(v.getX(), v.getY(), v.getZ(),
+                            Blocks.WHITE_WOOL.defaultBlockState());
+                }
             }
             LongOpenHashSet dug = new LongOpenHashSet();
             trace = Grounding.apply(view, trace, dug);
@@ -211,9 +267,7 @@ public final class ParityHarness {
                 System.out.println("  -> types divergents=" + typeMism
                         + " voisinages divergents=" + nbMism);
             }
-            // Comparaison bidirectionnelle des ensembles de voxels de trace :
-            // un voxel java en plus (ou en moins) fausse les scans des agents
-            // sans jamais apparaitre dans les diffs de types.
+            // Comparaison bidirectionnelle des ensembles de voxels de trace.
             {
                 LongOpenHashSet javaKeys = new LongOpenHashSet();
                 for (BlockPos v : trace) {
@@ -255,8 +309,7 @@ public final class ParityHarness {
             }
             for (long k : dug) {
                 if (!plan.containsKey(k)) {
-                    plan.put(k, net.minecraft.world.level.block.Blocks.AIR
-                            .defaultBlockState());
+                    plan.put(k, Blocks.AIR.defaultBlockState());
                 }
             }
         }
@@ -271,22 +324,24 @@ public final class ParityHarness {
             long k = en.getKey();
             String token = token(en.getValue());
             if (!token.equals("air")) {
-                finalTok.put(key(BlockPos.getX(k), BlockPos.getY(k), BlockPos.getZ(k)),
-                        token);
+                finalTok.put(key(BlockPos.getX(k), BlockPos.getY(k),
+                        BlockPos.getZ(k)), token);
             }
         }
-        for (Map.Entry<String, String> ex : sc.expect.entrySet()) {
-            String got = finalTok.get(ex.getKey());
-            if (got == null) {
-                got = "air";
-            }
-            if (!got.equals(ex.getValue())) {
-                diffs.put(ex.getKey(), ex.getKey() + " attendu=" + ex.getValue() + " obtenu=" + got);
-            }
-        }
-        for (Map.Entry<String, String> g : finalTok.entrySet()) {
-            if (!sc.expect.containsKey(g.getKey())) {
-                diffs.put(g.getKey(), g.getKey() + " attendu=air obtenu=" + g.getValue());
+        // Comparaison « ensemble de changements » : union des clés de
+        // (initial, final, attendu). Une cellule absente de E vaut son bloc
+        // initial (l'export n'écrit que les changements) ; toute différence
+        // finale vs initiale non exportée = fuite, où qu'elle soit.
+        TreeSet<String> keys = new TreeSet<>();
+        keys.addAll(initial.keySet());
+        keys.addAll(finalTok.keySet());
+        keys.addAll(sc.expect.keySet());
+        for (String k : keys) {
+            String exp = sc.expect.getOrDefault(k,
+                    initial.getOrDefault(k, "air"));
+            String got = finalTok.getOrDefault(k, "air");
+            if (!exp.equals(got)) {
+                diffs.put(k, k + " attendu=" + exp + " obtenu=" + got);
             }
         }
         return new ArrayList<>(diffs.values());
@@ -307,10 +362,18 @@ public final class ParityHarness {
         }
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
                 .getKey(st.getBlock()).getPath();
+        if (id.endsWith("_wool")) {
+            // Les 16 couleurs : laines forcées (rouge/bleue/claire), trace
+            // blanche, pilier noir — le token sim est l'id direct.
+            return id;
+        }
         switch (id) {
-            case "white_wool", "red_wool", "blue_wool", "lime_wool",
-                 "orange_wool", "black_wool", "grass_block",
-                 "pale_moss_block", "pale_moss_carpet", "water" -> {
+            case "grass_block", "pale_moss_block", "pale_moss_carpet",
+                 "water", "stone", "stone_bricks", "oak_leaves", "sand",
+                 "sandstone", "terracotta", "dirt", "coarse_dirt", "andesite",
+                 "granite", "diorite", "snow_block", "ice", "packed_ice",
+                 "clay", "mud", "moss_block", "oak_log", "spruce_log",
+                 "mycelium", "podzol", "bedrock", "obsidian", "netherrack" -> {
                 return id;
             }
             case "gravel" -> {

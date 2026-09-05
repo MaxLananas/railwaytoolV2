@@ -12,6 +12,9 @@ public final class LCorners {
             {0, 0}, {1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, -1}, {-1, 0}
     };
 
+    /** Positions des voxels de la trace réellement laines (cf. Grounding). */
+    private static it.unimi.dsi.fastutil.longs.LongOpenHashSet woolSet;
+
     private LCorners() {
     }
 
@@ -30,7 +33,9 @@ public final class LCorners {
     }
 
     private static boolean isTrace(WorldView view, int x, int y, int z) {
-        return view.at(x, y, z).is(Blocks.WHITE_WOOL);
+        // Appartenance par POSITION : ni la laine de remplissage uniforme ni
+        // une laine décorative du joueur ne sont des voxels de voie.
+        return woolSet != null && woolSet.contains(BlockPos.asLong(x, y, z));
     }
 
     /**
@@ -157,6 +162,7 @@ public final class LCorners {
 
     public static List<BlockPos> purge(WorldView view, List<BlockPos> trace) {
         List<BlockPos> kept = new ArrayList<>();
+        woolSet = Grounding.laidWool(view, trace);
         it.unimi.dsi.fastutil.longs.LongOpenHashSet remaining =
                 new it.unimi.dsi.fastutil.longs.LongOpenHashSet(trace.size() * 2);
         for (BlockPos v : trace) {
@@ -175,11 +181,14 @@ public final class LCorners {
                 // Un coin L ne devient un marqueur 'corner' (herbe) que POSÉ :
                 // s'il flotte au-dessus du vide, il verrouille la descente d'un
                 // voxel au-dessus et crée le monticule des captures.
-                boolean supported = !view.isAir(x, y - 1, z);
+                // L'eau ne tient pas un marqueur-corner (script).
+                boolean supported = !view.isAir(x, y - 1, z)
+                        && !view.at(x, y - 1, z).is(Blocks.WATER);
                 view.put(x, y, z, (isolated || !supported)
                         ? Blocks.AIR.defaultBlockState()
                         : Blocks.GRASS_BLOCK.defaultBlockState());
                 remaining.remove(v.asLong());
+                woolSet.remove(v.asLong());
                 continue;
             }
             kept.add(v);

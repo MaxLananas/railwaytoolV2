@@ -188,8 +188,12 @@ public final class TrackModel {
     }
 
     private boolean has(int x, int y, int z) {
+        // Appartenance par POSITION (set de trace figé à la construction) —
+        // miroir exact de rail_sim._neighbors_of ; le monde live ne sert
+        // pas : une laine étrangère (remplissage/décor joueur) n'est pas un
+        // voisin de voie, et un voxel déjà construit garde son appartenance.
         for (int dy : DY_TOLERANCE) {
-            if (isWoolTrace(x, y + dy, z)) {
+            if (trace.contains(BlockPos.asLong(x, y + dy, z))) {
                 return true;
             }
         }
@@ -242,7 +246,10 @@ public final class TrackModel {
                     // remplace la laine (corail/pupitre) et le voisin diagonal
                     // disparait avant que le suivant pose sa litiere de coin.
                     long k = BlockPos.asLong(x + dx, y + dy, z + dz);
-                    if (types.containsKey(k) || isWoolTrace(x + dx, y + dy, z + dz)) {
+                    // Set de types UNIQUEMENT (miroir sim ordered_neighbors) :
+                    // une laine étrangère (décor du joueur / remplissage)
+                    // n'est jamais un voisin de voie.
+                    if (types.containsKey(k)) {
                         out.add(directionName(dx, dz));
                         break;
                     }

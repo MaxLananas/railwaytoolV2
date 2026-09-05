@@ -15,6 +15,113 @@ public final class Grounding {
     private Grounding() {
     }
 
+    /**
+     * Case libre pour la pose de laine de trace : air ou terrain naturel
+     * meuble (herbe/roche/terre/sable/neige/glace/eau…). JAMAIS du rail, de
+     * la laine ou du décor manuel existant — poser de la laine dessus
+     * écraserait la voie ou le repère d'une trace voisine (bug « presque
+     * plus de rail » des jonctions) tandis qu'une galerie dans une colline
+     * de roche doit pouvoir recevoir sa laine.
+     * Miroir exact de rail_sim.NATURAL_SOFT — toute divergence = parité.
+     */
+    public static boolean isWoolLayable(
+            net.minecraft.world.level.block.state.BlockState st) {
+        if (st.isAir()) {
+            return true;
+        }
+        if (isTraceWool(st)
+                || com.bte.railpathtool.design.ClassicDesign.ColumnWriter
+                        .isRailFamily(st)) {
+            return false;
+        }
+        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getKey(st.getBlock()).getPath();
+        return switch (id) {
+            case "grass_block", "water", "stone", "dirt", "coarse_dirt",
+                 "sand", "sandstone", "terracotta", "clay", "snow_block",
+                 "ice", "mud", "andesite", "granite", "diorite",
+                 "deepslate", "cobbled_deepslate", "oak_leaves",
+                 "spruce_leaves" -> true;
+            default -> false;
+        };
+    }
+
+    /** Nom de bloc se terminant par _wool (toute couleur). */
+    static boolean isTraceWool(
+            net.minecraft.world.level.block.state.BlockState st) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                .getKey(st.getBlock()).getPath().endsWith("_wool");
+    }
+
+    /**
+     * Positions des voxels de la trace EN COURS dont la case contient
+     * VRAIMENT la laine posee par ce build. C'est LA reference
+     * d'appartenance des passes — jamais « bloc == *_wool » : un remplissage
+     * uniforme en laine orange (defaut du mod !) ou une laine decorative du
+     * joueur ne doit JAMAIS etre confondu avec un voxel de voie, et une case
+     * deja occupee par du rail (non posee au lay) n'est pas une laine
+     * deplacable. Miroir de rail_sim._TRACE_WOOL.
+     */
+    static LongOpenHashSet laidWool(WorldView view, List<BlockPos> trace) {
+        LongOpenHashSet wool = new LongOpenHashSet();
+        for (BlockPos v : trace) {
+            if (isTraceWool(view.at(v.getX(), v.getY(), v.getZ()))) {
+                wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
+            }
+        }
+        return wool;
+    }
+
+    static void moveWool(LongOpenHashSet wool, int fx, int fy, int fz,
+                         int tx, int ty, int tz) {
+        if (wool.remove(BlockPos.asLong(fx, fy, fz))) {
+            wool.add(BlockPos.asLong(tx, ty, tz));
+        }
+    }
+
+    /**
+     * Composantes d'un ensemble de voxels, metrique du RUBAN DE VOIE : deux
+     * points sont lies si leurs colonnes se touchent (|dx|<=1 et |dz|<=1,
+     * quel que soit dy — un escalier de montagne est une voie continue).
+     * Miroir de rail_sim.components_ribbon (invariant I2).
+     */
+    static int componentsRibbon(List<BlockPos> pts) {
+        int n = pts.size();
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                BlockPos a = pts.get(i);
+                BlockPos b = pts.get(j);
+                if (Math.max(Math.abs(a.getX() - b.getX()),
+                        Math.abs(a.getZ() - b.getZ())) <= 1) {
+                    int ra = findRoot(parent, i);
+                    int rb = findRoot(parent, j);
+                    if (ra != rb) {
+                        parent[ra] = rb;
+                    }
+                }
+            }
+        }
+        int comps = 0;
+        for (int i = 0; i < n; i++) {
+            if (findRoot(parent, i) == i) {
+                comps++;
+            }
+        }
+        return comps;
+    }
+
+    private static int findRoot(int[] parent, int i) {
+        while (parent[i] != i) {
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
+        return i;
+    }
+
     public static boolean isUnstable(WorldView view, int x, int y, int z) {
         boolean below = view.isAir(x, y - 1, z);
         boolean bn = view.isAir(x, y - 1, z - 1);
@@ -61,11 +168,15 @@ public final class Grounding {
     public static List<BlockPos> apply(WorldView view, List<BlockPos> trace,
                                        LongOpenHashSet dug) {
         List<BlockPos> moved = new ArrayList<>();
+        LongOpenHashSet wool = laidWool(view, trace);
         for (BlockPos v : trace) {
             int x = v.getX();
             int y = v.getY();
             int z = v.getZ();
-            if (!view.at(x, y, z).is(Blocks.WHITE_WOOL)) {
+            // Seuls les voxels REELLEMENT laines participent ; les autres
+            // (rail/stone preexistants sous la case) passent sans effet —
+            // sinon le coin-laisse d'une remontee ecraserait un corail.
+            if (!wool.contains(BlockPos.asLong(x, y, z))) {
                 moved.add(v);
                 continue;
             }
@@ -74,7 +185,8 @@ public final class Grounding {
             // avec le corner laissé derrière. La descente, elle, reste
             // autorisée — c'est elle qui dégonfle la pile ; l'arbitrage final
             // revient à dedupeColumns.
-            if (!view.isAir(x, y + 1, z) && !view.at(x, y + 1, z).is(Blocks.WHITE_WOOL)) {
+            if (!view.isAir(x, y + 1, z)
+                    && !wool.contains(BlockPos.asLong(x, y + 1, z))) {
 
                 boolean dugHere = false;
                 if (dug != null) {
@@ -100,7 +212,9 @@ public final class Grounding {
                                 || net.minecraft.core.registries
                                         .BuiltInRegistries.BLOCK
                                         .getKey(st.getBlock()).getPath()
-                                        .endsWith("_wool")) {
+                                        .endsWith("_wool")
+                                || wool.contains(BlockPos.asLong(
+                                        x, y + dy, z))) {
                             ok = false;
                             break;
                         }
@@ -131,20 +245,27 @@ public final class Grounding {
                 for (int dy = 1; dy <= MAX_UP; dy++) {
                     if (view.isAir(x, y + dy, z)) {
                         int ny = y + dy - 1;
-                        if (view.at(x, ny, z).is(Blocks.WHITE_WOOL)) {
+                        if (wool.contains(BlockPos.asLong(x, ny, z))) {
                             break;  // jamais d'atterrissage SUR une autre laine
                         }
                         if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter
                                 .isRailFamily(view.at(x, ny, z))) {
                             break;  // jamais d'atterrissage DANS du rail existant
                         }
-                        // corner laissé derrière : seulement POSÉ, sinon une
-                        // herbe flottante verrouille la descente des voisins
-                        // (monticule des captures).
-                        view.put(x, y, z, view.isAir(x, y - 1, z)
-                                ? Blocks.AIR.defaultBlockState()
-                                : Blocks.GRASS_BLOCK.defaultBlockState());
-                        view.put(x, ny, z, Blocks.WHITE_WOOL.defaultBlockState());
+                        // corner laissé derrière : seulement POSÉ et hors eau,
+                        // sinon une herbe flottante verrouille la descente des
+                        // voisins (monticule des captures).
+                        net.minecraft.world.level.block.state.BlockState own =
+                                view.at(x, y, z);
+                        net.minecraft.world.level.block.state.BlockState below =
+                                view.at(x, y - 1, z);
+                        view.put(x, y, z,
+                                below.isAir() || below.is(Blocks.WATER)
+                                        ? Blocks.AIR.defaultBlockState()
+                                        : Blocks.GRASS_BLOCK.defaultBlockState());
+                        // la laine déplacée garde SA couleur (forcée possible)
+                        view.put(x, ny, z, own);
+                        moveWool(wool, x, y, z, x, ny, z);
                         moved.add(new BlockPos(x, ny, z));
                         movedUp = true;
                         break;
@@ -157,12 +278,13 @@ public final class Grounding {
             }
 
             int target = y;
+            boolean wasUnstable = isUnstable(view, x, y, z);
             for (int i = 0; i < MAX_DOWN; i++) {
                 int nxt = target - 1;
                 if (!isUnstable(view, x, target, z)) {
                     break;
                 }
-                if (view.at(x, nxt, z).is(Blocks.WHITE_WOOL)) {
+                if (wool.contains(BlockPos.asLong(x, nxt, z))) {
                     break;
                 }
                 // Jamais d'écrasement du rail existant : la 2e trace qui
@@ -176,14 +298,57 @@ public final class Grounding {
                 target = nxt;
             }
             if (target != y) {
+                net.minecraft.world.level.block.state.BlockState own =
+                        view.at(x, y, z);
                 view.put(x, y, z, Blocks.AIR.defaultBlockState());
-                view.put(x, target, z, Blocks.WHITE_WOOL.defaultBlockState());
-                moved.add(new BlockPos(x, target, z));
-            } else {
-                moved.add(v);
+                view.put(x, target, z, own);
+                moveWool(wool, x, y, z, x, target, z);
+                y = target;
             }
+            // JONCTION : la laine s'est arretee SUR une colonne de decor
+            // d'une autre voie [sol de support + decor, AUCUN core]. Sans la
+            // reprise, son rail se poserait 2 blocs au-dessus de ceux de ses
+            // voisins = ruban casse a la croisee. La colonne de decor est
+            // recuperee : la laine descend DANS la base de support, son core
+            // remplacera le decor — croisement continu au meme niveau.
+            // Miroir exact du junction-sink de rail_sim.rectify_vertical.
+            // (le sink n'existe que dans la branche « initialement
+            // instable » de la rectification — miroir exact du sim)
+            if (wasUnstable && !isUnstable(view, x, y, z)) {
+                net.minecraft.world.level.block.state.BlockState d1 =
+                        view.at(x, y - 1, z);
+                net.minecraft.world.level.block.state.BlockState d2 =
+                        view.at(x, y - 2, z);
+                net.minecraft.world.level.block.state.BlockState d3 =
+                        view.at(x, y - 3, z);
+                if (isDecor(d1)
+                        && com.bte.railpathtool.design.ClassicDesign
+                                .ColumnWriter.isSupportSoil(d2)
+                        && !d3.isAir() && !d3.is(Blocks.WATER)
+                        && !isTraceWool(d3)
+                        && !com.bte.railpathtool.design.ClassicDesign
+                                .ColumnWriter.isRailCore(d3)) {
+                    net.minecraft.world.level.block.state.BlockState own =
+                            view.at(x, y, z);
+                    view.put(x, y, z, Blocks.AIR.defaultBlockState());
+                    view.put(x, y - 1, z, Blocks.AIR.defaultBlockState());
+                    view.put(x, y - 2, z, own);
+                    moveWool(wool, x, y, z, x, y - 2, z);
+                    y = y - 2;
+                }
+            }
+            moved.add(new BlockPos(x, y, z));
         }
         return moved;
+    }
+
+    /** Decor de voie (jamais un core) : reprise possible par une jonction. */
+    static boolean isDecor(
+            net.minecraft.world.level.block.state.BlockState st) {
+        return st.is(Blocks.MUD_BRICK_WALL) || st.is(Blocks.ANDESITE_WALL)
+                || st.is(Blocks.IRON_DOOR) || st.is(Blocks.OAK_BUTTON)
+                || st.is(Blocks.PALE_MOSS_CARPET) || st.is(Blocks.LEAF_LITTER)
+                || st.is(Blocks.SPRUCE_SHELF);
     }
 
     /**
@@ -197,6 +362,7 @@ public final class Grounding {
         if (trace.size() < 3) {
             return trace;
         }
+        LongOpenHashSet wool = laidWool(view, trace);
         BlockPos[] out = trace.toArray(new BlockPos[0]);
         int n = out.length;
         int i = 1;
@@ -218,20 +384,28 @@ public final class Grounding {
                 for (int k = i; k < j; k++) {
                     net.minecraft.world.level.block.state.BlockState target =
                             view.at(out[k].getX(), ay, out[k].getZ());
-                    if (target.is(Blocks.WHITE_WOOL)
+                    if (wool.contains(BlockPos.asLong(
+                                    out[k].getX(), ay, out[k].getZ()))
+                            || isTraceWool(target)
                             || com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(target)) {
                         ok = false;
                         break;
                     }
                 }
                 if (ok) {
+                    net.minecraft.world.level.block.state.BlockState[] own =
+                            new net.minecraft.world.level.block.state.BlockState[j - i];
                     for (int k = i; k < j; k++) {
+                        own[k - i] = view.at(out[k].getX(), by, out[k].getZ());
                         view.put(out[k].getX(), by, out[k].getZ(), Blocks.AIR.defaultBlockState());
                     }
                     for (int k = i; k < j; k++) {
                         int bx = out[k].getX();
                         int bz = out[k].getZ();
-                        view.put(bx, ay, bz, Blocks.WHITE_WOOL.defaultBlockState());
+                        // la dent garde sa couleur (laine forcée possible)
+                        net.minecraft.world.level.block.state.BlockState st = own[k - i];
+                        view.put(bx, ay, bz, st.isAir() ? Blocks.WHITE_WOOL.defaultBlockState() : st);
+                        moveWool(wool, bx, by, bz, bx, ay, bz);
                         out[k] = new BlockPos(bx, ay, bz);
                     }
                 }
@@ -255,6 +429,7 @@ public final class Grounding {
      */
     public static List<BlockPos> dedupeColumns(WorldView view, List<BlockPos> trace) {
         java.util.Map<Long, List<BlockPos>> byCol = new java.util.LinkedHashMap<>();
+        LongOpenHashSet woolSet = laidWool(view, trace);
         List<BlockPos> cur = new ArrayList<>(new java.util.LinkedHashSet<>(trace));
         for (BlockPos v : cur) {
             long key = BlockPos.asLong(v.getX(), 0, v.getZ());
@@ -289,7 +464,9 @@ public final class Grounding {
                 for (BlockPos v : victims) {
                     net.minecraft.world.level.block.state.BlockState st =
                             view.at(v.getX(), v.getY(), v.getZ());
-                    if (!st.isAir() && !st.is(Blocks.WHITE_WOOL)) {
+                    if (!st.isAir() && !st.is(Blocks.WHITE_WOOL)
+                            && woolSet.contains(BlockPos.asLong(
+                                    v.getX(), v.getY(), v.getZ()))) {
                         touchable = false;   // rail/terrain existant : on ne touche pas
                         break;
                     }
@@ -299,9 +476,14 @@ public final class Grounding {
                 }
                 List<BlockPos> trial = new ArrayList<>(cur);
                 trial.removeAll(victims);
-                if (countComponents(trial) <= countComponents(cur)) {
+                // Metrique ruban (comme I2) : un niveau jetable ne doit pas
+                // ouvrir de trou HORIZONTAL ; escaliers/croisements empiles
+                // ne bloquent plus le nettoyage des piles (tunnels).
+                if (componentsRibbon(trial) <= componentsRibbon(cur)) {
                     for (BlockPos v : victims) {
                         view.put(v.getX(), v.getY(), v.getZ(), Blocks.AIR.defaultBlockState());
+                        woolSet.remove(BlockPos.asLong(
+                                v.getX(), v.getY(), v.getZ()));
                     }
                     cur = trial;
                     remaining.remove(Integer.valueOf(yy));
