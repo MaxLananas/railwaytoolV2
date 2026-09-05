@@ -290,7 +290,7 @@ public final class ClassicDesign implements RailDesign {
          * (jonctions denses — le rail visible passe avant le décor).
          */
         /** Sols de support posés par les designs (remplissage + bases). */
-        static boolean isSupportSoil(BlockState st) {
+        public static boolean isSupportSoil(BlockState st) {
             return st.is(Blocks.DEEPSLATE) || st.is(Blocks.COBBLED_DEEPSLATE)
                     || st.is(Blocks.PALE_OAK_WOOD)
                     || st.is(Blocks.DEEPSLATE_IRON_ORE)
@@ -299,7 +299,7 @@ public final class ClassicDesign implements RailDesign {
                     || st.is(Blocks.ORANGE_WOOL);   // remplissage uniforme
         }
 
-        static boolean isRailCore(BlockState st) {
+        public static boolean isRailCore(BlockState st) {
             if (st.is(Blocks.BLACK_WOOL) || st.is(Blocks.LECTERN)
                     || st.is(Blocks.PALE_MOSS_BLOCK)
                     || st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
