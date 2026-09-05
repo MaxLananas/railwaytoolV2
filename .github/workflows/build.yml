@@ -56,17 +56,35 @@ jobs:
           set -o pipefail
           ./gradlew parityCheck --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
 
-      - name: Debug - commit log tail on failure
+      - name: Debug - log parity en commentaire de commit
         if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          mkdir -p ci
+          {
+            grep -E "PARITY|error|FAILED" /tmp/parity.log || true
+            grep -E "STDOUT.*(differences|attendu|TYPE|WHY|\[NB\]|COLREFUSE|\[COL\] 2[3-4],5)" /tmp/parity.log || true
+          } > ci/parity-failure.log
+          git add ci/parity-failure.log
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          mkdir -p ci
-          grep -E "PARITY|error|FAILED" /tmp/parity.log > ci/parity-failure.log
-          grep -E "STDOUT.*(differences|attendu|TYPE|WHY|\[NB\]|COLREFUSE|\[COL\] 2[3-4],5)" /tmp/parity.log >> ci/parity-failure.log
-          git add ci/parity-failure.log
-          git commit -m "ci(debug): log echec parity [skip ci]" || true
+          git commit -m "ci(debug): log parity [skip ci]" || true
           git push origin HEAD:${{ github.ref_name }} || true
+          # Canal de secours fiable : commentaire de commit (blob raccourci)
+          python3 - <<'PYEOF' || true
+          import json, os, urllib.request
+          body = open("ci/parity-failure.log").read()[-60000:]
+          data = json.dumps({"body": "```\n" + body + "\n```"}).encode()
+          req = urllib.request.Request(
+              "https://api.github.com/repos/MaxLananas/railwaytoolV2"
+              "/commits/" + os.environ["GITHUB_SHA"] + "/comments",
+              data=data, method="POST",
+              headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                       "Accept": "application/vnd.github+json",
+                       "Content-Type": "application/json"})
+          print(urllib.request.urlopen(req).status)
+          PYEOF
 
   build:
     runs-on: ubuntu-24.04
