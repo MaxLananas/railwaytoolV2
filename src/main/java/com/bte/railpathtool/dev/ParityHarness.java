@@ -168,6 +168,8 @@ public final class ParityHarness {
             }
             LongOpenHashSet dug = new LongOpenHashSet();
             trace = Grounding.apply(view, trace, dug);
+            // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
+            // intermediaire — le Grounding gere lui-meme la laine.
             trace = LCorners.purge(view, trace);
             trace = Grounding.apply(view, trace, dug);
             trace = Grounding.flattenTeeth(view, trace);
@@ -208,6 +210,42 @@ public final class ParityHarness {
             if (typeMism > 0 || nbMism > 0) {
                 System.out.println("  -> types divergents=" + typeMism
                         + " voisinages divergents=" + nbMism);
+            }
+            // Comparaison bidirectionnelle des ensembles de voxels de trace :
+            // un voxel java en plus (ou en moins) fausse les scans des agents
+            // sans jamais apparaitre dans les diffs de types.
+            {
+                LongOpenHashSet javaKeys = new LongOpenHashSet();
+                for (BlockPos v : trace) {
+                    javaKeys.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
+                }
+                int missing = 0;
+                int extra = 0;
+                for (String k : sc.simTypes.keySet()) {
+                    String[] c = k.split(",");
+                    long lk = BlockPos.asLong(i(c[0]), i(c[1]), i(c[2]));
+                    if (!javaKeys.contains(lk)) {
+                        if (missing < 3) {
+                            System.out.println("  [TRACE-] sim a " + k
+                                    + " que java n'a pas");
+                        }
+                        missing++;
+                    }
+                }
+                for (BlockPos v : trace) {
+                    String k = key(v.getX(), v.getY(), v.getZ());
+                    if (!sc.simTypes.containsKey(k)) {
+                        if (extra < 3) {
+                            System.out.println("  [TRACE+] java a " + k
+                                    + " que sim n'a pas");
+                        }
+                        extra++;
+                    }
+                }
+                if (missing > 0 || extra > 0) {
+                    System.out.println("  -> trace: manquants=" + missing
+                            + " supplementaires=" + extra);
+                }
             }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
             if (options.style == DesignOptions.Style.CLASSIC) {

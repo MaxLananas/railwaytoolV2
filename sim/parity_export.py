@@ -71,9 +71,9 @@ def build_trace_seq(world, control, dug):
         if world.get(*v) in (R.AIR, None, R.GROUND):
             world.set(v[0], v[1], v[2], R.SPLINE)
     trace = R.rectify_vertical(world, vox, R.SPLINE, R.CORNER, dug=dug)
-    for v in trace:
-        if world.get(*v) in (R.AIR, None, R.GROUND):
-            world.set(v[0], v[1], v[2], R.SPLINE)
+    # PAS de re-pose de laine ici : la rectification gere la laine elle-meme
+    # (pipeline exact du mod — un re-lay cachait aux gardes de la purge L
+    # les deplacements et faisait diverger la parite).
     trace = R.rectify_l(world, trace, R.SPLINE, R.CORNER)
     trace = R.rectify_vertical(world, trace, R.SPLINE, R.CORNER, dug=dug)
     trace = R.flatten_teeth(world, trace, R.SPLINE)

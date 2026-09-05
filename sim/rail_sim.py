@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -781,7 +782,7 @@ def diag_design(model, x, y, z):
 
 PROTECTED = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
              "side_east", "side_west", "side_north", "side_south",
-             "coral_south", "coral_east",
+             "coral_south", "coral_east", "black_wool",
              "lectern_north", "lectern_east", "pale_moss_carpet", "pale_moss_block",
              "button_north", "button_east",
              "door_lower", "door_upper", "gravel"} | {f"door_{h}_{f}" for h in ("lower", "upper")
@@ -826,6 +827,9 @@ def build_column(world, opt, x, y, z, center):
     start_y = y + opt.base_dy
     for yy in (start_y, start_y + 1, start_y + 2):
         if world.get(x, yy, z) in PROTECTED:
+            if os.environ.get("RAIL_DEBUG"):
+                print(f"[COLREFUSE] {x},{yy},{z} center={center}"
+                      f" cur={world.get(x, yy, z)}")
             return
     if opt.theme == 2 and center in DOOR_FACING:
         f = DOOR_FACING[center].split("_", 1)[1]

@@ -219,7 +219,8 @@ def build_trace(world, control, dug=None):
     vox = R.voxelize(floats)
     lay_wool(world, vox)
     trace = R.rectify_vertical(world, vox, R.SPLINE, R.CORNER, dug=dug)
-    lay_wool(world, trace)
+    # PAS de re-pose de laine ici : pipeline exact du mod (la rectification
+    # gere la laine elle-meme — le re-lay faisait diverger la purge L).
     trace = R.rectify_l(world, trace, R.SPLINE, R.CORNER)
     trace = R.rectify_vertical(world, trace, R.SPLINE, R.CORNER, dug=dug)
     trace = R.flatten_teeth(world, trace, R.SPLINE)

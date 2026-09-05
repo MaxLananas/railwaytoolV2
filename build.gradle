@@ -97,6 +97,7 @@ tasks.register('parityCheck', JavaExec) {
     dependsOn 'classes'
     classpath = sourceSets.main.output + sourceSets.main.compileClasspath
     mainClass = 'com.bte.railpathtool.dev.ParityHarness'
+    systemProperty 'railparity.debug', 'true'
     args('sim/parity/scenes.txt')
     workingDir = rootProject.projectDir
 }

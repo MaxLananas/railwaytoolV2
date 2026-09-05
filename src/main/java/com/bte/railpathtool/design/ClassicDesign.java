@@ -212,6 +212,7 @@ public final class ClassicDesign implements RailDesign {
     public static final class ColumnWriter {
         private final TrackModel model;
         private final DesignOptions options;
+        private static final boolean DBG = Boolean.getBoolean("railparity.debug");
         private final Long2ObjectOpenHashMap<BlockState> plan;
         private final com.bte.railpathtool.track.WorldView view;
 
@@ -231,6 +232,14 @@ public final class ClassicDesign implements RailDesign {
                 // ancien build) n'est JAMAIS réécrite — sinon on casse le
                 // rail d'un voisin sur les traverses et les nœuds (photo 1).
                 if (isRailFamily(view.at(x, yy, z))) {
+                    if (DBG) {
+                        System.out.println("[COLREFUSE] " + x + "," + yy + "," + z
+                                + " center=" + net.minecraft.core.registries
+                                .BuiltInRegistries.BLOCK.getKey(center.getBlock())
+                                + " cur=" + net.minecraft.core.registries
+                                .BuiltInRegistries.BLOCK.getKey(
+                                        view.at(x, yy, z).getBlock()));
+                    }
                     return;
                 }
             }
@@ -263,10 +272,14 @@ public final class ClassicDesign implements RailDesign {
          */
         void fillSupports(BlockState soilOverride) {
             final int depthMax = 4;
-            long[] keys = plan.keySet().toLongArray();
+            // Comme le script (qui parcourt tous les blocs de rail du monde) :
+            // on itère tout le rail visible, pas seulement le plan courant —
+            // une trace suivante a pu recreuser le support d'un rail que ce
+            // build vient de poser (dug de la même passe).
+            long[] keys = view.overlay().keySet().toLongArray();
             for (long key : keys) {
-                BlockState st = plan.get(key);
-                if (st == null || st.isAir()) {
+                BlockState st = view.overlay().get(key);
+                if (st == null || st.isAir() || !isRailFamily(st)) {
                     continue;
                 }
                 int x = BlockPos.getX(key);
@@ -285,7 +298,7 @@ public final class ClassicDesign implements RailDesign {
                 }
                 for (int yy = y - 1; yy >= y - gap; yy--) {
                     long k = BlockPos.asLong(x, yy, z);
-                    if (!plan.containsKey(k)) {
+                    if (view.isAir(x, yy, z)) {
                         BlockState fill = soilOverride != null ? soilOverride : pickSoil();
                         plan.put(k, fill);
                         view.put(x, yy, z, fill);
@@ -322,7 +335,8 @@ public final class ClassicDesign implements RailDesign {
                     || b == Blocks.SPRUCE_SHELF || b == Blocks.IRON_DOOR
                     || b == Blocks.DEAD_BUBBLE_CORAL_WALL_FAN
                     || b == Blocks.LECTERN || b == Blocks.PALE_MOSS_CARPET
-                    || b == Blocks.PALE_MOSS_BLOCK || b == Blocks.OAK_BUTTON;
+                    || b == Blocks.PALE_MOSS_BLOCK || b == Blocks.OAK_BUTTON
+                    || b == Blocks.BLACK_WOOL;
         }
 
         public static boolean isRailFamily(BlockState st) {
