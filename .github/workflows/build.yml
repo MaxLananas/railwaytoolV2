@@ -62,7 +62,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p ci
-          grep -E "\[DBG|\[GD|\[FW|\[WORLDDBG" /tmp/parity.log | head -260 > ci/parity-failure.log
+          # Les [GDD] (debug global) inondent tout : on extrait d'abord
+          # les rares [DBG]/[FW]/[WORLDDBG] (scene cible) SANS quota
+          # commun, puis un petit echantillon de GDD/GDC au cas ou.
+          { grep -E "\[DBG|\[FW|\[WORLDDBG" /tmp/parity.log | head -220
+            grep -E "\[GDD|\[GDC" /tmp/parity.log | head -40
+          } > ci/parity-failure.log
           echo "=== tail ===" >> ci/parity-failure.log
           tail -180 /tmp/parity.log >> ci/parity-failure.log
           git add ci/parity-failure.log
