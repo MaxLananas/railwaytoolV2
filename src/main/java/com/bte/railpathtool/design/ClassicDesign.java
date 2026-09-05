@@ -25,6 +25,13 @@ public final class ClassicDesign implements RailDesign {
     @Override
     public void emitCases(TrackModel model, DesignOptions options,
                           Long2ObjectOpenHashMap<BlockState> plan) {
+        // Nœuds denses : design minimal (core seul) pour la lisibilité des
+        // vrilles/carrefours (photo 3 du retour terrain). Détection telle que
+        // sim : voxels croisant les deux axes orthogonaux (ou grappe >= 4),
+        // et seulement en grappe (>= 2 autres denses à portée 3) — un virage
+        // doux de drift reste complet (murets/litière conservés).
+        java.util.Set<BlockPos> junctions = denseJunctions(model);
+
         Palette pal = new Palette(options);
         ColumnWriter writer = new ColumnWriter(model, options, plan);
 
@@ -44,7 +51,7 @@ public final class ClassicDesign implements RailDesign {
         }
 
         for (BlockPos v : diags) {
-            emitDiag(model, pal, writer, v);
+            emitDiag(model, pal, writer, v, junctions);
         }
 
         for (BlockPos v : ns) {
@@ -52,9 +59,15 @@ public final class ClassicDesign implements RailDesign {
             Agents.LineScan s = Agents.scanSouth(model, v.getX(), v.getY(), v.getZ());
             Agents.LatSide side = Agents.decideNs(n, s);
             writer.column(v.getX(), v.getY(), v.getZ(), pal.coralSouth);
-            BlockState lat = side.isWall() ? pal.wallNs : pal.side(side.sideFacing);
-            writer.column(v.getX() - 1, v.getY(), v.getZ(), lat);
-            writer.column(v.getX() + 1, v.getY(), v.getZ(), lat);
+            if (!junctions.contains(v)) {
+                BlockState lat = side.isWall() ? pal.wallNs : pal.side(side.sideFacing);
+                if (!decorHitsJunction(junctions, v.getX() - 1, v.getY(), v.getZ())) {
+                    writer.column(v.getX() - 1, v.getY(), v.getZ(), lat);
+                }
+                if (!decorHitsJunction(junctions, v.getX() + 1, v.getY(), v.getZ())) {
+                    writer.column(v.getX() + 1, v.getY(), v.getZ(), lat);
+                }
+            }
         }
 
         for (BlockPos v : ew) {
@@ -62,15 +75,22 @@ public final class ClassicDesign implements RailDesign {
             Agents.LineScan e = Agents.scanEast(model, v.getX(), v.getY(), v.getZ());
             Agents.LatSide side = Agents.decideEw(o, e);
             writer.column(v.getX(), v.getY(), v.getZ(), pal.coralEast);
-            BlockState lat = side.isWall() ? pal.wallEw : pal.side(side.sideFacing);
-            writer.column(v.getX(), v.getY(), v.getZ() - 1, lat);
-            writer.column(v.getX(), v.getY(), v.getZ() + 1, lat);
+            if (!junctions.contains(v)) {
+                BlockState lat = side.isWall() ? pal.wallEw : pal.side(side.sideFacing);
+                if (!decorHitsJunction(junctions, v.getX(), v.getY(), v.getZ() - 1)) {
+                    writer.column(v.getX(), v.getY(), v.getZ() - 1, lat);
+                }
+                if (!decorHitsJunction(junctions, v.getX(), v.getY(), v.getZ() + 1)) {
+                    writer.column(v.getX(), v.getY(), v.getZ() + 1, lat);
+                }
+            }
         }
 
         writer.fillSupports(null);
     }
 
-    private void emitDiag(TrackModel model, Palette pal, ColumnWriter writer, BlockPos v) {
+    private void emitDiag(TrackModel model, Palette pal, ColumnWriter writer, BlockPos v,
+                          java.util.Set<BlockPos> junctions) {
         int x = v.getX();
         int y = v.getY();
         int z = v.getZ();
@@ -81,21 +101,110 @@ public final class ClassicDesign implements RailDesign {
             return;
         }
         writer.column(x, y, z, r.coreType == TrackType.NS ? pal.coralSouth : pal.coralEast);
+        if (junctions.contains(v)) {
+            return;  // nœud dense : core seul, pas de murets
+        }
         boolean swne = r.sense == Agents.DiagSense.SWNE;
         BlockState w1 = swne ? pal.wallNw : pal.wallSw;
         BlockState w2 = swne ? pal.wallSe : pal.wallNe;
         if (r.transition) {
-            writer.column(x - 1, y, z, w1);
-            writer.column(x + 1, y, z, w2);
-            writer.column(x, y, z - 1, w1);
-            writer.column(x, y, z + 1, w2);
+            if (!decorHitsJunction(junctions, x - 1, y, z)) {
+                writer.column(x - 1, y, z, w1);
+            }
+            if (!decorHitsJunction(junctions, x + 1, y, z)) {
+                writer.column(x + 1, y, z, w2);
+            }
+            if (!decorHitsJunction(junctions, x, y, z - 1)) {
+                writer.column(x, y, z - 1, w1);
+            }
+            if (!decorHitsJunction(junctions, x, y, z + 1)) {
+                writer.column(x, y, z + 1, w2);
+            }
         } else if (r.coreType == TrackType.NS) {
-            writer.column(x - 1, y, z, w1);
-            writer.column(x + 1, y, z, w2);
+            if (!decorHitsJunction(junctions, x - 1, y, z)) {
+                writer.column(x - 1, y, z, w1);
+            }
+            if (!decorHitsJunction(junctions, x + 1, y, z)) {
+                writer.column(x + 1, y, z, w2);
+            }
         } else {
-            writer.column(x, y, z - 1, w1);
-            writer.column(x, y, z + 1, w2);
+            if (!decorHitsJunction(junctions, x, y, z - 1)) {
+                writer.column(x, y, z - 1, w1);
+            }
+            if (!decorHitsJunction(junctions, x, y, z + 1)) {
+                writer.column(x, y, z + 1, w2);
+            }
         }
+    }
+
+    /**
+     * Ensemble des nœuds denses de la coupe. Règle identique au simulateur :
+     * un voxel est « candidat » s'il a des branches sur les DEUX axes (ou >= 4
+     * branches). Un candidat ne devient nœud qu'en grappe (>= 2 autres
+     * candidats à portée Chebyshev 3 en x/z, dy <= 1) — un virage doux de
+     * drift mixe lui aussi les axes et doit garder ses murets.
+     */
+    static java.util.Set<BlockPos> denseJunctions(TrackModel model) {
+        java.util.List<BlockPos> cand = new java.util.ArrayList<>();
+        for (BlockPos v : model.orderedTrace()) {
+            if (isDenseJunction(model, v.getX(), v.getY(), v.getZ())) {
+                cand.add(v);
+            }
+        }
+        // les doublons de voxels (spline) ne comptent pas dans la grappe
+        java.util.LinkedHashSet<BlockPos> uniq = new java.util.LinkedHashSet<>(cand);
+        java.util.Set<BlockPos> out = new java.util.HashSet<>();
+        for (BlockPos v : uniq) {
+            int nClose = 0;
+            for (BlockPos o : uniq) {
+                if (o == v || o.equals(v)) {
+                    continue;
+                }
+                if (Math.abs(o.getX() - v.getX()) <= 3
+                        && Math.abs(o.getY() - v.getY()) <= 1
+                        && Math.abs(o.getZ() - v.getZ()) <= 3) {
+                    nClose++;
+                }
+            }
+            if (nClose >= 2) {
+                out.add(v);
+            }
+        }
+        return out;
+    }
+
+    private static boolean isDenseJunction(TrackModel model, int x, int y, int z) {
+        java.util.List<String> nb = model.neighborDirections(x, y, z);
+        if (nb.size() <= 2) {
+            return false;
+        }
+        boolean ns = false;
+        boolean ew = false;
+        for (String d : nb) {
+            if (d.equals("N") || d.equals("S")) {
+                ns = true;
+            }
+            if (d.equals("E") || d.equals("O")) {
+                ew = true;
+            }
+        }
+        if (ns && ew) {
+            return true;
+        }
+        return nb.size() >= 4;
+    }
+
+    /** Vrai si la cellule de décor cible est collée au core d'un nœud. */
+    static boolean decorHitsJunction(java.util.Set<BlockPos> junctions,
+                                     int cx, int cy, int cz) {
+        for (BlockPos j : junctions) {
+            if (Math.abs(j.getX() - cx) <= 1
+                    && Math.abs(j.getY() - cy) <= 1
+                    && Math.abs(j.getZ() - cz) <= 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static final class Palette {
@@ -192,7 +301,11 @@ public final class ClassicDesign implements RailDesign {
         void column(int x, int y, int z, BlockState center) {
             int startY = y + options.baseDy;
             for (int yy = startY; yy <= startY + 2; yy++) {
-                if (isProtectedRail(view.at(x, yy, z))) {
+                // Garde anti-écrasement anti-valse : la cellule d'un bloc rail
+                // (y compris gravier/litière posés par un autre voxel ou un
+                // ancien build) n'est JAMAIS réécrite — sinon on casse le
+                // rail d'un voisin sur les traverses et les nœuds (photo 1).
+                if (isRailFamily(view.at(x, yy, z))) {
                     return;
                 }
             }

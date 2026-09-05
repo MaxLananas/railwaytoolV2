@@ -66,6 +66,14 @@ def run_scenario(seed):
                     verif += 1
                     if fst not in R.RAIL_FAMILY or fp in snap_before:
                         continue
+                    # rail invisible : solide de TERRAIN hostile au-dessus
+                    # d'une piece = rail enterre (disparu) sur terrain accidente
+                    # (photo 2). Wools marqueurs et soils de fill exclus.
+                    fpa = (fp[0], fp[1] + 1, fp[2])
+                    if fpa in snap_before:
+                        above = w.get(*fpa)
+                        if above in ("grass_block", "stone", "dirt"):
+                            viol.append(f"seed{seed}/{style}/th{theme}: rail enterre {fst} {fp}")
                     if w.get(fp[0], fp[1] - 1, fp[2]) not in (R.AIR, None):
                         continue
                     for dg in range(2, 6):

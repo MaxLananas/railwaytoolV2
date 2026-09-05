@@ -56,21 +56,23 @@ public final class NatureDesign implements RailDesign {
             }
         }
         Writer w = new Writer(model.view(), plan);
+        java.util.Set<BlockPos> junctions = ClassicDesign.denseJunctions(model);
         for (BlockPos v : diags) {
             Agents.DiagResult r = Agents.analyseDiag(model, v.getX(), v.getY(), v.getZ());
             TrackType t = r.coreType != TrackType.EW ? TrackType.NS : TrackType.EW;
-            emitBlock(model, w, v, t);
+            emitBlock(model, w, v, t, junctions.contains(v), junctions);
         }
         for (BlockPos v : ns) {
-            emitBlock(model, w, v, TrackType.NS);
+            emitBlock(model, w, v, TrackType.NS, junctions.contains(v), junctions);
         }
         for (BlockPos v : ew) {
-            emitBlock(model, w, v, TrackType.EW);
+            emitBlock(model, w, v, TrackType.EW, junctions.contains(v), junctions);
         }
         w.fillSupports();
     }
 
-    private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t) {
+    private void emitBlock(TrackModel model, Writer w, BlockPos v, TrackType t,
+                          boolean junction, java.util.Set<BlockPos> junctions) {
         int x = v.getX();
         int y = v.getY();
         int z = v.getZ();
@@ -95,25 +97,25 @@ public final class NatureDesign implements RailDesign {
             w.put(x, y, z, Blocks.LECTERN.defaultBlockState()
                     .setValue(LecternBlock.FACING, facing)
                     .setValue(LecternBlock.HAS_BOOK, false));
-            w.put(x, y + 1, z, Blocks.PALE_MOSS_CARPET.defaultBlockState());
+            w.putDecorVisible(x, y + 1, z, Blocks.PALE_MOSS_CARPET.defaultBlockState());
         } else {
             w.put(x, y, z, Blocks.PALE_MOSS_BLOCK.defaultBlockState());
-            w.put(x, y + 1, z, Blocks.OAK_BUTTON.defaultBlockState()
+            w.putDecorVisible(x, y + 1, z, Blocks.OAK_BUTTON.defaultBlockState()
                     .setValue(BlockStateProperties.ATTACH_FACE, AttachFace.FLOOR)
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, facing)
                     .setValue(BlockStateProperties.POWERED, true));
         }
 
         for (int[] off : ortho) {
-            w.put(x + off[0], y, z + off[1], Blocks.GRAVEL.defaultBlockState());
+            w.putDecorVisible(x + off[0], y, z + off[1], Blocks.GRAVEL.defaultBlockState());
         }
 
-        if (dirNS) {
+        if (dirNS && !junction) {
             for (int[] off : crossQuads) {
                 for (int dy : TrackModel.DY_TOLERANCE) {
                     if (model.typeAt(x + off[0], y + dy, z + off[1]) == TrackType.EW) {
-                        w.put(x, y + dy, z + off[1], Blocks.GRAVEL.defaultBlockState());
-                        w.put(x, y + dy + 1, z + off[1],
+                        w.putDecorVisible(x, y + dy, z + off[1], Blocks.GRAVEL.defaultBlockState());
+                        w.putDecorVisible(x, y + dy + 1, z + off[1],
                                 leafLitter(3, crossFacing(off[0], off[1])));
                     }
                 }
@@ -150,8 +152,17 @@ public final class NatureDesign implements RailDesign {
         } else {
             a1 = 2; f1 = "west"; a2 = 2; f2 = "east";
         }
-        w.put(x + leafPos[0][0], y + 1, z + leafPos[0][1], leafLitter(a1, f1));
-        w.put(x + leafPos[1][0], y + 1, z + leafPos[1][1], leafLitter(a2, f2));
+        if (junction) {
+            return;  // nœud dense : core (pupitre/mousse + tapis/bouton) seul
+        }
+        if (!ClassicDesign.decorHitsJunction(junctions,
+                x + leafPos[0][0], y + 1, z + leafPos[0][1])) {
+            w.putDecorVisible(x + leafPos[0][0], y + 1, z + leafPos[0][1], leafLitter(a1, f1));
+        }
+        if (!ClassicDesign.decorHitsJunction(junctions,
+                x + leafPos[1][0], y + 1, z + leafPos[1][1])) {
+            w.putDecorVisible(x + leafPos[1][0], y + 1, z + leafPos[1][1], leafLitter(a2, f2));
+        }
     }
 
     private static final java.util.Set<String> CARD_N = java.util.Set.of("N", "NE", "NO");
@@ -220,11 +231,36 @@ public final class NatureDesign implements RailDesign {
             this.plan = plan;
         }
 
+        /**
+         * Pose de décor visible : si la cellule dessus est un bloc solide de
+         * terrain hostile (pas du rail/air/eau), le décor serait enterré —
+         * suppression (le cas « il manque le rail » de la capture #2).
+         */
+        void putDecorVisible(int x, int y, int z, BlockState state) {
+            BlockState above = view.at(x, y + 1, z);
+            if (!above.isAir()
+                    && above.getBlock() != Blocks.WATER
+                    && !ClassicDesign.ColumnWriter.isRailFamily(above)) {
+                return;
+            }
+            put(x, y, z, state);
+        }
+
         void put(int x, int y, int z, BlockState state) {
             if (ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, y, z))) {
                 return;
             }
-            plan.put(BlockPos.asLong(x, y, z), state);
+            long key = BlockPos.asLong(x, y, z);
+            BlockState cur = plan.get(key);
+            // Anti-chevauchement intra-build : un core/décor posé par un autre
+            // voxel prime (sinon traverses/nœuds détruisent le rail voisin) ;
+            // seul le gravier (lit passif) peut être amélioré après coup.
+            if (cur != null && cur != state
+                    && ClassicDesign.ColumnWriter.isRailFamily(cur)
+                    && cur.getBlock() != Blocks.GRAVEL) {
+                return;
+            }
+            plan.put(key, state);
             view.put(x, y, z, state);
         }
 

@@ -95,6 +95,13 @@ def check_corridor(case, world, trace, pre_keys=frozenset()):
     for (x, y, z), st in world.blocks.items():
         if st not in R.RAIL_FAMILY or (x, y, z) in pre_keys:
             continue
+        # rail invisible : un solide de TERRAIN hostile (roche/herbe) au-dessus
+        # d'une pièce = rail enterré = « il manque le rail » (photo 2). On
+        # n'alerte pas pour les wools marqueurs ni les soils d'un fill
+        # (encore visibles de profil).
+        above = world.get(x, y + 1, z)
+        if (x, y + 1, z) in pre_keys and above in ("grass_block", "stone", "dirt"):
+            fail(case, f"rail enterre: {st} a {(x, y, z)}, dessus={above!r}")
         if world.get(x, y - 1, z) not in (R.AIR, None):
             continue
         for depth_gap in range(2, 6):
