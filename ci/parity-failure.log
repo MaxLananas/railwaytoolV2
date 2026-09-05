@@ -1,12 +1,171 @@
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/TrackModel.java:106: error: cannot find symbol
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:101: error: cannot find symbol
-2 errors
-> Task :compileJava FAILED
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/TrackModel.java:106: error: cannot find symbol
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:101: error: cannot find symbol
-  2 errors
-> Check your code and dependencies to fix the compilation error(s)
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/TrackModel.java:106: error: cannot find symbol
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/track/Grounding.java:101: error: cannot find symbol
-2 errors
+[03:52:17] [main/INFO]: [STDOUT]: === PARITY 42 scenes ===
+[03:52:17] [main/INFO]: [STDOUT]: drift-cs : 1 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: drift-cl : 1 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: lturn-cs : 1 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: lturn-cl : 1 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: lturn-buried : 1 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: spiral-cs : 10 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_south
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_sw obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: spiral-cl : 10 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_south
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_sw obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: zigzag-cs : 56 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: zigzag-cl : 56 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-hills-0 : 11 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_south
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-hills-1 : 9 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_se obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-3 : 16 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-flat-5 : 6 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=side_east obtenu=wall_ns
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=side_west obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_north
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-hills-6 : 11 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=door_lower_east obtenu=wall_ns
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=door_lower_east obtenu=wall_ns
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-7 : 24 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-9 : 5 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=side_west obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-hills-10 : 12 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=door_lower_west
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=door_lower_east obtenu=door_lower_west
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-12 : 43 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-14 : 56 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-hills-15 : 9 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=side_west obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-16 : 21 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-17 : 38 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=wall_eo
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: fuzz-chaos-19 : 20 differences
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=side_west obtenu=wall_ns
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=soil obtenu=air
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=wall_ns obtenu=side_west
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]:    attendu=air obtenu=soil
+[03:52:17] [main/INFO]: [STDOUT]: 19 OK / 23 DIFFERENT
+> Task :parityCheck FAILED
 BUILD FAILED in 29s
