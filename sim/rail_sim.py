@@ -448,13 +448,18 @@ def _flatten_teeth_impl(world, trace, spline):
                     ok = False
                     break
             if ok:
+                # couleurs capturees AVANT l'effacement (« world.set AIR »
+                # supprime l'entree ; un get ulterieur renverrait "air")
+                owns = [world.get(out[k][0], by, out[k][2])
+                        for k in range(i, j)]
                 for k in range(i, j):
                     x0, _, z0 = out[k]
                     world.set(x0, by, z0, AIR)
                 for k in range(i, j):
                     x0, _, z0 = out[k]
-                    # la dent garde sa couleur (laine forcée possible)
-                    world.set(x0, ay, z0, world.get(x0, by, z0) or spline)
+                    own = owns[k - i]
+                    # la dent garde sa couleur (laine forcee possible)
+                    world.set(x0, ay, z0, own if is_wool(own) else spline)
                     _move_trace_wool((x0, by, z0), (x0, ay, z0))
                     out[k] = (x0, ay, z0)
         i = j
