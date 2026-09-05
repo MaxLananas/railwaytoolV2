@@ -226,6 +226,14 @@ public final class ClassicDesign implements RailDesign {
 
         void column(int x, int y, int z, BlockState center) {
             int startY = y + options.baseDy;
+            if (DBG) {
+                System.out.println("[COL] " + x + "," + y + "," + z
+                        + " center=" + net.minecraft.core.registries
+                        .BuiltInRegistries.BLOCK.getKey(center.getBlock())
+                        + " cur59=" + net.minecraft.core.registries
+                        .BuiltInRegistries.BLOCK.getKey(
+                                view.at(x, y + 1, z).getBlock()).getPath());
+            }
             for (int yy = startY; yy <= startY + 2; yy++) {
                 // Garde anti-écrasement anti-valse : la cellule d'un bloc rail
                 // (y compris gravier/litière posés par un autre voxel ou un
