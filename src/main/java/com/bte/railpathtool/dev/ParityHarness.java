@@ -176,7 +176,7 @@ public final class ParityHarness {
         return out;
     }
 
-    private static List<String> toTraceLines(
+    private static List<String> toTraceLinesBP(
             java.util.List<BlockPos> voxels) {
         List<String> out = new ArrayList<>(voxels.size());
         for (BlockPos v : voxels) {
@@ -259,13 +259,13 @@ public final class ParityHarness {
                     System.getProperty("parity.debugScene", ""));
             if (db) {
                 System.out.println("[DBG " + sc.id + "] avant: "
-                        + toTraceLines(trace).subList(0,
+                        + toTraceLinesBP(trace).subList(0,
                                 Math.min(10, trace.size())));
             }
             trace = Grounding.apply(view, trace, dug);
             if (db) {
                 System.out.println("[DBG " + sc.id + "] apresG1: "
-                        + toTraceLines(trace).subList(0,
+                        + toTraceLinesBP(trace).subList(0,
                                 Math.min(10, trace.size())));
             }
             // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
@@ -278,7 +278,7 @@ public final class ParityHarness {
             for (BlockPos v : trace) {
                 traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
             }
-            java.util.List<String> ignored = toTraceLines(trace);
+            
             TrackModel model = new TrackModel(view, trace,
                     TrackModel.OverrideMode.AUTO);
             long typeMism = 0;
