@@ -241,18 +241,24 @@ public final class NatureDesign implements RailDesign {
         }
 
         void put(int x, int y, int z, BlockState state) {
-            if (ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, y, z))) {
+            long key = BlockPos.asLong(x, y, z);
+            boolean planned = plan.containsKey(key);
+            // Monde live (overlay) comme le script : tout rail visible avant
+            // ce build est intouchable (initialAt rend le veto muet partout
+            // ou le niveau n'a pas encore recu les rails des coups precedents
+            // — par ex. le harnais de parite, ou level est null).
+            BlockState cur = planned ? plan.get(key) : view.at(x, y, z);
+            if (!planned
+                    && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 return;
             }
-            long key = BlockPos.asLong(x, y, z);
-            BlockState cur = plan.get(key);
             // Anti-chevauchement intra-build, à priorité : un CORE (pupitre/
             // mousse) gagne toujours sa case — sinon la litière d'un voxel bas
             // prendrait la case du core du voxel haut d'un escalier et le
             // core serait refusé (cores manquants). Un décor ne remplace un
             // décor existant que s'il est identique ; le gravier est le lit
             // passif améliorable.
-            if (cur != null && cur != state
+            if (planned && cur != null && cur != state
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 if (isNatureCore(cur)) {
                     return;                     // un core posé ne bouge jamais
@@ -272,10 +278,14 @@ public final class NatureDesign implements RailDesign {
          */
         void fillSupports() {
             final int depthMax = 4;
-            long[] keys = plan.keySet().toLongArray();
+            // Tout le rail visible (overlay), comme le script qui parcourt le
+            // monde entier : une trace suivante a pu recreuser le support d'un
+            // rail pose juste avant (dug de la meme passe).
+            long[] keys = view.overlay().keySet().toLongArray();
             for (long key : keys) {
-                BlockState st = plan.get(key);
-                if (st == null || st.isAir()) {
+                BlockState st = view.overlay().get(key);
+                if (st == null || st.isAir()
+                        || !ClassicDesign.ColumnWriter.isRailFamily(st)) {
                     continue;
                 }
                 int x = BlockPos.getX(key);
@@ -292,9 +302,7 @@ public final class NatureDesign implements RailDesign {
                     continue;
                 }
                 for (int yy = y - 1; yy >= y - gap; yy--) {
-                    long k = BlockPos.asLong(x, yy, z);
-                    if (!plan.containsKey(k)
-                            && !ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, yy, z))) {
+                    if (view.isAir(x, yy, z)) {
                         BlockState fill = Blocks.GRAVEL.defaultBlockState();
                         plan.put(k, fill);
                         view.put(x, yy, z, fill);
