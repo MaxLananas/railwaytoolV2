@@ -74,7 +74,8 @@ public final class Grounding {
     static LongOpenHashSet laidWool(WorldView view, List<BlockPos> trace) {
         LongOpenHashSet wool = new LongOpenHashSet();
         for (BlockPos v : trace) {
-            BlockState st = view.at(v.getX(), v.getY(), v.getZ());
+            net.minecraft.world.level.block.state.BlockState st =
+                    view.at(v.getX(), v.getY(), v.getZ());
             if (st != null && st.is(BlockTags.WOOL)) {
                 wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
             }
