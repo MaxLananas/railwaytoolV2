@@ -55,7 +55,9 @@ dependencies {
     modCompileOnly fileTree(dir: 'libs', include: ['*.jar'])
 
     // Harness de parité Java/sim (src/test) : mêmes briques MC que le mod.
-    testImplementation "com.mojang:minecraft:${minecraft_version}"
+    // Loom remappe minecraft() dans N'IMPORTE quelle configuration — un brut
+    // "com.mojang:minecraft:..." n'existe sur aucun dépôt.
+    testImplementation(minecraft("com.mojang:minecraft:${minecraft_version}"))
     testImplementation "net.fabricmc:fabric-loader:${loader_version}"
 }
 
