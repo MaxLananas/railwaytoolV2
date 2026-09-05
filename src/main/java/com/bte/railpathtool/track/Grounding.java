@@ -3,6 +3,7 @@ package com.bte.railpathtool.track;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WoolBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +63,19 @@ public final class Grounding {
      * deja occupee par du rail (non posee au lay) n'est pas une laine
      * deplacable. Miroir de rail_sim._TRACE_WOOL.
      */
+    /**
+     * Voxels dont la case contient VRAIMENT la laine posee par cette trace
+     * (famille laine). Un voxel dont la case est deja occupee (rail d'une
+     * voie precedente, pierre, sol) n'APPARTIENT PAS au jeu : les passes ne
+     * doivent pas le traiter comme une laine deplacable — sinon le coin-
+     * laisse d'une remontee ecrase un corail voisin (jun-45). Miroir de
+     * rail_sim : la condition d'entree est is_wool(case), pas spline.
+     */
     static LongOpenHashSet laidWool(WorldView view, List<BlockPos> trace) {
         LongOpenHashSet wool = new LongOpenHashSet();
         for (BlockPos v : trace) {
-            if (isTraceWool(view.at(v.getX(), v.getY(), v.getZ()))) {
+            BlockState st = view.at(v.getX(), v.getY(), v.getZ());
+            if (st != null && st.getBlock() instanceof WoolBlock) {
                 wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
             }
         }
