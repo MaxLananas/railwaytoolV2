@@ -8,6 +8,7 @@ import com.bte.railpathtool.spline.Spline;
 import com.bte.railpathtool.track.Grounding;
 import com.bte.railpathtool.track.LCorners;
 import com.bte.railpathtool.track.TrackModel;
+import com.bte.railpathtool.track.TrackType;
 import com.bte.railpathtool.track.WorldView;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
