@@ -304,7 +304,7 @@ public final class NatureDesign implements RailDesign {
                 for (int yy = y - 1; yy >= y - gap; yy--) {
                     if (view.isAir(x, yy, z)) {
                         BlockState fill = Blocks.GRAVEL.defaultBlockState();
-                        plan.put(k, fill);
+                        plan.put(BlockPos.asLong(x, yy, z), fill);
                         view.put(x, yy, z, fill);
                     }
                 }
