@@ -1,40 +1,75 @@
-                          ^
-  symbol:   variable extra
-  location: class ParityHarness
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-2 errors
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,11 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,12 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,9 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,10 attendu=coral_south obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,11 attendu=coral_south obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,12 attendu=wall_ns obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,9 attendu=wall_ns obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]: teeth-75 : 312 differences
+[21:17:43] [main/INFO]: [STDOUT]:    11,58,10 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    11,58,8 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    11,58,9 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    11,59,10 attendu=wall_eo obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    11,59,8 attendu=wall_eo obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    11,59,9 attendu=coral_east obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    11,60,10 attendu=air obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    11,60,8 attendu=air obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]: teeth-76 : 629 differences
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,3 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,4 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,58,5 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,3 attendu=coral_south obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,4 attendu=coral_east obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,59,5 attendu=wall_eo obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,60,3 attendu=air obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]:    10,60,4 attendu=air obtenu=soil
+[21:17:43] [main/INFO]: [STDOUT]: teeth-77 : 300 differences
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,12 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,13 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,14 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,15 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,16 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,17 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,18 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    5,58,19 attendu=soil obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]: teeth-78 : 554 differences
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,-1 attendu=gravel obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,0 attendu=lectern_north obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,1 attendu=lectern_north obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,2 attendu=gravel obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,-1 attendu=leaf_2_north obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,0 attendu=pale_moss_carpet obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,1 attendu=leaf_3_west obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,2 attendu=leaf_3_north obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]: teeth-79 : 368 differences
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,-3 attendu=gravel obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,-4 attendu=lectern_east obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,58,-5 attendu=gravel obtenu=grass_block
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,-3 attendu=leaf_3_north obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,-4 attendu=pale_moss_carpet obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,-5 attendu=leaf_3_south obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,59,-6 attendu=air obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]:    -1,60,-3 attendu=air obtenu=gravel
+[21:17:43] [main/INFO]: [STDOUT]: 0 OK / 752 DIFFERENT
 
-> Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788642797985.json
+> Task :parityCheck FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788643012638.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
-              if (missing + extra > 0) {
-                  ^
-    symbol:   variable missing
-    location: class ParityHarness
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
-              if (missing + extra > 0) {
-                            ^
-    symbol:   variable extra
-    location: class ParityHarness
-  Note: Some input files use or override a deprecated API.
-  2 errors
+Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
+> Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
 
 * Try:
-> Check your code and dependencies to fix the compilation error(s)
+> Run with --info or --debug option to get more log output.
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':parityCheck' (registered in build file 'build.gradle').
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
@@ -68,54 +103,13 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
-            if (missing + extra > 0) {
-                ^
-  symbol:   variable missing
-  location: class ParityHarness
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/ParityHarness.java:306: error: cannot find symbol
-            if (missing + extra > 0) {
-                          ^
-  symbol:   variable extra
-  location: class ParityHarness
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-2 errors
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
-	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
-	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$3(JavaCompile.java:206)
-	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
-	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
-	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
+Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/usr/lib/jvm/temurin-21-jdk-amd64/bin/java'' finished with non-zero exit value 1
+	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:459)
+	at org.gradle.process.internal.DefaultJavaExecAction.execute(DefaultJavaExecAction.java:58)
+	at org.gradle.api.tasks.JavaExec.exec(JavaExec.java:167)
 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
@@ -187,7 +181,7 @@ Note: Recompile with -Xlint:deprecation for details.
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
@@ -216,5 +210,11 @@ Note: Recompile with -Xlint:deprecation for details.
 	... 30 more
 
 
-BUILD FAILED in 33s
-1 actionable task: 1 executed
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 55s
+3 actionable tasks: 3 executed
