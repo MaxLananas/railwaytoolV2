@@ -91,9 +91,6 @@ public final class Grounding {
                             colDug++;
                         }
                     }
-                    if (colDug >= 2) {
-                        ok = false;
-                    }
                     for (int dy = 1; ok && dy <= 2; dy++) {
                         net.minecraft.world.level.block.state.BlockState st = view.at(x, y + dy, z);
                         if (st.isAir()) {
@@ -105,6 +102,11 @@ public final class Grounding {
                             break;
                         }
                         toDig[count++] = new int[]{x, y + dy, z};
+                    }
+                    // 2 blocs de tunnel max par colonne, tous passages
+                    // confondus — sinon on tailleade le terrain.
+                    if (ok && colDug + count > 2) {
+                        ok = false;
                     }
                     if (ok && count > 0 && !view.isAir(x, y + count + 1, z)) {
                         ok = false;
@@ -128,6 +130,10 @@ public final class Grounding {
                         int ny = y + dy - 1;
                         if (view.at(x, ny, z).is(Blocks.WHITE_WOOL)) {
                             break;  // jamais d'atterrissage SUR une autre laine
+                        }
+                        if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter
+                                .isRailFamily(view.at(x, ny, z))) {
+                            break;  // jamais d'atterrissage DANS du rail existant
                         }
                         // corner laissé derrière : seulement POSÉ, sinon une
                         // herbe flottante verrouille la descente des voisins
@@ -154,6 +160,14 @@ public final class Grounding {
                     break;
                 }
                 if (view.at(x, nxt, z).is(Blocks.WHITE_WOOL)) {
+                    break;
+                }
+                // Jamais d'écrasement du rail existant : la 2e trace qui
+                // descend sur la voie de la 1re s'arrête dessus (support) —
+                // sinon la laine remplace le corail du croisement et la 1re
+                // ligne est cassée (« presque plus de rail »).
+                if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter
+                        .isRailFamily(view.at(x, nxt, z))) {
                     break;
                 }
                 target = nxt;
@@ -251,9 +265,14 @@ public final class Grounding {
             if (ysSet.size() < 2) {
                 continue;
             }
-            List<Integer> ys = new ArrayList<>(ysSet);
-            for (int i = ys.size() - 1; i >= 1; i--) {   // du haut vers le bas
-                int yy = ys.get(i);
+            List<Integer> remaining = new ArrayList<>(ysSet);
+            List<Integer> ordre = new ArrayList<>(remaining.subList(1, remaining.size()));
+            java.util.Collections.reverse(ordre);   // les hauts d'abord (nominal)
+            ordre.add(remaining.get(0));             // le fond en dernier recours
+            for (int yy : ordre) {
+                if (remaining.size() <= 1) {
+                    break;   // la colonne garde toujours au moins un niveau
+                }
                 List<BlockPos> victims = new ArrayList<>();
                 for (BlockPos v : vals) {
                     if (v.getY() == yy && cur.contains(v)) {
@@ -282,6 +301,7 @@ public final class Grounding {
                         view.put(v.getX(), v.getY(), v.getZ(), Blocks.AIR.defaultBlockState());
                     }
                     cur = trial;
+                    remaining.remove(Integer.valueOf(yy));
                 }
             }
         }

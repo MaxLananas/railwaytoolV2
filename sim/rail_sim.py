@@ -59,6 +59,47 @@ def is_wool(state):
 # 2. TRACÉ : Catmull-Rom voxelisé
 # =============================================================================
 
+def _curvature(prev, cur, nxt):
+    """Copie exacte de CatmullRom.curvature (mod) : angle / corde moyenne."""
+    v1 = tuple(cur[i] - prev[i] for i in range(3))
+    v2 = tuple(nxt[i] - cur[i] for i in range(3))
+    l1 = math.sqrt(sum(a * a for a in v1))
+    l2 = math.sqrt(sum(a * a for a in v2))
+    if l1 < 1.0e-9 or l2 < 1.0e-9:
+        return 0.0
+    dot = sum(v1[i] * v2[i] for i in range(3)) / (l1 * l2)
+    dot = max(-1.0, min(1.0, dot))
+    return math.acos(dot) / (0.5 * (l1 + l2))
+
+
+def adaptive_sample(control, base_density=6):
+    """Copie exacte du pipeline d'échantillonnage du mod (défaut UI :
+    densité 6, mode adaptatif ON — AdaptiveSampler.sample) : pas qui décroit
+    avec la courbure (boost 1→3), Catmull-Rom identique."""
+    if len(control) < 2:
+        return list(control)
+    pts = [(x + 0.5, y + 0.5, z + 0.5) for x, y, z in control]
+    ext = [tuple(2 * pts[0][i] - pts[1][i] for i in range(3))] + pts
+    ext.append(tuple(2 * pts[-1][i] - pts[-2][i] for i in range(3)))
+
+    def cr(a, b, c, d, t):
+        t2, t3 = t * t, t * t * t
+        return 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2
+                      + (-a + 3 * b - 3 * c + d) * t3)
+
+    out = []
+    for i in range(1, len(ext) - 2):
+        p0, p1, p2, p3 = ext[i - 1], ext[i], ext[i + 1], ext[i + 2]
+        mid_curv = _curvature(p0, p1, p2) + _curvature(p1, p2, p3)
+        boost = 1.0 + min(2.0, mid_curv * 3.0)
+        steps = max(1, int(math.ceil(math.dist(p1, p2) * base_density * boost)))
+        for s in range(steps):
+            t = s / steps
+            out.append(tuple(cr(p0[k], p1[k], p2[k], p3[k], t) for k in range(3)))
+    out.append(pts[-1])
+    return out
+
+
 def catmull_rom_points(control, samples_per_block=4):
     """Retourne les positions flottantes échantillonnées le long de la spline."""
     if len(control) < 2:
@@ -271,12 +312,12 @@ def dedupe_columns(world, trace, spline):
     """Aucun empilement vertical : une colonne (x,z) ne doit jamais porter 2
     voxels de laine à des hauteurs différentes. Les dents y±1 de la spline
     + la purge des L pouvaient figer une pile (corner herbe sous le wool
-    du dessus) = le « monticule / rail au-dessus » des captures. On garde le
-    voxel LE PLUS BAS de la colonne et on dégage les autres (AIR), niveau par
-    niveau. Un retrait est accepté s'il ne sectionne pas davantage la voie
-    (le nombre de composantes n'augmente pas — les piles parasites sont déjà
-    des îlots, leur retrait ne fait que du bien). Seuls les blocs laine purs
-    sont touchés : du rail déjà posé n'est jamais altéré."""
+    du dessus) = le « monticule / rail au-dessus » des captures. On préfère
+    garder le niveau LE PLUS BAS ; mais si sa purge de chaque niveau haut
+    sectionnerait la voie (creux dont le fond ne tient que par son sommet),
+    on garde le haut — fillSupports comblera le creux proprement. Un retrait
+    n'est accepté que si le nombre de composantes n'augmente pas. Seuls les
+    blocs laine/air sont touchés : du rail déjà posé n'est jamais altéré."""
     by_col = {}
     for v in dict.fromkeys(trace):
         by_col.setdefault((v[0], v[2]), []).append(v)
@@ -285,7 +326,13 @@ def dedupe_columns(world, trace, spline):
         ys = sorted({v[1] for v in vals})
         if len(ys) < 2:
             continue
-        for yy in ys[1:][::-1]:                # retirer du haut vers le bas
+        # Candidats au retrait : les niveaux du haut d'abord (cas nominal),
+        # puis le niveau le plus bas en dernier recours. On continue tant
+        # qu'il reste plus d'un niveau dans la colonne.
+        remaining = list(ys)
+        for yy in ys[1:][::-1] + ys[:1]:
+            if len(remaining) <= 1:
+                break
             victims = [v for v in vals if v[1] == yy and v in cur]
             if not victims:
                 continue
@@ -297,6 +344,7 @@ def dedupe_columns(world, trace, spline):
                 for v in victims:
                     world.set(v[0], v[1], v[2], AIR)
                 cur = trial
+                remaining.remove(yy)
     return cur
 
 
@@ -400,8 +448,7 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 # le tunnel ne perce qu'UNE crête : 2 blocs grand max par
                 # colonne, tous passages confondus — sinon on tailleade le
                 # terrain (invariant stupid_stress « colonne creusée > 2 »).
-                if sum(1 for (dx2, _, dz2) in dug if dx2 == x and dz2 == z) >= 2:
-                    ok = False
+                col_dug = sum(1 for (dx2, _, dz2) in dug if dx2 == x and dz2 == z)
                 for dy in (1, 2):
                     st = world.get(x, y + dy, z)
                     if st == AIR:
@@ -410,6 +457,8 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                         ok = False
                         break
                     to_dig.append((x, y + dy, z))
+                if ok and col_dug + len(to_dig) > 2:
+                    ok = False
                 if ok and to_dig:
                     above = world.get(x, y + len(to_dig) + 1, z)
                     if above != AIR:
@@ -427,6 +476,8 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                     landy = y + dy - 1
                     if world.get(x, landy, z) == spline:
                         break  # jamais d'atterrissage SUR une autre laine
+                    if world.get(x, landy, z) in RAIL_FAMILY:
+                        break  # jamais d'atterrissage DANS du rail existant
                     # corner laissé derrière : seulement posé, sinon une herbe
                     # flottante verrouille la descente d'un voisin (monticule).
                     below = world.get(x, y - 1, z)
@@ -448,6 +499,13 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 if not is_unstable(world, x, target, z):
                     break
                 if world.get(x, nxt, z) == spline:
+                    break
+                # Jamais d'écrasement du rail existant : la laine d'une 2e
+                # trace qui descend sur la voie de la 1re S'ARRETE dessus
+                # (le rail est un support) — sinon le corail du croisement
+                # est remplacé par une laine et la 1re ligne est cassée
+                # (« presque plus de rail » aux segments croisés).
+                if world.get(x, nxt, z) in RAIL_FAMILY:
                     break
                 target = nxt
             if target != y:
@@ -805,19 +863,38 @@ def nature_decor_set(world, x, y, z, state):
     nature_set(world, x, y, z, state)
 
 
+NATURE_CORES = {"lectern_north", "lectern_east", "pale_moss_block",
+                "coral_south", "coral_east", "black_wool"}
+
+
+def _rail_prio(st):
+    """Priorité intra-build : le CORE gagne toujours (3), le décor s'incline
+    (2), le gravier est le lit passif (1). Sans ça, la litière d'un voxel
+    bas s'écrit dans la case du core du voxel haut d'un escalier et le core
+    est refusé ensuite (cores manquants des fuzz-nature)."""
+    if st in NATURE_CORES:
+        return 3
+    if st == "gravel":
+        return 1
+    return 2 if st in RAIL_FAMILY else 0
+
+
 def nature_set(world, x, y, z, state):
     """Comme world.set mais n'écrase jamais un bloc de rail :
     - rail pré-existant au build (protection classique) ;
-    - rail posé PENDANT ce build par un autre voxel — le core/la litière/les
-      murs gagnent ; seul le gravier (lit passif) peut être amélioré ensuite.
+    - rail posé PENDANT ce build par un autre voxel — priorité croissante
+      (gravier < décor < core) : un core écrase un décor qui aurait pris sa
+      case avant lui, jamais l'inverse ; le gravier sert de lit améliorable.
     C'est le fix anti-chevauchement des capsules : un décor n'enfonce plus
-    jamais le rail d'un voisin (traverses, nœuds, micro-drifts)."""
+    jamais le rail d'un voisin (traverses, nœuds, micro-drifts, escaliers)."""
     cur = world.get(x, y, z)
     if (x, y, z) in rail_before and cur in RAIL_FAMILY:
         return
     if cur == state:
         return
-    if cur in RAIL_FAMILY and cur != "gravel":
+    if _rail_prio(cur) > _rail_prio(state):
+        return
+    if _rail_prio(cur) == _rail_prio(state) and cur in RAIL_FAMILY:
         return
     world.set(x, y, z, state)
 
@@ -1165,7 +1242,7 @@ def flat_world(x0, x1, z0, z1, height_fn=None, depth=4):
 
 def scenario(name, control, opt, pad=3, colorize=None, subtitle="", height_fn=None):
     """Trace la spline issue des points de contrôle, rectifie, construit, affiche."""
-    floats = catmull_rom_points(control)
+    floats = adaptive_sample(control)
     vox = voxelize(floats)
     xs = [v[0] for v in vox]
     zs = [v[2] for v in vox]

@@ -235,19 +235,31 @@ public final class NatureDesign implements RailDesign {
             put(x, y, z, state);
         }
 
+        static boolean isNatureCore(BlockState st) {
+            return st.getBlock() == Blocks.LECTERN
+                    || st.getBlock() == Blocks.PALE_MOSS_BLOCK;
+        }
+
         void put(int x, int y, int z, BlockState state) {
             if (ClassicDesign.ColumnWriter.isRailFamily(view.initialAt(x, y, z))) {
                 return;
             }
             long key = BlockPos.asLong(x, y, z);
             BlockState cur = plan.get(key);
-            // Anti-chevauchement intra-build : un core/décor posé par un autre
-            // voxel prime (sinon traverses/nœuds détruisent le rail voisin) ;
-            // seul le gravier (lit passif) peut être amélioré après coup.
+            // Anti-chevauchement intra-build, à priorité : un CORE (pupitre/
+            // mousse) gagne toujours sa case — sinon la litière d'un voxel bas
+            // prendrait la case du core du voxel haut d'un escalier et le
+            // core serait refusé (cores manquants). Un décor ne remplace un
+            // décor existant que s'il est identique ; le gravier est le lit
+            // passif améliorable.
             if (cur != null && cur != state
-                    && ClassicDesign.ColumnWriter.isRailFamily(cur)
-                    && cur.getBlock() != Blocks.GRAVEL) {
-                return;
+                    && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
+                if (isNatureCore(cur)) {
+                    return;                     // un core posé ne bouge jamais
+                }
+                if (!isNatureCore(state) && cur.getBlock() != Blocks.GRAVEL) {
+                    return;                     // décor sur décor différent : non
+                }
             }
             plan.put(key, state);
             view.put(x, y, z, state);

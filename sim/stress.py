@@ -270,7 +270,7 @@ def main():
         rnd = random.Random(10_000 + seed)
         n = rnd.randint(2, 5)
         ctrl = [(rnd.randint(4, 28), rnd.randint(1, 8), rnd.randint(4, 36)) for _ in range(n)]
-        floats = R.catmull_rom_points(ctrl)
+        floats = R.adaptive_sample(ctrl)
         vox = R.voxelize(floats)
         w, _ = make_world(vox)
         trace = list(vox)

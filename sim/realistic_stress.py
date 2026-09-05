@@ -214,7 +214,7 @@ def lay_wool(world, vox):
 
 
 def build_trace(world, control, dug=None):
-    floats = R.catmull_rom_points([(float(x), float(y), float(z))
+    floats = R.adaptive_sample([(float(x), float(y), float(z))
                                    for (x, y, z) in control])
     vox = R.voxelize(floats)
     lay_wool(world, vox)

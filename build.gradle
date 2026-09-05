@@ -53,6 +53,10 @@ dependencies {
     modImplementation  "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     modCompileOnly fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Harness de parité Java/sim (src/test) : mêmes briques MC que le mod.
+    testImplementation "com.mojang:minecraft:${minecraft_version}"
+    testImplementation "net.fabricmc:fabric-loader:${loader_version}"
 }
 
 idea {
@@ -85,3 +89,20 @@ jar {
         rename { "${it}_${archives_base_name}" }
     }
 }
+
+// ── PARITÉ Java/simulateur ───────────────────────────────────────────────────
+// Rejoue le vrai pipeline du mod sur sim/parity/scenes.txt et exige un monde
+// final identique, bloc par bloc, à la sortie du simulateur (auto-validée).
+// Lancer : ./gradlew parityCheck  — échoue sur la moindre divergence.
+tasks.register('parityCheck', JavaExec) {
+    group = 'verification'
+    description = 'Parité Java/sim : le mod réel vs les scènes auto-validées'
+    dependsOn 'compileJava', 'compileTestJava'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.bte.railpathtool.parity.ParityHarness'
+    args('sim/parity/scenes.txt')
+    workingDir = rootProject.projectDir
+}
+// La parité fait partie de la porte `check` : impossible de livrer un build
+// dont le vrai pipeline Java diverge du simulateur validé.
+check.dependsOn tasks.named('parityCheck')

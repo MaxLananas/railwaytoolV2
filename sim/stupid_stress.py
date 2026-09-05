@@ -222,7 +222,7 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
     smooth=True active le lissage de cretes (dug) comme l'option par defaut du mod."""
     counts["scenarios"] += 1
     try:
-        floats = R.catmull_rom_points(control)
+        floats = R.adaptive_sample(control)
         vox = R.voxelize(floats)
     except Exception as e:
         fail(name, f"EXCEPTION voxelize: {e!r}")
@@ -571,7 +571,7 @@ def main():
 
     # J. Non-régression canonique --------------------------------------------
     # s-curve : rendu nature attendu (inscrit lors du portage)
-    floats = R.catmull_rom_points([(8, 1, 36), (8, 1, 22), (20, 1, 12), (20, 1, 2)])
+    floats = R.adaptive_sample([(8, 1, 36), (8, 1, 22), (20, 1, 12), (20, 1, 2)])
     vox = R.voxelize(floats)
     w, tr = None, None
     w = R.flat_world(min(v[0] for v in vox) - 3, max(v[0] for v in vox) + 3,
