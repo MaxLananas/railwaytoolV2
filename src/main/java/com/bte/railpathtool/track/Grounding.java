@@ -97,7 +97,8 @@ public final class Grounding {
                             break;
                         }
                         if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter.isRailFamily(st)
-                                || st.is(net.minecraft.tags.BlockTags.WOOL)) {
+                                || st.getBlock() instanceof net.minecraft.world
+                                        .level.block.WoolBlock) {
                             ok = false;
                             break;
                         }

@@ -99,7 +99,11 @@ public final class TrackModel {
     }
 
     public boolean isWoolTrace(int x, int y, int z) {
-        return view.at(x, y, z).is(BlockTags.WOOL);
+        // instanceof plutôt que BlockTags.WOOL : les tags ne sont pas liés
+        // hors runtime serveur (Bootstrap du harnais de parité), is(TagKey)
+        // renverrait toujours false et casserait la classification.
+        return view.at(x, y, z).getBlock()
+                instanceof net.minecraft.world.level.block.WoolBlock;
     }
 
     public TrackType typeAt(int x, int y, int z) {
