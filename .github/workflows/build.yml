@@ -66,7 +66,7 @@ jobs:
           grep -E "STDOUT.*(differences|attendu|TYPE|WHY|\[NB\]|COLREFUSE|\[COL\] 2[3-4],5)" /tmp/parity.log >> ci/parity-failure.log
           git add ci/parity-failure.log
           git commit -m "ci(debug): log echec parity [skip ci]" || true
-          git push || true
+          git push origin HEAD:${{ github.ref_name }} || true
 
   build:
     runs-on: ubuntu-24.04
