@@ -66,7 +66,9 @@ jobs:
           # les rares [DBG]/[FW]/[WORLDDBG] (scene cible) SANS quota
           # commun, puis un petit echantillon de GDD/GDC au cas ou.
           { grep -E "OK / | DIFFERENT|differences$|AssertionError" /tmp/parity.log | tail -40
-            grep -E "\[DBG|\[FW|\[WORLDDBG" /tmp/parity.log | head -220
+            grep -E "\[DBG|\[JAVA-TRACE" /tmp/parity.log | head -60
+            grep -E "\[FW\]" /tmp/parity.log | grep -vE "grass_block|stone\"|dirt|water|sand\"|clay|snow_block|ice|oak_leaves|spruce_leaves|mud\"" | head -160
+            grep -E "\[WORLDDBG" /tmp/parity.log | head -10
             grep -E "\[GDD|\[GDC" /tmp/parity.log | head -40
           } > ci/parity-failure.log
           echo "=== tail ===" >> ci/parity-failure.log
