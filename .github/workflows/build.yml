@@ -65,7 +65,8 @@ jobs:
           # Les [GDD] (debug global) inondent tout : on extrait d'abord
           # les rares [DBG]/[FW]/[WORLDDBG] (scene cible) SANS quota
           # commun, puis un petit echantillon de GDD/GDC au cas ou.
-          { grep -E "OK / | DIFFERENT|differences$|AssertionError" /tmp/parity.log | tail -40
+          { grep -E "attendu=" /tmp/parity.log | head -140
+            grep -E "OK / | DIFFERENT|differences$|AssertionError" /tmp/parity.log | tail -40
             grep -E "\[GCELL" /tmp/parity.log | head -40
             grep -E "\[DBG|\[JAVA-TRACE" /tmp/parity.log | head -60
             grep -E "\[FW\]" /tmp/parity.log | grep -vE "grass_block|stone\"|dirt|water|sand\"|clay|snow_block|ice|oak_leaves|spruce_leaves|mud\"" | head -160

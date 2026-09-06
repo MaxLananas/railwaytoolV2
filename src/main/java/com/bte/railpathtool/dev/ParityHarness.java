@@ -257,6 +257,7 @@ public final class ParityHarness {
             LongOpenHashSet dug = new LongOpenHashSet();
             boolean db = sc.id.equals(
                     System.getProperty("parity.debugScene", ""));
+            Grounding.DEBUG_SCOPE = db;
             if (db) {
                 System.out.println("[DBG " + sc.id + "] avant: "
                         + toTraceLinesBP(trace).subList(0,

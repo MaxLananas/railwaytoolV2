@@ -75,6 +75,9 @@ public final class Grounding {
      * laisse d'une remontee ecrase un corail voisin (jun-45). Miroir de
      * rail_sim : la condition d'entree est is_wool(case), pas spline.
      */
+    /** Portee debug : le harness l'active seulement pour la scene ciblee. */
+    public static volatile boolean DEBUG_SCOPE = false;
+
     static LongOpenHashSet laidWool(WorldView view, List<BlockPos> trace) {
         LongOpenHashSet wool = new LongOpenHashSet();
         for (BlockPos v : trace) {
@@ -221,7 +224,7 @@ public final class Grounding {
             // (rail/stone preexistants sous la case) passent sans effet —
             // sinon le coin-laisse d'une remontee ecraserait un corail.
             if (!wool.contains(BlockPos.asLong(x, y, z))) {
-                if (!dbgCellProp.isEmpty()
+                if (DEBUG_SCOPE && !dbgCellProp.isEmpty()
                         && dbgCellProp.equals(x + "," + y + "," + z)) {
                     System.out.println("[GCELL] skip-not-wool " + x + "," + y
                             + "," + z + " self=" + view.at(x, y, z).getBlock());
@@ -339,7 +342,7 @@ public final class Grounding {
 
             int target = y;
             boolean wasUnstable = isUnstable(view, x, y, z);
-            boolean dbgCell = !dbgCellProp.isEmpty()
+            boolean dbgCell = DEBUG_SCOPE && !dbgCellProp.isEmpty()
                     && dbgCellProp.equals(x + "," + y + "," + z);
             if (dbgCell) {
                 System.out.println("[GCELL] " + x + "," + y + "," + z
