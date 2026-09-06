@@ -54,7 +54,7 @@ jobs:
         id: parity
         run: |
           set -o pipefail
-          ./gradlew parityCheck -PparityDebugScene=rock-41 --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
+          ./gradlew parityCheck --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
 
       - name: Debug - log parity en commentaire de commit
         if: always()
@@ -185,7 +185,23 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          ./gradlew build --no-daemon --stacktrace
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
+
+      - name: Commit build failure log
+        if: failure()
+        run: |
+          mkdir -p ci
+          grep -nE "FAILED|error:|cannot find symbol|Execution failed|Caused by|BUILD FAILED" /tmp/build.log | head -80 > ci/build-failure.log
+          echo "=== tail ===" >> ci/build-failure.log
+          tail -120 /tmp/build.log >> ci/build-failure.log
+          git add ci/build-failure.log
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # pas de push sur les PR — juste la branche courante.
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            git commit -m "ci(debug): log build [skip ci]" || true
+            git push || true
+          fi
 
       - name: Get mod version
         id: version

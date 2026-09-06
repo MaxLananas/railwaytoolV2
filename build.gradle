@@ -103,9 +103,7 @@ tasks.register('parityCheck', JavaExec) {
         systemProperty 'parity.debugScene', project.property('parityDebugScene')
         systemProperty 'grounding.debug', '1'
     }
-    // cellule de debug temporaire CI (rock-41 : seed gravel) — la passer en
-    // dur car un -P avec valeur commencant par '-' n'est pas propage'
-    systemProperty 'grounding.debugCell', '-6,60,8'
+
 }
 // La parité fait partie de la porte `check` : impossible de livrer un build
 // dont le vrai pipeline Java diverge du simulateur validé.
