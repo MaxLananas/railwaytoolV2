@@ -94,6 +94,10 @@ jar {
 tasks.register('parityCheck', JavaExec) {
     group = 'verification'
     description = 'Parité Java/sim : le mod réel vs les scènes auto-validées'
+    // sim/parity/scenes.txt est DÉTRACKÉ (régénéré par sim/parity_export.py —
+    // la CI le produit en tête du job parity). Sans lui, la tâche est
+    // sautée plutôt que cassée : un clone frais doit pouvoir builder.
+    onlyIf { file('sim/parity/scenes.txt').exists() }
     dependsOn 'classes'
     classpath = sourceSets.main.output + sourceSets.main.compileClasspath
     mainClass = 'com.bte.railpathtool.dev.ParityHarness'
