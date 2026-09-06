@@ -248,8 +248,19 @@ public final class ParityHarness {
             List<BlockPos> trace = Spline.voxelize(samples);
             for (BlockPos v : trace) {
                 // IDENTIQUE a RailwayTool.recompute (helper partage).
-                if (Grounding.isWoolLayable(
-                        view.at(v.getX(), v.getY(), v.getZ()))) {
+                net.minecraft.world.level.block.state.BlockState layCur =
+                        view.at(v.getX(), v.getY(), v.getZ());
+                boolean layOk = Grounding.isWoolLayable(layCur);
+                if (sc.id.equals(
+                        System.getProperty("parity.debugScene", ""))
+                        && (v.getX() + "," + v.getY() + "," + v.getZ())
+                                .equals(System.getProperty(
+                                        "grounding.debugCell", "__"))) {
+                    System.out.println("[LCELL] " + v.getX() + "," + v.getY()
+                            + "," + v.getZ() + " cur=" + layCur.getBlock()
+                            + " layable=" + layOk);
+                }
+                if (layOk) {
                     view.put(v.getX(), v.getY(), v.getZ(),
                             Blocks.WHITE_WOOL.defaultBlockState());
                 }
