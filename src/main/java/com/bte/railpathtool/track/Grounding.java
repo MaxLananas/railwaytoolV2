@@ -29,11 +29,13 @@ public final class Grounding {
         if (st.isAir()) {
             return true;
         }
-        if (isTraceWool(st)
-                || com.bte.railpathtool.design.ClassicDesign.ColumnWriter
-                        .isRailFamily(st)) {
+        if (isTraceWool(st)) {
             return false;
         }
+        // Le switch terrain PRECEDE la garde rail : dans rail_sim le lay
+        // teste NATURAL_SOFT directement et le gravel y figure — bien qu'il
+        // soit aussi dans RAIL_FAMILY (sol de support nature, jamais un
+        // rail). Ecraser un sol pose n'est jamais ecraser une voie.
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
                 .getKey(st.getBlock()).getPath();
         return switch (id) {
@@ -47,6 +49,8 @@ public final class Grounding {
                  "deepslate", "cobbled_deepslate", "pale_oak_wood",
                  "deepslate_iron_ore", "deepslate_coal_ore", "gravel",
                  "oak_leaves", "spruce_leaves" -> true;
+            // Tout le reste — rail, laine forcee, blocs du joueur — est
+            // protege : une trace n'ecrase jamais la voie d'une autre.
             default -> false;
         };
     }
