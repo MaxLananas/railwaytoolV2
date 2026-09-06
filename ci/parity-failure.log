@@ -1,174 +1,174 @@
-[01:02:35] [main/INFO]: [STDOUT]: 752 OK / 0 DIFFERENT
+[01:08:36] [main/INFO]: [STDOUT]: 752 OK / 0 DIFFERENT
 === tail ===
-[01:02:29] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,15 que java n'a pas
-[01:02:29] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:29] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,34 que java n'a pas
-[01:02:29] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,33 que java n'a pas
-[01:02:29] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,32 que java n'a pas
-[01:02:29] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,28 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,29 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,30 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,23 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,23 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,22 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,3 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,4 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,5 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,18 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,18 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,35 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,33 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,34 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,13 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,25 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a -2,58,25 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a -3,58,25 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=37 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,57,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,57,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,0 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,1 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,2 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=33 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,16 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,17 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,33 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,33 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,25 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,26 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,27 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 19,58,24 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,13 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,20 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,20 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,19 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,2 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,3 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,4 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,23 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,24 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,21 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,9 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,10 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,10 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,11 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,12 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,27 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,27 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,23 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,30 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,28 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,29 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,10 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,8 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,9 que java n'a pas
-[01:02:30] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,24 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,22 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,10 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,11 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,24 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,25 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,26 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=23 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,18 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,18 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,19 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,18 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,18 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,19 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,38 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,35 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,36 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=33 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,17 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,17 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,18 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,37 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,35 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,36 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,8 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,9 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,10 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=19 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,24 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=39 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,19 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,19 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,19 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=23 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,31 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,32 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,33 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,24 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,22 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,12 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,13 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=25 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,23 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,22 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,21 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,57,15 que java n'a pas
-[01:02:31] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
-[01:02:35] [main/INFO]: [STDOUT]: === PARITY 752 scenes ===
-[01:02:35] [main/INFO]: [STDOUT]: 752 OK / 0 DIFFERENT
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788656504438.json
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,15 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,34 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,33 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,32 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,28 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,29 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,30 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,23 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,23 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,22 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,3 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,4 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,5 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,18 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,18 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,35 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,33 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,34 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,13 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,25 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a -2,58,25 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   [TRACE-] sim a -3,58,25 que java n'a pas
+[01:08:31] [main/INFO]: [STDOUT]:   -> trace: manquants=37 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,57,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,57,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=21 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,0 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,1 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,2 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=33 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,16 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,33 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,33 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,25 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,26 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 18,58,27 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 19,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,13 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,20 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,20 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,2 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,3 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,4 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 17,58,21 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,9 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,10 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,10 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,11 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,12 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,27 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,27 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,14 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,30 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,28 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,29 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,10 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,8 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,9 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,22 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,10 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,11 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,12 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,25 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,26 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=23 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,18 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,18 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=35 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,18 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,18 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,38 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,35 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,36 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=33 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,17 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,18 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=27 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,37 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,35 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,36 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=31 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,8 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 15,58,9 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 16,58,10 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=19 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a -1,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 0,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 1,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=39 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 13,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 14,58,19 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=23 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,31 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,32 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 20,58,33 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,24 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,23 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,22 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,12 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,13 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,14 que java n'a pas
+[01:08:32] [main/INFO]: [STDOUT]:   -> trace: manquants=25 supplementaires=0
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,23 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,22 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,58,21 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   -> trace: manquants=17 supplementaires=0
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 10,58,13 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 11,58,14 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   [TRACE-] sim a 12,57,15 que java n'a pas
+[01:08:33] [main/INFO]: [STDOUT]:   -> trace: manquants=29 supplementaires=0
+[01:08:36] [main/INFO]: [STDOUT]: === PARITY 752 scenes ===
+[01:08:36] [main/INFO]: [STDOUT]: 752 OK / 0 DIFFERENT
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/parity-1788656875387.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
@@ -178,5 +178,5 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 56s
+BUILD SUCCESSFUL in 50s
 3 actionable tasks: 3 executed
