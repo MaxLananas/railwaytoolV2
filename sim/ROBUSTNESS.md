@@ -67,6 +67,13 @@ déviait la 3ᵉ trace d'une case). Le RNG Java de `pickSoil` est en outre
 parité reproductibles bloc pour bloc, tous les blocs du mix tokenisant
 `soil` des deux côtés.
 
+**Piège symétrique** : `gravel` figure aussi dans `RAIL_FAMILY` (c'est le
+sol de support du style nature), et Java `isWoolLayable` court-circuitait
+le test rail AVANT le switch terrain — la laine n'était donc jamais posée
+sur un sol gravel et le voxel restait figé en l'air (scènes `rock-*`,
+`jun-10/48` : voie dédoublée +2 au-dessus). Le switch terrain précède
+désormais la garde rail : gravel est un sol, jamais une voie.
+
 ## 3. Règles de priorité (qui gagne une case ?)
 
 1. **Un core (corail/pilier noir/pupitre/mousse) n'est JAMAIS écrasé** —
