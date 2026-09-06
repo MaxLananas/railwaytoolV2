@@ -103,6 +103,9 @@ tasks.register('parityCheck', JavaExec) {
         systemProperty 'parity.debugScene', project.property('parityDebugScene')
         systemProperty 'grounding.debug', '1'
     }
+    if (project.hasProperty('parityDebugCell')) {
+        systemProperty 'grounding.debugCell', project.property('parityDebugCell')
+    }
 }
 // La parité fait partie de la porte `check` : impossible de livrer un build
 // dont le vrai pipeline Java diverge du simulateur validé.

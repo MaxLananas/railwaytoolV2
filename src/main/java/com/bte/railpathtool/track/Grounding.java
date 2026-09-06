@@ -210,6 +210,9 @@ public final class Grounding {
                             f.getZ()).getBlock());
         }
         boolean dbgK = "1".equals(System.getProperty("grounding.debug"));
+        // Cellule de debug ciblee : -PparityDebugCell=x,y,z trace le parcours
+        // exact du voxel dans la passe (laine, stabilite, descente).
+        String dbgCellProp = System.getProperty("grounding.debugCell", "");
         for (BlockPos v : trace) {
             int x = v.getX();
             int y = v.getY();
@@ -218,6 +221,11 @@ public final class Grounding {
             // (rail/stone preexistants sous la case) passent sans effet —
             // sinon le coin-laisse d'une remontee ecraserait un corail.
             if (!wool.contains(BlockPos.asLong(x, y, z))) {
+                if (!dbgCellProp.isEmpty()
+                        && dbgCellProp.equals(x + "," + y + "," + z)) {
+                    System.out.println("[GCELL] skip-not-wool " + x + "," + y
+                            + "," + z + " self=" + view.at(x, y, z).getBlock());
+                }
                 if (dbgK) {
                     long probe = wool.isEmpty() ? 0L
                             : wool.iterator().nextLong();
@@ -331,12 +339,28 @@ public final class Grounding {
 
             int target = y;
             boolean wasUnstable = isUnstable(view, x, y, z);
+            boolean dbgCell = !dbgCellProp.isEmpty()
+                    && dbgCellProp.equals(x + "," + y + "," + z);
+            if (dbgCell) {
+                System.out.println("[GCELL] " + x + "," + y + "," + z
+                        + " inWool=" + wool.contains(BlockPos.asLong(x, y, z))
+                        + " self=" + view.at(x, y, z).getBlock()
+                        + " unstable=" + wasUnstable
+                        + " below=" + view.at(x, y - 1, z).getBlock());
+            }
             for (int i = 0; i < MAX_DOWN; i++) {
                 int nxt = target - 1;
                 if (!isUnstable(view, x, target, z)) {
+                    if (dbgCell) {
+                        System.out.println("[GCELL] stop stable target="
+                                + target);
+                    }
                     break;
                 }
                 if (wool.contains(BlockPos.asLong(x, nxt, z))) {
+                    if (dbgCell) {
+                        System.out.println("[GCELL] stop wool nxt=" + nxt);
+                    }
                     break;
                 }
                 // Jamais d'écrasement du rail existant : la 2e trace qui
@@ -348,6 +372,10 @@ public final class Grounding {
                     break;
                 }
                 target = nxt;
+            }
+            if (dbgCell) {
+                System.out.println("[GCELL] descent result target=" + target
+                        + " wasUnstable=" + wasUnstable);
             }
             if (target != y) {
                 net.minecraft.world.level.block.state.BlockState own =
