@@ -144,7 +144,7 @@ public final class ParityHarness {
                 ok++;
             } else {
                 fail++;
-                report.add(sc.id + " : " + diffs.size() + " differences");
+                report.add(sc.id + ": " + diffs.size() + " difference(s)");
                 for (int i = 0; i < Math.min(8, diffs.size()); i++) {
                     report.add("   " + diffs.get(i));
                 }
@@ -293,8 +293,8 @@ public final class ParityHarness {
                 }
             }
             if (typeMism > 0 || nbMism > 0) {
-                System.out.println("  -> types divergents=" + typeMism
-                        + " voisinages divergents=" + nbMism);
+                System.out.println("  -> type mismatches=" + typeMism
+                        + " neighbour mismatches=" + nbMism);
             }
             // Bidirectional comparison of the trace voxel sets.
             {
@@ -309,7 +309,7 @@ public final class ParityHarness {
                     long lk = BlockPos.asLong(i(c[0]), i(c[1]), i(c[2]));
                     if (!javaKeys.contains(lk)) {
                         if (missing < 3) {
-                            System.out.println("  [TRACE-] sim a " + k
+                            System.out.println("  [TRACE-] sim has " + k
                                     + " que java n'a pas");
                         }
                         missing++;
@@ -319,15 +319,15 @@ public final class ParityHarness {
                     String k = key(v.getX(), v.getY(), v.getZ());
                     if (!sc.simTypes.containsKey(k)) {
                         if (extra < 3) {
-                            System.out.println("  [TRACE+] java a " + k
+                            System.out.println("  [TRACE+] java has " + k
                                     + " que sim n'a pas");
                         }
                         extra++;
                     }
                 }
                 if (missing > 0 || extra > 0) {
-                    System.out.println("  -> trace: manquants=" + missing
-                            + " supplementaires=" + extra);
+                    System.out.println("  -> trace: missing=" + missing
+                            + " extra=" + extra);
                 }
             }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
@@ -373,7 +373,7 @@ public final class ParityHarness {
                     initial.getOrDefault(k, "air"));
             String got = finalTok.getOrDefault(k, "air");
             if (!exp.equals(got)) {
-                diffs.put(k, k + " attendu=" + exp + " obtenu=" + got);
+                diffs.put(k, k + " expected=" + exp + " got=" + got);
             }
         }
         return new ArrayList<>(diffs.values());

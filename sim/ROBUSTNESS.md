@@ -1,129 +1,129 @@
-# ROBUSTNESS — contrats, invariants et couverture
+# ROBUSTNESS - contracts, invariants and coverage
 
-Objectif utilisateur : **dans des milliers et des milliers de cas, il doit
-être impossible de trouver un bug visible**. Ce document liste chaque
-situation codée, chaque invariant vérifié et où il est appliqué
-(pipeline produit Java, simulateur de référence, corpus de parité).
+Goal: **within thousands of cases it must be impossible to find a visible
+bug**. This document lists every situation handled, every invariant checked
+and where it is enforced (production Java pipeline, reference simulator,
+parity corpus).
 
-## 1. Contrats visibles (ce que le joueur ne doit JAMAIS voir)
+## 1. Visible contracts (what the player must never see)
 
-| # | Contrat | Implémenté dans | Vérifié par |
-|---|---------|-----------------|-------------|
-| C1 | **Aucun rail manquant** : tout voxel de trace devient un core visible (corail/pilier noir/pupitre/mousse, ±1 vertical). | designs classic/nature, gardes anti-refus | invariant **I1** (export) |
-| C2 | **Aucun morceau de voie flottant** : aucun rail ni base de colonne ne garde de l'air — ou de l'EAU — sous lui (≤ 4 blocs comblés ; au-delà = pont assumé). | `fillSupports` classic/nature (air+eau, rails+bases), `support_fill` sim | invariant **I4** |
-| C3 | **Aucune pile/monticule** : une colonne (x,z) ne porte jamais 2 voxels de voie à des hauteurs différentes. | `dedupe_columns` / `Grounding.dedupeColumns` (métrique ruban) | invariant **I3** |
-| C4 | **Voie continue** : les cores d'une trace forment UN ruban (colonnes adjacentes, toute hauteur — escaliers et croisements empilés inclus ; seul un trou HORIZONTAL est une cassure). | grounding+passe dedupe (connectivité préservée) | invariant **I2** (métrique `components_ribbon`) |
-| C5 | **Aucune laine résiduelle** : aucune laine de trace ne reste visible après le build (rail manquant ailleurs). | purge L, dedupe, consommation au refus de colonne | invariant **I5** |
-| C6 | **Rebuild idempotent** : reconstruire la même voie ne change rien (pas de valse murets↔panneaux↔portes, pas de porte orpheline). | garde colonne à deux vitesses (§3) | stress `classic-idempotence`, `classic-protect` |
-| C7 | **Aucun rail existant détruit** : une 2e voie (ou un rebuild) n'écrase jamais un core existant ; le décor d'une autre voie n'est repris que par un core (jonction), sinon jamais. | gardes cores (`NATURE_CORES`/`isRailCore`) | stress `-protect`, corpus `jun-*` |
-| C8 | **Aucun bloc parasite autour d'un pilier** : les piliers de support descendent proprement jusqu'au sol (ou au lit d'eau), sans souches en plein ciel. | `fillSupports` étendu aux bases de colonnes | `pillar_scan` (0 parasite) |
-| C9 | **Aucun creusage anarchique** : un tunnel ne perce qu'UNE crête de ≤ 2 blocs par colonne, tous passages confondus. | branche `dug` de la rectification verticale | stress `stupid_stress` |
-| C10 | **Leaf_litter fidèle au script** : 3 segments dès que le coin change de X ou de Z (tables 7 paires, `is_moss`, lectern+carpet sinon moss+bouton). | nature (portage exact du Lua) | stress true-diag, parité |
-| C11 | **Portes classiques = moitié basse uniquement** (thème clair). | `build_column`/`ColumnWriter.column` | parité tokens `door_lower_*` |
+| # | Contract | Implemented in | Checked by |
+|---|----------|----------------|------------|
+| C1 | **No missing rail**: every trace voxel becomes a visible core (coral, black pillar, lectern, pale moss, +/-1 vertically). | classic/nature designs, anti-refusal guards | invariant **I1** (export) |
+| C2 | **No floating track piece**: no rail and no column base keeps air or water underneath (up to 4 blocks filled; deeper gaps are deliberate bridges). | `fillSupports` (classic/nature, air and water), sim `support_fill` | invariant **I4** |
+| C3 | **No stacking**: a column (x,z) never carries two track voxels at different heights. | `dedupe_columns` / `Grounding.dedupeColumns` | invariant **I3** |
+| C4 | **Continuous track**: the cores of a trace form ONE ribbon (adjacent columns at any height, including stairs and stacked crossings; only a horizontal hole breaks it). | grounding plus dedupe pass | invariant **I2** (`components_ribbon`) |
+| C5 | **No leftover wool**: no trace wool stays visible after the build. | L-corner purge, dedupe, wool consumption on refused columns | invariant **I5** |
+| C6 | **Idempotent rebuild**: rebuilding the same track changes nothing (no wall/panel/door churn, no orphan door). | two-speed column guard (section 3) | stress `classic-idempotence`, `classic-protect` |
+| C7 | **No existing rail destroyed**: a second line (or a rebuild) never erases an existing core, and only a core may reclaim another line's decor. | core guards (`NATURE_CORES` / `isRailCore`) | stress `-protect`, `jun-*` corpus |
+| C8 | **No parasitic block around a pillar**: support pillars descend cleanly to the ground (or the water bed) with no stubs in mid-air. | extended `fillSupports` | `pillar_scan` (0 parasites) |
+| C9 | **No uncontrolled digging**: a tunnel cuts at most ONE crest of at most 2 blocks per column, across all passes. | `dug` branch of vertical rectification | `stupid_stress` |
+| C10 | **Faithful leaf litter**: 3 segments as soon as the corner changes X or Z (7-pair tables, `is_moss`, lectern+carpet otherwise moss+button). | nature design (exact port) | stress true-diag, parity |
+| C11 | **Classic doors are lower halves only** (light theme). | `build_column` / `ColumnWriter.column` | parity `door_lower_*` tokens |
 
-## 2. Situations codées (matrice de couverture)
+## 2. Situations covered
 
-Corpus de parité `sim/parity_export.py` → **752 scènes** régénérées à chaque
-CI (déterministe, `PYTHONHASHSEED=0`), rejouées bloc par bloc par le VRAI
-pipeline Java dans `ParityHarness` (`gradle parityCheck`, porte du build).
+The parity corpus (`sim/parity_export.py`, **752 scenes**) is regenerated in CI
+(deterministic, `PYTHONHASHSEED=0`) and replayed block for block by the real
+Java pipeline in `ParityHarness` (`gradle parityCheck`, build gate).
 
-| Famille | N | Ce qu'elle piège |
-|---------|---|------------------|
-| `drift/long2/lturn/tjun/xlvl/spiral/zigzag/fuzz` (historique) | 42 | les régressions réelles des captures (dérive dentée, branche L, croisements T/X même niveau & dy=1, spirale collines, zigzag chaos) |
-| `fuzz-{flat,hills,chaos}-*` | 180 | polylignes aléatoires 6-16 pts, 3 terrains, 3 styles/thèmes |
-| `jun-*` | 90 | jonctions denses 2-3 voies au même centre (croisements réels) |
-| `buried-*` | 40 | mode enterré (`baseDy=-1`) |
-| `lake-*` | 80 | voies traversant des mares (surface/lit, mélange croisé) |
-| `wool-*` | 80 | laines posées par le joueur sur le passage (obstacles ou marqueurs) |
-| `rock-*` | 50 | terrain parsemé pierre/andesite/gravier |
-| `mount-*` | 80 | montées/descentes raides (sauts ±1/±2) |
-| `tun-*` | 50 | tunnels sous les crêtes (points sous le terrain) |
-| `teeth-*` | 80 | dérives dentées y alterné (dents de scie) |
+| Family | N | What it catches |
+|--------|---|-----------------|
+| `drift/long2/lturn/tjun/xlvl/spiral/zigzag` (historical) | 22 | the real regressions from the screenshots (jagged drift, L branch, T/X crossings at the same level and dy=1, hill spiral, zigzag chaos) |
+| `fuzz-{flat,hills,chaos}-*` | 180 | random polylines of 6-16 points over 3 terrains and 3 style/theme pairs |
+| `jun-*` | 90 | dense 2-3 line junctions at a common centre (real crossings) |
+| `buried-*` | 40 | buried mode (`baseDy=-1`) |
+| `lake-*` | 80 | tracks crossing ponds (surface and bed, cross mixes) |
+| `wool-*` | 80 | player wool laid on the path (obstacles or markers) |
+| `rock-*` | 50 | terrain dotted with stone, andesite and gravel |
+| `mount-*` | 80 | steep climbs and descents (+/-1 and +/-2 steps) |
+| `tun-*` | 50 | tunnels under crests (control points below the terrain) |
+| `teeth-*` | 80 | jagged drift with alternating y (saw teeth) |
 
-En pratique le corpus s'exécute entièrement **valide** : les invariants
-I1-I5 ne laissent exporter aucune scène dont l'attendu serait faux — une
-violation d'invariant INVALIDE l'export (exit 1) et casse donc la CI :
-c'est un vrai bug découvert, jamais une attente « ajustée ».
+The corpus always exports valid: invariants I1-I5 reject any scene whose
+expectation would be wrong - a violation fails the export (exit 1) and
+therefore CI. That is a real bug, never an "adjusted" expectation.
 
-Suites de stress locales (sim) — toutes vertes :
-- `stress.py` : 729 scénarios / 6068 builds (lignes, vraies diagonales,
-  escaliers, boucles, croisements, idempotence stricte, protection rebuild).
-- `realistic_stress.py` : 56 lignes / 288 builds / 232 M vérifications.
-- `repro_user.py`, `repro_photos.py`, `repro_scene3.py` : les captures.
-- `pillar_scan.py` : chaque pilier, absence de parasite + diagrammes
-  (`sim/pillar_report.txt`).
+Local stress suites (sim), all green:
 
-### Déterminisme strict : le tirage du sol ne décide jamais la géométrie
+- `stress.py`: 729 scenarios / 6068 builds (lines, true diagonals, stairs,
+  loops, crossings, strict idempotence, rebuild protection).
+- `realistic_stress.py`: 56 lines / 288 builds / 232 M checks.
+- `stupid_stress.py`: 2490 scenarios / 6649 builds / 75 129 voxels.
+- `ridges_stress.py`: 8000 crest scenarios / 32 000 builds.
+- `mass_stress.py`, `repro_*.py`: older stress and screenshot reproductions.
+- `pillar_scan.py`: every pillar, no parasite plus diagrams
+  (`sim/pillar_report.txt`, generated).
 
-Le mix de sol (deepslate / cobbled / pale_oak / minerais / gravel) est tiré
-aléatoirement **mais tous ses blocs sont `wool-layable`** (sim
-`NATURAL_SOFT` = Java `Grounding.isWoolLayable`) : une trace ultérieure qui
-repasse exactement sur un support posé par une trace antérieure continue
-sans dévier. Sinon la position des voies dépendrait du RNG — non
-reproductible entre le sim et le port Java, et instable d'un run à l'autre
-(scène témoin `jun-70`, croisement 3 traces : un `pale_oak_wood` tiré
-déviait la 3ᵉ trace d'une case). Le RNG Java de `pickSoil` est en outre
-**seedé** (`Random(20240913)`, jamais `ThreadLocalRandom`) : captures et
-parité reproductibles bloc pour bloc, tous les blocs du mix tokenisant
-`soil` des deux côtés.
+### Strict determinism: the soil draw never decides the geometry
 
-**Piège symétrique** : `gravel` figure aussi dans `RAIL_FAMILY` (c'est le
-sol de support du style nature), et Java `isWoolLayable` court-circuitait
-le test rail AVANT le switch terrain — la laine n'était donc jamais posée
-sur un sol gravel et le voxel restait figé en l'air (scènes `rock-*`,
-`jun-10/48` : voie dédoublée +2 au-dessus). Le switch terrain précède
-désormais la garde rail : gravel est un sol, jamais une voie.
+The soil mix (deepslate, cobbled deepslate, pale oak, ores, gravel) is drawn
+randomly, but **every one of its blocks is wool-layable** (sim
+`NATURAL_SOFT` = Java `Grounding.isWoolLayable`). A later trace crossing a
+support placed earlier therefore continues without drifting. Otherwise the
+track position would depend on the RNG: not reproducible between the
+simulator and the Java port, and unstable from one run to the next
+(witness scene `jun-70`, three-trace crossing). The Java `pickSoil` RNG is
+also **seeded** (`Random(20240913)`, never `ThreadLocalRandom`), so
+screenshots and parity are reproducible block for block and every mix block
+maps to the `soil` token on both sides.
 
-## 3. Règles de priorité (qui gagne une case ?)
+**The symmetric trap**: `gravel` is also part of `RAIL_FAMILY` (it is the
+nature support ground), and Java `isWoolLayable` used to test the rail guard
+BEFORE the terrain switch, so wool was never placed on gravel and the voxel
+stayed frozen in the air (scenes `rock-*`, `jun-10/48`: track duplicated two
+blocks above). The terrain switch now precedes the rail guard: gravel is
+ground, never a track.
 
-1. **Un core (corail/pilier noir/pupitre/mousse) n'est JAMAIS écrasé** —
-   ni par du décor, ni par un core ultérieur (garde `NATURE_CORES` sim /
-   `ColumnWriter.isRailCore` Java, passes designs ET grounding).
-2. **Un core ultérieur reprend la case d'un décor** d'une voie antérieure
-   (jonctions denses : le rail visible passe avant le muret d'à côté).
-3. **Un décor cède devant tout bloc de rail existant** (anti-valse au
-   rebuild), sauf s'il est identique à lui-même. Le gravier est le lit
-   passif améliorable (un décor peut le remplacer, jamais l'inverse).
-4. **La colonne refusée consomme sa laine** : si le core d'un voxel est
-   précisément celui qui occupe la case (croisement = colonne partagée),
-   la laine blanche de trace disparaît proprement — jamais de laine
-   résiduelle visible (C5).
+## 3. Priority rules (which write owns a cell?)
 
-## 4. Appartenance d'un voxel de trace = POSITION, pas nom de bloc
+1. **A core (coral, black pillar, lectern, pale moss) is NEVER replaced** -
+   neither by decor nor by a later core (guard `NATURE_CORES` /
+   `ColumnWriter.isRailCore`, in design and grounding passes).
+2. **A later core reclaims a decor cell** from an earlier line (dense
+   junctions: visible rail wins over a neighbouring wall).
+3. **Decor yields to any existing rail block** (anti-churn on rebuild),
+   except an identical block. Gravel is the passive bed that decor may
+   improve, never the opposite.
+4. **A refused column consumes its wool**: when the core of a voxel is
+   exactly the block occupying the cell (shared crossing column), the white
+   trace wool disappears cleanly - never a visible leftover (C5).
 
-Le remplissage uniforme par défaut du mod est `ORANGE_WOOL` ; le joueur
-peut aussi poser de la laine à la main. Une case `*_wool` n'est donc
-JAMAIS un critère de voie : toutes les passes basses
-(`Grounding/LCorners/flattenTeeth/dedupeColumns` et leurs miroirs sim)
-consultent le `_TRACE_WOOL`/« laidWool » = l'ensemble des POSITIONS des
-voxels réellement laineux de la trace courante. Conséquences :
+## 4. Trace membership is POSITIONAL, never name-based
 
-- le sol-laine d'un build précédent ne verrouille plus les descentes ;
-- le coin-laissé d'une remontée ne peut plus écraser un corail voisin
-  sous prétexte que le voxel « y était dans la liste » (bug `jun-45`) ;
-- une laine posée par le joueur sur le passage est un **obstacle solide
-  protégé**, jamais absorbée par la voie ni supprimée ;
-- la pose initiale de laine (`isWoolLayable`/`NATURAL_SOFT`) n'accepte
-  que l'air et le terrain naturel meuble (herbe/roche/terre/sable/neige/
-  glace/eau) : galleries dans la roche OK, rails/wool/décor existants
-  intouchables.
+The mod's default uniform fill is `ORANGE_WOOL`, and players may place wool
+by hand. A `*_wool` block is therefore never a track criterion: every low
+pass (`Grounding`, `LCorners`, `flattenTeeth`, `dedupeColumns` and their sim
+mirrors) reads `_TRACE_WOOL` / `laidWool`, the set of POSITIONS of the voxels
+that this trace actually laid with wool. Consequences:
 
-## 5. Croisements et jonctions (géométrie)
+- the wool floor of a previous build no longer locks descents;
+- the leftover corner of a climb can no longer erase a neighbouring coral
+  just because the voxel "was in the list" (bug `jun-45`);
+- player wool on the path is a **protected solid obstacle**, never absorbed
+  or removed;
+- the initial wool pass (`isWoolLayable` / `NATURAL_SOFT`) accepts only air
+  and soft natural terrain (grass, rock, dirt, sand, snow, ice, water):
+  galleries inside rock work, existing rails, wool and decor do not move.
 
-- Descente d'une laine : elle s'arrête sur tout solide ; un bloc de rail
-  existant EST un support (la 2e voie s'appuie, jamais d'écrasement).
-- **Junction-sink** : une laine arrêtée sur une colonne de DÉCOR d'une
-  autre voie `[sol de support + décor, aucun core]` est reprise dans la
-  base — son core prendra la case du décor, le croisement reste **continu
-  au même niveau** au lieu d'un hochement de +2 cassant le ruban.
-- Croisement sur core : la colonne partage le point (les deux cores
-  coexistent empilés — I2 les considère comme le même point de voie).
-- L-purge : veto diagonale + connexité locale 3³ + connexité globale
-  (points d'articulation) ; un coin ne devient herbe que POSÉ hors eau.
+## 5. Crossings and junctions (geometry)
 
-## 6. Chiffres actuels
+- Descending wool stops on any solid block; an existing rail block IS a
+  support (the second line rests on it, never erases it).
+- **Junction sink**: wool stopped on a DECOR column of another line
+  (support soil + decor, no core) is taken back into the base, so its core
+  claims the decor cell and the crossing stays **continuous at the same
+  level** instead of a two-block bounce that breaks the ribbon.
+- Crossing on a core: the column shares the point (both cores coexist,
+  stacked - I2 treats them as the same track point).
+- L purge: diagonal veto, local 3x3x3 connectivity, global connectivity
+  (articulation points); a corner only becomes grass when placed out of
+  water.
 
-- **752 scènes de parité** exportées, toutes valides (I1-I5 verts).
-- Harnais Java : parité **bloc par bloc** exigée (comparaison bidirectionnelle
-  par ensemble de changements : toute fuite n'importe où = échec).
-- 0 parasite autour des piliers, 0 violation stress sur 6068+288 builds.
+## 6. Current numbers
+
+- **752 parity scenes**, all valid (I1-I5 green).
+- Java harness: **block-for-block** parity required (bidirectional change
+  set: any leak anywhere fails).
+- 0 pillar parasites, 0 stress violations over 6068 + 288 + 6649 + 32000
+  builds.

@@ -251,7 +251,7 @@ def scenes():
     s = []
     SUFS = ("cs", "cl", "na")
 
-    # ============ 1-8 : corpus historique (42 scenes, regressions reelles) ==
+    # ============ 1-8: historical corpus (22 scenes, real regressions) =========
     drift = [[(30, 61, 60), (30, 61, 54), (30, 62, 48), (29, 61, 42),
               (28, 61, 36), (27, 62, 30), (26, 61, 24), (25, 61, 18),
               (24, 62, 12), (24, 61, 6), (24, 61, 0), (17, 61, 0), (10, 61, 0)]]
