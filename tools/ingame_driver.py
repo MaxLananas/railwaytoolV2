@@ -58,12 +58,23 @@ def fabric_api_jar(mods_dir):
 def install(mc_dir, java):
     import minecraft_launcher_lib as mcl
     version_id = f"fabric-loader-{LOADER_VERSION}-{MC_VERSION}"
-    if not os.path.isdir(os.path.join(mc_dir, "versions", version_id)):
+    profile = os.path.join(mc_dir, "versions", version_id, version_id + ".json")
+    if not os.path.isfile(profile):
         log("installing Minecraft " + MC_VERSION)
         mcl.install.install_minecraft_version(MC_VERSION, mc_dir)
-        log("installing Fabric loader")
+        log("installing Fabric loader " + LOADER_VERSION)
         mcl.fabric.install_fabric(MC_VERSION, mc_dir,
                                   loader_version=LOADER_VERSION, java=java)
+    loader_jar = os.path.join(
+        mc_dir, "libraries", "net", "fabricmc", "fabric-loader",
+        LOADER_VERSION, f"fabric-loader-{LOADER_VERSION}.jar")
+    if not os.path.isfile(loader_jar):
+        log("fabric loader jar missing, fetching from maven")
+        http_download(
+            f"https://maven.fabricmc.net/net/fabricmc/fabric-loader/"
+            f"{LOADER_VERSION}/fabric-loader-{LOADER_VERSION}.jar",
+            loader_jar)
+    log("fabric loader jar: " + str(os.path.isfile(loader_jar)))
     return version_id
 
 
@@ -236,6 +247,10 @@ def main():
     cmd = mcl.command.get_minecraft_command(version_id, args.mc_dir, options)
     cmd += ["--quickPlaySingleplayer", WORLD_NAME,
             "--width", "1280", "--height", "720"]
+    log("main class index: " + str(cmd.index("-cp") if "-cp" in cmd else -1))
+    for part in cmd:
+        if "fabric-loader" in part or "KnotClient" in part:
+            log("classpath entry: " + part[:200])
     log("launching client")
     console_path = os.path.join(args.out, "console.log")
     console = open(console_path, "w", encoding="utf-8", errors="replace")
