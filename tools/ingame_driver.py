@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Automated in-game test driver.
 
-Installs Minecraft 1.21.10 + Fabric Loader, drops the built mod, Axiom and
-Fabric API into the mods folder, launches the real client on a virtual X
-display (Xvfb + Mesa llvmpipe), drives the menus with screenshots + tesseract
-OCR + xdotool clicks, then waits for the mod's in-game self test to write its
-result. Everything useful (logs, screenshots, result) is copied to --out so
-the workflow can commit it back to the repository.
+Installs Minecraft 1.21.10 + Fabric Loader, generates a superflat creative
+world with the vanilla server, drops the built mod, Axiom and Fabric API into
+mods/, then launches the real client on a virtual X display (Xvfb + Mesa
+llvmpipe). The client enters the world directly through quick play; the mod's
+self test builds a line with the real tool, and the driver captures screenshots
+with xdotool/ImageMagick and writes everything to --out.
 """
 import argparse
 import json
@@ -24,6 +24,7 @@ FABRIC_API_QUERY = ("https://api.modrinth.com/v2/project/fabric-api/version"
                     "?game_versions=%5B%221.21.10%22%5D&loaders=%5B%22fabric%22%5D")
 MC_VERSION = "1.21.10"
 LOADER_VERSION = "0.19.3"
+WORLD_NAME = "railtest"
 
 
 def log(msg):
@@ -31,10 +32,10 @@ def log(msg):
 
 
 def http_download(url, dest):
-    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
     tmp = dest + ".part"
     req = urllib.request.Request(url, headers={"User-Agent": "railwaytool-ci"})
-    with urllib.request.urlopen(req, timeout=60) as r, open(tmp, "wb") as f:
+    with urllib.request.urlopen(req, timeout=120) as r, open(tmp, "wb") as f:
         shutil.copyfileobj(r, f)
     os.replace(tmp, dest)
     return dest
@@ -44,15 +45,14 @@ def fabric_api_jar(mods_dir):
     dest = os.path.join(mods_dir, "fabric-api.jar")
     if os.path.isfile(dest):
         return dest
-    with urllib.request.urlopen(FABRIC_API_QUERY, timeout=60) as r:
+    with urllib.request.urlopen(FABRIC_API_QUERY, timeout=120) as r:
         versions = json.load(r)
     if not versions:
         raise RuntimeError("no Fabric API build for 1.21.10")
     files = versions[0]["files"]
     files.sort(key=lambda f: not f.get("primary", False))
-    url = files[0]["url"]
     log(f"Fabric API {versions[0]['version_number']}")
-    return http_download(url, dest)
+    return http_download(files[0]["url"], dest)
 
 
 def install(mc_dir, java):
@@ -67,6 +67,90 @@ def install(mc_dir, java):
     return version_id
 
 
+def version_document(mc_dir):
+    path = os.path.join(mc_dir, "versions", MC_VERSION, MC_VERSION + ".json")
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def superflat_world(mc_dir, java, out):
+    """Generate a flat creative world with the vanilla server."""
+    save = os.path.join(mc_dir, "saves", WORLD_NAME)
+    if os.path.isdir(save):
+        log("reusing generated world")
+        return save
+    doc = version_document(mc_dir)
+    server_url = doc.get("downloads", {}).get("server", {}).get("url")
+    if not server_url:
+        raise RuntimeError("version document has no server download")
+    server_dir = os.path.join(mc_dir, "server")
+    os.makedirs(server_dir, exist_ok=True)
+    jar = os.path.join(server_dir, "server.jar")
+    http_download(server_url, jar)
+    with open(os.path.join(server_dir, "eula.txt"), "w") as f:
+        f.write("eula=true\n")
+    props = {
+        "level-name": "world",
+        "level-type": "minecraft\\:flat",
+        "generator-settings": json.dumps({
+            "layers": [
+                {"block": "minecraft:bedrock", "height": 1},
+                {"block": "minecraft:dirt", "height": 3},
+                {"block": "minecraft:grass_block", "height": 1},
+            ],
+            "biome": "minecraft:plains",
+            "structure_overrides": [],
+        }),
+        "gamemode": "creative",
+        "difficulty": "peaceful",
+        "online-mode": "false",
+        "spawn-monsters": "false",
+        "max-players": "1",
+        "view-distance": "4",
+        "simulation-distance": "5",
+        "spawn-protection": "0",
+    }
+    with open(os.path.join(server_dir, "server.properties"), "w") as f:
+        for k, v in props.items():
+            f.write(f"{k}={v}\n")
+    log("generating flat world (vanilla server)")
+    proc = subprocess.Popen(
+        [java, "-Xmx1G", "-jar", "server.jar", "--nogui"],
+        cwd=server_dir, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT, text=True, errors="replace")
+    deadline = time.time() + 300
+    started = False
+    while time.time() < deadline:
+        line = proc.stdout.readline()
+        if not line:
+            if proc.poll() is not None:
+                break
+            continue
+        if "Done (" in line:
+            started = True
+            break
+    if started:
+        time.sleep(5)
+    try:
+        proc.stdin.write("stop\n")
+        proc.stdin.flush()
+    except Exception:
+        pass
+    try:
+        proc.wait(timeout=120)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+    if not started:
+        raise RuntimeError("server did not start; see server/logs/latest.log")
+    os.makedirs(os.path.join(mc_dir, "saves"), exist_ok=True)
+    shutil.copytree(os.path.join(server_dir, "world"), save)
+    lock = os.path.join(save, "session.lock")
+    if os.path.exists(lock):
+        os.remove(lock)
+    log("world ready: " + save)
+    return save
+
+
 def write_options(mc_dir):
     options = {
         "version": "3955",
@@ -75,7 +159,7 @@ def write_options(mc_dir):
         "overrideHeight": "720",
         "fullscreen": "false",
         "maxFps": "30",
-        "renderDistance": "2",
+        "renderDistance": "4",
         "simulationDistance": "6",
         "graphicsMode": "0",
         "ao": "false",
@@ -87,56 +171,28 @@ def write_options(mc_dir):
         "soundCategory_master": "0.0",
         "autoJump": "false",
         "chatVisibility": "0",
+        "showSubtitles": "false",
+        "fov": "70",
+        "gamma": "1.0",
     }
-    os.makedirs(mc_dir, exist_ok=True)
     with open(os.path.join(mc_dir, "options.txt"), "w", encoding="utf-8") as f:
         for k, v in options.items():
             f.write(f"{k}:{v}\n")
 
 
-def xdotool(*args):
-    subprocess.run(["xdotool"] + list(args), check=False,
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+def shell(*cmd, **kw):
+    return subprocess.run(cmd, check=False, capture_output=True, text=True, **kw)
 
 
 def screenshot(display, path):
-    subprocess.run(["import", "-display", display, "-window", "root", path],
-                   check=False, stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
+    shell("import", "-display", display, "-window", "root", path)
     return os.path.isfile(path)
 
 
-def ocr(path):
-    out = subprocess.run(
-        ["tesseract", path, "stdout", "--psm", "11", "tsv"],
-        capture_output=True, text=True, check=False).stdout
-    words = []
-    for line in out.splitlines()[1:]:
-        cols = line.split("\t")
-        if len(cols) < 12:
-            continue
-        try:
-            conf = float(cols[10])
-        except ValueError:
-            continue
-        text = cols[11].strip()
-        if not text or conf < 30:
-            continue
-        left, top = int(cols[6]), int(cols[7])
-        width, height = int(cols[8]), int(cols[9])
-        words.append((text, left + width // 2, top + height // 2, conf))
-    return words
-
-
-def click(display, x, y):
-    subprocess.run(["xdotool", "mousemove", "--sync", str(x), str(y)],
-                   check=False)
-    subprocess.run(["xdotool", "click", "1"], check=False, timeout=10)
-
-
-def find(words, needle):
-    needle = needle.lower()
-    return [w for w in words if needle in w[0].lower()]
+def ocr_text(path):
+    out = subprocess.run(["tesseract", path, "stdout", "--psm", "6"],
+                         capture_output=True, text=True, check=False).stdout
+    return " ".join(out.split())[:200]
 
 
 def main():
@@ -157,6 +213,8 @@ def main():
     import minecraft_launcher_lib as mcl
 
     version_id = install(args.mc_dir, args.java)
+    superflat_world(args.mc_dir, args.java, args.out)
+
     mods = os.path.join(args.mc_dir, "mods")
     os.makedirs(mods, exist_ok=True)
     for f in os.listdir(mods):
@@ -176,62 +234,41 @@ def main():
         "jvmArguments": ["-Xmx2G", "-Dbte.railtool.selftest=true"],
     }
     cmd = mcl.command.get_minecraft_command(version_id, args.mc_dir, options)
+    cmd += ["--quickPlaySingleplayer", WORLD_NAME,
+            "--width", "1280", "--height", "720"]
     log("launching client")
-    time.sleep(5)
-    subprocess.run(["xdotool", "search", "--name", "Minecraft", "windowfocus"],
-                   check=False, stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    console = open(os.path.join(args.mc_dir, "console.log"), "w",
-                   encoding="utf-8", errors="replace")
+    console_path = os.path.join(args.out, "console.log")
+    console = open(console_path, "w", encoding="utf-8", errors="replace")
     proc = subprocess.Popen(cmd, cwd=args.mc_dir, stdout=console,
                             stderr=subprocess.STDOUT)
+
+    time.sleep(20)
+    shell("xdotool", "search", "--name", "Minecraft", "windowfocus")
     result = os.path.join(args.mc_dir, "selftest-result.txt")
     shots = []
-    clicked = set()
+    captures = 0
     deadline = time.time() + 900
     while time.time() < deadline and proc.poll() is None:
-        shot = os.path.join(args.out, f"shot-{int(time.time())}.png")
+        shot = os.path.join(args.out, "screen.png")
         if screenshot(args.display, shot):
             shots.append(shot)
-            words = ocr(shot)
-            low = " ".join(w[0].lower() for w in words)
-            log("ocr: " + " ".join(w[0] for w in words)[:180])
-            if "continue" in low:
-                c = find(words, "continue")
-                click(args.display, c[0][1], c[0][2])
-                time.sleep(2)
-            elif "singleplayer" in low and "singleplayer" not in clicked:
-                shutil.copy2(shot, os.path.join(args.out, "title.png"))
-                c = find(words, "singleplayer")
-                click(args.display, c[0][1], c[0][2])
-                clicked.add("singleplayer")
-                time.sleep(3)
-            elif "superflat" in low and "created" not in clicked:
-                c = find(words, "create")
-                if c:
-                    click(args.display, c[-1][1], c[-1][2])
-                    clicked.add("created")
-                    time.sleep(5)
-            elif "default" in low and "singleplayer" in clicked \
-                    and "created" not in clicked:
-                c = find(words, "default")
-                if c:
-                    click(args.display, c[0][1], c[0][2])
-                    time.sleep(2)
-            elif "create" in low and "created" not in clicked:
-                c = find(words, "create")
-                if c:
-                    click(args.display, c[-1][1], c[-1][2])
-                    clicked.add("created")
-                    time.sleep(5)
+            if captures % 4 == 0:
+                log("visible: " + ocr_text(shot))
+            if captures % 8 == 0:
+                shutil.copy2(shot, os.path.join(args.out, f"step-{captures:03d}.png"))
+            captures += 1
         if os.path.isfile(result):
             log("selftest result detected")
             break
-        time.sleep(3)
+        time.sleep(5)
 
     if os.path.isfile(result):
+        shell("xdotool", "key", "F2")
+        time.sleep(2)
+        shell("xdotool", "key", "F1")
         time.sleep(1)
         screenshot(args.display, os.path.join(args.out, "world.png"))
+        shots.append(os.path.join(args.out, "world.png"))
     try:
         proc.wait(timeout=60)
     except subprocess.TimeoutExpired:
@@ -242,22 +279,24 @@ def main():
             proc.kill()
     console.close()
 
-    for name in ("logs/latest.log", "console.log", "selftest-result.txt"):
+    for name in ("logs/latest.log", "selftest-result.txt"):
         src = os.path.join(args.mc_dir, name)
         if os.path.isfile(src):
-            shutil.copy2(src, os.path.join(args.out,
-                                           os.path.basename(name)))
-    shots.sort()
-    keep = shots[-6:]
+            shutil.copy2(src, os.path.join(args.out, os.path.basename(src)))
+    shots_dir = os.path.join(args.mc_dir, "screenshots")
+    if os.path.isdir(shots_dir):
+        for name in sorted(os.listdir(shots_dir))[-3:]:
+            shutil.copy2(os.path.join(shots_dir, name),
+                         os.path.join(args.out, "ingame-" + name))
     for s in shots:
-        if s not in keep and os.path.basename(s) != "world.png":
+        if s not in (os.path.join(args.out, "screen.png"),
+                     os.path.join(args.out, "world.png")):
             os.remove(s)
     status = "UNKNOWN"
     if os.path.isfile(result):
         status = open(result, encoding="utf-8", errors="replace").read()
     with open(os.path.join(args.out, "driver.log"), "w", encoding="utf-8") as f:
-        f.write("status:\n" + status + "\n")
-        f.write("clicked: " + repr(sorted(clicked)) + "\n")
+        f.write(status + "\n")
     first = status.strip().splitlines()[0] if status.strip() else "no result"
     log("done: " + first)
     return 0

@@ -48,6 +48,13 @@ jobs:
           path: run-mc
           key: mc-${{ runner.os }}-1.21.10-fabric-0.19.3-v1
 
+      - name: Download Axiom
+        run: |
+          mkdir -p libs
+          curl -L --retry 3 --retry-delay 5 --fail \
+            -o "libs/Axiom-5.4.2-for-MC1.21.10.jar" \
+            "https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar"
+
       - name: Build mod
         run: |
           mkdir -p ingame
