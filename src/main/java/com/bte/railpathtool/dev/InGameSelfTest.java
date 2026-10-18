@@ -62,16 +62,15 @@ public final class InGameSelfTest {
             wait = LOAD_DELAY;
             return;
         }
-        if (wait-- > 0) {
-            return;
-        }
         if (!ACTIONS.isEmpty()) {
             try {
                 ACTIONS.poll().run();
             } catch (Throwable t) {
                 fail(t);
-                return;
             }
+            return;
+        }
+        if (wait-- > 0) {
             return;
         }
         try {
@@ -103,9 +102,10 @@ public final class InGameSelfTest {
         ACTIONS.add(() -> {
             TOOL.callConfirm();
             LOG.add("confirm sent");
+            wait = APPLY_DELAY;
         });
         LOG.add("waiting " + APPLY_DELAY + " ticks for the server");
-        wait = APPLY_DELAY;
+        wait = 0;
     }
 
     private static void teleport(Minecraft mc, double x, double y, double z) {

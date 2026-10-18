@@ -215,6 +215,10 @@ def main():
     ap.add_argument("--display", default=":99")
     args = ap.parse_args()
 
+    args.mc_dir = os.path.abspath(args.mc_dir)
+    args.out = os.path.abspath(args.out)
+    args.mod = os.path.abspath(args.mod)
+    args.java = os.path.abspath(args.java)
     os.makedirs(args.out, exist_ok=True)
     os.makedirs(args.mc_dir, exist_ok=True)
     os.environ["DISPLAY"] = args.display
@@ -294,7 +298,7 @@ def main():
             proc.kill()
     console.close()
 
-    for name in ("logs/latest.log", "selftest-result.txt"):
+    for name in ("logs/latest.log", "logs/debug.log", "selftest-result.txt"):
         src = os.path.join(args.mc_dir, name)
         if os.path.isfile(src):
             shutil.copy2(src, os.path.join(args.out, os.path.basename(src)))
