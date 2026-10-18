@@ -169,7 +169,7 @@ def enable_cheats(save):
     nbt = nbtlib.load(path)
     data = nbt["Data"]
     data["allowCommands"] = nbtlib.Byte(1)
-    nbt.save(gzip=True)
+    nbt.save(gzipped=True)
     log("cheats enabled in " + path)
 
 
