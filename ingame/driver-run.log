@@ -1,0 +1,13 @@
+[23:21:04] fabric loader jar: True
+[23:21:04] reusing generated world
+[23:21:04] Fabric API 0.138.4+1.21.10
+[23:21:05] main class index: 9
+[23:21:05] classpath entry: -Djava.library.path=run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[23:21:05] classpath entry: -Djna.tmpdir=run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[23:21:05] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[23:21:05] classpath entry: -Dio.netty.native.workdir=run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[23:21:05] classpath entry: run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-analysis-9.10.1.jar:run-mc/libraries/org/ow2/asm/asm-commons/9.10.1/asm-commons-9.10.1.jar:r
+[23:21:05] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
+[23:21:05] classpath entry: fabric-loader-0.19.3-1.21.10
+[23:21:05] launching client
+[23:21:25] done: UNKNOWN
