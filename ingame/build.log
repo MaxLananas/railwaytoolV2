@@ -14,6 +14,8 @@ Daemon will be stopped at the end of the build
 
 > Configure project :
 Fabric Loom: 1.16.3
+libs/ contains: []
+MISSING Axiom-5.4.2-for-MC1.21.10.jar: Axiom must be downloaded into libs/ before compiling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Using of the official minecraft mappings is at your own risk!
 Please make sure to read and understand the following license:
@@ -107,11 +109,6 @@ public class RailwayTool implements CustomTool {
             ^
   symbol:   class BooleanRegion
   location: class RailwayTool
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
-import net.minecraft.util.Heightmap;
-                         ^
-  symbol:   class Heightmap
-  location: package net.minecraft.util
 /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:3: error: package com.moulberry.axiomclientapi does not exist
 import com.moulberry.axiomclientapi.CustomTool;
                                    ^
@@ -471,13 +468,20 @@ import com.moulberry.axiomclientapi.service.ToolService;
         ^
   symbol:   class BlockRegion
   location: class RailwayTool
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
-        int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
-                                              ^
 /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:29: error: cannot find symbol
             var reg = ServiceLoader.load(ToolRegistryService.class,
                                          ^
   symbol:   class ToolRegistryService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:31: error: cannot find symbol
+            var ts = ServiceLoader.load(ToolService.class,
+                                        ^
+  symbol:   class ToolService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:33: error: cannot find symbol
+            var rp = ServiceLoader.load(RegionProvider.class,
+                                        ^
+  symbol:   class RegionProvider
   location: class Axiom
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -553,11 +557,6 @@ Execution failed for task ':compileJava' (registered by plugin class 'org.gradle
               ^
     symbol:   class BooleanRegion
     location: class RailwayTool
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
-  import net.minecraft.util.Heightmap;
-                           ^
-    symbol:   class Heightmap
-    location: package net.minecraft.util
   /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:16: error: cannot find symbol
       private static ToolRegistryService registry;
                      ^
@@ -883,6 +882,16 @@ Execution failed for task ':compileJava' (registered by plugin class 'org.gradle
                                            ^
     symbol:   class ToolRegistryService
     location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:31: error: cannot find symbol
+              var ts = ServiceLoader.load(ToolService.class,
+                                          ^
+    symbol:   class ToolService
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:33: error: cannot find symbol
+              var rp = ServiceLoader.load(RegionProvider.class,
+                                          ^
+    symbol:   class RegionProvider
+    location: class Axiom
   Note: Some input files use or override a deprecated API.
   /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:88: error: method does not override or implement a method from a supertype
       @Override
@@ -948,9 +957,6 @@ Execution failed for task ':compileJava' (registered by plugin class 'org.gradle
   /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:8: error: package com.moulberry.axiomclientapi.service does not exist
   import com.moulberry.axiomclientapi.service.ToolService;
                                              ^
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
-          int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
-                                                ^
   100 errors
 
 * Try:
@@ -990,6 +996,37 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:146)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:131)
+	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$11(DefaultBuildLifecycleController.java:323)
+	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:304)
+	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$9(StateTransitionController.java:215)
+	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
+	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:215)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:314)
+	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$runAndReleaseLocks$0(DefaultWorkerLeaseService.java:300)
+	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAndReleaseLocks(DefaultWorkerLeaseService.java:298)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:294)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:286)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:130)
+	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:182)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:199)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:199)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
@@ -1078,11 +1115,6 @@ public class RailwayTool implements CustomTool {
             ^
   symbol:   class BooleanRegion
   location: class RailwayTool
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
-import net.minecraft.util.Heightmap;
-                         ^
-  symbol:   class Heightmap
-  location: package net.minecraft.util
 /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:3: error: package com.moulberry.axiomclientapi does not exist
 import com.moulberry.axiomclientapi.CustomTool;
                                    ^
@@ -1442,13 +1474,20 @@ import com.moulberry.axiomclientapi.service.ToolService;
         ^
   symbol:   class BlockRegion
   location: class RailwayTool
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
-        int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
-                                              ^
 /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:29: error: cannot find symbol
             var reg = ServiceLoader.load(ToolRegistryService.class,
                                          ^
   symbol:   class ToolRegistryService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:31: error: cannot find symbol
+            var ts = ServiceLoader.load(ToolService.class,
+                                        ^
+  symbol:   class ToolService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:33: error: cannot find symbol
+            var rp = ServiceLoader.load(RegionProvider.class,
+                                        ^
+  symbol:   class RegionProvider
   location: class Axiom
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -1584,8 +1623,8 @@ Note: Recompile with -Xlint:deprecation for details.
 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
-	... 30 more
+	... 61 more
 
 
-BUILD FAILED in 49s
+BUILD FAILED in 55s
 1 actionable task: 1 executed
