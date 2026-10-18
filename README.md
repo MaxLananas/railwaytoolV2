@@ -70,7 +70,7 @@ sim/                       Python reference model, parity exporter, stress tests
 
 ## Build
 
-Requirements: JDK 25 and the Axiom jar for 1.21.10.
+Requirements: JDK 21 or newer (CI uses Temurin 25) and the Axiom jar for 1.21.10.
 
 ```bash
 mkdir -p libs
