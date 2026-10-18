@@ -1,16 +1,11 @@
-[23:26:53] fabric loader jar: True
-[23:26:53] reusing generated world
-[23:26:53] Fabric API 0.138.4+1.21.10
-[23:26:54] main class index: 9
-[23:26:54] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[23:26:54] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[23:26:54] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[23:26:54] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[23:26:54] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
-[23:26:54] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
-[23:26:54] classpath entry: fabric-loader-0.19.3-1.21.10
-[23:26:54] launching client
-[23:27:16] visible: MOSEL IG
-[23:27:39] visible: ra
-[23:27:39] selftest result detected
-[23:27:42] done: [SELFTEST] FAIL waiting 100 ticks for the server | point z=8 ground=-60 added=true | point z=16 ground=-60 added=true | point z=24 ground=-60 added=true | confirm sent | cores=0 walls=0 supports=0 airAbove=0 woolLeft=0 ghost=first=false second=false reacquired=false sample=
+[23:35:06] fabric loader jar: True
+[23:35:06] reusing generated world
+Traceback (most recent call last):
+  File "/home/runner/work/railwaytoolV2/railwaytoolV2/tools/ingame_driver.py", line 338, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/runner/work/railwaytoolV2/railwaytoolV2/tools/ingame_driver.py", line 243, in main
+    enable_cheats(save)
+  File "/home/runner/work/railwaytoolV2/railwaytoolV2/tools/ingame_driver.py", line 172, in enable_cheats
+    nbt.save(gzip=True)
+TypeError: File.save() got an unexpected keyword argument 'gzip'
