@@ -72,6 +72,7 @@ public class RailwayTool implements CustomTool {
     private int splineLength = 0;
     private boolean dirty = true;
     private boolean phantomAcquired = false;
+    private boolean ghostDenied = false;
     private String status = "";
     private boolean statusError = false;
     private String warning = "";
@@ -432,6 +433,7 @@ public class RailwayTool implements CustomTool {
         splineLength = 0;
         warning = "";
         clearGhost();
+        ghostDenied = false;
         clearSplineGhost();
         if (mc.level == null || control.size() < 2) {
             releaseGhost();
@@ -615,8 +617,14 @@ public class RailwayTool implements CustomTool {
 
     private void setGhost(long key, BlockState state) {
         if (!phantomAcquired) {
+            if (ghostDenied) {
+                return;
+            }
             phantomAcquired = Axiom.acquireChunkRenderOverrider(OVERRIDER_ID);
             if (!phantomAcquired) {
+                // Another tool owns the lock: try once per recompute, not once
+                // per ghost block.
+                ghostDenied = true;
                 return;
             }
         }
