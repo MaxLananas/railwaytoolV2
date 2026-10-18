@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Fjern siste punkt",
   "bte_railpathtool.ui.confirm": "Bygg",
   "bte_railpathtool.ui.clear": "Fjern alt",
-  "bte_railpathtool.ui.hint": "Høyreklikk: legg til punkt | Delete: fjern | Enter: bygg",
   "bte_railpathtool.ui.gen": "Trase",
   "bte_railpathtool.ui.density": "Spline-tetthet",
   "bte_railpathtool.ui.ground_snap": "Følg terrenget",

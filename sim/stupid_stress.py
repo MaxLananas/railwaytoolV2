@@ -27,6 +27,7 @@ import math
 import random
 import sys
 import time
+import zlib
 
 import rail_sim as R
 
@@ -90,24 +91,21 @@ def check_corridor(case, world, trace, pre_keys=frozenset()):
             continue
         if not (x0 <= x <= x1 and y0 <= y <= y1 and z0 <= z <= z1):
             fail(case, f"hors corridor: {st} a {(x, y, z)}")
-    # flottant de terrain plat : air DIRECTEMENT sous + solide dans les 6
-    # blocs en dessous (sinon c'est un pont/bosse volontaire : pas un bug).
+    # Flottant : le contrat C2 comble jusqu'a 4 blocs d'air/eau sous un rail ;
+    # au-dela c'est un pont volontaire. On compte donc air ET eau comme le
+    # design, sinon une voie au-dessus d'une mare (4 air + eau) est signalee
+    # a tort alors que c'est un pont legitime.
     for (x, y, z), st in world.blocks.items():
         if st not in R.RAIL_FAMILY or (x, y, z) in pre_keys:
             continue
-        # rail invisible : un solide de TERRAIN hostile (roche/herbe) au-dessus
-        # d'une pièce = rail enterré = « il manque le rail » (photo 2). On
-        # n'alerte pas pour les wools marqueurs ni les soils d'un fill
-        # (encore visibles de profil).
         above = world.get(x, y + 1, z)
         if (x, y + 1, z) in pre_keys and above in ("grass_block", "stone", "dirt"):
             fail(case, f"rail enterre: {st} a {(x, y, z)}, dessus={above!r}")
-        if world.get(x, y - 1, z) not in (R.AIR, None):
-            continue
-        for depth_gap in range(2, 6):
-            if world.get(x, y - depth_gap, z) not in (R.AIR, None):
-                fail(case, f"flottant plat: {st} a {(x, y, z)} ({depth_gap - 1} air sous lui)")
-                break
+        gap = 0
+        while gap < 64 and world.get(x, y - 1 - gap, z) in (R.AIR, None, "water"):
+            gap += 1
+        if 0 < gap <= 4:
+            fail(case, f"flottant: {st} a {(x, y, z)} ({gap} air/eau sous lui)")
 
 
 def check_all_typed(case, model, trace):
@@ -120,12 +118,22 @@ def snapshot(world):
     return dict(world.blocks)
 
 
+CORES = {"coral_south", "coral_east", "black_wool",
+         "lectern_north", "lectern_east", "pale_moss_block"}
+
+
 def rail_destroyed(before, after):
+    """Un core ne doit jamais changer. Un décor peut en revanche être
+    remplacé par le CORE d'une voie voisine (jonction dense) — jamais par
+    un sol, un air ou un autre décor."""
     d = []
     for k in set(before) | set(after):
         a, b = before.get(k, R.AIR), after.get(k, R.AIR)
-        if a != b and a in RAIL_STATES:
-            d.append((k, a, b))
+        if a == b or a not in RAIL_STATES:
+            continue
+        if a not in CORES and b in CORES:
+            continue
+        d.append((k, a, b))
     return d
 
 
@@ -177,7 +185,7 @@ def run_mega(name, trace, colors=None, terrain="flat",
     counts["scenarios"] += 1
     counts["voxels"] += len(trace)
     for base_style in styles:
-        w = make_hostile_world(trace, seed=hash(name) & 0xFFFF, terrain=terrain)
+        w = make_hostile_world(trace, seed=zlib.crc32(name.encode()) & 0xFFFF, terrain=terrain)
         if colors:
             for pos, c in colors.items():
                 if w.get(*pos) != R.AIR or True:
@@ -230,7 +238,7 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
     if not vox:
         warn(name, "spline vide")
         return
-    w = make_hostile_world(vox, seed=hash(name) & 0xFFFF, terrain=terrain)
+    w = make_hostile_world(vox, seed=zlib.crc32(name.encode()) & 0xFFFF, terrain=terrain)
     trace = list(vox)
     dug = set() if smooth else None
     try:

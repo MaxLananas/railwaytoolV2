@@ -69,12 +69,26 @@ public final class Axiom {
         return regions.createBoolean();
     }
 
-    public static void acquireChunkRenderOverrider(String id) {
-        tools.acquireChunkRenderOverrider(id);
+    /**
+     * Le verrou de rendu est global : une acquisition en echec (deja pris par
+     * un autre outil) ne doit jamais faire tomber le client, on desactive
+     * simplement l'apercu.
+     */
+    public static boolean acquireChunkRenderOverrider(String id) {
+        try {
+            tools.acquireChunkRenderOverrider(id);
+            return true;
+        } catch (RuntimeException | Error e) {
+            return false;
+        }
     }
 
     public static void releaseChunkRenderOverrider(String id) {
-        tools.releaseChunkRenderOverrider(id);
+        try {
+            tools.releaseChunkRenderOverrider(id);
+        } catch (RuntimeException | Error ignored) {
+            // Verrou deja libere (changement de monde / desactivation).
+        }
     }
 
     public static void setBlockRenderOverride(int x, int y, int z, BlockState state) {

@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Видалити останню точку",
   "bte_railpathtool.ui.confirm": "Побудувати",
   "bte_railpathtool.ui.clear": "Очистити все",
-  "bte_railpathtool.ui.hint": "ПКМ: додати точку | Delete: видалити | Enter: побудувати",
   "bte_railpathtool.ui.gen": "Колія",
   "bte_railpathtool.ui.density": "Щільність сплайна",
   "bte_railpathtool.ui.ground_snap": "Прив'язка до ґрунту",

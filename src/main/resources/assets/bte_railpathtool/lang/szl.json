@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Usuń ostatni punkt",
   "bte_railpathtool.ui.confirm": "Buduj",
   "bte_railpathtool.ui.clear": "Wyczyść wszystko",
-  "bte_railpathtool.ui.hint": "Prawy klik: dodaj punkt | Delete: usuń | Enter: buduj",
   "bte_railpathtool.ui.gen": "Trasa",
   "bte_railpathtool.ui.density": "Gęstość splajnu",
   "bte_railpathtool.ui.ground_snap": "Dopasuj do terenu",

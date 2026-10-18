@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Forigi lastan punkton",
   "bte_railpathtool.ui.confirm": "Konstrui",
   "bte_railpathtool.ui.clear": "Forviŝi ĉion",
-  "bte_railpathtool.ui.hint": "Dekstra klako: aldoni punkton | Delete: forigi | Enter: konstrui",
   "bte_railpathtool.ui.gen": "Trako",
   "bte_railpathtool.ui.density": "Spline-denso",
   "bte_railpathtool.ui.ground_snap": "Alglui al tereno",

@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Eemalda viimane punkt",
   "bte_railpathtool.ui.confirm": "Ehita",
   "bte_railpathtool.ui.clear": "Puhasta kõik",
-  "bte_railpathtool.ui.hint": "Paremklõps: lisa punkt | Delete: eemalda | Enter: ehita",
   "bte_railpathtool.ui.gen": "Trass",
   "bte_railpathtool.ui.density": "Splaini tihedus",
   "bte_railpathtool.ui.ground_snap": "Järgi maastikku",

@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Remover último ponto",
   "bte_railpathtool.ui.confirm": "Construir",
   "bte_railpathtool.ui.clear": "Limpar tudo",
-  "bte_railpathtool.ui.hint": "Clique direito: adicionar ponto | Delete: remover | Enter: construir",
   "bte_railpathtool.ui.gen": "Via",
   "bte_railpathtool.ui.density": "Densidade da spline",
   "bte_railpathtool.ui.ground_snap": "Aderir ao terreno",

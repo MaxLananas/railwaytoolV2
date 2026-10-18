@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Elimină ultimul punct",
   "bte_railpathtool.ui.confirm": "Construiește",
   "bte_railpathtool.ui.clear": "Șterge tot",
-  "bte_railpathtool.ui.hint": "Click dreapta: adaugă punct | Delete: elimină | Enter: construiește",
   "bte_railpathtool.ui.gen": "Traseu",
   "bte_railpathtool.ui.density": "Densitate spline",
   "bte_railpathtool.ui.ground_snap": "După relief",

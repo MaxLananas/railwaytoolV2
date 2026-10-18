@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Αφαίρεση τελευταίου σημείου",
   "bte_railpathtool.ui.confirm": "Κατασκευή",
   "bte_railpathtool.ui.clear": "Καθαρισμός όλων",
-  "bte_railpathtool.ui.hint": "Δεξί κλικ: προσθήκη σημείου | Delete: αφαίρεση | Enter: κατασκευή",
   "bte_railpathtool.ui.gen": "Γραμμή",
   "bte_railpathtool.ui.density": "Πυκνότητα spline",
   "bte_railpathtool.ui.ground_snap": "Στο έδαφος",

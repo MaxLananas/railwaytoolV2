@@ -219,7 +219,6 @@ public final class ClassicDesign implements RailDesign {
         private static final Random SOIL_RNG = new Random(20240913L);
         private final TrackModel model;
         private final DesignOptions options;
-        private static final boolean DBG = Boolean.getBoolean("railparity.debug");
         private final Long2ObjectOpenHashMap<BlockState> plan;
         private final com.bte.railpathtool.track.WorldView view;
 
@@ -233,14 +232,6 @@ public final class ClassicDesign implements RailDesign {
 
         void column(int x, int y, int z, BlockState center) {
             int startY = y + options.baseDy;
-            if (DBG) {
-                System.out.println("[COL] " + x + "," + y + "," + z
-                        + " center=" + net.minecraft.core.registries
-                        .BuiltInRegistries.BLOCK.getKey(center.getBlock())
-                        + " cur59=" + net.minecraft.core.registries
-                        .BuiltInRegistries.BLOCK.getKey(
-                                view.at(x, y + 1, z).getBlock()).getPath());
-            }
             boolean coreWrite = isRailCore(center);
             for (int yy = startY; yy <= startY + 2; yy++) {
                 // Garde anti-valse à deux vitesses : (1) un core existant
@@ -252,14 +243,6 @@ public final class ClassicDesign implements RailDesign {
                 // jamais leur rail visible.
                 BlockState cur = view.at(x, yy, z);
                 if (isRailCore(cur) || (!coreWrite && isRailFamily(cur))) {
-                    if (DBG) {
-                        System.out.println("[COLREFUSE] " + x + "," + yy + "," + z
-                                + " center=" + net.minecraft.core.registries
-                                .BuiltInRegistries.BLOCK.getKey(center.getBlock())
-                                + " cur=" + net.minecraft.core.registries
-                                .BuiltInRegistries.BLOCK.getKey(
-                                        view.at(x, yy, z).getBlock()));
-                    }
                     if (isRailCore(cur)
                             && view.at(x, startY, z).is(Blocks.WHITE_WOOL)) {
                         // La laine fraîche du voxel est consommée malgré
@@ -271,26 +254,18 @@ public final class ClassicDesign implements RailDesign {
                     return;
                 }
             }
-            if (center.getBlock() == Blocks.IRON_DOOR) {
-                // Thème clair : panneau de porte basse uniquement (moitié lower),
-                // fidèle au script — pas de porte complète à 2 blocs.
+            // Un core ne prend que la case du core d'un décor existant : le
+            // sol de support et l'air de dégagement ne doivent jamais écraser
+            // un muret/panneau/porte d'une autre voie.
+            if (!isRailFamily(view.at(x, startY + 2, z))) {
                 put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
-                put(x, startY + 1, z, center);
-                put(x, startY, z, pickSoil());
-                return;
             }
-            put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
             put(x, startY + 1, z, center);
-            put(x, startY, z, pickSoil());
+            if (!isRailFamily(view.at(x, startY, z))) {
+                put(x, startY, z, pickSoil());
+            }
         }
 
-        /**
-         * Cores de voie des deux designs (corail/pilier noir/pupitre/mousse) :
-         * JAMAIS écrasés, même par une trace suivante. Miroir de
-         * rail_sim.NATURE_CORES — le décor (murets, portes, panneaux) n'en
-         * fait pas partie : il s'incline devant un core de trace voisine
-         * (jonctions denses — le rail visible passe avant le décor).
-         */
         /**
          * Sols de support posés par les designs (remplissage + bases).
          * La laine orange ne compte que si le remplissage UNIFORME est actif
@@ -310,13 +285,15 @@ public final class ClassicDesign implements RailDesign {
                     || st.is(Blocks.GRAVEL);
         }
 
+        /**
+         * Cores de voie des deux designs (corail/pilier noir/pupitre/mousse) :
+         * jamais écrasés. Copie de rail_sim.NATURE_CORES ; le décor n'en fait
+         * pas partie et peut être repris par un core voisin (jonction).
+         */
         public static boolean isRailCore(BlockState st) {
-            if (st.is(Blocks.BLACK_WOOL) || st.is(Blocks.LECTERN)
+            return st.is(Blocks.BLACK_WOOL) || st.is(Blocks.LECTERN)
                     || st.is(Blocks.PALE_MOSS_BLOCK)
-                    || st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
-                return true;
-            }
-            return false;
+                    || st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN);
         }
 
         private void put(int x, int y, int z, BlockState state) {

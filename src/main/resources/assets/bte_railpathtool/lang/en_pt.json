@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Scuttle last point",
   "bte_railpathtool.ui.confirm": "Hoist it!",
   "bte_railpathtool.ui.clear": "Abandon ship",
-  "bte_railpathtool.ui.hint": "Right click: drop point | Delete: scuttle | Enter: hoist",
   "bte_railpathtool.ui.gen": "Plank",
   "bte_railpathtool.ui.density": "Curve tension",
   "bte_railpathtool.ui.ground_snap": "Snag the land",

@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Offdo last dot",
   "bte_railpathtool.ui.confirm": "Build",
   "bte_railpathtool.ui.clear": "Wipe all",
-  "bte_railpathtool.ui.hint": "Right click: add dot | Delete: offdo | Enter: build",
   "bte_railpathtool.ui.gen": "Track",
   "bte_railpathtool.ui.density": "Bend thickn",
   "bte_railpathtool.ui.ground_snap": "Klip to earth",

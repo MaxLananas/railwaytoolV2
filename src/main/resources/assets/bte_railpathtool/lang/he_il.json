@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "הסר נקודה אחרונה",
   "bte_railpathtool.ui.confirm": "בנה",
   "bte_railpathtool.ui.clear": "נקה הכל",
-  "bte_railpathtool.ui.hint": "קליק ימני: הוסף נקודה | Delete: הסר | Enter: בנה",
   "bte_railpathtool.ui.gen": "מסלול",
   "bte_railpathtool.ui.density": "צפיפות עקומה",
   "bte_railpathtool.ui.ground_snap": "היצמד לקרקע",

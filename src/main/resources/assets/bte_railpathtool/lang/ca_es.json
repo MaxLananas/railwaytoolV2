@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Treure l'últim punt",
   "bte_railpathtool.ui.confirm": "Construir",
   "bte_railpathtool.ui.clear": "Netejar-ho tot",
-  "bte_railpathtool.ui.hint": "Clic dret: afegir punt | Supr: treure | Intro: construir",
   "bte_railpathtool.ui.gen": "Traçat",
   "bte_railpathtool.ui.density": "Densitat de spline",
   "bte_railpathtool.ui.ground_snap": "Seguir el terreny",

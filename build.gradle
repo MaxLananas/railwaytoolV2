@@ -105,7 +105,6 @@ tasks.register('parityCheck', JavaExec) {
     workingDir = rootProject.projectDir
     if (project.hasProperty('parityDebugScene')) {
         systemProperty 'parity.debugScene', project.property('parityDebugScene')
-        systemProperty 'grounding.debug', '1'
     }
 
 }

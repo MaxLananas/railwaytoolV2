@@ -963,14 +963,18 @@ def build_column(world, opt, x, y, z, center):
                 # remplissage laineux ni une laine décorative du joueur.
                 world.set(x, start_y, z, AIR)
             return
+    # Un core ne prend que la case du core d'un décor existant : le sol de
+    # support et l'air de dégagement ne doivent jamais écraser un muret, un
+    # panneau ou une porte d'une autre voie (C7).
+    if world.get(x, start_y + 2, z) not in RAIL_FAMILY:
+        world.set(x, start_y + 2, z, AIR)
     if opt.theme == 2 and center in DOOR_FACING:
         f = DOOR_FACING[center].split("_", 1)[1]
-        world.set(x, start_y + 2, z, AIR)
         world.set(x, start_y + 1, z, f"door_lower_{f}")
     else:
-        world.set(x, start_y + 2, z, AIR)
         world.set(x, start_y + 1, z, center)
-    world.set(x, start_y, z, pick_soil(opt))
+    if world.get(x, start_y, z) not in RAIL_FAMILY:
+        world.set(x, start_y, z, pick_soil(opt))
 
 
 LEAF_FACING = {(1, -1): "east", (-1, -1): "south", (1, 1): "north", (-1, 1): "west"}

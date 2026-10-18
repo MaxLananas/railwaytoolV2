@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Utolsó pont törlése",
   "bte_railpathtool.ui.confirm": "Építés",
   "bte_railpathtool.ui.clear": "Mind törölve",
-  "bte_railpathtool.ui.hint": "Jobb klikk: pont hozzáadása | Delete: eltávolítás | Enter: építés",
   "bte_railpathtool.ui.gen": "Nyomvonat",
   "bte_railpathtool.ui.density": "Spline sűrűség",
   "bte_railpathtool.ui.ground_snap": "Domborzathoz",

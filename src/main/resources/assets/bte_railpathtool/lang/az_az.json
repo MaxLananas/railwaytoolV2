@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Son noktayı kaldır",
   "bte_railpathtool.ui.confirm": "İnşa et",
   "bte_railpathtool.ui.clear": "Hepsini temizle",
-  "bte_railpathtool.ui.hint": "Sağ tık: nokta ekle | Delete: kaldır | Enter: inşa et",
   "bte_railpathtool.ui.gen": "Hat",
   "bte_railpathtool.ui.density": "Eğri yoğunluğu",
   "bte_railpathtool.ui.ground_snap": "Araziye oturt",

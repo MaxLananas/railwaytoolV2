@@ -3,7 +3,6 @@ package com.bte.railpathtool.track;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.BaseCoralWallFanBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -96,14 +95,6 @@ public final class TrackModel {
 
     public TrackType typeOf(BlockPos pos) {
         return types.get(pos.asLong());
-    }
-
-    public boolean isWoolTrace(int x, int y, int z) {
-        // Nom de registre plutôt que BlockTags.WOOL : les tags ne sont pas
-        // liés hors runtime serveur (Bootstrap du harnais de parité) et
-        // is(TagKey) renverrait toujours false, cassant la classification.
-        return net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                .getKey(view.at(x, y, z).getBlock()).getPath().endsWith("_wool");
     }
 
     public TrackType typeAt(int x, int y, int z) {

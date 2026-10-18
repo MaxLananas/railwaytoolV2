@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "最後のポイントを削除",
   "bte_railpathtool.ui.confirm": "建設",
   "bte_railpathtool.ui.clear": "すべて消去",
-  "bte_railpathtool.ui.hint": "右クリック: ポイント追加 | Delete: 削除 | Enter: 建設",
   "bte_railpathtool.ui.gen": "軌道",
   "bte_railpathtool.ui.density": "スプライン密度",
   "bte_railpathtool.ui.ground_snap": "地形に追従",
