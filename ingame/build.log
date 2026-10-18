@@ -1,0 +1,1591 @@
+Downloading https://services.gradle.org/distributions/gradle-9.5.1-bin.zip
+.............10%.............20%..............30%.............40%.............50%..............60%.............70%..............80%.............90%.............100%
+
+Welcome to Gradle 9.5.1!
+
+Here are the highlights of this release:
+ - Task provenance in reports and failure messages
+ - Type-safe accessors for precompiled Kotlin Settings plugins
+
+For more details see https://docs.gradle.org/9.5.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.16.3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using of the official minecraft mappings is at your own risk!
+Please make sure to read and understand the following license:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# (c) 2020 Microsoft Corporation. These mappings are provided "as-is" and you bear the risk of using them. You may copy and use the mappings for development purposes, but you may not redistribute the mappings complete and unmodified. Microsoft makes no warranties, express or implied, with respect to the mappings provided here.  Use and modification of this document or the source code (in any form) of Minecraft: Java Edition is governed by the Minecraft End User License Agreement available at https://account.mojang.com/documents/minecraft_eula.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+> Task :compileJava
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:17: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.CustomTool;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:18: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.Effects;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:19: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:20: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:22: error: package imgui.moulberry92 does not exist
+import imgui.moulberry92.ImGui;
+                        ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:23: error: package imgui.moulberry92.type does not exist
+import imgui.moulberry92.type.ImBoolean;
+                             ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:24: error: package imgui.moulberry92.type does not exist
+import imgui.moulberry92.type.ImInt;
+                             ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:41: error: cannot find symbol
+public class RailwayTool implements CustomTool {
+                                    ^
+  symbol: class CustomTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+    private final ImBoolean groundSnap = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+    private final ImBoolean smoothRidges = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+    private final ImBoolean purgeCorners = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+    private final ImBoolean showGhost = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+    private final ImBoolean showSplineGhost = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+    private final ImBoolean adaptive = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+    private final ImInt styleSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+    private final ImInt orientSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+    private final ImInt themeSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+    private final ImInt fillSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+    private final ImInt heightSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:70: error: cannot find symbol
+    private BooleanRegion splineGhost;
+            ^
+  symbol:   class BooleanRegion
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
+import net.minecraft.util.Heightmap;
+                         ^
+  symbol:   class Heightmap
+  location: package net.minecraft.util
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:3: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.CustomTool;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:4: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:5: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:6: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.RegionProvider;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:7: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.ToolRegistryService;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:8: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.ToolService;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:16: error: cannot find symbol
+    private static ToolRegistryService registry;
+                   ^
+  symbol:   class ToolRegistryService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:17: error: cannot find symbol
+    private static ToolService tools;
+                   ^
+  symbol:   class ToolService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:18: error: cannot find symbol
+    private static RegionProvider regions;
+                   ^
+  symbol:   class RegionProvider
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:48: error: cannot find symbol
+    public static void registerTool(CustomTool tool) {
+                                    ^
+  symbol:   class CustomTool
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:60: error: cannot find symbol
+    public static void push(BlockRegion region) {
+                            ^
+  symbol:   class BlockRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:64: error: cannot find symbol
+    public static BlockRegion createBlockRegion() {
+                  ^
+  symbol:   class BlockRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:68: error: cannot find symbol
+    public static BooleanRegion createBooleanRegion() {
+                  ^
+  symbol:   class BooleanRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+    private final ImBoolean groundSnap = new ImBoolean(true);
+                                             ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+    private final ImBoolean smoothRidges = new ImBoolean(true);
+                                               ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+    private final ImBoolean purgeCorners = new ImBoolean(true);
+                                               ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+    private final ImBoolean showGhost = new ImBoolean(true);
+                                            ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+    private final ImBoolean showSplineGhost = new ImBoolean(true);
+                                                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+    private final ImBoolean adaptive = new ImBoolean(true);
+                                           ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+    private final ImInt styleSel = new ImInt(0);
+                                       ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+    private final ImInt orientSel = new ImInt(0);
+                                        ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+    private final ImInt themeSel = new ImInt(0);
+                                       ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+    private final ImInt fillSel = new ImInt(0);
+                                      ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+    private final ImInt heightSel = new ImInt(0);
+                                        ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:88: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:112: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:126: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:145: error: cannot find symbol
+            splineGhost.render(camera, Vec3.ZERO, poseStack, projection, nanos, Effects.OUTLINE);
+                                                                                ^
+  symbol:   variable Effects
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:149: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:169: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:175: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:185: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:190: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_1"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:191: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_2"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:192: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_3"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:194: error: cannot find symbol
+            ImGui.textWrapped("/!\\ " + warning);
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:197: error: cannot find symbol
+            ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:199: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:201: error: cannot find symbol
+        if (ImGui.button(tr("ui.undo"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:204: error: cannot find symbol
+        ImGui.sameLine();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:205: error: cannot find symbol
+        if (ImGui.button(tr("ui.confirm"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:208: error: cannot find symbol
+        ImGui.sameLine();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:209: error: cannot find symbol
+        if (ImGui.button(tr("ui.clear"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:213: error: cannot find symbol
+        ImGui.text(tr("ui.points", control.size()));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:215: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:216: error: cannot find symbol
+            if (ImGui.button(tr("ui.simplify"))) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:221: error: cannot find symbol
+            ImGui.text(tr("ui.est_blocks", planCount));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:223: error: cannot find symbol
+                ImGui.text(tr("ui.length", splineLength));
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:226: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:228: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.gen"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:229: error: cannot find symbol
+        if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:232: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.adaptive"), adaptive)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:235: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:239: error: cannot find symbol
+            if (ImGui.checkbox(tr("ui.smooth_ridges"), smoothRidges)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:243: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.purge_corners"), purgeCorners)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:246: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ghost"), showGhost)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:249: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ghost_spline"), showSplineGhost)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:252: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:255: error: cannot find symbol
+        if (ImGui.combo(tr("ui.style"), styleSel, styles)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:263: error: cannot find symbol
+        if (ImGui.combo(tr("ui.orientation"), orientSel, orients)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:272: error: cannot find symbol
+        if (ImGui.collapsingHeader(tr("ui.debug"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:274: error: cannot find symbol
+                ImGui.textDisabled(String.format(java.util.Locale.ROOT,
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:281: error: cannot find symbol
+        if (!ImGui.collapsingHeader(tr("ui.presets"))) {
+             ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:286: error: cannot find symbol
+            if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:289: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:290: error: cannot find symbol
+            if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:294: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:295: error: cannot find symbol
+            ImGui.textDisabled("#" + (idx + 1));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:381: error: cannot find symbol
+        if (ImGui.combo(tr("ui.theme"), themeSel, themes)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:387: error: cannot find symbol
+        if (ImGui.combo(tr("ui.fill"), fillSel, fills)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:394: error: cannot find symbol
+            ImGui.textWrapped(tr("ui.fill.block",
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:396: error: cannot find symbol
+            if (ImGui.button(tr("ui.pick_active"))) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:404: error: cannot find symbol
+            ImGui.textDisabled(tr("ui.fill.random_hint"));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:406: error: cannot find symbol
+                if (ImGui.sliderInt(
+                    ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:413: error: cannot find symbol
+                if (ImGui.button(tr("ui.pick_active") + "##fillbtn" + i)) {
+                    ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:424: error: cannot find symbol
+        if (ImGui.combo(tr("ui.height"), heightSel, heights)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:550: error: cannot find symbol
+        BlockRegion region = Axiom.createBlockRegion();
+        ^
+  symbol:   class BlockRegion
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
+        int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+                                              ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:29: error: cannot find symbol
+            var reg = ServiceLoader.load(ToolRegistryService.class,
+                                         ^
+  symbol:   class ToolRegistryService
+  location: class Axiom
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+100 errors
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output below.
+  Note: Recompile with -Xlint:deprecation for details.
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+      private final ImBoolean groundSnap = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+      private final ImBoolean smoothRidges = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+      private final ImBoolean purgeCorners = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+      private final ImBoolean showGhost = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+      private final ImBoolean showSplineGhost = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+      private final ImBoolean adaptive = new ImBoolean(true);
+                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+      private final ImInt styleSel = new ImInt(0);
+                    ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+      private final ImInt orientSel = new ImInt(0);
+                    ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+      private final ImInt themeSel = new ImInt(0);
+                    ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+      private final ImInt fillSel = new ImInt(0);
+                    ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+      private final ImInt heightSel = new ImInt(0);
+                    ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:70: error: cannot find symbol
+      private BooleanRegion splineGhost;
+              ^
+    symbol:   class BooleanRegion
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
+  import net.minecraft.util.Heightmap;
+                           ^
+    symbol:   class Heightmap
+    location: package net.minecraft.util
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:16: error: cannot find symbol
+      private static ToolRegistryService registry;
+                     ^
+    symbol:   class ToolRegistryService
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:17: error: cannot find symbol
+      private static ToolService tools;
+                     ^
+    symbol:   class ToolService
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:18: error: cannot find symbol
+      private static RegionProvider regions;
+                     ^
+    symbol:   class RegionProvider
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:48: error: cannot find symbol
+      public static void registerTool(CustomTool tool) {
+                                      ^
+    symbol:   class CustomTool
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:60: error: cannot find symbol
+      public static void push(BlockRegion region) {
+                              ^
+    symbol:   class BlockRegion
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:64: error: cannot find symbol
+      public static BlockRegion createBlockRegion() {
+                    ^
+    symbol:   class BlockRegion
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:68: error: cannot find symbol
+      public static BooleanRegion createBooleanRegion() {
+                    ^
+    symbol:   class BooleanRegion
+    location: class Axiom
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+      private final ImBoolean groundSnap = new ImBoolean(true);
+                                               ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+      private final ImBoolean smoothRidges = new ImBoolean(true);
+                                                 ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+      private final ImBoolean purgeCorners = new ImBoolean(true);
+                                                 ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+      private final ImBoolean showGhost = new ImBoolean(true);
+                                              ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+      private final ImBoolean showSplineGhost = new ImBoolean(true);
+                                                    ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+      private final ImBoolean adaptive = new ImBoolean(true);
+                                             ^
+    symbol:   class ImBoolean
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+      private final ImInt styleSel = new ImInt(0);
+                                         ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+      private final ImInt orientSel = new ImInt(0);
+                                          ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+      private final ImInt themeSel = new ImInt(0);
+                                         ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+      private final ImInt fillSel = new ImInt(0);
+                                        ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+      private final ImInt heightSel = new ImInt(0);
+                                          ^
+    symbol:   class ImInt
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:145: error: cannot find symbol
+              splineGhost.render(camera, Vec3.ZERO, poseStack, projection, nanos, Effects.OUTLINE);
+                                                                                  ^
+    symbol:   variable Effects
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:190: error: cannot find symbol
+          ImGui.textDisabled(tr("ui.help_1"));
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:191: error: cannot find symbol
+          ImGui.textDisabled(tr("ui.help_2"));
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:192: error: cannot find symbol
+          ImGui.textDisabled(tr("ui.help_3"));
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:194: error: cannot find symbol
+              ImGui.textWrapped("/!\\ " + warning);
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:197: error: cannot find symbol
+              ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:199: error: cannot find symbol
+          ImGui.separator();
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:201: error: cannot find symbol
+          if (ImGui.button(tr("ui.undo"))) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:204: error: cannot find symbol
+          ImGui.sameLine();
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:205: error: cannot find symbol
+          if (ImGui.button(tr("ui.confirm"))) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:208: error: cannot find symbol
+          ImGui.sameLine();
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:209: error: cannot find symbol
+          if (ImGui.button(tr("ui.clear"))) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:213: error: cannot find symbol
+          ImGui.text(tr("ui.points", control.size()));
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:215: error: cannot find symbol
+              ImGui.sameLine();
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:216: error: cannot find symbol
+              if (ImGui.button(tr("ui.simplify"))) {
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:221: error: cannot find symbol
+              ImGui.text(tr("ui.est_blocks", planCount));
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:223: error: cannot find symbol
+                  ImGui.text(tr("ui.length", splineLength));
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:226: error: cannot find symbol
+          ImGui.separator();
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:228: error: cannot find symbol
+          ImGui.textDisabled(tr("ui.gen"));
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:229: error: cannot find symbol
+          if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:232: error: cannot find symbol
+          if (ImGui.checkbox(tr("ui.adaptive"), adaptive)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:235: error: cannot find symbol
+          if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:239: error: cannot find symbol
+              if (ImGui.checkbox(tr("ui.smooth_ridges"), smoothRidges)) {
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:243: error: cannot find symbol
+          if (ImGui.checkbox(tr("ui.purge_corners"), purgeCorners)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:246: error: cannot find symbol
+          if (ImGui.checkbox(tr("ui.ghost"), showGhost)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:249: error: cannot find symbol
+          if (ImGui.checkbox(tr("ui.ghost_spline"), showSplineGhost)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:252: error: cannot find symbol
+          ImGui.separator();
+          ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:255: error: cannot find symbol
+          if (ImGui.combo(tr("ui.style"), styleSel, styles)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:263: error: cannot find symbol
+          if (ImGui.combo(tr("ui.orientation"), orientSel, orients)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:272: error: cannot find symbol
+          if (ImGui.collapsingHeader(tr("ui.debug"))) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:274: error: cannot find symbol
+                  ImGui.textDisabled(String.format(java.util.Locale.ROOT,
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:281: error: cannot find symbol
+          if (!ImGui.collapsingHeader(tr("ui.presets"))) {
+               ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:286: error: cannot find symbol
+              if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:289: error: cannot find symbol
+              ImGui.sameLine();
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:290: error: cannot find symbol
+              if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:294: error: cannot find symbol
+              ImGui.sameLine();
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:295: error: cannot find symbol
+              ImGui.textDisabled("#" + (idx + 1));
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:381: error: cannot find symbol
+          if (ImGui.combo(tr("ui.theme"), themeSel, themes)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:387: error: cannot find symbol
+          if (ImGui.combo(tr("ui.fill"), fillSel, fills)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:394: error: cannot find symbol
+              ImGui.textWrapped(tr("ui.fill.block",
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:396: error: cannot find symbol
+              if (ImGui.button(tr("ui.pick_active"))) {
+                  ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:404: error: cannot find symbol
+              ImGui.textDisabled(tr("ui.fill.random_hint"));
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:406: error: cannot find symbol
+                  if (ImGui.sliderInt(
+                      ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:413: error: cannot find symbol
+                  if (ImGui.button(tr("ui.pick_active") + "##fillbtn" + i)) {
+                      ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:424: error: cannot find symbol
+          if (ImGui.combo(tr("ui.height"), heightSel, heights)) {
+              ^
+    symbol:   variable ImGui
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:550: error: cannot find symbol
+          BlockRegion region = Axiom.createBlockRegion();
+          ^
+    symbol:   class BlockRegion
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:29: error: cannot find symbol
+              var reg = ServiceLoader.load(ToolRegistryService.class,
+                                           ^
+    symbol:   class ToolRegistryService
+    location: class Axiom
+  Note: Some input files use or override a deprecated API.
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:88: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:112: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:126: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:149: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:169: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:175: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:185: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:41: error: cannot find symbol
+  public class RailwayTool implements CustomTool {
+                                      ^
+    symbol: class CustomTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:17: error: package com.moulberry.axiomclientapi does not exist
+  import com.moulberry.axiomclientapi.CustomTool;
+                                     ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:18: error: package com.moulberry.axiomclientapi does not exist
+  import com.moulberry.axiomclientapi.Effects;
+                                     ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:19: error: package com.moulberry.axiomclientapi.regions does not exist
+  import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:20: error: package com.moulberry.axiomclientapi.regions does not exist
+  import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:22: error: package imgui.moulberry92 does not exist
+  import imgui.moulberry92.ImGui;
+                          ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:23: error: package imgui.moulberry92.type does not exist
+  import imgui.moulberry92.type.ImBoolean;
+                               ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:24: error: package imgui.moulberry92.type does not exist
+  import imgui.moulberry92.type.ImInt;
+                               ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:3: error: package com.moulberry.axiomclientapi does not exist
+  import com.moulberry.axiomclientapi.CustomTool;
+                                     ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:4: error: package com.moulberry.axiomclientapi.regions does not exist
+  import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:5: error: package com.moulberry.axiomclientapi.regions does not exist
+  import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:6: error: package com.moulberry.axiomclientapi.service does not exist
+  import com.moulberry.axiomclientapi.service.RegionProvider;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:7: error: package com.moulberry.axiomclientapi.service does not exist
+  import com.moulberry.axiomclientapi.service.ToolRegistryService;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:8: error: package com.moulberry.axiomclientapi.service does not exist
+  import com.moulberry.axiomclientapi.service.ToolService;
+                                             ^
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
+          int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+                                                ^
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:17: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.CustomTool;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:18: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.Effects;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:19: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:20: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:22: error: package imgui.moulberry92 does not exist
+import imgui.moulberry92.ImGui;
+                        ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:23: error: package imgui.moulberry92.type does not exist
+import imgui.moulberry92.type.ImBoolean;
+                             ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:24: error: package imgui.moulberry92.type does not exist
+import imgui.moulberry92.type.ImInt;
+                             ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:41: error: cannot find symbol
+public class RailwayTool implements CustomTool {
+                                    ^
+  symbol: class CustomTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+    private final ImBoolean groundSnap = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+    private final ImBoolean smoothRidges = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+    private final ImBoolean purgeCorners = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+    private final ImBoolean showGhost = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+    private final ImBoolean showSplineGhost = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+    private final ImBoolean adaptive = new ImBoolean(true);
+                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+    private final ImInt styleSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+    private final ImInt orientSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+    private final ImInt themeSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+    private final ImInt fillSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+    private final ImInt heightSel = new ImInt(0);
+                  ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:70: error: cannot find symbol
+    private BooleanRegion splineGhost;
+            ^
+  symbol:   class BooleanRegion
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:10: error: cannot find symbol
+import net.minecraft.util.Heightmap;
+                         ^
+  symbol:   class Heightmap
+  location: package net.minecraft.util
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:3: error: package com.moulberry.axiomclientapi does not exist
+import com.moulberry.axiomclientapi.CustomTool;
+                                   ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:4: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BlockRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:5: error: package com.moulberry.axiomclientapi.regions does not exist
+import com.moulberry.axiomclientapi.regions.BooleanRegion;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:6: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.RegionProvider;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:7: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.ToolRegistryService;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:8: error: package com.moulberry.axiomclientapi.service does not exist
+import com.moulberry.axiomclientapi.service.ToolService;
+                                           ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:16: error: cannot find symbol
+    private static ToolRegistryService registry;
+                   ^
+  symbol:   class ToolRegistryService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:17: error: cannot find symbol
+    private static ToolService tools;
+                   ^
+  symbol:   class ToolService
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:18: error: cannot find symbol
+    private static RegionProvider regions;
+                   ^
+  symbol:   class RegionProvider
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:48: error: cannot find symbol
+    public static void registerTool(CustomTool tool) {
+                                    ^
+  symbol:   class CustomTool
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:60: error: cannot find symbol
+    public static void push(BlockRegion region) {
+                            ^
+  symbol:   class BlockRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:64: error: cannot find symbol
+    public static BlockRegion createBlockRegion() {
+                  ^
+  symbol:   class BlockRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:68: error: cannot find symbol
+    public static BooleanRegion createBooleanRegion() {
+                  ^
+  symbol:   class BooleanRegion
+  location: class Axiom
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:49: error: cannot find symbol
+    private final ImBoolean groundSnap = new ImBoolean(true);
+                                             ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:50: error: cannot find symbol
+    private final ImBoolean smoothRidges = new ImBoolean(true);
+                                               ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:51: error: cannot find symbol
+    private final ImBoolean purgeCorners = new ImBoolean(true);
+                                               ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:52: error: cannot find symbol
+    private final ImBoolean showGhost = new ImBoolean(true);
+                                            ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:53: error: cannot find symbol
+    private final ImBoolean showSplineGhost = new ImBoolean(true);
+                                                  ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:54: error: cannot find symbol
+    private final ImBoolean adaptive = new ImBoolean(true);
+                                           ^
+  symbol:   class ImBoolean
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:61: error: cannot find symbol
+    private final ImInt styleSel = new ImInt(0);
+                                       ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:62: error: cannot find symbol
+    private final ImInt orientSel = new ImInt(0);
+                                        ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:63: error: cannot find symbol
+    private final ImInt themeSel = new ImInt(0);
+                                       ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:64: error: cannot find symbol
+    private final ImInt fillSel = new ImInt(0);
+                                      ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:65: error: cannot find symbol
+    private final ImInt heightSel = new ImInt(0);
+                                        ^
+  symbol:   class ImInt
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:88: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:112: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:126: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:145: error: cannot find symbol
+            splineGhost.render(camera, Vec3.ZERO, poseStack, projection, nanos, Effects.OUTLINE);
+                                                                                ^
+  symbol:   variable Effects
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:149: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:169: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:175: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:185: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:190: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_1"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:191: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_2"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:192: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.help_3"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:194: error: cannot find symbol
+            ImGui.textWrapped("/!\\ " + warning);
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:197: error: cannot find symbol
+            ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:199: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:201: error: cannot find symbol
+        if (ImGui.button(tr("ui.undo"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:204: error: cannot find symbol
+        ImGui.sameLine();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:205: error: cannot find symbol
+        if (ImGui.button(tr("ui.confirm"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:208: error: cannot find symbol
+        ImGui.sameLine();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:209: error: cannot find symbol
+        if (ImGui.button(tr("ui.clear"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:213: error: cannot find symbol
+        ImGui.text(tr("ui.points", control.size()));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:215: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:216: error: cannot find symbol
+            if (ImGui.button(tr("ui.simplify"))) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:221: error: cannot find symbol
+            ImGui.text(tr("ui.est_blocks", planCount));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:223: error: cannot find symbol
+                ImGui.text(tr("ui.length", splineLength));
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:226: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:228: error: cannot find symbol
+        ImGui.textDisabled(tr("ui.gen"));
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:229: error: cannot find symbol
+        if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:232: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.adaptive"), adaptive)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:235: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:239: error: cannot find symbol
+            if (ImGui.checkbox(tr("ui.smooth_ridges"), smoothRidges)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:243: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.purge_corners"), purgeCorners)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:246: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ghost"), showGhost)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:249: error: cannot find symbol
+        if (ImGui.checkbox(tr("ui.ghost_spline"), showSplineGhost)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:252: error: cannot find symbol
+        ImGui.separator();
+        ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:255: error: cannot find symbol
+        if (ImGui.combo(tr("ui.style"), styleSel, styles)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:263: error: cannot find symbol
+        if (ImGui.combo(tr("ui.orientation"), orientSel, orients)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:272: error: cannot find symbol
+        if (ImGui.collapsingHeader(tr("ui.debug"))) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:274: error: cannot find symbol
+                ImGui.textDisabled(String.format(java.util.Locale.ROOT,
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:281: error: cannot find symbol
+        if (!ImGui.collapsingHeader(tr("ui.presets"))) {
+             ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:286: error: cannot find symbol
+            if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:289: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:290: error: cannot find symbol
+            if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:294: error: cannot find symbol
+            ImGui.sameLine();
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:295: error: cannot find symbol
+            ImGui.textDisabled("#" + (idx + 1));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:381: error: cannot find symbol
+        if (ImGui.combo(tr("ui.theme"), themeSel, themes)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:387: error: cannot find symbol
+        if (ImGui.combo(tr("ui.fill"), fillSel, fills)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:394: error: cannot find symbol
+            ImGui.textWrapped(tr("ui.fill.block",
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:396: error: cannot find symbol
+            if (ImGui.button(tr("ui.pick_active"))) {
+                ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:404: error: cannot find symbol
+            ImGui.textDisabled(tr("ui.fill.random_hint"));
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:406: error: cannot find symbol
+                if (ImGui.sliderInt(
+                    ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:413: error: cannot find symbol
+                if (ImGui.button(tr("ui.pick_active") + "##fillbtn" + i)) {
+                    ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:424: error: cannot find symbol
+        if (ImGui.combo(tr("ui.height"), heightSel, heights)) {
+            ^
+  symbol:   variable ImGui
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:550: error: cannot find symbol
+        BlockRegion region = Axiom.createBlockRegion();
+        ^
+  symbol:   class BlockRegion
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:120: error: package Heightmap does not exist
+        int top = mc.level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+                                              ^
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/axiom/Axiom.java:29: error: cannot find symbol
+            var reg = ServiceLoader.load(ToolRegistryService.class,
+                                         ^
+  symbol:   class ToolRegistryService
+  location: class Axiom
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+100 errors
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
+	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
+	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$3(JavaCompile.java:206)
+	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
+	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
+	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
+	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:244)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:227)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:210)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:176)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:167)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:47)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:137)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:134)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:134)
+	at org.gradle.internal.execution.steps.ExecuteStep$Mutable.execute(ExecuteStep.java:80)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:51)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:29)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:67)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:39)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:42)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:24)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:39)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:28)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:76)
+	at org.gradle.internal.Either$Right.fold(Either.java:176)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:74)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:49)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:46)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:35)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:70)
+	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:32)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:69)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:37)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:63)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:34)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:79)
+	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:65)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:99)
+	at org.gradle.internal.execution.steps.ValidateStep$Mutable.execute(ValidateStep.java:65)
+	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.executeMutable(CaptureMutableStateBeforeExecutionStep.java:86)
+	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
+	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:305)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
+	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
+	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+	... 30 more
+
+
+BUILD FAILED in 49s
+1 actionable task: 1 executed
