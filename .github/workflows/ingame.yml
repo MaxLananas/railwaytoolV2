@@ -1,0 +1,86 @@
+name: In-game test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/ingame_driver.py'
+      - '.github/workflows/ingame.yml'
+      - 'src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingame-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  client:
+    name: Real client (Xvfb + llvmpipe)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install virtual display and automation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb xdotool imagemagick tesseract-ocr \
+            libgl1-mesa-dri libglx-mesa0 mesa-utils \
+            libxi6 libxcursor1 libxrandr2 libxinerama1 libxxf86vm1
+
+      - name: Python dependencies
+        run: pip install --break-system-packages minecraft-launcher-lib
+
+      - name: Cache Minecraft files
+        uses: actions/cache@v4
+        with:
+          path: run-mc
+          key: mc-${{ runner.os }}-1.21.10-fabric-0.19.3-v1
+
+      - name: Build mod
+        run: |
+          mkdir -p ingame
+          chmod +x ./gradlew
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee ingame/build.log
+          ls -l build/libs | tee -a ingame/build.log
+
+      - name: Run client and drive menus
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1280x720x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
+          sleep 3
+          MOD=$(ls build/libs/rail-path-tool-*.jar | grep -v sources | head -1)
+          python3 tools/ingame_driver.py \
+            --mod "$MOD" --java "$JAVA_HOME/bin/java" \
+            --mc-dir run-mc --out ingame
+
+      - name: Publish results as a commit
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -f ingame || true
+          if ! git diff --cached --quiet; then
+            git commit -m "test(ingame): automated client report [skip ci]"
+            git push
+          fi
+
+      - name: Upload logs and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingame-report
+          path: ingame
+          if-no-files-found: warn
