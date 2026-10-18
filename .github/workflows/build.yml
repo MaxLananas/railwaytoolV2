@@ -37,7 +37,21 @@ jobs:
       - name: Run parity check
         run: |
           chmod +x ./gradlew
-          ./gradlew parityCheck --no-daemon --stacktrace
+          set -o pipefail
+          ./gradlew parityCheck --no-daemon --stacktrace 2>&1 | tee /tmp/ci.log
+
+      - name: Publish build log on failure
+        if: failure() && startsWith(github.ref, 'refs/heads/arena/')
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          mkdir -p ci
+          cp /tmp/ci.log ci/last-build.log || true
+          git add -f ci/last-build.log
+          if ! git diff --cached --quiet; then
+            git commit -m "ci: capture failing build log [skip ci]"
+            git push
+          fi
 
   build:
     name: Build
