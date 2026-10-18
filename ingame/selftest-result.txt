@@ -1,0 +1,2 @@
+[SELFTEST] FAIL waiting 100 ticks for the server | point z=8 ground=-60 added=true | point z=16 ground=-60 added=true | point z=24 ground=-60 added=true | confirm sent | cores=0 walls=0 supports=0 airAbove=0 woolLeft=0 ghost=first=false second=false reacquired=false sample=
+FAIL
