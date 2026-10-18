@@ -73,6 +73,7 @@ public class RailwayTool implements CustomTool {
     private boolean phantomAcquired = false;
     private String status = "";
     private boolean statusError = false;
+    private String warning = "";
 
     public RailwayTool() {
         config = RailConfig.load();
@@ -116,6 +117,7 @@ public class RailwayTool implements CustomTool {
         dirty = true;
         status = "";
         statusError = false;
+        warning = "";
         if (phantomAcquired) {
             Axiom.releaseChunkRenderOverrider("bte_railpathtool");
             phantomAcquired = false;
@@ -178,6 +180,9 @@ public class RailwayTool implements CustomTool {
         ImGui.textDisabled(tr("ui.help_1"));
         ImGui.textDisabled(tr("ui.help_2"));
         ImGui.textDisabled(tr("ui.help_3"));
+        if (!warning.isEmpty()) {
+            ImGui.textWrapped("/!\\ " + warning);
+        }
         if (!status.isEmpty()) {
             ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
         }
@@ -266,20 +271,39 @@ public class RailwayTool implements CustomTool {
         if (!ImGui.collapsingHeader(tr("ui.presets"))) {
             return;
         }
-        RailConfig.Data[] slots = {config.preset1, config.preset2, config.preset3};
-        for (int i = 0; i < slots.length; i++) {
+        for (int i = 0; i < 3; i++) {
             final int idx = i;
             if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
-                applyData(slots[idx]);
+                applyData(preset(idx));
             }
             ImGui.sameLine();
             if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
-                slots[idx] = snapshotData();
+                setPreset(idx, snapshotData());
                 persistConfig();
             }
             ImGui.sameLine();
             ImGui.textDisabled("#" + (idx + 1));
         }
+    }
+
+    private RailConfig.Data preset(int index) {
+        return switch (index) {
+            case 1 -> config.preset2;
+            case 2 -> config.preset3;
+            default -> config.preset1;
+        };
+    }
+
+    private void setPreset(int index, RailConfig.Data data) {
+        switch (index) {
+            case 1 -> config.preset2 = data;
+            case 2 -> config.preset3 = data;
+            default -> config.preset1 = data;
+        }
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     private RailConfig.Data snapshotData() {
@@ -301,11 +325,11 @@ public class RailwayTool implements CustomTool {
             return;
         }
         density[0] = Math.max(2, Math.min(12, d.density));
-        styleSel.set(d.styleIndex);
-        themeSel.set(d.themeIndex);
-        fillSel.set(d.fillIndex);
-        heightSel.set(d.heightIndex);
-        orientSel.set(d.orientIndex);
+        styleSel.set(clamp(d.styleIndex, 0, 1));
+        themeSel.set(clamp(d.themeIndex, 0, 1));
+        fillSel.set(clamp(d.fillIndex, 0, 1));
+        heightSel.set(clamp(d.heightIndex, 0, 1));
+        orientSel.set(clamp(d.orientIndex, 0, 3));
         smoothRidges.set(d.smoothRidges);
         purgeCorners.set(d.purgeCorners);
         groundSnap.set(d.snapGround);
@@ -432,9 +456,7 @@ public class RailwayTool implements CustomTool {
         splineLength = trace.size();
 
         int islands = countIslands(trace);
-        if (islands > 1) {
-            setStatus(tr("ui.disconnected", islands), true);
-        }
+        warning = islands > 1 ? tr("ui.disconnected", islands) : "";
 
         t0 = Profiler.timeStart();
         TrackModel model = new TrackModel(view, trace, overrideMode);
@@ -482,9 +504,6 @@ public class RailwayTool implements CustomTool {
         }
         if (plan.size() > MAX_PLAN_BLOCKS) {
             setStatus(tr("ui.plan_too_big", plan.size(), MAX_PLAN_BLOCKS), true);
-        } else if (statusError) {
-            status = "";
-            statusError = false;
         }
     }
 

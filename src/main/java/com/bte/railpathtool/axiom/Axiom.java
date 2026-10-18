@@ -45,10 +45,6 @@ public final class Axiom {
         }
     }
 
-    public static boolean isReady() {
-        return ready;
-    }
-
     public static void registerTool(CustomTool tool) {
         registry.register(tool);
     }

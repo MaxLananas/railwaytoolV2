@@ -39,13 +39,6 @@ public final class WorldView {
         overlay.put(BlockPos.asLong(x, y, z), state);
     }
 
-    public BlockState initialAt(int x, int y, int z) {
-        if (level == null) {
-            return Blocks.AIR.defaultBlockState();
-        }
-        return level.getBlockState(new BlockPos(x, y, z));
-    }
-
     public Long2ObjectOpenHashMap<BlockState> overlay() {
         return overlay;
     }

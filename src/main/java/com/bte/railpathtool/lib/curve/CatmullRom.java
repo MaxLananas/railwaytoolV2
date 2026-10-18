@@ -27,33 +27,6 @@ public final class CatmullRom {
                 + (-a + 3 * b - 3 * c + d) * t3);
     }
 
-    /** Vecteur vitesse (derivee premiere) a t. */
-    public static Vec3 deriv(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, double t) {
-        double t2 = t * t;
-        return new Vec3(
-                crD(p0.x, p1.x, p2.x, p3.x, t, t2),
-                crD(p0.y, p1.y, p2.y, p3.y, t, t2),
-                crD(p0.z, p1.z, p2.z, p3.z, t, t2));
-    }
-
-    private static double crD(double a, double b, double c, double d,
-                              double t, double t2) {
-        return 0.5 * ((-a + c) + 2 * (2 * a - 5 * b + 4 * c - d) * t
-                + 3 * (-a + 3 * b - 3 * c + d) * t2);
-    }
-
-    /** Vecteur acceleration (derivee seconde) a t. */
-    public static Vec3 deriv2(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, double t) {
-        return new Vec3(
-                crD2(p0.x, p1.x, p2.x, p3.x, t),
-                crD2(p0.y, p1.y, p2.y, p3.y, t),
-                crD2(p0.z, p1.z, p2.z, p3.z, t));
-    }
-
-    private static double crD2(double a, double b, double c, double d, double t) {
-        return (2 * a - 5 * b + 4 * c - d) + 3 * (-a + 3 * b - 3 * c + d) * t;
-    }
-
     /**
      * Courbure discrete du controle : angle entre les segments consecutifs
      * normalise par la corde moyenne (0 = droit). >0.25 : virage serre.

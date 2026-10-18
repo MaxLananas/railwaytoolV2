@@ -45,19 +45,31 @@ public final class RailConfig {
         public boolean purgeCorners = true;
         public boolean snapGround = true;
 
-        public Data copy() {
-            Data d = new Data();
-            d.density = density;
-            d.styleIndex = styleIndex;
-            d.themeIndex = themeIndex;
-            d.fillIndex = fillIndex;
-            d.heightIndex = heightIndex;
-            d.orientIndex = orientIndex;
-            d.smoothRidges = smoothRidges;
-            d.purgeCorners = purgeCorners;
-            d.snapGround = snapGround;
-            return d;
+        private void sanitize() {
+            density = clamp(density, 2, 12);
+            styleIndex = clamp(styleIndex, 0, 1);
+            themeIndex = clamp(themeIndex, 0, 1);
+            fillIndex = clamp(fillIndex, 0, 1);
+            heightIndex = clamp(heightIndex, 0, 1);
+            orientIndex = clamp(orientIndex, 0, 3);
         }
+    }
+
+    /** Ramene les valeurs hors bornes d'un fichier edite a la main. */
+    public void sanitize() {
+        density = clamp(density, 2, 12);
+        styleIndex = clamp(styleIndex, 0, 1);
+        themeIndex = clamp(themeIndex, 0, 1);
+        fillIndex = clamp(fillIndex, 0, 1);
+        heightIndex = clamp(heightIndex, 0, 1);
+        orientIndex = clamp(orientIndex, 0, 3);
+        preset1.sanitize();
+        preset2.sanitize();
+        preset3.sanitize();
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     public static Path path() {
@@ -79,6 +91,7 @@ public final class RailConfig {
                     if (c.preset3 == null) {
                         c.preset3 = new Data();
                     }
+                    c.sanitize();
                     return c;
                 }
             } catch (IOException | RuntimeException ignored) {
