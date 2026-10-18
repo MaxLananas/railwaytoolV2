@@ -9,6 +9,10 @@ plugins {
 // configuration time so Loom remaps it like any fileTree dependency.
 def axiomJar = file("libs/Axiom-${project.axiom_version}-for-MC${project.minecraft_version}.jar")
 def axiomApi = file("libs/axiomclientapi.jar")
+println "libs/ contains: ${fileTree(dir: 'libs', include: ['*.jar']).files*.name}"
+if (!axiomJar.exists()) {
+    println "MISSING ${axiomJar.name}: Axiom must be downloaded into libs/ before compiling"
+}
 if (axiomJar.exists() && !axiomApi.exists()) {
     def tmp = layout.buildDirectory.dir("axiom-nested").get().asFile
     delete(tmp)

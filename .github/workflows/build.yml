@@ -16,6 +16,8 @@ jobs:
   parity:
     name: Java / simulator parity
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -33,6 +35,11 @@ jobs:
           mkdir -p libs
           curl -L --retry 3 --retry-delay 5 --fail \
             -o "libs/${AXIOM_JAR}" "${AXIOM_URL}"
+
+      - name: Inspect libs
+        run: |
+          ls -l libs
+          file libs/* || true
 
       - name: Run parity check
         run: |
