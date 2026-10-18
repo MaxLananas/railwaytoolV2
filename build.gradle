@@ -4,6 +4,36 @@ plugins {
     id 'idea'
 }
 
+// Axiom embarque l'API officielle des addons en jar-in-jar (META-INF/jars/axiomclientapi.jar).
+// Extraction dans libs/ dès la configuration (API Gradle pure), pour que Loom
+// le remappe ensuite comme les autres dépendances de fileTree.
+def axiomJar = file("libs/Axiom-${project.axiom_version}-for-MC${project.minecraft_version}.jar")
+def axiomApi = file("libs/axiomclientapi.jar")
+if (axiomJar.exists() && !axiomApi.exists()) {
+    def tmp = layout.buildDirectory.dir("axiom-nested").get().asFile
+    delete(tmp)
+    mkdir(tmp)
+    copy {
+        from(zipTree(axiomJar)) {
+            include "META-INF/jars/*axiomclientapi*.jar"
+        }
+        into tmp
+    }
+    def nested = fileTree(tmp) {
+        include "**/*.jar"
+    }.files.find { it.name.contains("axiomclientapi") }
+    if (nested != null) {
+        copy {
+            from nested
+            into "libs"
+            rename { "axiomclientapi.jar" }
+        }
+        println "axiomclientapi extrait de ${axiomJar.name} -> libs/axiomclientapi.jar"
+    } else {
+        println "ATTENTION: axiomclientapi introuvable dans ${axiomJar.name}"
+    }
+}
+
 version = project.mod_version
 group   = project.maven_group
 
@@ -23,6 +53,7 @@ dependencies {
     modImplementation  "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     modCompileOnly fileTree(dir: 'libs', include: ['*.jar'])
+
 }
 
 idea {
@@ -55,3 +86,29 @@ jar {
         rename { "${it}_${archives_base_name}" }
     }
 }
+
+// ── PARITÉ Java/simulateur ───────────────────────────────────────────────────
+// Rejoue le vrai pipeline du mod sur sim/parity/scenes.txt et exige un monde
+// final identique, bloc par bloc, à la sortie du simulateur (auto-validée).
+// Lancer : ./gradlew parityCheck  — échoue sur la moindre divergence.
+tasks.register('parityCheck', JavaExec) {
+    group = 'verification'
+    description = 'Parité Java/sim : le mod réel vs les scènes auto-validées'
+    // sim/parity/scenes.txt est DÉTRACKÉ (régénéré par sim/parity_export.py —
+    // la CI le produit en tête du job parity). Sans lui, la tâche est
+    // sautée plutôt que cassée : un clone frais doit pouvoir builder.
+    onlyIf { file('sim/parity/scenes.txt').exists() }
+    dependsOn 'classes'
+    classpath = sourceSets.main.output + sourceSets.main.compileClasspath
+    mainClass = 'com.bte.railpathtool.dev.ParityHarness'
+    args('sim/parity/scenes.txt')
+    workingDir = rootProject.projectDir
+    if (project.hasProperty('parityDebugScene')) {
+        systemProperty 'parity.debugScene', project.property('parityDebugScene')
+        systemProperty 'grounding.debug', '1'
+    }
+
+}
+// La parité fait partie de la porte `check` : impossible de livrer un build
+// dont le vrai pipeline Java diverge du simulateur validé.
+check.dependsOn tasks.named('parityCheck')

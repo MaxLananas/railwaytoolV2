@@ -1,0 +1,8 @@
+
+# build artifacts
+.gradle/
+build/
+/libs/axiomclientapi.jar
+__pycache__/
+*.pyc
+sim/parity/scenes.txt

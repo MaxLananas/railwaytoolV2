@@ -2,7 +2,7 @@ name: Build & Release
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, 'arena/**' ]
   pull_request:
     branches: [ main, master ]
 
@@ -13,6 +13,88 @@ env:
   AXIOM_URL: https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar
 
 jobs:
+  parity:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Regenerate parity scenes (sim)
+        run: |
+          PYTHONHASHSEED=0 python3 sim/parity_export.py
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Download Axiom from Modrinth
+        run: |
+          mkdir -p libs
+          curl -L \
+            --retry 3 \
+            --retry-delay 5 \
+            --fail \
+            -o "libs/${{ env.AXIOM_JAR }}" \
+            "${{ env.AXIOM_URL }}"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: false
+          cache-read-only: false
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Parity check (real Java pipeline vs validated sim)
+        id: parity
+        run: |
+          set -o pipefail
+          ./gradlew parityCheck --no-daemon --stacktrace 2>&1 | tee /tmp/parity.log
+
+      - name: Debug - log parity en commentaire de commit
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p ci
+          # Les [GDD] (debug global) inondent tout : on extrait d'abord
+          # les rares [DBG]/[FW]/[WORLDDBG] (scene cible) SANS quota
+          # commun, puis un petit echantillon de GDD/GDC au cas ou.
+          { grep -E "attendu=" /tmp/parity.log | head -140
+            grep -E "OK / | DIFFERENT|differences$|AssertionError" /tmp/parity.log | tail -40
+            grep -E "\[GCELL|\[LCELL" /tmp/parity.log | head -40
+            grep -E "\[DBG|\[JAVA-TRACE" /tmp/parity.log | head -60
+            grep -E "\[FW\]" /tmp/parity.log | grep -vE "grass_block|stone\"|dirt|water|sand\"|clay|snow_block|ice|oak_leaves|spruce_leaves|mud\"" | head -160
+            grep -E "\[WORLDDBG" /tmp/parity.log | head -10
+            grep -E "\[GDD|\[GDC" /tmp/parity.log | head -40
+          } > ci/parity-failure.log
+          echo "=== tail ===" >> ci/parity-failure.log
+          tail -180 /tmp/parity.log >> ci/parity-failure.log
+          git add ci/parity-failure.log
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "ci(debug): log parity [skip ci]" || true
+          git push origin HEAD:${{ github.ref_name }} || true
+          # Canal de secours fiable : commentaire de commit (blob raccourci)
+          python3 - <<'PYEOF' || true
+          import json, os, urllib.request
+          body = open("ci/parity-failure.log").read()[-60000:]
+          data = json.dumps({"body": "```\n" + body + "\n```"}).encode()
+          req = urllib.request.Request(
+              "https://api.github.com/repos/MaxLananas/railwaytoolV2"
+              "/commits/" + os.environ["GITHUB_SHA"] + "/comments",
+              data=data, method="POST",
+              headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                       "Accept": "application/vnd.github+json",
+                       "Content-Type": "application/json"})
+          print(urllib.request.urlopen(req).status)
+          PYEOF
+
   build:
     runs-on: ubuntu-24.04
     permissions:
@@ -102,13 +184,24 @@ jobs:
 
       - name: Build
         run: |
-          ./gradlew build \
-            --no-daemon \
-            --parallel \
-            --warning-mode summary \
-            --stacktrace
-        env:
-          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Xmx3G -Xms1G"
+          set -o pipefail
+          ./gradlew build --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
+
+      - name: Commit build failure log
+        if: failure()
+        run: |
+          mkdir -p ci
+          grep -nE "FAILED|error:|cannot find symbol|Execution failed|Caused by|BUILD FAILED" /tmp/build.log | head -80 > ci/build-failure.log
+          echo "=== tail ===" >> ci/build-failure.log
+          tail -120 /tmp/build.log >> ci/build-failure.log
+          git add ci/build-failure.log
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # pas de push sur les PR — juste la branche courante.
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            git commit -m "ci(debug): log build [skip ci]" || true
+            git push || true
+          fi
 
       - name: Get mod version
         id: version
