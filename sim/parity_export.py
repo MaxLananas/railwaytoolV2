@@ -324,12 +324,11 @@ def scenes():
         ntr = rnd.choice((2, 2, 3))
         for t in range(ntr):
             ang = t * (3.14159 / ntr) + rnd.uniform(-0.2, 0.2)
-            pts = []
-            for k in range(rnd.randint(3, 5)):
-                d = 4 + k * rnd.randint(4, 7)
-                for sg in (-1, 1) if k == 0 else (1,):
-                    pass
-            # trace qui traverse le centre
+            # Keep the historical draw sequence: scene ids and geometry are
+            # part of the regression corpus.
+            for _ in range(rnd.randint(3, 5)):
+                rnd.randint(4, 7)
+            # trace crossing the centre
             L = rnd.randint(10, 16)
             y0 = base_y + rnd.choice((0, 0, 1))
             y1 = base_y + rnd.choice((0, 0, 1))

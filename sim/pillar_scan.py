@@ -160,8 +160,6 @@ def process(sid, world, pre_keys, seeds=()):
 
 def scenes_vallees():
     """Quelques creux/vallons dédiés pour forcer de vrais piliers."""
-    import realistic_stress as RS
-
     def valley(h0=62, depth=4, width=2):
         def h(x, z):
             return h0 - depth if (x + z) % 7 < width else h0

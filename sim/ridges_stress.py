@@ -102,7 +102,6 @@ def run_ridge(seed):
         if len(ys) > 2:
             fail(f"ridge-{seed}", f"colonne {col} creusee {len(ys)} blocs")
 
-    y_trace = {v[1] for v in t}
     if len(t) > 3:
         y0 = trace[0][1]
         bumped = [v for v in t if v[1] != y0]

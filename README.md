@@ -103,4 +103,4 @@ world, so a single stray or missing block fails the build.
 
 ## License
 
-CC0-1.0. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

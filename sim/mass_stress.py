@@ -163,8 +163,6 @@ DIRS8 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 def gen_trace(rnd):
     mode = rnd.randrange(9)
     x, y, z = 0, 1, 0
-    trace = [(x, z, y)]  # placeholder corrige ci-dessous
-    trace = [(0, 1, 0)]
     if mode == 0:  # ligne droite 8 directions, pente possible
         dx, dz = DIRS8[rnd.randrange(8)]
         dy = rnd.choice((0, 0, 0, 1, -1))

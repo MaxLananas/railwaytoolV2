@@ -49,7 +49,6 @@ def gen_mainline(seed, length=600.0, min_radius=120.0):
     pts = [(0.0, 64.0, 0.0)]
     heading = rnd.uniform(0, math.tau)
     x, z = 0.0, 0.0
-    y = 64.0
     remaining = length
     while remaining > 0:
         seg = rnd.uniform(45.0, 75.0)

@@ -22,7 +22,6 @@ Invariants (doivent tenir PARTOUT, même dans l'absurde) :
   6. Perf : chaque build d'une trace de taille raisonnable restera < ~2 s.
 """
 
-import json
 import math
 import random
 import sys
@@ -188,11 +187,9 @@ def run_mega(name, trace, colors=None, terrain="flat",
         w = make_hostile_world(trace, seed=zlib.crc32(name.encode()) & 0xFFFF, terrain=terrain)
         if colors:
             for pos, c in colors.items():
-                if w.get(*pos) != R.AIR or True:
-                    w.set(pos[0], pos[1], pos[2], c)
+                w.set(pos[0], pos[1], pos[2], c)
         pre0 = set(w.blocks.keys())
         t0 = time.time()
-        last = snapshot(w)
         for p in range(passes):
             style = base_style
             buried = options_varies and (p % 2 == 1)
@@ -200,7 +197,6 @@ def run_mega(name, trace, colors=None, terrain="flat",
             theme = 1 + (p % 2)
             opt = R.Options(style=style, theme=theme, fill_mode=fill, buried=buried)
             before = snapshot(w)
-            t_build = time.time()
             try:
                 model = R.build_all(w, trace, opt)
             except Exception as e:
@@ -217,7 +213,6 @@ def run_mega(name, trace, colors=None, terrain="flat",
             check_states(f"{name}/{base_style}/pass{p}", w)
             check_doors(f"{name}/{base_style}/pass{p}", w)
             check_all_typed(f"{name}/{base_style}/pass{p}", model, trace)
-            last = after
         check_corridor(f"{name}/{base_style}", w, trace, pre_keys=pre0)
         dt = time.time() - t0
         if len(trace) > 200 and dt > 5.0:
@@ -266,7 +261,6 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
         for theme in (1, 2):
             tag = f"{style}/th{theme}"
             before = snapshot(w)
-            t0 = time.time()
             try:
                 model = R.build_all(w, trace, R.Options(style=style, theme=theme))
             except Exception as e:

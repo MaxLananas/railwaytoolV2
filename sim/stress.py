@@ -85,7 +85,6 @@ def diag_line(x0, z0, dx, dz, n, y=1):
 def make_world(trace, colors=None, flat_pad=4, height_fn=None):
     xs = [v[0] for v in trace]
     zs = [v[2] for v in trace]
-    ys = [v[1] for v in trace]
     w = R.flat_world(min(xs) - flat_pad, max(xs) + flat_pad,
                      min(zs) - flat_pad, max(zs) + flat_pad, height_fn=height_fn)
     for x, y, z in trace:
