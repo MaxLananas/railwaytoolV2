@@ -176,15 +176,6 @@ public final class ParityHarness {
         return out;
     }
 
-    private static List<String> toTraceLinesBP(
-            java.util.List<BlockPos> voxels) {
-        List<String> out = new ArrayList<>(voxels.size());
-        for (BlockPos v : voxels) {
-            out.add(v.getX() + "," + v.getY() + "," + v.getZ());
-        }
-        return out;
-    }
-
     /** Bloc par nom de registre (défaut air si inconnu — jamais le cas ici). */
     private static Block blockByName(String name) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
@@ -251,51 +242,18 @@ public final class ParityHarness {
                 net.minecraft.world.level.block.state.BlockState layCur =
                         view.at(v.getX(), v.getY(), v.getZ());
                 boolean layOk = Grounding.isWoolLayable(layCur);
-                if (sc.id.equals(
-                        System.getProperty("parity.debugScene", ""))
-                        && (v.getX() + "," + v.getY() + "," + v.getZ())
-                                .equals(System.getProperty(
-                                        "grounding.debugCell", "__"))) {
-                    System.out.println("[LCELL] " + v.getX() + "," + v.getY()
-                            + "," + v.getZ() + " cur=" + layCur.getBlock()
-                            + " layable=" + layOk);
-                }
                 if (layOk) {
                     view.put(v.getX(), v.getY(), v.getZ(),
                             Blocks.WHITE_WOOL.defaultBlockState());
                 }
             }
+            // Meme pipeline que RailwayTool.recompute.
             LongOpenHashSet dug = new LongOpenHashSet();
-            boolean db = sc.id.equals(
-                    System.getProperty("parity.debugScene", ""));
-            Grounding.DEBUG_SCOPE = db;
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] avant: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
             trace = Grounding.apply(view, trace, dug);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] apresG1: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
-            // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
-            // intermediaire — le Grounding gere lui-meme la laine.
             trace = LCorners.purge(view, trace);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] apresL: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
             trace = Grounding.apply(view, trace, dug);
             trace = Grounding.flattenTeeth(view, trace);
             trace = Grounding.dedupeColumns(view, trace);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] fin: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
 
             for (BlockPos v : trace) {
                 traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
