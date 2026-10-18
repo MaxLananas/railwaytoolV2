@@ -40,7 +40,7 @@ jobs:
             libxi6 libxcursor1 libxrandr2 libxinerama1 libxxf86vm1
 
       - name: Python dependencies
-        run: pip install --break-system-packages minecraft-launcher-lib
+        run: pip install --break-system-packages minecraft-launcher-lib nbtlib
 
       - name: Cache Minecraft files
         uses: actions/cache@v4

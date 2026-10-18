@@ -162,6 +162,17 @@ def superflat_world(mc_dir, java, out):
     return save
 
 
+def enable_cheats(save):
+    """Axiom needs command level permissions to apply a build."""
+    import nbtlib
+    path = os.path.join(save, "level.dat")
+    nbt = nbtlib.load(path)
+    data = nbt["Data"]
+    data["allowCommands"] = nbtlib.Byte(1)
+    nbt.save(gzip=True)
+    log("cheats enabled in " + path)
+
+
 def write_options(mc_dir):
     options = {
         "version": "3955",
@@ -228,7 +239,8 @@ def main():
     import minecraft_launcher_lib as mcl
 
     version_id = install(args.mc_dir, args.java)
-    superflat_world(args.mc_dir, args.java, args.out)
+    save = superflat_world(args.mc_dir, args.java, args.out)
+    enable_cheats(save)
 
     mods = os.path.join(args.mc_dir, "mods")
     os.makedirs(mods, exist_ok=True)
@@ -282,9 +294,10 @@ def main():
         time.sleep(5)
 
     if os.path.isfile(result):
-        shell("xdotool", "key", "F2")
         time.sleep(2)
         shell("xdotool", "key", "F1")
+        time.sleep(1)
+        shell("xdotool", "key", "F2")
         time.sleep(1)
         screenshot(args.display, os.path.join(args.out, "world.png"))
         shots.append(os.path.join(args.out, "world.png"))
