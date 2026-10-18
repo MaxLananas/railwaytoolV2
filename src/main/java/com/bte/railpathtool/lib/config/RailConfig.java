@@ -11,8 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Persistance des options de l'outil + 3 presets joueur dans
- * config/bte_railpathtool.json (Gson, ecriture atomique via tmp+move).
+ * Tool options and three player presets, persisted in
+ * config/bte_railpathtool.json with Gson and an atomic tmp+move write.
  */
 public final class RailConfig {
 
@@ -33,7 +33,7 @@ public final class RailConfig {
     public Data preset2 = new Data();
     public Data preset3 = new Data();
 
-    /** Instantane des choix de l'UI (slots de preset). */
+    /** Snapshot of the UI choices (preset slots). */
     public static final class Data {
         public int density = 6;
         public int styleIndex;
@@ -55,7 +55,7 @@ public final class RailConfig {
         }
     }
 
-    /** Ramene les valeurs hors bornes d'un fichier edite a la main. */
+    /** Clamps values coming from a hand-edited file. */
     public void sanitize() {
         density = clamp(density, 2, 12);
         styleIndex = clamp(styleIndex, 0, 1);
@@ -95,7 +95,7 @@ public final class RailConfig {
                     return c;
                 }
             } catch (IOException | RuntimeException ignored) {
-                // Fichier corrompu : on repart sur les defauts.
+                // Corrupt file: fall back to defaults.
             }
         }
         return new RailConfig();
@@ -111,7 +111,7 @@ public final class RailConfig {
             }
             Files.move(tmp, p, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ignored) {
-            // Disque plein / droits : non bloquant pour l'outil.
+            // Disk full or permission denied: not fatal for the tool.
         }
     }
 }

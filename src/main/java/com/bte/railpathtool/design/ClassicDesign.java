@@ -43,11 +43,9 @@ public final class ClassicDesign implements RailDesign {
             }
         }
 
-        // DEUX passes : tous les cores (corails) d'abord, puis tous les
-        // décors latéraux. Sinon le côté d'un voisin s'écrit dans la case du
-        // core AVANT lui et la garde « colonne intacte » fait perdre le
-        // corail — c'est le « presque plus de rail » des lignes à dérive
-        // (jogs latéraux rapprochés) des captures.
+        // Two passes: cores first, then lateral decor. Otherwise a neighbour's
+        // side claims a core cell before that core is written and the guard drops
+        // the coral, leaving gaps on tight jog lines.
         List<long[]> centers = new ArrayList<>();
         List<long[]> decors = new ArrayList<>();
         List<BlockState> decorStates = new ArrayList<>();
@@ -87,10 +85,8 @@ public final class ClassicDesign implements RailDesign {
             writer.column((int) c[0], (int) c[1], (int) c[2],
                     centerState.get(BlockPos.asLong((int) c[0], (int) c[1], (int) c[2])));
         }
-        // Chaque entrée porte SON état : deux décors ciblant la même cellule
-        // ne partagent plus un slot d'une map par position (sinon le dernier
-        // état mis — EW après NS — remplacait aussi l'écriture du premier :
-        // wall_ns devenait wall_eo aux coins — bug « palissade tournée »).
+        // Each entry carries its own state, so two decors targeting the same cell
+        // no longer overwrite each other's block (corner walls).
         for (int i = 0; i < decors.size(); i++) {
             long[] d = decors.get(i);
             writer.column((int) d[0], (int) d[1], (int) d[2],
@@ -215,7 +211,7 @@ public final class ClassicDesign implements RailDesign {
     }
 
     public static final class ColumnWriter {
-        /** RNG du mix de sol : seedee => tirages reproductibles run-to-run. */
+        /** Seeded soil RNG: reproducible across runs. */
         private static final Random SOIL_RNG = new Random(20240913L);
         private final TrackModel model;
         private final DesignOptions options;
@@ -234,29 +230,24 @@ public final class ClassicDesign implements RailDesign {
             int startY = y + options.baseDy;
             boolean coreWrite = isRailCore(center);
             for (int yy = startY; yy <= startY + 2; yy++) {
-                // Garde anti-valse à deux vitesses : (1) un core existant
-                // n'est JAMAIS écrasé ; (2) une pose de DÉCOR cède devant
-                // n'importe quel bloc de rail existant — sinon un rebuild
-                // réécrirait les murets en panneaux/portes (valse des
-                // décors, portes orphelines). Mais une pose de CORE reprend
-                // la case d'un décor : les jonctions denses ne perdent
-                // jamais leur rail visible.
+                // Two-speed guard: an existing core is never replaced, and a decor write
+                // yields to any existing rail block (rebuilds must not swap walls for
+                // panels or leave orphan doors). A core may still take a decor cell at
+                // junctions.
                 BlockState cur = view.at(x, yy, z);
                 if (isRailCore(cur) || (!coreWrite && isRailFamily(cur))) {
                     if (isRailCore(cur)
                             && view.at(x, startY, z).is(Blocks.WHITE_WOOL)) {
-                        // La laine fraîche du voxel est consommée malgré
-                        // tout : son core est précisément celui qui occupe
-                        // la case (croisement = colonne partagée) — sinon
-                        // elle resterait visible à jamais sans rail.
+                        // The fresh trace wool is consumed anyway: the core already occupies
+                        // this cell (shared crossing column), so the wool would otherwise stay
+                        // visible forever.
                         put(x, startY, z, Blocks.AIR.defaultBlockState());
                     }
                     return;
                 }
             }
-            // Un core ne prend que la case du core d'un décor existant : le
-            // sol de support et l'air de dégagement ne doivent jamais écraser
-            // un muret/panneau/porte d'une autre voie.
+            // A core only replaces a decor cell; support soil and headroom air must
+            // never erase another line's wall, panel or door.
             if (!isRailFamily(view.at(x, startY + 2, z))) {
                 put(x, startY + 2, z, Blocks.AIR.defaultBlockState());
             }
@@ -267,16 +258,15 @@ public final class ClassicDesign implements RailDesign {
         }
 
         /**
-         * Sols de support posés par les designs (remplissage + bases).
-         * La laine orange ne compte que si le remplissage UNIFORME est actif
-         * — sinon une laine orange posée par le joueur serait prise pour une
-         * souche de pilier et remplie par-dessous (miroir support_fill sim).
+         * Soils placed by the designs (support fill and column bases). Orange wool
+         * only counts when uniform fill is active; otherwise player-placed orange
+         * wool would be treated as a pillar base and filled underneath.
          */
         public static boolean isSupportSoil(BlockState st) {
             return isBaseSoil(st) || st.is(Blocks.ORANGE_WOOL);
         }
 
-        /** Bases sans la laine orange du mode uniforme (variante filtrée). */
+        /** Base soils, excluding the uniform-fill orange wool. */
         public static boolean isBaseSoil(BlockState st) {
             return st.is(Blocks.DEEPSLATE) || st.is(Blocks.COBBLED_DEEPSLATE)
                     || st.is(Blocks.PALE_OAK_WOOD)
@@ -286,9 +276,9 @@ public final class ClassicDesign implements RailDesign {
         }
 
         /**
-         * Cores de voie des deux designs (corail/pilier noir/pupitre/mousse) :
-         * jamais écrasés. Copie de rail_sim.NATURE_CORES ; le décor n'en fait
-         * pas partie et peut être repris par un core voisin (jonction).
+         * Rail cores of both designs (coral, black pillar, lectern, pale moss):
+         * never replaced. Mirrors rail_sim.NATURE_CORES. Decor is not a core and
+         * may be taken by a joining core.
          */
         public static boolean isRailCore(BlockState st) {
             return st.is(Blocks.BLACK_WOOL) || st.is(Blocks.LECTERN)
@@ -303,19 +293,16 @@ public final class ClassicDesign implements RailDesign {
         }
 
         /**
-         * Comble sous les blocs de rail qui flottent (descente bloquee, dents
-         * residuelles, derive des points de controle) : aucun bloc pose par ce
-         * build ne garde de l'air directement sous lui — contrat du script,
-         * la voie repose toujours sur le sol (remplissage max 6 blocs).
+         * Fills under floating rail blocks (blocked descents, leftover teeth,
+         * control-point drift): no block placed by this build keeps air below it.
+         * Gaps deeper than four blocks are deliberate bridges, left untouched.
          *
-         * @param soilOverride sol a utiliser (null = melange du theme courant)
+         * @param soilOverride soil to use, or null for the theme mix
          */
         void fillSupports(BlockState soilOverride) {
             final int depthMax = 4;
-            // Comme le script (qui parcourt tous les blocs de rail du monde) :
-            // on itère tout le rail visible, pas seulement le plan courant —
-            // une trace suivante a pu recreuser le support d'un rail que ce
-            // build vient de poser (dug de la même passe).
+            // Iterate the whole visible overlay, not just this plan: a later trace
+            // may have dug the support of a rail placed earlier.
             long[] keys = view.overlay().keySet().toLongArray();
             for (long key : keys) {
                 BlockState st = view.overlay().get(key);
@@ -329,13 +316,10 @@ public final class ClassicDesign implements RailDesign {
                 int x = BlockPos.getX(key);
                 int y = BlockPos.getY(key);
                 int z = BlockPos.getZ(key);
-                // Mesure d'abord le trou réel sous le bloc : un gap plus profond
-                // que depthMax est un pont/viaduc volontaire — ne RIEN faire
-                // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air,
-                // exactement le bug des fragments flottants signalé).
-                // L'eau n'est pas un support : un rail au-dessus d'une mare
-                // flotte — le pilier traverse l'eau jusqu'au lit (<= depthMax
-                // blocs, sinon c'est un pont legitime et on ne touche a rien).
+                // Measure the real gap first: anything deeper than the cap is a
+                // deliberate bridge, and a truncated fill would itself leave floating
+                // blocks. Water is not support either: the pillar runs through water to
+                // the bed, unless the gap exceeds the cap (bridge).
                 int gap = 0;
                 while (gap < 64) {
                     BlockState below = view.at(x, y - 1 - gap, z);
@@ -370,11 +354,10 @@ public final class ClassicDesign implements RailDesign {
             if (total <= 0) {
                 return options.soilSlots[0].state;
             }
-            // RNG dediee et semee (jamais ThreadLocalRandom) : le choix du
-            // sol doit etre reproductible run-to-run. La geometrie ne
-            // depend de toute facon plus du tirage (tous les sols du mix
-            // sont wool-layable), mais un tirage stable garde les captures
-            // et la parite reproductibles bloc pour bloc.
+            // Seeded RNG (never ThreadLocalRandom): soil choice stays stable across
+            // runs. Geometry does not depend on the draw (every mix block is
+            // wool-layable), but stable draws keep parity reproducible block for
+            // block.
             int roll = SOIL_RNG.nextInt(total);
             int acc = 0;
             for (DesignOptions.SoilSlot slot : options.soilSlots) {

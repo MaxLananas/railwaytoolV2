@@ -24,13 +24,9 @@ public final class Grounding {
     }
 
     /**
-     * Case libre pour la pose de laine de trace : air ou terrain naturel
-     * meuble (herbe/roche/terre/sable/neige/glace/eau…). JAMAIS du rail, de
-     * la laine ou du décor manuel existant — poser de la laine dessus
-     * écraserait la voie ou le repère d'une trace voisine (bug « presque
-     * plus de rail » des jonctions) tandis qu'une galerie dans une colline
-     * de roche doit pouvoir recevoir sa laine.
-     * Miroir exact de rail_sim.NATURAL_SOFT — toute divergence = parité.
+     * Cell where trace wool may be placed: air or soft natural terrain (grass,
+     * rock, dirt, sand, snow, ice, water...). Never rail, wool or player decor,
+     * which would erase an existing line. Exact mirror of rail_sim.NATURAL_SOFT.
      */
     public static boolean isWoolLayable(
             BlockState st) {
@@ -40,30 +36,27 @@ public final class Grounding {
         if (isTraceWool(st)) {
             return false;
         }
-        // Le switch terrain PRECEDE la garde rail : dans rail_sim le lay
-        // teste NATURAL_SOFT directement et le gravel y figure — bien qu'il
-        // soit aussi dans RAIL_FAMILY (sol de support nature, jamais un
-        // rail). Ecraser un sol pose n'est jamais ecraser une voie.
+        // Terrain is tested before the rail guard: gravel is both soft ground and
+        // a nature support block, and laying wool on it never erases a rail.
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
                 .getKey(st.getBlock()).getPath();
         return switch (id) {
-            // Les sols du mix design (et le gravel) restent re-tracables :
-            // un support pose par une trace anterieure ne doit jamais
-            // devier la trace suivante — sinon la GEOMETRIE dependrait du
-            // tirage aleatoire du mix (non reproductible sim<->java).
+            // Design-mix soils (and gravel) stay re-traceable: a support placed by an
+            // earlier trace must never shift the next trace, or the geometry would
+            // depend on the random soil draw (sim/Java parity).
             case "grass_block", "water", "stone", "dirt", "coarse_dirt",
                  "sand", "sandstone", "terracotta", "clay", "snow_block",
                  "ice", "mud", "andesite", "granite", "diorite",
                  "deepslate", "cobbled_deepslate", "pale_oak_wood",
                  "deepslate_iron_ore", "deepslate_coal_ore", "gravel",
                  "oak_leaves", "spruce_leaves" -> true;
-            // Tout le reste — rail, laine forcee, blocs du joueur — est
-            // protege : une trace n'ecrase jamais la voie d'une autre.
+            // Everything else (rail, forced wool, player blocks) is protected: a
+            // trace never overwrites another line.
             default -> false;
         };
     }
 
-    /** Nom de bloc se terminant par _wool (toute couleur). */
+    /** Registered block name ends with {@code _wool} (any colour). */
     static boolean isTraceWool(
             BlockState st) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK
@@ -71,19 +64,17 @@ public final class Grounding {
     }
 
     /**
-     * Voxels de la trace dont la case contient reellement la laine posee par
-     * ce build. L'appartenance se lit sur la position, jamais sur le nom du
-     * bloc : une laine de remplissage ou un decor du joueur ne doit pas etre
-     * pris pour un voxel de voie.
+     * Trace voxels whose cell actually holds the wool placed by this build.
+     * Membership is positional, never name-based: fill wool or player decor is
+     * not a rail voxel.
      */
     static LongOpenHashSet laidWool(WorldView view, List<BlockPos> trace) {
         LongOpenHashSet wool = new LongOpenHashSet();
         for (BlockPos v : trace) {
             BlockState st =
                     view.at(v.getX(), v.getY(), v.getZ());
-            // Nom de registre, pas BlockTags.WOOL : hors runtime serveur
-            // (harnais Bootstrap) les tags ne sont jamais charges et
-            // is(TagKey) renvoie toujours false — cf. note TrackModel.
+            // Registry name rather than BlockTags.WOOL: tags are not loaded in the
+            // harness Bootstrap, where tag lookups always return false.
             if (st != null && isTraceWool(st)) {
                 wool.add(BlockPos.asLong(v.getX(), v.getY(), v.getZ()));
             }
@@ -156,18 +147,15 @@ public final class Grounding {
             int x = v.getX();
             int y = v.getY();
             int z = v.getZ();
-            // Seuls les voxels REELLEMENT laines participent ; les autres
-            // (rail/stone preexistants sous la case) passent sans effet —
-            // sinon le coin-laisse d'une remontee ecraserait un corail.
+            // Only voxels with real wool participate; rail or stone under the cell
+            // pass through, otherwise a climb's leftover corner would erase coral.
             if (!wool.contains(BlockPos.asLong(x, y, z))) {
                 moved.add(v);
                 continue;
             }
-            // Jamais de remontée DANS/À TRAVERS une autre laine de la trace
-            // (doublon vertical des dents de spline) : la pile se figerait
-            // avec le corner laissé derrière. La descente, elle, reste
-            // autorisée — c'est elle qui dégonfle la pile ; l'arbitrage final
-            // revient à dedupeColumns.
+            // Never climb into or through other trace wool (vertical spline teeth),
+            // or the stack freezes with a corner left behind. Descending is allowed:
+            // it deflates the stack; dedupeColumns makes the final decision.
             if (!view.isAir(x, y + 1, z)
                     && !wool.contains(BlockPos.asLong(x, y + 1, z))) {
 
@@ -176,8 +164,7 @@ public final class Grounding {
                     int[][] toDig = new int[2][];
                     int count = 0;
                     boolean ok = true;
-                    // Un seul percement de crete par colonne (2 blocs max,
-                    // tous passages confondus).
+                    // One crest cut per column (max 2 blocks), across all passes.
                     long column = columnKey(x, z);
                     int colDug = dugPerColumn.get(column);
                     for (int dy = 1; ok && dy <= 2; dy++) {
@@ -197,8 +184,8 @@ public final class Grounding {
                         }
                         toDig[count++] = new int[]{x, y + dy, z};
                     }
-                    // 2 blocs de tunnel max par colonne, tous passages
-                    // confondus — sinon on tailleade le terrain.
+                    // At most 2 tunnel blocks per column, across all passes; otherwise the
+                    // terrain is carved open.
                     if (ok && colDug + count > 2) {
                         ok = false;
                     }
@@ -230,9 +217,8 @@ public final class Grounding {
                                 .isRailFamily(view.at(x, ny, z))) {
                             break;  // jamais d'atterrissage DANS du rail existant
                         }
-                        // corner laissé derrière : seulement POSÉ et hors eau,
-                        // sinon une herbe flottante verrouille la descente des
-                        // voisins (monticule des captures).
+                        // Leftover corner: only placed wool outside water counts, otherwise
+                        // floating grass would lock a neighbour's descent.
                         BlockState own =
                                 view.at(x, y, z);
                         BlockState below =
@@ -241,7 +227,7 @@ public final class Grounding {
                                 below.isAir() || below.is(Blocks.WATER)
                                         ? Blocks.AIR.defaultBlockState()
                                         : Blocks.GRASS_BLOCK.defaultBlockState());
-                        // la laine déplacée garde SA couleur (forcée possible)
+                        // The moved wool keeps its colour (forced wool included).
                         view.put(x, ny, z, own);
                         moveWool(wool, x, y, z, x, ny, z);
                         moved.add(new BlockPos(x, ny, z));
@@ -265,10 +251,9 @@ public final class Grounding {
                 if (wool.contains(BlockPos.asLong(x, nxt, z))) {
                     break;
                 }
-                // Jamais d'écrasement du rail existant : la 2e trace qui
-                // descend sur la voie de la 1re s'arrête dessus (support) —
-                // sinon la laine remplace le corail du croisement et la 1re
-                // ligne est cassée (« presque plus de rail »).
+                // Never overwrite existing rail: a second trace descending onto the first
+                // stops on it. Otherwise wool would replace the crossing coral and break
+                // the first line.
                 if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter
                         .isRailFamily(view.at(x, nxt, z))) {
                     break;
@@ -283,15 +268,12 @@ public final class Grounding {
                 moveWool(wool, x, y, z, x, target, z);
                 y = target;
             }
-            // JONCTION : la laine s'est arretee SUR une colonne de decor
-            // d'une autre voie [sol de support + decor, AUCUN core]. Sans la
-            // reprise, son rail se poserait 2 blocs au-dessus de ceux de ses
-            // voisins = ruban casse a la croisee. La colonne de decor est
-            // recuperee : la laine descend DANS la base de support, son core
-            // remplacera le decor — croisement continu au meme niveau.
-            // Miroir exact du junction-sink de rail_sim.rectify_vertical.
-            // (le sink n'existe que dans la branche « initialement
-            // instable » de la rectification — miroir exact du sim)
+            // JUNCTION: the wool stopped on a decor column of another line (support
+            // soil + decor, no core). Without a sink its rail would sit two blocks
+            // above its neighbours, breaking the ribbon at the crossing. The column is
+            // reclaimed: wool descends into the support base and its core replaces the
+            // decor, keeping the crossing level. Exact mirror of
+            // rail_sim.rectify_vertical.
             if (wasUnstable && !isUnstable(view, x, y, z)) {
                 BlockState d1 =
                         view.at(x, y - 1, z);
@@ -320,7 +302,7 @@ public final class Grounding {
         return moved;
     }
 
-    /** Decor de voie (jamais un core) : reprise possible par une jonction. */
+    /** Rail decor (never a core), reclaimable by a junction. */
     static boolean isDecor(
             BlockState st) {
         return st.is(Blocks.MUD_BRICK_WALL) || st.is(Blocks.ANDESITE_WALL)
@@ -330,11 +312,11 @@ public final class Grounding {
     }
 
     /**
-     * Aplanit les dents de scie verticales : pics unitaires ET plateaux courts
-     * (3 voxels max) decales d'1 bloc entre deux segments au meme niveau
-     * (a.y == c.y != run.y). Realigne chaque voxel du plateau si sa case cible
-     * est libre (ni laine ni rail). Leve les collisions de colonnes laterales
-     * et les fragments de voie « volants » sur terrain plat.
+     * Flattens vertical saw teeth: single peaks and short plateaus (max 3
+     * voxels) offset by one block between two segments at the same level
+     * (a.y == c.y != run.y). Each plateau voxel moves if its target cell is
+     * free (no wool, no rail). Removes lateral column collisions and floating
+     * track fragments on flat terrain.
      */
     public static List<BlockPos> flattenTeeth(WorldView view, List<BlockPos> trace) {
         if (trace.size() < 3) {
@@ -380,7 +362,7 @@ public final class Grounding {
                     for (int k = i; k < j; k++) {
                         int bx = out[k].getX();
                         int bz = out[k].getZ();
-                        // la dent garde sa couleur (laine forcée possible)
+                        // The tooth keeps its colour (forced wool included).
                         BlockState st = own[k - i];
                         view.put(bx, ay, bz, st.isAir() ? Blocks.WHITE_WOOL.defaultBlockState() : st);
                         moveWool(wool, bx, by, bz, bx, ay, bz);
@@ -396,9 +378,9 @@ public final class Grounding {
     }
 
     /**
-     * Aucune colonne (x,z) ne porte deux niveaux de voie. Les niveaux hauts
-     * sont retires d'abord, le niveau du bas n'est touche qu'en dernier
-     * recours : une colonne conserve toujours au moins un voxel.
+     * No column (x,z) carries two track levels. Upper levels are removed first;
+     * the lower level is only touched as a last resort, so a column always
+     * keeps at least one voxel.
      */
     public static List<BlockPos> dedupeColumns(WorldView view, List<BlockPos> trace) {
         List<BlockPos> cur = new ArrayList<>(new LinkedHashSet<>(trace));

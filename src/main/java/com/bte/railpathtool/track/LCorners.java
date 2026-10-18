@@ -35,11 +35,8 @@ public final class LCorners {
         return wool.contains(BlockPos.asLong(x, y, z));
     }
 
-    /**
-     * Vrai si le voxel appartient a un segment diagonal regulier (voisins
-     * diagonaux opposes) : ce n'est pas un coin L a purger, la purge
-     * casserait la diagonale.
-     */
+    /** True for a regular diagonal segment (opposite diagonal neighbours);
+     * purging it would break the diagonal. */
     private static boolean isDiagSegment(LongOpenHashSet wool,
                                          int x, int y, int z) {
         int[][] diag = {{1, 1}, {1, -1}};
@@ -58,10 +55,8 @@ public final class LCorners {
         return false;
     }
 
-    /**
-     * Vrai si les voisins trace du voxel restent mutuellement connectes en
-     * 26-connexite sans lui. Evite d'ouvrir un trou dans une diagonale fine.
-     */
+    /** True if the trace neighbours of the voxel stay 26-connected without it;
+     * keeps thin diagonals from opening a hole. */
     private static boolean locallyConnectedWithout(WorldView view,
                                                    LongOpenHashSet wool,
                                                    int x, int y, int z) {
@@ -110,11 +105,9 @@ public final class LCorners {
         return seen.size() == n;
     }
 
-    /**
-     * Vrai si retirer ce voxel laisse la trace 26-connexe. Le test se limite
-     * aux voisins du voxel : dans un graphe connexe, G-v est connexe si et
-     * seulement si tous les voisins de v restent dans la meme composante.
-     */
+    /** True if removing the voxel leaves the trace 26-connected. Only its
+     * neighbours matter: in a connected graph, G-v is connected iff every
+     * neighbour of v stays in the same component. */
     private static boolean keepsConnected(LongOpenHashSet cells, long removed) {
         if (cells.size() <= 1) {
             return false;
@@ -177,7 +170,7 @@ public final class LCorners {
         return targets.isEmpty();
     }
 
-    /** Vrai si l'ensemble est entierement 26-connexe. */
+    /** True if the whole set is 26-connected. */
     private static boolean connected(LongOpenHashSet cells) {
         if (cells.isEmpty()) {
             return true;
@@ -216,7 +209,7 @@ public final class LCorners {
         for (BlockPos v : trace) {
             remaining.add(v.asLong());
         }
-        // Sur une trace deja morcelee, la garde globale refusait toute purge.
+        // On an already fragmented trace, the global guard blocked every purge.
         if (!connected(remaining)) {
             return new ArrayList<>(trace);
         }
@@ -232,8 +225,8 @@ public final class LCorners {
                     && keepsConnected(remaining, v.asLong())) {
                 boolean isolated = view.isAir(x + 1, y, z) && view.isAir(x - 1, y, z)
                         && view.isAir(x, y, z + 1) && view.isAir(x, y, z - 1);
-                // Un coin L ne devient un marqueur d'herbe que pose hors eau :
-                // flottant, il verrouillerait la descente d'un voxel voisin.
+                // An L corner becomes a grass marker only when placed out of water:
+                // floating grass would lock a neighbour's descent.
                 boolean supported = !view.isAir(x, y - 1, z)
                         && !view.at(x, y - 1, z).is(Blocks.WATER);
                 view.put(x, y, z, (isolated || !supported)

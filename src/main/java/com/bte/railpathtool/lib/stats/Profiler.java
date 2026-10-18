@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Profileur minimaliste : anneaux de durees (ns) par section, moyennes
- * affichees dans l'onglet debug de l'outil. Zero allocation a l'usage.
+ * Minimal profiler: per-section nanosecond rings, averaged for the tool's
+ * debug panel. Allocation-free while recording.
  */
 public final class Profiler {
 
@@ -29,7 +29,7 @@ public final class Profiler {
         record(section, System.nanoTime() - startNanos);
     }
 
-    /** Moyenne en millisecondes sur l'anneau courant. */
+    /** Average in milliseconds over the current ring. */
     public static double avgMs(String section) {
         Ring r = RINGS.get(section);
         return r == null || r.count == 0 ? 0.0 : r.sum() / (double) r.count / 1.0e6;

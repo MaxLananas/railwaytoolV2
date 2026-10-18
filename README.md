@@ -1,131 +1,106 @@
-# Railway Tools for Axiom — Rail BTE
+# BTE Rail Path Tool
 
-Addon Axiom **tout-en-un** pour les voies ferrées de BuildTheEarth : il reproduit
-intégralement le système de rail du tutoriel ferroviaire BTE France, sans les 4
-scripts d'origine (spline → rectification → coloration → construction), avec un
-seul outil, en une fraction de seconde.
+Axiom addon that builds the BuildTheEarth France railway design from a spline,
+in one tool: the four reference scripts (spline, levelling, colouring,
+construction) are merged into a live preview and a single edit.
 
-**Minecraft 1.21.10 · Fabric · Axiom 5.4.2+**
+**Minecraft 1.21.10 · Fabric · Axiom 5.4.2+ · client-side**
 
----
+## Features
 
-## Le principe : un seul outil
+- Catmull-Rom spline with adaptive sampling, voxelised into a continuous
+  26-connected path.
+- Vertical rectification (terrain following, tunnel through crests, bridge
+  over deeper gaps) and L-corner cleanup with diagonal / local / global
+  connectivity guards.
+- Deterministic N-S / E-O / diagonal classification from the trace itself.
+- Two rail designs:
+  - **Classic** — dead bubble coral centres, mud-brick or andesite walls,
+    spruce shelves or iron-door panels, weighted deepslate soil mix.
+  - **Nature** — lecterns / pale moss, gravel, leaf litter and oak buttons.
+- Ghost preview of the exact plan and of the spline, before anything is
+  written. Construction goes through Axiom's block pipeline, so it is
+  undoable with `Ctrl+Z` and synchronised with the server.
+- Rails already in the world are never overwritten: cores are protected,
+  lateral decor is only replaced by a new core at a junction, and the
+  support soil of a new column never eats an existing wall.
+- Options and three presets persist in `config/bte_railpathtool.json`.
 
-Le tutoriel BTE France demande 4 scripts Axiom exécutés à la main dans l'ordre
-(tracer la spline, niveler la laine, colorier, construire). **Rail BTE** fait tout
-cela automatiquement, en direct, pendant que vous posez des points :
+## Installation
 
-1. **Voxelisation 26-connexe** — la spline Catmull-Rom est convertie en un chemin
-   de blocs continu, sans trous.
-2. **Rectification** — la trace est nivellée (colle au relief, monte si enterrée,
-   descend si en l'air) et les coins en « L » sont épurés — exactement la logique
-   des scripts 1 et 2 du tuto.
-3. **Classification géométrique** — chaque bloc est analysé en N-S / E-O / diagonal
-   à partir de ses voisins (déterministe, sans script de coloration).
-4. **Construction** — le design choisi est construit dans le pipeline d'édition
-   d'Axiom : **annulation native (Ctrl+Z)** et synchronisation serveur.
+1. Install [Fabric Loader](https://fabricmc.net/use/) for Minecraft 1.21.10.
+2. Install [Fabric API](https://modrinth.com/mod/fabric-api) and
+   [Axiom 5.4.2+](https://modrinth.com/plugin/axiom).
+3. Drop `rail-path-tool-<version>.jar` into `.minecraft/mods/`.
 
-L'aperçu fantôme se recalcule à chaque point ou changement d'option : vous voyez le
-rail exact avant de le construire. Poser 8 points pour un virage, vérifier, Entrée,
-c'est fini — environ 0,5 seconde.
+Axiom is optional at load time: without it the tool is disabled and the game
+starts normally.
 
-## Utilisation
+## Usage
 
-| Action | Effet |
-|--------|-------|
-| **Clic droit** | Ajoute un point de contrôle (au-dessus du bloc visé) |
-| **Entrée** | Construit le rail (undoable via Axiom) |
-| **Suppr** | Retire le dernier point |
+| Input | Action |
+| --- | --- |
+| Right click | Add a control point above the targeted block |
+| `Delete` | Remove the last control point |
+| `Enter` | Build the previewed rail |
+| `Ctrl+Z` | Undo the last build (Axiom history) |
 
-Options du panneau :
+The tool panel exposes density, terrain snapping, crest smoothing, corner
+cleanup, both ghosts, style, theme, orientation, soil fill and height.
+Three save/load preset slots are available.
 
-- **Densité de la spline** (2–12) : lissage du tracé.
-- **Coller au relief** : nivelage vertical (comme l'outil 1 du tuto).
-- **Lisser les bosses** : une butte de 1–2 blocs franchie par la trace est
-  creusée (tunnel) au lieu de faire sauter le rail d'un cran. Une vraie falaise
-  (>2 blocs) remonte toujours le rail comme le script d'origine.
-- **Épurer les coins en L** : redresse les artefacts de voxelisation (outil 2 du tuto).
-- **Aperçu fantôme** : affiche le rail calculé sans toucher au monde.
-- **Fil de spline** : contour translucide de la spline (style Path Tool d'Axiom).
-- **Style** : *Classique* ou *Nature*.
-- **Orientation** : Auto, N-S, E-O ou Diagonale forcée.
-- **Classique** : thème Sombre (murets mud-brick + étagères en sapin) ou Clair
-  (murets en andésite + portes en fer), remplissage du sol uniforme (bloc
-  personnalisable — bouton *Bloc actif Axiom*) ou aléatoire (mélange de 5 blocs
-  pondérés, personnalisables), hauteur en surface ou enterrée.
+The ghost is capped at 6 000 overridden blocks (sampled evenly above that) and
+a build is refused above 60 000 planned blocks.
 
-## Les deux designs (identiques au tuto)
+## Repository layout
 
-### Classique
-
-- Centre N-S : corail mort en bulle fixé au mur, face au **sud** ; centre E-O : face
-  à l'**est**.
-- Bordures : murets sans colonne centrale ; **murets d'angle** aux virages et
-  transitions de diagonales ; **side-blocks** (étagères ou portes) en bout de
-  lignes tournantes, aux tiers des longs segments — tables exactes des scripts.
-- Diagonales : vraies (moitiés corail S/E + blocs de transition à 4 murets) et
-  fausses (4 murets d'angle) gérées ; les cas indéterminés posent de la laine
-  noire de signalisation, comme le script d'origine.
-- Remplissage : laine orange ou mélange 45/40/10/4/2 %.
-
-### Nature
-
-- Traverses : pupitres (face nord/est) + tapis de mousse pâle ; sur les marches
-  hautes : bloc de mousse pâle + bouton de chêne alimenté.
-- Gravier latéral, litière de feuilles (2–3 segments orientés selon les voisins,
-  tables exactes du script), gravier + litière aux intersections N-S × E-O.
-- Les diagonales sont converties vers le type de leur extrémité (amélioration par
-  rapport au tuto, qui ne supportait que le design classique).
-
-## Robustesse
-
-- Le moteur lit « monde + plan en cours » : les coraux déjà construits servent
-  d'indices d'orientation exactement comme dans les scripts, sans toucher au monde
-  réel avant validation.
-- Un rail déjà construit n'est **jamais écrasé** (famille de blocs protégés).
-- La purge des coins en L est protégée par **trois gardes** : veto sur les segments
-  diagonaux, connexité locale 26-connectée dans le cube 3³, et connexité **globale**
-  de la trace (aucun point d'articulation retiré — la voie ne peut pas être coupée).
-- Les dents de scie verticales (pics d'un bloc) sont aplaties avant construction :
-  plus de collisions de murets latéraux entre voxels de niveaux voisins.
-- Une diagonale indéterminée devient un **fragment de transition nord-sud** au lieu
-  du bloc noir témoin : la voie reste continue dans tous les cas.
-- Plafond de sécurité : 60 000 blocs par construction, 6 000 pour le fantôme.
-- Si Axiom n'est pas installé, le mod se désactive proprement.
-
-### Harnais de test (simulateur Python)
-
-`sim/` contient une réimplémentation complète du moteur et plusieurs batteries qui
-vérifient les invariants d'un vrai jeu (voie connexe, rails présents, murets des
-deux côtés, portes posées, rien d'existant détruit) :
-
-```bash
-python3 sim/stress.py             # scénarios adverses (virages 360°, micro-vagues…)
-python3 sim/stupid_stress.py      # tracés absurdes volontairement illogiques
-python3 sim/ridges_stress.py      # crêtes et tunnels (lissage de terrain)
-python3 sim/realistic_stress.py   # lignes réalistes multi-lignes, jonctions, rampes
-python3 sim/mass_stress.py        # stress de masse parallèle (--scenarios N)
+```
+src/main/java/com/bte/railpathtool/
+  RailPathToolMod.java     Fabric entry point
+  axiom/                   ServiceLoader bridge to Axiom
+  tools/RailwayTool.java   CustomTool: input, UI, preview, build
+  spline/                  Catmull-Rom sampling and voxelisation
+  track/                   Grounding, L-corner cleanup, classification, view
+  design/                  Classic and Nature block writers
+  lib/                     RDP, adaptive sampler, config, profiler, union-find
+  dev/ParityHarness.java   Java-vs-simulator parity gate
+  mixin/                   Title-screen credit
+sim/                       Python reference model, parity exporter, stress tests
 ```
 
-Dernière validation : plus de **2,6 milliards de vérifications d'invariants** sans
-aucune violation (200 000 scénarios massifs, 1,6 million de constructions).
+## Build
 
-## Construction (développeurs)
+Requirements: JDK 25 and the Axiom jar for 1.21.10.
 
 ```bash
+mkdir -p libs
+curl -L -o libs/Axiom-5.4.2-for-MC1.21.10.jar \
+  https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar
 ./gradlew build
 ```
 
-Le build extrait automatiquement `axiomclientapi.jar` (jar-in-jar d'Axiom) vers
-`libs/` pour la compilation. Le jar final est dans `build/libs/`.
+Loom extracts the nested `axiomclientapi.jar` automatically. The mod jar is
+written to `build/libs/`.
 
-## Traductions
+## Tests
 
-Interface traduite en **39 langues** (avec fallback anglais) : toutes les grandes
-langues européennes, asiatiques et du Moyen-Orient, en passant par le catalan,
-l'estonien ou le serbe. Les chaînes non latinnes s'affichent selon les polices
-disponibles dans la version d'Axiom.
+The Python model in `sim/` is the executable specification. It is
+auto-validated by the export invariants and replayed block-for-block by the
+real Java pipeline:
 
-## Licence
+```bash
+python3 sim/parity_export.py       # 752 scenes, validated by I1-I5
+python3 sim/stress.py              # adversarial geometry
+python3 sim/realistic_stress.py    # realistic multi-line scenes
+python3 sim/stupid_stress.py       # random walks, rebuilds, hostile terrain
+python3 sim/ridges_stress.py       # crests and tunnels
+./gradlew parityCheck              # requires sim/parity/scenes.txt
+```
 
-CC0 — domaine public.
+`parityCheck` is part of `check`, and CI runs it before producing the jar.
+The comparison is a bidirectional set of changed blocks across the whole
+world, so a single stray or missing block fails the build.
+
+## License
+
+CC0-1.0. See [LICENSE](LICENSE).

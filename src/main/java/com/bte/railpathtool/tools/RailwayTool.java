@@ -133,6 +133,7 @@ public class RailwayTool implements CustomTool {
                 plan.clear();
                 planCount = 0;
                 splineLength = 0;
+                warning = "";
                 clearGhost();
                 releaseGhost();
                 clearSplineGhost();
@@ -447,8 +448,8 @@ public class RailwayTool implements CustomTool {
         List<BlockPos> trace = Spline.voxelize(samples);
         Profiler.timeEnd("voxelize", t0);
         for (BlockPos v : trace) {
-            // Jamais par-dessus du rail/de la laine existants (jonctions) ;
-            // terrain naturel uniquement (miroir rail_sim.build_trace_seq).
+            // Never over existing rail or wool (junctions); natural terrain only
+            // (mirror of rail_sim.build_trace_seq).
             if (com.bte.railpathtool.track.Grounding.isWoolLayable(
                     view.at(v.getX(), v.getY(), v.getZ()))) {
                 view.put(v.getX(), v.getY(), v.getZ(),
@@ -492,8 +493,8 @@ public class RailwayTool implements CustomTool {
         planCount = plan.size();
 
         if (showGhost.get()) {
-            // Plan trop grand pour un rendu complet : echantillonnage regulier
-            // sur toute la ligne (le fantome ne disparait plus jamais).
+            // Too large for a full ghost: regular sampling over the whole line so the
+            // preview never disappears.
             int stride = plan.size() > MAX_GHOST_BLOCKS
                     ? (int) Math.ceil(plan.size() / (double) MAX_GHOST_BLOCKS)
                     : 1;
@@ -551,7 +552,12 @@ public class RailwayTool implements CustomTool {
                     e.getValue());
         }
         persistConfig();
-        Axiom.push(region);
+        try {
+            Axiom.push(region);
+        } catch (RuntimeException e) {
+            setStatus(tr("ui.error", String.valueOf(e.getMessage())), true);
+            return;
+        }
         int placed = plan.size();
         reset();
         setStatus(tr("ui.built", placed), false);
@@ -590,7 +596,7 @@ public class RailwayTool implements CustomTool {
         return uf.components();
     }
 
-    /** Retire les points de controle quasi colineaires (RDP, 0.5 bloc). */
+    /** Removes nearly collinear control points (RDP, 0.5 block). */
     private void simplifyControl() {
         java.util.List<Vec3> pts = new java.util.ArrayList<>();
         for (BlockPos p : control) {
@@ -627,6 +633,10 @@ public class RailwayTool implements CustomTool {
     }
 
     private void clearGhost() {
+        if (!phantomAcquired) {
+            ghostPositions.clear();
+            return;
+        }
         for (long key : ghostPositions) {
             Axiom.setBlockRenderOverride(BlockPos.getX(key), BlockPos.getY(key),
                     BlockPos.getZ(key), null);

@@ -3,15 +3,15 @@ package com.bte.railpathtool.lib.curve;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Noyau Catmull-Rom : evaluation, derivee et courbure d'un segment p1->p2.
- * Utilise par la spline (echantillonnage) et la densite adaptative.
+ * Catmull-Rom core: evaluation and curvature of a p1->p2 segment. Used by the
+ * spline sampler and the adaptive density.
  */
 public final class CatmullRom {
 
     private CatmullRom() {
     }
 
-    /** Point a t dans [0,1] sur le segment p1-p2 (voisinage p0,p3). */
+    /** Point at t in [0,1] on segment p1-p2, with p0 and p3 as neighbours. */
     public static Vec3 eval(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, double t) {
         double t2 = t * t;
         double t3 = t2 * t;
@@ -28,8 +28,8 @@ public final class CatmullRom {
     }
 
     /**
-     * Courbure discrete du controle : angle entre les segments consecutifs
-     * normalise par la corde moyenne (0 = droit). >0.25 : virage serre.
+     * Discrete control-point curvature: angle between consecutive segments
+     * divided by the mean chord (0 is straight; above 0.25 is a tight turn).
      */
     public static double curvature(Vec3 prev, Vec3 cur, Vec3 next) {
         Vec3 v1 = cur.subtract(prev);

@@ -70,9 +70,8 @@ public final class Axiom {
     }
 
     /**
-     * Le verrou de rendu est global : une acquisition en echec (deja pris par
-     * un autre outil) ne doit jamais faire tomber le client, on desactive
-     * simplement l'apercu.
+     * The render override is global. A failed acquisition (already held by
+     * another tool) disables the preview instead of crashing the client.
      */
     public static boolean acquireChunkRenderOverrider(String id) {
         try {
@@ -87,7 +86,7 @@ public final class Axiom {
         try {
             tools.releaseChunkRenderOverrider(id);
         } catch (RuntimeException | Error ignored) {
-            // Verrou deja libere (changement de monde / desactivation).
+            // Already released (world change or tool switch).
         }
     }
 

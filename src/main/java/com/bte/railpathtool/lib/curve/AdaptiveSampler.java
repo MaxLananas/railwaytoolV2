@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Echantillonnage adaptatif de la spline : le pas decroit quand la courbure
- * monte (virage serre -> plus d'echantillons -> voxelisation plus fidele),
- * et croit sur les grandes lignes droites (moins de travail inutile).
+ * Adaptive spline sampling: the step shrinks as curvature rises (tight turns
+ * get more samples and a more faithful voxelisation) and grows on long
+ * straight runs (less useless work).
  */
 public final class AdaptiveSampler {
 
@@ -17,8 +17,8 @@ public final class AdaptiveSampler {
     }
 
     /**
-     * Echantillonne le controle en ajustant la densite locale via la courbure.
-     * density = pas de base (echantillons par bloc) du slider UI.
+     * Samples the control points, adapting the local density to curvature.
+     * baseDensity is the base step (samples per block) from the UI slider.
      */
     public static List<Vec3> sample(List<BlockPos> control, int baseDensity) {
         List<Vec3> out = new ArrayList<>();
@@ -41,7 +41,7 @@ public final class AdaptiveSampler {
             Vec3 p3 = ext.get(i + 2);
             double midCurv = CatmullRom.curvature(p0, p1, p2)
                     + CatmullRom.curvature(p1, p2, p3);
-            // Facteur 1 (droit) a 3 (virage serre), borne.
+            // Factor 1 (straight) to 3 (tight turn), clamped.
             double boost = 1.0 + Math.min(2.0, midCurv * 3.0);
             int steps = Math.max(1,
                     (int) Math.ceil(p1.distanceTo(p2) * baseDensity * boost));
