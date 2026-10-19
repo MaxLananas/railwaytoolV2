@@ -251,7 +251,7 @@ public final class NatureDesign implements RailDesign {
             if (!planned
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 if (ClassicDesign.ColumnWriter.isRailCore(cur)) {
-                    return;                    // jamais d'écrasement d'un core
+                    return;                    // never overwrite a core
                 }
                 if (!ClassicDesign.ColumnWriter.isRailCore(state)) {
                     // Later decor leaves earlier decor and beds alone, but a core may take
@@ -266,10 +266,10 @@ public final class NatureDesign implements RailDesign {
             if (planned && cur != null && cur != state
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 if (isNatureCore(cur)) {
-                    return;                     // un core posé ne bouge jamais
+                    return;                     // a placed core never moves
                 }
                 if (!isNatureCore(state) && cur.getBlock() != Blocks.GRAVEL) {
-                    return;                     // décor sur décor différent : non
+                    return;                     // decor over a different decor: no
                 }
             }
             plan.put(key, state);

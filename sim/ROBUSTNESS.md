@@ -51,7 +51,9 @@ Local stress suites (sim), all green:
 - `realistic_stress.py`: 56 lines / 288 builds / 232 M checks.
 - `stupid_stress.py`: 2490 scenarios / 6649 builds / 75 129 voxels.
 - `ridges_stress.py`: 8000 crest scenarios / 32 000 builds.
-- `mass_stress.py`, `repro_*.py`: older stress and screenshot reproductions.
+- `mass_stress.py`: 20 000 seed-generated micro scenarios / 160 000 builds /
+  385 M checks (a core is never replaced, a decor only by a core, C7).
+- `repro_*.py`: the four screenshot reproductions and their ASCII renders.
 - `pillar_scan.py`: every pillar, no parasite plus diagrams
   (`sim/pillar_report.txt`, generated).
 

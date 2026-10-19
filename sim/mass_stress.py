@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Mass stress : des centaines de milliers de scenarios micro generes par seed,
-executes en multiprocessing, avec comptage EXACT des verifications d'invariants.
+"""Mass stress: hundreds of thousands of tiny seed-generated scenarios run in
+multiprocessing, with an EXACT count of the invariant checks performed.
 
-Un scenario = 1 trace courte (3..25 voxels) testee sur 2 styles x 2 themes
-+ 1 rebuild chacune (protection). Chaque comparaison de bloc dans
-check_states / check_corridor / rail_destroyed / check_doors / check_all_typed
-compte pour 1 verification.
+A scenario is one short trace (3..25 voxels) tested on 2 styles x 2 themes plus
+one rebuild each (protection). Every block comparison inside check_states,
+check_corridor, rail_destroyed, check_doors or check_all_typed counts as one
+verification.
 
 Usage: python3 mass_stress.py [--scenarios N] [--workers W] [--seed S]
 """
@@ -35,7 +35,7 @@ IGNORED = {R.GROUND, "white_wool", "red_wool", "blue_wool", "lime_wool",
 
 
 def run_scenario(seed):
-    """Retourne (verifications, builds, violations[])."""
+    """Returns (verifications, builds, violations)."""
     rnd = random.Random(seed)
     trace = gen_trace(rnd)
     if len(trace) < 2:
@@ -61,19 +61,19 @@ def run_scenario(seed):
             snap_before = dict(w.blocks)
             try:
                 model = R.build_all(w, trace, R.Options(style=style, theme=theme))
-                # flottant plat : air directement sous + solide dans les 6
+                # Flat floating rail: air directly below and solid within 6
                 for fp, fst in w.blocks.items():
                     verif += 1
                     if fst not in R.RAIL_FAMILY or fp in snap_before:
                         continue
-                    # rail invisible : solide de TERRAIN hostile au-dessus
-                    # d'une piece = rail enterre (disparu) sur terrain accidente
-                    # (photo 2). Wools marqueurs et soils de fill exclus.
+                    # Invisible rail: a hostile TERRAIN solid above the piece
+                    # means buried rail (gone) on rough ground (photo 2).
+                    # Marker wools and fill soils are excluded.
                     fpa = (fp[0], fp[1] + 1, fp[2])
                     if fpa in snap_before:
                         above = w.get(*fpa)
                         if above in ("grass_block", "stone", "dirt"):
-                            viol.append(f"seed{seed}/{style}/th{theme}: rail enterre {fst} {fp}")
+                            viol.append(f"seed{seed}/{style}/th{theme}: buried rail {fst} {fp}")
                     if w.get(fp[0], fp[1] - 1, fp[2]) not in (R.AIR, None):
                         continue
                     for dg in range(2, 6):
@@ -88,7 +88,7 @@ def run_scenario(seed):
             builds += 1
             verif += check_invariants(w, trace, model, snap_before, viol,
                                       f"seed{seed}/{style}/th{theme}")
-            # Idempotence / protection au rebuild
+            # Idempotence and rebuild protection
             snap2 = dict(w.blocks)
             try:
                 R.build_all(w, trace, R.Options(style=style, theme=theme))
@@ -100,7 +100,7 @@ def run_scenario(seed):
             verif += len(snap2)
             for k, a, b in d:
                 if a != "black_wool":
-                    viol.append(f"seed{seed}/{style}/th{theme}-re: rail casse {k} {a}->{b}")
+                    viol.append(f"seed{seed}/{style}/th{theme}-re: broken rail {k} {a}->{b}")
     return verif, builds, viol
 
 
@@ -111,49 +111,58 @@ def check_invariants(w, trace, model, before, viol, tag):
             continue
         v += 1
         if st not in RAIL_STATES and st not in SOIL:
-            viol.append(f"{tag}: etat inconnu '{st}' a {pos}")
-    # corridor : rien hors de la bbox de la trace elargie
+            viol.append(f"{tag}: unknown state '{st}' at {pos}")
+    # Corridor: nothing outside the widened trace bounding box.
     xs = [t[0] for t in trace]
     ys = [t[1] for t in trace]
     zs = [t[2] for t in trace]
     x0, x1 = min(xs) - 3, max(xs) + 3
-    y0, y1 = min(ys) - 9, max(ys) + 3  # marge basse : supports jusqu'a 6
+    y0, y1 = min(ys) - 9, max(ys) + 3  # lower margin: supports up to 6 deep
     z0, z1 = min(zs) - 3, max(zs) + 3
     for (x, y, z), st in w.blocks.items():
         if st in IGNORED or st == R.GROUND or st in SOIL:
             continue
         v += 1
         if not (x0 <= x <= x1 and y0 <= y <= y1 and z0 <= z <= z1):
-            viol.append(f"{tag}: hors corridor {st} {(x, y, z)}")
-    # panneaux de porte basse uniquement (rendu script) : pas de moitie upper
+            viol.append(f"{tag}: outside the corridor {st} {(x, y, z)}")
+    # Lower door panels only (script rendering): never an upper half.
     for (x, y, z), st in w.blocks.items():
         if isinstance(st, str) and st.startswith("door_"):
             v += 1
             half = st.split("_", 2)[1]
             if half != "lower":
-                viol.append(f"{tag}: porte complete interdite {st} {(x, y, z)}")
-    # types assignes
+                viol.append(f"{tag}: full door not allowed {st} {(x, y, z)}")
+    # Types assigned
     for t in trace:
         v += 1
         if model.types.get(t) not in (R.NS, R.EW, R.DIAG):
-            viol.append(f"{tag}: voxel non classe {t}")
-    # rail preexistant preserve
+            viol.append(f"{tag}: unclassified voxel {t}")
+    # Pre-existing rail preserved
     d = rail_destroyed(before, dict(w.blocks))
     v += len(before)
     for k, a, b in d:
         if a != "black_wool":
-            viol.append(f"{tag}: rail detruit {k} {a}->{b}")
+            viol.append(f"{tag}: rail destroyed {k} {a}->{b}")
     return v
 
 
+RAIL_CORES = {"coral_south", "coral_east", "black_wool",
+              "lectern_north", "lectern_east", "pale_moss_block"}
+
+
 def rail_destroyed(before, after):
+    """A core never changes. A decor may be claimed by the CORE of another
+    line at a dense junction, but never by soil, air or another decor."""
     out = []
     keys = set(before) | set(after)
     for k in keys:
         a = before.get(k, R.AIR)
         b = after.get(k, R.AIR)
-        if a != b and a in RAIL_STATES:
-            out.append((k, a, b))
+        if a == b or a not in RAIL_STATES:
+            continue
+        if a not in RAIL_CORES and b in RAIL_CORES:
+            continue
+        out.append((k, a, b))
     return out
 
 
@@ -163,13 +172,13 @@ DIRS8 = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 def gen_trace(rnd):
     mode = rnd.randrange(9)
     x, y, z = 0, 1, 0
-    if mode == 0:  # ligne droite 8 directions, pente possible
+    if mode == 0:  # straight line in 8 directions, possible slope
         dx, dz = DIRS8[rnd.randrange(8)]
         dy = rnd.choice((0, 0, 0, 1, -1))
         n = rnd.randint(3, 18)
         return [(x + dx * i, y + (dy * i if rnd.random() < 0.3 else 0),
                  z + dz * i) for i in range(n)]
-    if mode == 1:  # coin L
+    if mode == 1:  # L corner
         a = rnd.randint(2, 10)
         b = rnd.randint(2, 10)
         d1 = DIRS8[rnd.randrange(4)]
@@ -192,7 +201,7 @@ def gen_trace(rnd):
                 t.append((nx, 1, nz))
             x, z = t[-1][0], t[-1][2]
         return t
-    if mode == 3:  # spirale / 360 montante
+    if mode == 3:  # climbing spiral, full turn
         t = []
         x, y, z = 0, 1, 0
         di = 0
@@ -210,17 +219,17 @@ def gen_trace(rnd):
             if rnd.random() < 0.45:
                 di += 1
         return t if len(t) >= 2 else [(0, 1, 0), (0, 1, 1)]
-    if mode == 4:  # escalier
+    if mode == 4:  # staircase
         dx, dz = DIRS8[rnd.randrange(4)]
         n = rnd.randint(3, 12)
         step = rnd.choice((1, 1, -1))
         return [(x + dx * i, y + step * i, z + dz * i) for i in range(n)]
-    if mode == 5:  # croisement a 2 niveaux
+    if mode == 5:  # two-level crossing
         n = rnd.randint(4, 10)
         t1 = [(i - 5, 1, 0) for i in range(n)]
         t2 = [(0, 4, i - 5) for i in range(n)]
         return t1 + t2
-    if mode == 6:  # marche aleatoire auto-evitante (peut etre folle)
+    if mode == 6:  # self-avoiding random walk, possibly wild
         t = [(0, 1, 0)]
         seen = {(0, 1, 0)}
         x = z = 0
@@ -233,11 +242,11 @@ def gen_trace(rnd):
             t.append(cand)
             x, z = cand[0], cand[2]
         return t
-    if mode == 7:  # ilot separe (2 morceaux)
+    if mode == 7:  # separate island, two pieces
         a = [(i, 1, 0) for i in range(rnd.randint(2, 6))]
         b = [(20 + i, 1, 20) for i in range(rnd.randint(2, 6))]
         return a + b
-    # 8: rectangle complet (boucle fermee)
+    # 8: full rectangle, closed loop
     w_ = rnd.randint(3, 8)
     h_ = rnd.randint(3, 8)
     t = []
@@ -292,11 +301,11 @@ def main():
           f"{verif:,} verifications | {dt:.1f}s "
           f"({verif / max(dt, 0.01):,.0f} verif/s) ===")
     if viols:
-        print(f"!!! {len(viols)} violations (max 20 affichees) !!!")
+        print(f"!!! {len(viols)} violations (first 20 shown) !!!")
         for x in viols[:20]:
             print("   ", x)
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
 
 
 if __name__ == "__main__":

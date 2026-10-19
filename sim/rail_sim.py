@@ -1,32 +1,32 @@
-import os
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-rail_sim.py — Simulateur du système de rail BTE (réécriture "Railway Tools for Axiom").
+rail_sim.py - reference model of the BTE rail system used by the mod.
 
-Reproduit EXACTEMENT la logique des 4 scripts Lua du tuto BTE France, en version
-déterministe (non dépendante de l'ordre de passage), telle qu'implémentée dans le mod :
+It reproduces the four Lua scripts of the BTE France tutorial as a
+deterministic pipeline, in the same order as the Java tool:
 
-  1. Tracé     : Catmull-Rom voxelisé 26-connexe (outil spline)
-  2. Rectif    : nivelage vertical + épuration des coins en "L" (toutes orientations)
-  3. Analyse   : classification N-S / E-W / Diagonale par géométrie pure
-                 (+ overrides couleur : rouge=NS, bleu=EW, vert=DIAG)
-  4. Build     : design "Classique" (murets/shelf/corail, comme le script Hamburger)
-                 ou "Nature" (pupitres/pale moss/gravel, comme le script 4)
+  1. Trace   : Catmull-Rom sampling, voxelised into a 26-connected path
+  2. Rectify : vertical levelling and "L" corner cleanup (all orientations)
+  3. Analyse : pure-geometry N-S / E-W / diagonal classification
+               (colour overrides: red=NS, blue=EW, green=DIAG)
+  4. Build   : "Classic" design (walls/shelf/coral, as the Hamburger script)
+               or "Nature" (lecterns/pale moss/gravel, as script 4)
 
-Usage :
-  python3 rail_sim.py                 -> tous les scénarios
-  python3 rail_sim.py s-curve         -> un seul scénario
-  python3 rail_sim.py --style nature  -> force le design nature partout
+Usage:
+  python3 rail_sim.py                 -> every scenario
+  python3 rail_sim.py s-curve         -> a single scenario
+  python3 rail_sim.py --style nature  -> force the nature design
   python3 rail_sim.py --no-color
 """
 
+import os
 import sys
 import math
 import random
 
 # =============================================================================
-# 1. MONDE MINIMAL (dict (x,y,z) -> nom d'état de bloc)
+# 1. MINIMAL WORLD (dict (x,y,z) -> block state name)
 # =============================================================================
 
 class World:
@@ -53,11 +53,10 @@ WOOL = {f"{c}_wool" for c in (
 GROUND = "grass_block"
 AIR = "air"
 
-# Positions des voxels de la trace EN COURS de traitement par les passes
-# basses (grounding/purge/flatten/dedupe). C'est LA référence d'appartenance
-# — jamais `block == *_wool` : un remplissage uniforme en laine orange (le
-# défaut du mod !) ou une laine décorative posée par le joueur ne doit JAMAIS
-# être confondu avec un voxel de voie.
+# Positions of the trace voxels currently processed by the low-level passes
+# (grounding/purge/flatten/dedupe). This is THE membership reference, never
+# `block == *_wool`: a uniform orange wool fill (the mod default) or a
+# decorative player-placed wool must never count as a track voxel.
 _TRACE_WOOL = {}
 
 
@@ -66,11 +65,11 @@ def _wool_at(x, y, z):
 
 
 def _set_trace_wool(world, trace):
-    """Enregistre les voxels de la trace dont la case contient VRAIMENT la
-    laine posée par ce build (famille laine). Un voxel dont la case est déjà
-    occupée (rail d'une voie précédente, pierre, sol) n'appartient PAS au
-    jeu : les passes ne doivent pas le traiter comme une laine déplaçable —
-    sinon le coin-laissé d'une remontée écrase un corail voisin (jun-45)."""
+    """Records the trace voxels whose cell really holds the wool placed by this
+    build. A voxel whose cell is already occupied (rail of a previous line,
+    stone, ground) is NOT part of the set: the passes must not move it as if it
+    were wool, otherwise a climb's leftover corner erases a neighbouring coral
+    (jun-45)."""
     global _TRACE_WOOL
     _TRACE_WOOL = {(v[0], v[1], v[2]): world.get(*v) for v in trace
                    if is_wool(world.get(*v))}
@@ -86,11 +85,11 @@ def is_wool(state):
     return state in WOOL
 
 # =============================================================================
-# 2. TRACÉ : Catmull-Rom voxelisé
+# 2. TRACE: voxelised Catmull-Rom
 # =============================================================================
 
 def _curvature(prev, cur, nxt):
-    """Copie exacte de CatmullRom.curvature (mod) : angle / corde moyenne."""
+    """Exact copy of the mod's CatmullRom.curvature: angle over mean chord."""
     v1 = tuple(cur[i] - prev[i] for i in range(3))
     v2 = tuple(nxt[i] - cur[i] for i in range(3))
     l1 = math.sqrt(sum(a * a for a in v1))
@@ -103,9 +102,9 @@ def _curvature(prev, cur, nxt):
 
 
 def adaptive_sample(control, base_density=6):
-    """Copie exacte du pipeline d'échantillonnage du mod (défaut UI :
-    densité 6, mode adaptatif ON — AdaptiveSampler.sample) : pas qui décroit
-    avec la courbure (boost 1→3), Catmull-Rom identique."""
+    """Exact copy of the mod sampling pipeline (UI default: density 6, adaptive
+    mode on - AdaptiveSampler.sample): the step shrinks with curvature
+    (boost 1..3), same Catmull-Rom."""
     if len(control) < 2:
         return list(control)
     pts = [(x + 0.5, y + 0.5, z + 0.5) for x, y, z in control]
@@ -131,7 +130,7 @@ def adaptive_sample(control, base_density=6):
 
 
 def catmull_rom_points(control, samples_per_block=4):
-    """Retourne les positions flottantes échantillonnées le long de la spline."""
+    """Returns the sampled floating positions along the spline."""
     if len(control) < 2:
         return list(control)
     pts = [(x + 0.5, y + 0.5, z + 0.5) for x, y, z in control]
@@ -156,7 +155,7 @@ def catmull_rom_points(control, samples_per_block=4):
 
 
 def voxelize(float_points):
-    """Convertit en voxels consécutifs 26-connexes (interpolation des trous)."""
+    """Converts to consecutive 26-connected voxels, filling the gaps."""
     voxels = []
     for fx, fy, fz in float_points:
         v = (math.floor(fx), math.floor(fy), math.floor(fz))
@@ -171,14 +170,14 @@ def voxelize(float_points):
         if n == 1:
             voxels.append(v)
         else:
-            # Reconnexion : interpose les voxels intermédiaires.
+            # Reconnect: insert the intermediate voxels.
             for k in range(1, n):
                 t = k / n
                 voxels.append((math.floor(last[0] + dx * t + 0.5),
                                math.floor(last[1] + dy * t + 0.5),
                                math.floor(last[2] + dz * t + 0.5)))
             voxels.append(v)
-    # Déduplique en préservant l'ordre
+    # Deduplicate, keeping the order
     seen, ordered = set(), []
     for v in voxels:
         if v not in seen:
@@ -187,31 +186,31 @@ def voxelize(float_points):
     return ordered
 
 # =============================================================================
-# 3. RECTIF : nivelage + épuration des coins en "L"
+# 3. RECTIFY: levelling and "L" corner cleanup
 # =============================================================================
 
-# Les 14 motifs du script Lua (voisin "nord" dz=-1 / voisin latéral dx=+-1,
-# avec les tolérances verticales), étendus aux 4 orientations (rotation).
+# The Lua script patterns ("north" neighbour dz=-1, lateral neighbour dx=+-1,
+# with the vertical tolerances), extended to the four orientations.
 def _l_patterns():
     base = []
     for dy1 in (0, 1, -1):
         for dy2 in (0, 1, -1):
             if (dy1, dy2) == (-1, 1):
-                continue  # (0,-1,-1)+(±1,1,0) n'est pas dans le script
+                continue  # (0,-1,-1)+(+-1,1,0) is not in the script
             base.append((dy1, dy2))
-    # Le script n'a pas non plus (0,1,-1)+(±1,-1,0) ; on suit le tableau exact :
+    # The script also lacks (0,1,-1)+(+-1,-1,0); follow the exact table:
     exact = [(0, 0), (1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 0)]
     return exact
 
 L_DY_PAIRS = _l_patterns()
 
 def l_corners_here(world, x, y, z, spline):
-    """Vrai si le bloc de spline en (x,y,z) forme un coin en 'L' (4 orientations)."""
+    """True when the spline block at (x,y,z) forms an "L" corner (4 orientations)."""
     def is_spline(dx, dy, dz):
-        # appartenance par POSITION (laine orange de remplissage ou laine
-        # décorative du joueur = simple solide, jamais un voxel de voie).
+        # Membership is positional: a filling orange wool or a decorative player
+        # wool is plain solid ground, never a track voxel.
         return _wool_at(x + dx, y + dy, z + dz)
-    # Orientations : (nord, est), (nord, ouest), (sud, est), (sud, ouest)
+    # Orientations: (north, east), (north, west), (south, east), (south, west)
     for d_vert in (0, 0, -1), (0, 0, 1):
         for d_hori in (1, 0, 0), (-1, 0, 0):
             for dy1, dy2 in L_DY_PAIRS:
@@ -221,9 +220,9 @@ def l_corners_here(world, x, y, z, spline):
 
 
 def diag_segment(world, x, y, z, spline):
-    """Vrai si le voxel s'inscrit dans un segment diagonal regulier (spline aux
-    deux extremites diagonales opposees, tolerance y) : ce n'est PAS un coin L
-    a purger, c'est une diagonale fine que la purge script casserait."""
+    """True when the voxel belongs to a regular diagonal segment (spline at both
+    opposite diagonal ends, with a y tolerance). It is NOT an "L" corner to
+    purge but a thin diagonal that the script purge would break."""
     for dx, dz in ((1, 1), (1, -1)):
         for dy1 in DY:
             if not _wool_at(x + dx, y + dy1, z + dz):
@@ -235,9 +234,9 @@ def diag_segment(world, x, y, z, spline):
 
 
 def locally_connected_without(world, x, y, z, spline):
-    """Les voisins spline de (x,y,z) restent-ils mutuellement connectes (26-connexite,
-    dans le cube 3x3x3) si ce voxel disparait ? Empeche la purge L d'ouvrir un trou
-    dans une diagonale fine (rail manquant)."""
+    """Do the spline neighbours of (x,y,z) stay mutually connected (26-connectivity
+    inside the 3x3x3 cube) when this voxel disappears? Keeps the "L" purge from
+    opening a hole in a thin diagonal (missing rail)."""
     neigh = []
     for dx in (-1, 0, 1):
         for dy in (-1, 0, 1):
@@ -264,7 +263,7 @@ def locally_connected_without(world, x, y, z, spline):
 
 
 def _trace_connected(s):
-    """True si l'ensemble de voxels est 26-connexe (un seul ilot)."""
+    """True when the voxel set is 26-connected, i.e. a single island."""
     if not s:
         return False
     it = iter(s)
@@ -284,10 +283,10 @@ def _trace_connected(s):
 
 
 def rectify_l(world, trace, spline, corner):
-    """Supprime/remplace les coins en L. Retourne la trace épurée (ordre préservé).
-    Triple garde anti-casse : (1) veto diagonale, (2) connexité locale 3^3,
-    (3) connexité GLOBALE de la trace — un retrait en chaîne peut passer les
-    deux premiers tout en sectionnant la voie (points d'articulation)."""
+    """Removes or replaces "L" corners, returning the cleaned trace in order.
+    Three guards against breakage: (1) diagonal veto, (2) 3^3 local
+    connectivity, (3) GLOBAL trace connectivity - a chain of removals can pass
+    the first two yet cut the line (articulation points)."""
     removed = set()
     trace_set = set(trace)
     _set_trace_wool(world, trace)
@@ -301,13 +300,13 @@ def rectify_l(world, trace, spline, corner):
         if not locally_connected_without(world, x, y, z, spline):
             continue
         if not _trace_connected(trace_set - {(x, y, z)}):
-            continue  # point d'articulation : le retrait couperait la voie
+            continue  # articulation point: the removal would cut the line
         isolated = (world.get(x + 1, y, z) == AIR and world.get(x - 1, y, z) == AIR
                     and world.get(x, y, z + 1) == AIR and world.get(x, y, z - 1) == AIR)
-        # Un coin L ne devient un marqueur 'corner' (herbe) que POSÉ : s'il
-        # flotte au-dessus du vide, il verrouillerait un voxel de laine au-
-        # dessus de lui (is_unstable : below non-air => pas de descente) et
-        # créerait le « monticule » des captures. En l'air -> AIR.
+        # An "L" corner only becomes a corner marker (grass) when it rests on
+        # something: floating above the void it would pin the wool voxel above
+        # it (is_unstable: non-air below means no descent) and create the mound
+        # seen in the reports. In the air it becomes AIR.
         below = world.get(x, y - 1, z)
         supported = below not in (AIR, None) and below != "water"
         if isolated or not supported:
@@ -321,11 +320,10 @@ def rectify_l(world, trace, spline, corner):
 
 
 def components_ribbon(pts):
-    """Composantes d'un ensemble de voxels, métrique du RUBAN DE VOIE : deux
-    points sont liés si leurs colonnes se touchent (|dx|<=1 et |dz|<=1, quel
-    que soit dy — un escalier de montagne est une voie continue) ou s'ils
-    partagent la même colonne. C'est le contrat visible (I2) : seul un trou
-    HORIZONTAL dans le ruban est une cassure."""
+    """Components of a voxel set under the TRACK RIBBON metric: two points are
+    linked when their columns touch (|dx|<=1 and |dz|<=1, whatever dy - a
+    mountain staircase is a continuous line) or share the same column. This is
+    the visible contract (I2): only a HORIZONTAL hole breaks the ribbon."""
     pts = list(pts)
     parent = {p: p for p in pts}
 
@@ -346,7 +344,7 @@ def components_ribbon(pts):
 
 
 def _count_components(s):
-    """Nombre de composantes 26-connexes de l'ensemble de voxels."""
+    """Number of 26-connected components in the voxel set."""
     rest = set(s)
     n = 0
     while rest:
@@ -368,15 +366,14 @@ def _count_components(s):
 
 
 def dedupe_columns(world, trace, spline):
-    """Aucun empilement vertical : une colonne (x,z) ne doit jamais porter 2
-    voxels de laine à des hauteurs différentes. Les dents y±1 de la spline
-    + la purge des L pouvaient figer une pile (corner herbe sous le wool
-    du dessus) = le « monticule / rail au-dessus » des captures. On préfère
-    garder le niveau LE PLUS BAS ; mais si sa purge de chaque niveau haut
-    sectionnerait la voie (creux dont le fond ne tient que par son sommet),
-    on garde le haut — fillSupports comblera le creux proprement. Un retrait
-    n'est accepté que si le nombre de composantes n'augmente pas. Seuls les
-    blocs laine/air sont touchés : du rail déjà posé n'est jamais altéré."""
+    """No vertical stacking: a column (x,z) must never carry two wool voxels
+    at different heights. The y+-1 teeth of the spline plus the "L" cleanup
+    could freeze a stack (a grass corner under the wool above it), the mound or
+    raised rail seen in the reports. The LOWEST level wins; but when purging
+    the higher levels would cut the line (a dip whose floor is only held by its
+    top), the top is kept and fillSupports fills the dip. A removal is only
+    accepted when the component count does not grow. Only wool and air cells
+    are touched: rail already in the world is never altered."""
     by_col = {}
     for v in dict.fromkeys(trace):
         by_col.setdefault((v[0], v[2]), []).append(v)
@@ -386,9 +383,8 @@ def dedupe_columns(world, trace, spline):
         ys = sorted({v[1] for v in vals})
         if len(ys) < 2:
             continue
-        # Candidats au retrait : les niveaux du haut d'abord (cas nominal),
-        # puis le niveau le plus bas en dernier recours. On continue tant
-        # qu'il reste plus d'un niveau dans la colonne.
+        # Removal candidates: top levels first (the nominal case), then the
+        # lowest level as a last resort. Stop once one level remains.
         remaining = list(ys)
         for yy in ys[1:][::-1] + ys[:1]:
             if len(remaining) <= 1:
@@ -400,12 +396,12 @@ def dedupe_columns(world, trace, spline):
                    and world.get(v[0], v[1], v[2]) not in (AIR, None)
                    and world.get(v[0], v[1], v[2]) != "white_wool"
                    for v in victims):
-                continue                        # rail/terrain existant : on ne touche pas
+                continue                        # existing rail or terrain: leave it
             trial = [v for v in cur if v not in victims]
-            # Métrique ruban (comme I2) : un niveau jetable ne doit pas
-            # ouvrir de trou HORIZONTAL ; les escaliers/croisements empilés
-            # ne comptent plus comme des obstacles au nettoyage de pile —
-            # c'est ce qui figeait les piles [60,65] des tunnels serpentins.
+            # Ribbon metric (as in I2): a disposable level must not open a
+            # HORIZONTAL hole; stacked stairs and crossings no longer count as
+            # obstacles to the stack cleanup, which used to freeze the stacks
+            # [60,65] of winding tunnels.
             if components_ribbon(trial) <= components_ribbon(cur):
                 for v in victims:
                     world.set(v[0], v[1], v[2], AIR)
@@ -416,12 +412,12 @@ def dedupe_columns(world, trace, spline):
 
 
 def _flatten_teeth_impl(world, trace, spline):
-    """Aplanit les dents de scie verticales : pics unitaires ET plateaux courts
-    (<= 3 voxels) décalés d'1 bloc entre deux segments au meme niveau
-    (a.y == c.y != run.y, |run.y - a.y| == 1). Chaque voxel du plateau est
-    realigné si sa case cible est libre (ni laine ni rail). Leve les
-    collisions de colonnes laterales et les fragments de voie « volants »
-    visibles en jeu sur terrain plat quand la voxelisation oscille a y±1."""
+    """Flattens vertical saw teeth: single peaks and short plateaus (<= 3
+    voxels) offset by one block between two segments at the same level
+    (a.y == c.y != run.y, |run.y - a.y| == 1). Each plateau voxel is realigned
+    when its target cell is free (no wool, no rail). Removes lateral column
+    collisions and the floating track fragments seen in game on flat ground
+    when voxelisation oscillates around y+-1."""
     if len(trace) < 3:
         return trace
     out = list(trace)
@@ -448,8 +444,8 @@ def _flatten_teeth_impl(world, trace, spline):
                     ok = False
                     break
             if ok:
-                # couleurs capturees AVANT l'effacement (« world.set AIR »
-                # supprime l'entree ; un get ulterieur renverrait "air")
+                # Capture the colours BEFORE erasing: world.set(AIR) drops the
+                # entry, a later get would return "air".
                 owns = [world.get(out[k][0], by, out[k][2])
                         for k in range(i, j)]
                 for k in range(i, j):
@@ -458,7 +454,7 @@ def _flatten_teeth_impl(world, trace, spline):
                 for k in range(i, j):
                     x0, _, z0 = out[k]
                     own = owns[k - i]
-                    # la dent garde sa couleur (laine forcee possible)
+                    # The tooth keeps its colour (forced wool is possible).
                     world.set(x0, ay, z0, own if is_wool(own) else spline)
                     _move_trace_wool((x0, by, z0), (x0, ay, z0))
                     out[k] = (x0, ay, z0)
@@ -467,14 +463,13 @@ def _flatten_teeth_impl(world, trace, spline):
 
 
 def flatten_teeth(world, trace, spline):
-    """Aplanissement complet : dents de scie, puis dédoublonnage vertical des
-    colonnes (anti-monticule). Point d'entrée unique utilisé par tous les
-    pipelines avant la construction."""
+    """Full flattening: saw teeth first, then vertical column deduplication.
+    Single entry point used by every pipeline before the build."""
     return dedupe_columns(world, _flatten_teeth_impl(world, trace, spline), spline)
 
 
 def is_unstable(world, x, y, z):
-    """Reprise exacte de la fonction is_unstable du script de rectification."""
+    """Exact port of the is_unstable function of the rectification script."""
     below_is_air = world.get(x, y - 1, z) == AIR
     bn = world.get(x, y - 1, z - 1) == AIR
     bs = world.get(x, y - 1, z + 1) == AIR
@@ -502,10 +497,10 @@ def is_unstable(world, x, y, z):
 
 
 def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=None):
-    """Remonte les laines enterrées, redescend celles en l'air (comme le script 1).
-    Amélioration du mod : si rectif pleine hauteur impossible, le bloc au-dessus de
-    la laine est une crête de 1-2 blocs non-rail : on la creuse (tunnel) plutôt que
-    de faire sauter le rail d'un cran (dug collecte les positions à purger en AIR)."""
+    """Lifts buried wool and lowers floating wool, as in script 1.
+    Mod improvement: when a full-height lift is impossible and the block above
+    the wool is a 1-2 block non-rail crest, the crest is dug (tunnel) instead of
+    pushing the rail one level down; `dug` collects the cells to clear."""
     moved_trace = []
     _set_trace_wool(world, trace)
     for (x, y, z) in trace:
@@ -513,18 +508,18 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
         if not _wool_at(x, y, z) or own == AIR or own is None:
             moved_trace.append((x, y, z))
             continue
-        # Remontée : bloc au-dessus non-air -> crête 1-2 creusée, sinon air jusqu'à +15.
-        # Cas particulier : case au-dessus = AUTRE laine de la trace (doublon
-        # vertical des dents de spline) — jamais de remontée dedans (piles),
-        # mais la descente reste autorisée : c'est elle qui dégonfle la pile.
+        # Lift: non-air above means a 1-2 block crest to dig, otherwise air up
+        # to +15. Special case: the cell above is ANOTHER trace wool (vertical
+        # duplicate from spline teeth) - never lift into it (stacks), but the
+        # descent stays allowed, it is what deflates the stack.
         if world.get(x, y + 1, z) != AIR and not _wool_at(x, y + 1, z):
             dug_here = False
             if dug is not None:
                 to_dig = []
                 ok = True
-                # le tunnel ne perce qu'UNE crête : 2 blocs grand max par
-                # colonne, tous passages confondus — sinon on tailleade le
-                # terrain (invariant stupid_stress « colonne creusée > 2 »).
+                # The tunnel cuts ONE crest only: at most 2 blocks per column
+                # across all passes, otherwise the terrain is carved open
+                # (stupid_stress invariant "dug column > 2").
                 col_dug = sum(1 for (dx2, _, dz2) in dug if dx2 == x and dz2 == z)
                 for dy in (1, 2):
                     st = world.get(x, y + dy, z)
@@ -554,11 +549,11 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 if world.get(x, y + dy, z) == AIR:
                     landy = y + dy - 1
                     if _wool_at(x, landy, z):
-                        break  # jamais d'atterrissage SUR une autre laine
+                        break  # never land ON another wool voxel
                     if world.get(x, landy, z) in RAIL_FAMILY:
-                        break  # jamais d'atterrissage DANS du rail existant
-                    # corner laissé derrière : seulement posé, sinon une herbe
-                    # flottante verrouille la descente d'un voisin (monticule).
+                        break  # never land INSIDE existing rail
+                    # Leftover corner: only when supported, otherwise floating
+                    # grass locks a neighbour's descent (mound).
                     below = world.get(x, y - 1, z)
                     world.set(x, y, z,
                               corner if below not in (AIR, None) and below != "water"
@@ -570,9 +565,9 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                     moved_up = True
                     break
             if not moved_up:
-                # Remontée refusée ou impossible : le voxel RESTE (sa laine
-                # est toujours là) — jamais d'abandon silencieux, sinon la
-                # laine restait visible sans jamais devenir du rail.
+                # Lift refused or impossible: the voxel STAYS, its wool is
+                # still there. Never drop it silently, or the wool would remain
+                # visible and never become rail.
                 moved_trace.append((x, y, z))
             continue
         # Descente
@@ -584,11 +579,10 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                     break
                 if _wool_at(x, nxt, z):
                     break
-                # Jamais d'écrasement du rail existant : la laine d'une 2e
-                # trace qui descend sur la voie de la 1re S'ARRETE dessus
-                # (le rail est un support) — sinon le corail du croisement
-                # est remplacé par une laine et la 1re ligne est cassée
-                # (« presque plus de rail » aux segments croisés).
+                # Never overwrite existing rail: wool from a second trace that
+                # descends onto the first line STOPS on it (rail is a support).
+                # Otherwise the crossing coral is replaced by wool and the first
+                # line breaks ("almost no rail left" at crossed segments).
                 if world.get(x, nxt, z) in RAIL_FAMILY:
                     break
                 target = nxt
@@ -597,12 +591,12 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 world.set(x, target, z, own)
                 _move_trace_wool((x, y, z), (x, target, z))
                 y = target
-            # JONCTION : la laine s'est arrêtée SUR une colonne de décor
-            # d'une autre voie [sol de support + décor, AUCUN core]. Sans la
-            # reprise, son rail se poserait 2 blocs au-dessus de ceux de ses
-            # voisins = ruban cassé à la croisée. La colonne de décor est
-            # récupérée : la laine descend DANS la base de support, son
-            # core remplacera le décor — croisement continu au même niveau.
+            # JUNCTION: the wool stopped ON a decor column of another line
+            # [support soil + decor, NO core]. Without reclaiming it, this rail
+            # would sit two blocks above its neighbours, breaking the ribbon at
+            # the crossing. The column is reclaimed: the wool descends INTO the
+            # support base and its core replaces the decor, keeping the crossing
+            # continuous and level.
             if not is_unstable(world, x, y, z):
                 d1 = world.get(x, y - 1, z)
                 d2 = world.get(x, y - 2, z)
@@ -620,16 +614,16 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
     return moved_trace
 
 # =============================================================================
-# 4. ANALYSE : classification géométrique N-S / E-W / DIAG (+ overrides couleur)
+# 4. ANALYSIS: geometric N-S / E-W / DIAG classification (+ colour overrides)
 # =============================================================================
 
 NS, EW, DIAG = "NS", "EW", "DIAG"
-DY = (0, 1, -1)  # ordre de tolérance verticale des scripts
+DY = (0, 1, -1)  # vertical tolerance order used by the scripts
 
 COLOR_OVERRIDE = {"red_wool": NS, "blue_wool": EW, "lime_wool": DIAG}
 
 class TrackModel:
-    """Modèle d'analyse : trace (laine) + types effectifs."""
+    """Analysis model: the trace voxels plus their effective types."""
 
     def __init__(self, world, trace_voxels):
         self.world = world
@@ -637,15 +631,14 @@ class TrackModel:
         self.types = {v: self._classify(v) for v in trace_voxels}
 
     def is_trace(self, x, y, z):
-        # Requête "est-ce un voxel de la trace courante ?" : on lit le SET de
-        # trace, PAS le monde live — sinon pendant le build, après qu'un voxel
-        # a été remplacé (coral/lectern/grass), ses voisins diagonaux
-        # disparaissent et la littérature des coins voisinnants change à la
-        # volée (c'est le bug des leaf_2 avec derive X ou Z).
+        # "Is this a voxel of the current trace?" reads the trace SET, not the
+        # live world: during the build, once a voxel has been replaced
+        # (coral/lectern/grass), its diagonal neighbours vanish and neighbouring
+        # corner analysis changes on the fly (the leaf_2 bug with X or Z drift).
         return (x, y, z) in self.trace
 
     def type_at(self, x, y, z):
-        """Type effectif du voxel (None si pas de trace, ou bloc indice corail)."""
+        """Effective type of a voxel (None when not on the trace)."""
         v = (x, y, z)
         if v in self.types:
             return self.types[v]
@@ -657,7 +650,7 @@ class TrackModel:
         return None
 
     def type_near(self, x, y, z):
-        """Premier type trouvé avec tolérance dy {0,1,-1} (ordre du script)."""
+        """First type found with a dy {0,1,-1} tolerance, in script order."""
         for dy in DY:
             t = self.type_at(x, y + dy, z)
             if t is not None:
@@ -665,7 +658,7 @@ class TrackModel:
         return None
 
     def _neighbors_of(self, x, y, z):
-        """Ensemble des directions (dx,dz) où la trace continue (tolérance ±1y)."""
+        """Directions (dx,dz) in which the trace continues (+-1y tolerance)."""
         out = set()
         for dx in (-1, 0, 1):
             for dz in (-1, 0, 1):
@@ -682,8 +675,8 @@ class TrackModel:
         st = self.world.get(x, y, z)
         if st in COLOR_OVERRIDE:
             return COLOR_OVERRIDE[st]
-        # Rail déjà construit : l'indice (corail/pupitre) est posé à y ou y+1
-        # après la construction (le voxel de trace est devenu le sol de la colonne).
+        # Built rail: the index block (coral/lectern) sits at y or y+1 after the
+        # build, the trace voxel having become the column floor.
         for dy in (0, 1):
             above = self.world.get(x, y + dy, z)
             if above == "coral_south" or above == "lectern_north":
@@ -701,33 +694,33 @@ class TrackModel:
             return EW
         if (ne and so) or (no and se):
             return DIAG
-        # Fallbacks (trace non rectifiée / motifs denses)
+        # Fallbacks for a non-rectified trace or dense patterns
         if n or s:
             return NS
         if e or o:
             return EW
         if v:
             return DIAG
-        return NS  # bloc isolé
+        return NS  # isolated block
 
 
 # =============================================================================
-# 5. AGENTS (scans directionnels le long de la trace — portage fidèle des scripts)
+# 5. AGENTS (directional scans along the trace, faithful port of the scripts)
 # =============================================================================
 
 MAX_LINE_SCAN = 20
-MAX_DIAG_SCAN = 64  # le script boucle à l'infini ; cap de sécurité
+MAX_DIAG_SCAN = 64  # the script loops forever; safety cap
 
 class Agent:
     def __init__(self):
         self.dist = 0
         self.exit_dir = "none"  # "east"/"west"/"south"/"north"
-        self.exit_len = 1       # 2 = ça continue après le décalage, 1 = virage net
-        self.exit_type = None   # pour les diagonales : NS/EW/None
+        self.exit_len = 1       # 2 = continues past the offset, 1 = sharp turn
+        self.exit_type = None   # diagonals only: NS / EW / None
 
 
 def scan_straight(model, x, y, z, want_type, step, side1, side1_name, side2, side2_name):
-    """Scan axial (ligne NS ou EW). step = direction de marche ; side = test de virage."""
+    """Axial scan (NS or EW line). step is the walking direction, side tests a turn."""
     agent = Agent()
     cur_y = y
     for i in range(1, MAX_LINE_SCAN + 1):
@@ -759,9 +752,9 @@ OPPOSITE_EW = {"south": "side_north", "north": "side_south"}
 
 
 def decide_side_ns(agent_nord, agent_sud):
-    """Décision 'muret vs side-block' pour une ligne N-S (logique exacte du script 3)."""
+    """Wall versus side-block decision for a N-S line (exact script 3 logic)."""
     length = agent_nord.dist + agent_sud.dist + 1
-    pos = agent_sud.dist + 1  # position 1-based depuis le sud
+    pos = agent_sud.dist + 1  # 1-based position from the south
     if length <= 1:
         return "wall_ns"
     if length == 2:
@@ -781,7 +774,7 @@ def decide_side_ns(agent_nord, agent_sud):
 
 def decide_side_ew(agent_ouest, agent_est):
     length = agent_ouest.dist + agent_est.dist + 1
-    pos = agent_est.dist + 1  # position 1-based depuis l'est
+    pos = agent_est.dist + 1  # 1-based position from the east
     if length <= 1:
         return "wall_eo"
     if length == 2:
@@ -800,7 +793,7 @@ def decide_side_ew(agent_ouest, agent_est):
 
 
 def diag_sense(model, x, y, z):
-    """'swne' ou 'senw' — même priorités que le script (diag continue > type axial > défaut)."""
+    """'swne' or 'senw', same priorities as the script (diagonal > axial > default)."""
     if model.type_near(x + 1, y, z - 1) == DIAG or model.type_near(x - 1, y, z + 1) == DIAG:
         return "swne"
     t_ne = model.type_at(x + 1, y, z - 1)  # y exact
@@ -811,7 +804,7 @@ def diag_sense(model, x, y, z):
 
 
 def scan_diag(model, x, y, z, sdx, sdz):
-    """Scan le long d'une diagonale ; à la fin détecte le type de la connexion."""
+    """Scans along a diagonal and detects the connection type at the end."""
     agent = Agent()
     cur_y = y
     for i in range(1, MAX_DIAG_SCAN + 1):
@@ -840,10 +833,10 @@ def scan_diag(model, x, y, z, sdx, sdz):
 
 
 def diag_design(model, x, y, z):
-    """Décide du rendu d'un bloc DIAG. Retourne (coral, liste[(dx,dz,state)])."""
+    """Decides how a DIAG block is rendered: (coral, [(dx,dz,state)])."""
     sense = diag_sense(model, x, y, z)
     swne = sense == "swne"
-    # Vecteurs de marche vers le "nord" (z-) et le "sud" (z+) de la diagonale
+    # Walking vectors towards the "north" (z-) and "south" (z+) of the diagonal
     if swne:
         n = scan_diag(model, x, y, z, +1, -1)
         s = scan_diag(model, x, y, z, -1, +1)
@@ -870,8 +863,8 @@ def diag_design(model, x, y, z):
         transition = (rel == mid) or (rel == mid + 1)
 
     if coral is None:
-        # indetermine (exutoire des deux cotes nul) : fragment de transition NS
-        # plutot que le black_wool signal — le rail reste continu en jeu.
+        # Undetermined (both exits empty): an NS transition fragment rather than
+        # the black_wool sentinel, so the rail stays continuous in game.
         return "coral_south", four
     if transition:
         return coral, four
@@ -883,7 +876,7 @@ def diag_design(model, x, y, z):
 # 6. CONSTRUCTION
 # =============================================================================
 
-# Décor de voie (jamais un core) : peut être repris par une jonction.
+# Track decor (never a core): a junction may reclaim it.
 DECOR_TOKENS = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
                 "side_east", "side_west", "side_north", "side_south",
                 "pale_moss_carpet", "button_north", "button_east",
@@ -892,7 +885,7 @@ DECOR_TOKENS = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw"
        for f in ("north", "south", "east", "west")} \
     | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
        for f in ("north", "south", "east", "west")}
-# Base de support posée par les designs (recyclable en base de jonction).
+# Support base placed by the designs, reusable as a junction base.
 SOIL_TOKENS = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
                "deepslate_iron_ore", "deepslate_coal_ore", "gravel"}
 
@@ -919,7 +912,7 @@ class Options:
     def __init__(self, style="classic", theme=1, fill_mode=2, buried=False):
         self.style = style      # "classic" | "nature"
         self.theme = theme      # 1 = sombre, 2 = clair
-        self.fill_mode = fill_mode  # 1 = uni (orange_wool), 2 = aléatoire
+        self.fill_mode = fill_mode  # 1 = uniform (orange_wool), 2 = random
         self.base_dy = -1 if buried else 0
 
 def pick_soil(opt):
@@ -935,37 +928,35 @@ def pick_soil(opt):
 
 
 def build_column(world, opt, x, y, z, center):
-    """Pose sol/bloc/air comme le script (ne réécrit jamais un rail existant).
-    Protection renforcée sur les 3 niveaux de la colonne : aucun bloc de rail
-    existant n'est jamais enfoncé (rebuild idempotent).
-    Thème clair : le side-block est un PANNEAU de porte basse (moitié lower,
-    y+1 seulement), fidèle au script — pas de porte complète à 2 blocs."""
+    """Places soil, core and headroom as the script does, never rewriting an
+    existing rail. All three levels of the column are protected, so a rebuild
+    is idempotent. Light theme: the side block is a door PANEL (lower half,
+    y+1 only) as in the script, not a full two-block door."""
     start_y = y + opt.base_dy
     is_core_write = center in NATURE_CORES
     for yy in (start_y, start_y + 1, start_y + 2):
-        # Garde anti-valse à deux vitesses : (1) un core existant n'est
-        # JAMAIS écrasé ; (2) une pose de DÉCOR cède devant n'importe quel
-        # bloc de rail existant — sinon un rebuild réécrirait les murets
-        # en panneaux/portes (valse des décors, portes orphelines). Mais
-        # une pose de CORE reprend la case d'un décor : les jonctions
-        # denses ne perdent jamais leur rail visible.
+        # Two-tier guard: (1) an existing core is NEVER overwritten; (2) a
+        # DECOR write yields to any existing rail block, otherwise a rebuild
+        # would turn walls into panels or doors (decor churn, orphan doors).
+        # A CORE write may reclaim a decor cell, so dense junctions never lose
+        # their visible rail.
         cur = world.get(x, yy, z)
         if cur in NATURE_CORES or (not is_core_write
                                    and cur in RAIL_FAMILY):
             if os.environ.get("RAIL_DEBUG"):
                 print(f"[COLREFUSE] {x},{yy},{z} center={center}"
                       f" cur={world.get(x, yy, z)}")
-            # La laine du voxel est consommée malgré tout : son core est
-            # précisément celui qui occupe la case (croisement = colonne
-            # partagée) — sinon elle resterait visible à jamais sans rail.
+            # The voxel wool is consumed anyway: its core is exactly the block
+            # occupying the cell (a crossing shares the column), otherwise the
+            # wool would stay visible forever without rail.
             if world.get(x, start_y, z) == "white_wool":
-                # strictement la laine fraîche de trace — jamais un sol de
-                # remplissage laineux ni une laine décorative du joueur.
+                # Strictly the fresh trace wool, never a wool fill or a
+                # decorative player wool.
                 world.set(x, start_y, z, AIR)
             return
-    # Un core ne prend que la case du core d'un décor existant : le sol de
-    # support et l'air de dégagement ne doivent jamais écraser un muret, un
-    # panneau ou une porte d'une autre voie (C7).
+    # A core only takes the core cell of an existing decor: the support soil
+    # and the headroom air must never overwrite a wall, panel or door of
+    # another line (C7).
     if world.get(x, start_y + 2, z) not in RAIL_FAMILY:
         world.set(x, start_y + 2, z, AIR)
     if opt.theme == 2 and center in DOOR_FACING:
@@ -989,14 +980,14 @@ RAIL_FAMILY = {"wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
                     for f in ("north", "south", "east", "west")} | {f"leaf_{a}_{f}" for a in (1, 2, 3, 4)
                                               for f in ("north", "south", "east", "west")}
 
-# Positions de blocs de rail présents AVANT le build courant (protection dédiée nature).
+# Rail blocks present BEFORE the current build (nature-specific protection).
 rail_before = set()
 
 
 def nature_decor_set(world, x, y, z, state):
-    """Pose de décor visible : si la cellule dessus est un solide hostile
-    (pas du rail/air/eau), le décor serait enterré -> suppression (le cas
-    « il manque le rail » de la photo 2 — litière/ortho sous herbe)."""
+    """Places visible decor, unless the cell above is a hostile solid (not
+    rail, air or water): the decor would be buried, which is the "rail
+    missing" case of photo 2 (litter or ortho block under grass)."""
     above = world.get(x, y + 1, z)
     if above not in (AIR, None) and above not in RAIL_FAMILY and above != "water":
         return
@@ -1008,10 +999,10 @@ NATURE_CORES = {"lectern_north", "lectern_east", "pale_moss_block",
 
 
 def _rail_prio(st):
-    """Priorité intra-build : le CORE gagne toujours (3), le décor s'incline
-    (2), le gravier est le lit passif (1). Sans ça, la litière d'un voxel
-    bas s'écrit dans la case du core du voxel haut d'un escalier et le core
-    est refusé ensuite (cores manquants des fuzz-nature)."""
+    """Priority inside one build: a CORE always wins (3), decor yields (2) and
+    gravel is the passive bed (1). Without it, the litter of a low voxel lands
+    in the core cell of a staircase's high voxel and the core is then refused,
+    which was the missing-core failure of the nature fuzz runs."""
     if st in NATURE_CORES:
         return 3
     if st == "gravel":
@@ -1020,21 +1011,21 @@ def _rail_prio(st):
 
 
 def nature_set(world, x, y, z, state):
-    """Comme world.set mais n'écrase jamais un bloc de rail :
-    - rail pré-existant au build (protection classique) ;
-    - rail posé PENDANT ce build par un autre voxel — priorité croissante
-      (gravier < décor < core) : un core écrase un décor qui aurait pris sa
-      case avant lui, jamais l'inverse ; le gravier sert de lit améliorable.
-    C'est le fix anti-chevauchement des capsules : un décor n'enfonce plus
-    jamais le rail d'un voisin (traverses, nœuds, micro-drifts, escaliers)."""
+    """Like world.set, but never overwrites a rail block:
+    - rail present before the build (classic protection);
+    - rail placed DURING this build by another voxel, with increasing priority
+      (gravel < decor < core): a core overwrites a decor that claimed its cell
+      first, never the opposite, and gravel stays an upgradable bed.
+    This is the anti-overlap fix: decor no longer pushes a neighbour's rail
+    down (ties, knots, micro-drifts, staircases)."""
     cur = world.get(x, y, z)
     if (x, y, z) in rail_before and cur in RAIL_FAMILY:
         if cur in NATURE_CORES:
-            return                       # jamais d'écrasement d'un core
+            return                       # never overwrite a core
         if _rail_prio(state) < 3:
-            # décor ultérieur ne touche ni au décor ni au lit de gravier
-            # d'une voie antérieure — mais un CORE la reprend (jonctions :
-            # le rail visible passe avant la litière/le muret d'à côté).
+            # A later decor touches neither the decor nor the gravel bed of a
+            # previous line, but a CORE reclaims it: at a junction the visible
+            # rail comes before the neighbouring litter or wall.
             return
     if cur == state:
         return
@@ -1045,7 +1036,7 @@ def nature_set(world, x, y, z, state):
     world.set(x, y, z, state)
 
 def ordered_neighbors(model, x, y, z):
-    """Noms de direction des voisins de trace, dans l'ordre de collecte du script."""
+    """Direction names of the trace neighbours, in script collection order."""
     out = []
     for dx in (-1, 0, 1):
         for dz in (-1, 0, 1):
@@ -1095,9 +1086,9 @@ _CARD_HO = ({"E", "NE", "SE"}, {"O", "NO", "SO"})
 
 
 def leaf_pair(table, d1, d2):
-    """Valeurs (a1, f1, a2, f2) pour une paire de voisins (script Rouquinator exact).
-    Pour les paires jamais couvertes par le script (virages durs, traces dégénérées) :
-    extension cohérente — litière à 3 segments orientée vers le creux du virage."""
+    """Values (a1, f1, a2, f2) for a neighbour pair (exact Rouquinator script).
+    For pairs the script never covers (sharp turns, degenerate traces) the
+    extension is consistent: a 3-segment litter facing the inside of the turn."""
     for pair, val in table:
         if pm(d1, d2, *pair):
             return val
@@ -1117,12 +1108,12 @@ def leaf_pair(table, d1, d2):
 
 
 def build_nature_block(model, world, opt, x, y, z, t):
-    """Place le rail 'Nature' pour un voxel NS ou EW (script 4 porté)."""
+    """Places the nature rail for an NS or EW voxel (port of script 4)."""
     if t == NS:
         moss_offsets = [(0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         facing = "north"
         table = LEAF_NS
-        ortho = [(1, 0), (-1, 0)]          # gravier à l'est/ouest
+        ortho = [(1, 0), (-1, 0)]          # gravel east and west
         cross_quads = [(1, -1), (-1, -1), (1, 1), (-1, 1)]
         leaf_pos = [(1, 0), (-1, 0)]
     else:
@@ -1144,7 +1135,7 @@ def build_nature_block(model, world, opt, x, y, z, t):
     for dx, dz in ortho:
         nature_decor_set(world, x + dx, y, z + dz, "gravel")
 
-    # Intersections rouge/bleu (design nature, lignes NS uniquement)
+    # Red/blue crossings (nature design, N-S lines only)
     if t == NS:
         for dx, dz in cross_quads:
             for dy in (0, 1, -1):
@@ -1156,9 +1147,9 @@ def build_nature_block(model, world, opt, x, y, z, t):
     d1 = nb[0] if len(nb) > 0 else ""
     d2 = nb[1] if len(nb) > 1 else ""
     if len(nb) >= 2:
-        # Dérive en coin (le tronçon glisse d'1 en X ou Z) : la paire droite
-        # (N,S)/(E,O) est un passage tout droit qui masque le voisin diagonal —
-        # on le substitue pour rendre la litière à 3 segments du script.
+        # Corner drift (the section slides by one in X or Z): the straight pair
+        # (N,S)/(E,O) hides the diagonal neighbour, so substitute it to get the
+        # 3-segment litter of the script.
         diag_nb = [d for d in nb if d in ("NE", "NO", "SE", "SO")]
         if diag_nb and ({d1, d2} == {"N", "S"} or {d1, d2} == {"E", "O"}):
             d2 = diag_nb[0]
@@ -1171,12 +1162,12 @@ def build_nature_block(model, world, opt, x, y, z, t):
 
 
 def orphan_diag_conversion(model, x, y, z):
-    """Un voxel DIAG sans aucun voxel de TRACE en diagonale (fragment perpendiculaire
-    isolé, ex trace qui 'saute' d'une ligne) rend un vilain 4-murets corail de
-    l'autre sens. On le convertit vers le type axial dominant (défaut NS).
-    Critère géométrique (trace brute, pas les types) : stable au rebuild — les
-    indices corail du 1er build ne peuvent pas reclassifier un voisin et créer
-    du churn (idempotence préservée)."""
+    """A DIAG voxel with no diagonal TRACE neighbour (an isolated perpendicular
+    fragment, e.g. a trace jumping from one line) renders as an ugly four-wall
+    coral of the other direction. Convert it to the dominant axial type, NS by
+    default. The criterion is geometric (raw trace, not the types), so it is
+    stable across rebuilds: the coral indices of the first build cannot
+    reclassify a neighbour and cause churn, keeping the rebuild idempotent."""
     nb = model._neighbors_of(x, y, z)
     for dx, dz in ((1, 1), (1, -1), (-1, 1), (-1, -1)):
         if (dx, dz) in nb:
@@ -1189,26 +1180,25 @@ def orphan_diag_conversion(model, x, y, z):
 
 
 def support_fill(world, opt, pre_keys, depth_max=4):
-    """Comble sous les blocs de rail qui flottent (descente bloquee, dents
-    residuelles, derive de controle) : aucun bloc pose par ce build ne garde
-    de l'air directement sous lui — y compris un bloc survive d'une
-    passe precedente dont le support a ete recreuse depuis. Le script pose
-    toujours la voie sur le sol — c'est le meme contrat, jusqu'a depth_max blocs de remplissage
-    (petits residuels de 1-4 blocs ; une ligne volontairement haute est un
-    pont legitime, pas une dent)."""
-    # Les bases de colonne (sol/des supports des passes précédentes) reçoivent
-    # le même pilier que les rails : une souche de terre en plein ciel à
-    # côté d'un pilier serait une verrue visible (contrat captures).
+    """Fills under floating rail blocks (blocked descent, residual teeth,
+    control drift): no block placed by this build keeps air right below it,
+    including a surviving block whose support was dug out by a later pass.
+    The script always lays the track on the ground, and this keeps that
+    contract up to depth_max blocks of fill. Residual gaps are 1 to 4 blocks
+    deep; a deliberately high line is a legitimate bridge, not a tooth."""
+    # Column bases (soil or the supports of earlier passes) get the same pillar
+    # as the rails: a dirt stump in mid-air beside a pillar would be a visible
+    # wart in the screenshots.
     placed = [(pos, st) for pos, st in world.blocks.items()
               if st in RAIL_FAMILY or st in SOIL_TOKENS
               or (opt.fill_mode == 1 and st == "orange_wool")]
     for (x, y, z), st in placed:
-        # Mesure d'abord le vrai trou sous le bloc : s'il est plus profond que
-        # depth_max, c'est un pont legitime — un remplissage tronque laisserait
-        # lui-meme 1-4 blocs d'air et referait le bug. Sinon on comble tout.
+        # Measure the real gap first: deeper than depth_max means a legitimate
+        # bridge, and a truncated fill would itself leave 1-4 blocks of air and
+        # bring the bug back. Otherwise fill it all.
         gap = 0
-        # l'eau n'est pas un support : un rail au-dessus d'une mare flotte,
-        # le pilier traverse l'eau jusqu'au lit (<= depth_max, sinon pont).
+        # Water is not a support: rail above a pond floats, so the pillar
+        # crosses the water down to the bed (<= depth_max, else a bridge).
         while (world.get(x, y - 1 - gap, z) in (AIR, None, "water")
                and gap < 64):
             gap += 1
@@ -1226,13 +1216,12 @@ def build_all(world, trace, opt):
     pre_keys = set(world.blocks.keys())
     model = TrackModel(world, trace)
 
-    # Design classic en DEUX passes : tous les cores (corails) d'abord, puis
-    # tous les décors latéraux (murets/panneaux). Sinon, le côté d'un voisin
-    # s'écrit dans la case du core AVANT lui et la garde « colonne intacte »
-    # fait perdre le corail = « presque plus de rail » sur les lignes à
-    # dérive (jogs latéraux rapprochés). Passes séparées : le core gagne
-    # toujours sa case ; le décor, émis ensuite, s'efface devant tout rail
-    # déjà présent (build_column protégé par cellule).
+    # The classic design runs in TWO passes: every core (coral) first, then the
+    # side decor (walls, panels). Otherwise a neighbour's side lands in the core
+    # cell of the voxel before it and the intact-column guard loses the coral,
+    # the "almost no rail left" symptom on drifting lines with close jogs.
+    # With separate passes the core always gets its cell and the decor, emitted
+    # afterwards, yields to any rail already present (per-cell guard).
     classic_centers = []
     classic_sides = []
 
@@ -1250,7 +1239,7 @@ def build_all(world, trace, opt):
             for dx, dz, w in sides:
                 classic_sides.append((x + dx, y, z + dz, w))
         else:
-            # Design nature : diagonale convertie selon son extrémité (amélioration)
+            # Nature design: the diagonal is converted from its end point.
             c, _ = diag_design(model, x, y, z)
             t = NS if c != "coral_east" else EW
             build_nature_block(model, world, opt, x, y, z, t)
@@ -1337,7 +1326,7 @@ def render(world, trace_voxels, title, subtitle=""):
         return
     x0, x1, z0, z1 = min(xs) - 1, max(xs) + 1, min(zs) - 1, max(zs) + 1
 
-    # Couches contenant du rail (hors terrain) présentes dans la bbox
+    # Layers holding non-terrain rail blocks inside the bounding box
     layers = {}
     for (x, y, z), st in world.blocks.items():
         if st not in (GROUND, AIR):
@@ -1351,11 +1340,11 @@ def render(world, trace_voxels, title, subtitle=""):
 
     if "--layers" in sys.argv or style_nature_requested():
         for y in sorted(layers):
-            print(f"-- couche y={y} --")
+            print(f"-- layer y={y} --")
             for z in range(z0, z1 + 1):
                 print("".join(layer_glyph(world, x, y, z) for x in range(x0, x1 + 1)))
     else:
-        print("(vue du dessus ; ajouter --layers pour le détail par couche)")
+        print("(top view; add --layers for the per-layer detail)")
         for z in range(z0, z1 + 1):
             print("".join(topmost_glyph(world, x, z) for x in range(x0, x1 + 1)))
 
@@ -1365,18 +1354,18 @@ def style_nature_requested():
 
 
 LEGEND = """
-Légende (design Classique) :
-  S/E  corail dead_bubble_coral_wall_fan facing south/east (centre de rail N-S ou E-O)
-  │ ─  muret axial (mud_brick_wall / andesite_wall, connexions tall)
-  └ ┘ ┌ ┐  murets d'angle (diagonales et faux-diagonales)
-  n/s/e/w  side-block orienté (spruce_shelf thème sombre / iron_door thème clair)
-  ░▒▓ic  remplissage du sol  ·  X = indéterminé (black_wool, cas dégénéré)
-Légende (design Nature) :
-  N/E  pupitre (lectern)  ·  M pale_moss_block  ·  + bouton  ·  g gravel  ·  '~ leaf_litter
+Legend (classic design):
+  S/E  dead_bubble_coral_wall_fan facing south/east (N-S or E-W rail centre)
+  │ ─  axial wall (mud_brick_wall / andesite_wall, tall connections)
+  └ ┘ ┌ ┐  corner walls (diagonals and false diagonals)
+  n/s/e/w  oriented side block (spruce_shelf dark theme / iron_door light theme)
+  ░▒▓ic  soil fill  ·  X = undetermined (black_wool, degenerate case)
+Legend (nature design):
+  N/E  lectern  ·  M pale_moss_block  ·  + button  ·  g gravel  ·  '~ leaf_litter
 """
 
 # =============================================================================
-# 8. SCÉNARIOS
+# 8. SCENARIOS
 # =============================================================================
 
 SPLINE = "white_wool"
@@ -1384,7 +1373,7 @@ CORNER = "grass_block"
 
 
 def flat_world(x0, x1, z0, z1, height_fn=None, depth=4):
-    """Terrain : surface grass (height_fn(x,z) ou 0) + 'depth' couches dessous."""
+    """Terrain: grass surface at height_fn(x,z) or 0, plus `depth` layers below."""
     w = World()
     for x in range(x0, x1 + 1):
         for z in range(z0, z1 + 1):
@@ -1395,7 +1384,7 @@ def flat_world(x0, x1, z0, z1, height_fn=None, depth=4):
 
 
 def scenario(name, control, opt, pad=3, colorize=None, subtitle="", height_fn=None):
-    """Trace la spline issue des points de contrôle, rectifie, construit, affiche."""
+    """Samples the spline, rectifies and builds it, then renders the result."""
     floats = adaptive_sample(control)
     vox = voxelize(floats)
     xs = [v[0] for v in vox]
@@ -1404,7 +1393,7 @@ def scenario(name, control, opt, pad=3, colorize=None, subtitle="", height_fn=No
                    height_fn=height_fn)
     for x, y, z in vox:
         w.set(x, y, z, SPLINE)
-    # Rectification (nivelage, épuration des L, re-nivelage)
+    # Rectification: levelling, "L" cleanup, levelling again
     trace = list(vox)
     trace = rectify_vertical(w, trace, SPLINE, CORNER)
     trace = rectify_l(w, trace, SPLINE, CORNER)
@@ -1424,40 +1413,40 @@ def main():
         return not only or name in only
 
     if want("straight-ns"):
-        scenario("Ligne droite N-S (13 blocs)", [(8, 1, 20), (8, 1, 8)],
-                 Options(style=style), subtitle="Corail S au centre, murets │ de chaque côté.")
+        scenario("Straight N-S line (13 blocks)", [(8, 1, 20), (8, 1, 8)],
+                 Options(style=style), subtitle="Coral S at the centre, walls on both sides.")
 
     if want("straight-ew"):
-        scenario("Ligne droite E-O (13 blocs)", [(5, 1, 8), (17, 1, 8)],
+        scenario("Straight E-W line (13 blocks)", [(5, 1, 8), (17, 1, 8)],
                  Options(style=style))
 
     if want("halfturn"):
-        # NS, L-court puis virage à l'est : side_west attendu aux bouts si L=2
-        scenario("Virage N-S -> E (courbe douce)",
+        # N-S, short L then an eastward turn: side_west expected at the ends if L=2
+        scenario("N-S -> E turn (smooth curve)",
                  [(10, 1, 24), (10, 1, 8), (26, 1, 4)],
                  Options(style=style),
-                 subtitle="Sides jaunes aux extrémités des lignes où la trace vire.")
+                 subtitle="Yellow side blocks at the line ends where the trace turns.")
 
     if want("s-curve"):
-        scenario("Grande courbe en S (N-S -> E -> N-S)",
+        scenario("Wide S curve (N-S -> E -> N-S)",
                  [(8, 1, 36), (8, 1, 22), (20, 1, 12), (20, 1, 2)],
                  Options(style=style),
-                 subtitle="Le test roi : lignes, tiers de murets/sides, diagonales mixtes.")
+                 subtitle="The key test: lines, wall/side thirds, mixed diagonals.")
 
     if want("diag-true"):
-        # Tracé manuel canonique connexe : 6 NS, 5 diagonale SW-NE stricte, 6 EW.
+        # Canonical connected hand trace: 6 N-S, 5 strict SW-NE diagonal, 6 E-W.
         w = flat_world(0, 24, 0, 24)
-        trace = [(10, 1, z) for z in range(14, 20)]           # segment N-S (au sud)
-        trace += [(10 + i, 1, 14 - i) for i in range(1, 6)]   # diagonale SW->NE stricte
-        trace += [(x, 1, 8) for x in range(16, 22)]           # segment E-O (au nord)
+        trace = [(10, 1, z) for z in range(14, 20)]           # N-S segment (south)
+        trace += [(10 + i, 1, 14 - i) for i in range(1, 6)]   # strict SW->NE diagonal
+        trace += [(x, 1, 8) for x in range(16, 22)]           # E-W segment (north)
         for x, y, z in trace:
             w.set(x, y, z, SPLINE)
         build_all(w, trace, Options(style=style))
-        render(w, trace, "Vraie diagonale (N-S / diag stricte / E-O)",
-               "Corail S moitié sud, corail E moitié nord, transition (4 murets) au milieu.")
+        render(w, trace, "True diagonal (N-S / strict diag / E-W)",
+               "Coral S on the south half, coral E on the north half, 4-wall transition between.")
 
     if want("diag-false"):
-        # Tracé manuel : 5 NS, 4 diagonale stricte, 5 NS -> fausse diagonale.
+        # Hand trace: 5 N-S, 4 strict diagonal, 5 N-S, giving a false diagonal.
         w = flat_world(0, 16, 0, 22)
         trace = [(8, 1, z) for z in range(13, 18)]
         trace += [(8 + i, 1, 13 - i) for i in range(1, 5)]
@@ -1465,28 +1454,29 @@ def main():
         for x, y, z in trace:
             w.set(x, y, z, SPLINE)
         build_all(w, trace, Options(style=style))
-        render(w, trace, "Fausse diagonale (N-S de chaque côté)",
-               "Corail S sur toute la diagonale + 4 murets d'angle par bloc.")
+        render(w, trace, "False diagonal (N-S on both sides)",
+               "Coral S over the whole diagonal plus four corner walls per block.")
 
     if want("corner-90"):
-        scenario("Virage à 90° net", [(6, 1, 16), (6, 1, 6), (16, 1, 6)],
+        scenario("Sharp 90 degree turn", [(6, 1, 16), (6, 1, 6), (16, 1, 6)],
                  Options(style=style))
 
     if want("slope"):
-        # Terrain en escalier + spline tracée au-dessus -> le rectif plaque le rail au sol.
+        # Staircase terrain with the spline drawn above it: rectification lays
+        # the rail back on the ground.
         def hill(x, z):
             if z >= 18: return 0
             if z >= 12: return 2
             if z >= 6:  return 4
             return 4
-        scenario("Ligne N-S en pente (terrain en escalier, +0 puis +2 puis +4)",
+        scenario("Sloped N-S line (stepped terrain, +0 then +2 then +4)",
                  [(8, 5, 22), (8, 5, 12), (8, 7, 6), (8, 8, 2)],
                  Options(style=style), height_fn=hill,
-                 subtitle="En design Nature : pale_moss_block + bouton sur les montées/descentes.")
+                 subtitle="Nature design: pale_moss_block and button on the rises and drops.")
 
     if want("crossing"):
         if style != "nature":
-            print("(scénario 'crossing' = design nature : relancer avec --style nature)")
+            print("(the 'crossing' scenario uses the nature design: rerun with --style nature)")
         w = flat_world(0, 14, 0, 14)
         for z in range(1, 14):
             w.set(7, 1, z, "red_wool")
@@ -1494,8 +1484,8 @@ def main():
             w.set(x, 1, 7, "blue_wool")
         trace = [(7, 1, z) for z in range(1, 14)] + [(x, 1, 7) for x in range(1, 14)]
         build_all(w, trace, Options(style="nature"))
-        render(w, trace, "Croisement N-S × E-O (design nature)",
-               "Gravel + leaf_litter à l'intersection.")
+        render(w, trace, "N-S x E-W crossing (nature design)",
+               "Gravel and leaf_litter at the intersection.")
 
     print(LEGEND)
 

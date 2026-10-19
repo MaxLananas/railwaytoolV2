@@ -851,10 +851,6 @@ public final class InGameSelfTest {
         check("ghost cleared (" + scene + ")", ghostSize <= 0, ghostSize + " cells");
     }
 
-    private static void nextScene() {
-        resetTool();
-    }
-
     private static void summary() {
         scanLog();
         long passed = RESULTS.stream().filter(r -> r.startsWith("PASS")).count();

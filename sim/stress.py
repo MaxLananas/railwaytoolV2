@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-stress.py — harnais de tests massifs pour le moteur rail (rail_sim.py).
-Génère des centaines de scénarios (géométries manuelles + splines aléatoires),
-construit les deux designs pour toutes les options, et vérifie les invariants
-des règles du script : états valides, murets/coraux/sides attendus, protection
-des rails existants, idempotence du design classique, nulle part de sortie du
-corridor, sécurité de la rectification verticale.
+stress.py - large test harness for the rail engine (rail_sim.py).
+Generates hundreds of scenarios (hand-built geometry and random splines),
+builds both designs for every option and checks the script invariants: valid
+block states, expected walls/coral/sides, protection of existing rail,
+idempotence of the classic design, no block outside the corridor, and the
+safety of vertical rectification.
 """
 
 import random
@@ -22,7 +22,7 @@ def fail(case, msg):
     violations.append(f"{case}: {msg}")
 
 
-# --- Validité des états posés (noms + attributs comme dans le jeu) ---
+# --- Validity of the placed states (names and properties as in game) ---
 RAIL_STATES = {
     "wall_ns", "wall_eo", "wall_ne", "wall_nw", "wall_se", "wall_sw",
     "side_north", "side_south", "side_east", "side_west",
@@ -45,20 +45,20 @@ def check_states(case, world):
         if st in IGNORED:
             continue
         if st not in RAIL_STATES and st not in SOIL:
-            fail(case, f"état inconnu posé {st} à {pos}")
+            fail(case, f"unknown state placed: {st} at {pos}")
 
 
 def check_corridor(case, world, trace):
     xs = [v[0] for v in trace]
     ys = [v[1] for v in trace]
     zs = [v[2] for v in trace]
-    # marge basse +6 : le remplissage de support (gravel/sol) descend sous la trace
+    # Extra margin below: support fill (gravel or soil) goes under the trace.
     box = (min(xs) - 2, max(xs) + 2, min(ys) - 8, max(ys) + 2, min(zs) - 2, max(zs) + 2)
     for (x, y, z), st in world.blocks.items():
         if st in IGNORED or st == R.GROUND:
             continue
         if not (box[0] <= x <= box[1] and box[2] <= y <= box[3] and box[4] <= z <= box[5]):
-            fail(case, f"bloc hors corridor {st} à {(x, y, z)}")
+            fail(case, f"block outside the corridor: {st} at {(x, y, z)}")
             return
 
 
@@ -122,20 +122,20 @@ def run_case(name, trace, colors=None, height_fn=None, styles=("classic", "natur
                 rail_states = set(RAIL_STATES) - {"black_wool"}
                 destroyed = [x for x in d if x[1] in rail_states and x[2] != x[1]]
                 if destroyed:
-                    fail(f"{name}/{style}-protect", f"rail détruit au rebuild {destroyed[:3]}")
+                    fail(f"{name}/{style}-protect", f"rail destroyed by the rebuild {destroyed[:3]}")
                 if strict_idempotent and style == "classic" and d:
-                    fail(f"{name}/classic-idempotence", f"rebuild modifie {d[:3]}")
+                    fail(f"{name}/classic-idempotence", f"rebuild modifies {d[:3]}")
                 _ = pre
 
 
-# --- Vérifications spécifiques ---
+# --- Targeted checks ---
 
 def level_block(world, x, y, z):
     return world.get(x, y, z)
 
 
 def expect_classic_straight_ns(case, L, turn_start=None, turn_end=None):
-    """Ligne NS de longueur L à x=10, z=10..10+L-1, y=1. Vérifie la pose."""
+    """N-S line of length L at x=10, z=10..10+L-1, y=1. Checks the placement."""
     trace = straight_line(10, 10, 0, 1, L)
     if turn_start == "E":
         trace = [(9, 1, 10)] + trace[1:]
@@ -157,20 +157,20 @@ def check_straight_ns_middle(case, L):
         if res[f"core{i}"] != "coral_south":
             fail(f"{case}/L{L}", f"core{i}={res[f'core{i}']} != coral_south")
         if res[f"oud{i}"] != "wall_ns" or res[f"est{i}"] != "wall_ns":
-            fail(f"{case}/L{L}", f"murets milieu {i}: {res[f'oud{i}']}/{res[f'est{i}']}")
+            fail(f"{case}/L{L}", f"middle walls {i}: {res[f'oud{i}']}/{res[f'est{i}']}")
 
 
 def main():
     random.seed(1337)
 
-    # 1) Lignes droites toutes longueurs 1..45, NS et EW (wall check en milieu)
+    # 1) Straight lines of every length 1..45, N-S and E-W (mid-line wall check)
     for L in range(1, 46):
         run_case(f"straight-ns-{L}", straight_line(10, 10, 0, 1, L), styles=("classic",), strict_idempotent=True)
         run_case(f"straight-ew-{L}", straight_line(10, 10, 1, 0, L), styles=("classic",), strict_idempotent=True)
         if 3 <= L <= 45:
             check_straight_ns_middle(f"straight-ns-{L}", L)
 
-    # 2) Coins 90° toutes combinaisons de longueurs de bras (2,3,5,8,13,21) × 4 orientations
+    # 2) 90 degree corners, every arm-length combination (2,3,5,8,13,21) x 4 orientations
     arms = (2, 3, 5, 8, 13, 21)
     turns = [((0, 1), (1, 0)), ((0, 1), (-1, 0)), ((0, -1), (1, 0)), ((0, -1), (-1, 0))]
     for a in arms:
@@ -181,7 +181,7 @@ def main():
                 t2 = [((t1[-1][0] + d2[0] * i), 1, (t1[-1][2] + d2[1] * i)) for i in range(1, b + 1)]
                 run_case(f"corner-{a}x{b}-{d1}-{d2}", t1 + t2, styles=("classic", "nature"), strict_idempotent=True)
 
-    # 3) Diagonales strictes longueur 1..10 raccordées aux 2 bouts (NS/EW × NS/EW), 2 sens
+    # 3) Strict diagonals, length 1..10, joined at both ends (NS/EW x NS/EW), both ways
     for dl in range(1, 11):
         for first_t in ("ns", "ew"):
             for last_t in ("ns", "ew"):
@@ -198,7 +198,7 @@ def main():
                     run_case(f"diag{dl}-{first_t}-{last_t}-{sense}", t + d + t2,
                              styles=("classic", "nature"), strict_idempotent=True)
 
-    # 4) Vraies diagonales avec vérification fine des coraux/4 murets
+    # 4) True diagonals with a detailed coral and four-wall check
     for dl in (2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
         trace = straight_line(10, 10, 0, 1, 6)
         d = diag_line(11, 15, 1, 1, dl)
@@ -217,7 +217,7 @@ def main():
             if interior and walls_n not in (2, 4):
                 fail(f"true-diag-{dl}", f"diag{i} corail {c} murets {states4}")
 
-    # 5) Escaliers / montées-descentes sur terrain variable
+    # 5) Stairs and climbs/drops on varying terrain
     for steps in (1, 2, 3, 5, 8):
         trace = []
         y = 1
@@ -229,7 +229,7 @@ def main():
             z += 1
         run_case(f"stairs-{steps}", trace, styles=("classic", "nature"), strict_idempotent=True)
 
-    # 6) Boucles / fourches / croisements
+    # 6) Loops, forks and crossings
     square = (straight_line(10, 10, 1, 0, 8) + straight_line(17, 10, 0, 1, 8)
               + straight_line(17, 17, -1, 0, 8)[1:] + straight_line(10, 17, 0, -1, 8)[1:])
     run_case("square-loop", square, strict_idempotent=True)
@@ -241,14 +241,14 @@ def main():
              colors={v: "red_wool" for v in straight_line(10, 4, 0, 1, 12)}
              | {v: "blue_wool" for v in straight_line(4, 10, 1, 0, 12)})
 
-    # 7) Traces colorées arbitraires (overrides) sur géométrie droite
+    # 7) Arbitrary colour overrides on straight geometry
     colors1 = {v: "red_wool" for v in straight_line(10, 10, 0, 1, 6)}
     colors1 |= {v: "blue_wool" for v in straight_line(10, 16, 0, 1, 6)}
     run_case("partial-color", straight_line(10, 10, 0, 1, 12), colors=colors1)
     run_case("force-diag-on-straight", straight_line(10, 10, 0, 1, 12),
              colors={v: "lime_wool" for v in straight_line(10, 10, 0, 1, 12)})
 
-    # 8) Marches aléatoires 26-connexes sans rebroussement (seedé, 400 cas)
+    # 8) Random 26-connected walks without backtracking (seeded, 400 cases)
     for seed in range(400):
         rnd = random.Random(seed)
         t = [(15, 1, 15)]
@@ -264,7 +264,7 @@ def main():
                 t.append((last[0] + dx, last[1], last[2] + dz))
         run_case(f"walk-{seed}", t)
 
-    # 9) Splines réelles : points de contrôle aléatoires (300 cas)
+    # 9) Real splines: random control points (300 cases)
     for seed in range(300):
         rnd = random.Random(10_000 + seed)
         n = rnd.randint(2, 5)
@@ -290,24 +290,24 @@ def main():
         check_states(f"spline-{seed}", w)
         check_corridor(f"spline-{seed}", w, trace)
 
-    # 10) Rectif verticale : traces volantes hautes/enterrées profondes
+    # 10) Vertical rectification: high floating traces and deeply buried ones
     for h in (2, 5, 14, 19):
         run_case(f"fly-{h}", straight_line(10, 10, 0, 1, 8, y=1 + h))
     underground = straight_line(10, 10, 0, 1, 8, y=1)
     run_case("buried-trace", underground,
              height_fn=lambda x, z: 4, styles=("classic",))
 
-    # 11) Idempotence nature n'est pas requise ; mais un rebuild classique courant
-    #     sur un rail existant ne doit rien modifier (protection complète)
+    # 11) Nature idempotence is not required, but a plain classic rebuild over
+    #     existing rail must not change anything (full protection).
     tr = straight_line(10, 10, 0, 1, 12)
     w, _ = make_world(tr)
     R.build_all(w, tr, R.Options(style="classic"))
     s1 = snapshot(w)
     R.build_all(w, tr, R.Options(style="classic", theme=2))
     if diff_worlds(s1, snapshot(w)):
-        fail("protect-theme-switch", "le thème 2 réécrit par-dessus le thème 1")
+        fail("protect-theme-switch", "theme 2 overwrites theme 1")
 
-    print(f"\n=== {counts['scenarios']} scénarios, {counts['builds']} builds ===")
+    print(f"\n=== {counts['scenarios']} scenarios, {counts['builds']} builds ===")
     if violations:
         print(f"!!! {len(violations)} VIOLATIONS !!!")
         import re
@@ -322,7 +322,7 @@ def main():
         for key, n in grp.most_common(40):
             print(f"{n:5d}x  {ex[key]}")
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
 
 
 if __name__ == "__main__":

@@ -211,11 +211,11 @@ public final class Grounding {
                     if (view.isAir(x, y + dy, z)) {
                         int ny = y + dy - 1;
                         if (wool.contains(BlockPos.asLong(x, ny, z))) {
-                            break;  // jamais d'atterrissage SUR une autre laine
+                            break;  // never land ON another wool voxel
                         }
                         if (com.bte.railpathtool.design.ClassicDesign.ColumnWriter
                                 .isRailFamily(view.at(x, ny, z))) {
-                            break;  // jamais d'atterrissage DANS du rail existant
+                            break;  // never land INSIDE existing rail
                         }
                         // Leftover corner: only placed wool outside water counts, otherwise
                         // floating grass would lock a neighbour's descent.

@@ -16,10 +16,10 @@ public class RailPathToolMod implements ClientModInitializer {
     public void onInitializeClient() {
         InGameSelfTest.install();
         if (!Axiom.init()) {
-            LOGGER.warn("[RailwayTool] Axiom introuvable — l'outil rail est désactivé.");
+            LOGGER.warn("[RailwayTool] Axiom not found, the rail tool is disabled.");
             return;
         }
         Axiom.registerTool(new RailwayTool());
-        LOGGER.info("[RailwayTool] Outil Rail BTE enregistré dans Axiom.");
+        LOGGER.info("[RailwayTool] BTE rail tool registered with Axiom.");
     }
 }

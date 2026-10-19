@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
-"""Exporte les scenes de PARITE Java/sim au format partage sim/parity/scenes.txt.
+"""Exports the Java/sim PARITY scenes to the shared sim/parity/scenes.txt.
 
-Chaque scene : boites de terrain (R [bloc]), boites d'eau (Q), blocs isoles
-(W : laine forcee, pierre, rail...), points de controle ENTIERS comme dans le
-jeu (C), classification attendue du sim (D/N) et cellules CHANGEES attendues
-(E, au format tokens). La tache gradle `parityCheck` rejoue le VRAI pipeline
-Java (sampler adaptatif 6 -> voxelize -> Grounding x2 -> LCorners ->
-flattenTeeth -> dedupeColumns -> TrackModel -> design, dug toujours actif =
-defaut produit) et exige une carte de blocs IDENTIQUE, en comparaison
-bidirectionnelle par ensemble de changements : toute fuite, n'importe ou dans
-le monde, est un echec.
+Each scene holds terrain boxes (R [block]), water boxes (Q), isolated blocks
+(W: forced wool, stone, rail...), INTEGER control points as in game (C), the
+expected sim classification (D/N) and the expected CHANGED cells (E, token
+form). The gradle task `parityCheck` replays the REAL Java pipeline (adaptive
+sampler 6 -> voxelize -> Grounding x2 -> LCorners -> flattenTeeth ->
+dedupeColumns -> TrackModel -> design, digging always on as in the product
+default) and requires an IDENTICAL block map, comparing change sets in both
+directions: a single leak anywhere in the world is a failure.
 
-Le fichier est auto-valide ici meme par les INVARIANTS VISIBLES (voir
-sim/ROBUSTNESS.md) : aucun rail flottant (ni sur air ni sur eau), aucun
-doublon vertical de voie, aucune laine residuelle non semee, chaque trace =
-une seule composante, core present a chaque voxel. On n'ecrit jamais une
-attente intrinsequement fausse : une scene qui violerait un invariant
-invalide l'export entier (exit 1) — c'est un vrai bug decouvert.
+The file self-validates right here against the VISIBLE invariants (see
+sim/ROBUSTNESS.md): no floating rail (neither on air nor on water), no
+vertical duplicate on the track, no residual wool outside the seeded blocks,
+one component per trace and a core at every voxel. An intrinsically false
+expectation is never written: a scene violating an invariant fails the whole
+export (exit 1), and that is a real bug discovered.
 
-Couverture (deterministe, PYTHONHASHSEED-stable) : terrain plat/collines/
-chaos, derives dentees, jonctions multi-traces, enterre, lacs, laines
-forcees, pierre, tunnels, montees raides, spirales, fuzz x familles.
+Coverage (deterministic, PYTHONHASHSEED-stable): flat/hilly/chaos terrain,
+toothed drifts, multi-trace junctions, buried tracks, lakes, forced wools,
+stone, tunnels, steep climbs, spirals and the fuzz families.
 """
 import os
 import sys
@@ -34,13 +33,13 @@ random.seed(20240913)
 TOK_SOIL = {"deepslate", "cobbled_deepslate", "pale_oak_wood",
             "deepslate_iron_ore", "deepslate_coal_ore"}
 
-# Blocs qui acceptent la laine de trace (miroir EXACT de
-# Grounding.isWoolLayable cote Java). Tout le reste — rail, laine, decor —
-# est protege : une trace ne peut pas ecraser la voie d'une autre.
-# TOUS les sols du mix design (et le gravel nature) figurent ici : un
-# support pose par une trace anterieure ne doit jamais devier la trace
-# suivante — sinon la GEOMETRIE dependrait du tirage aleatoire du mix
-# (scenes jun-70 & co : pale_oak_wood tire => trace refusee/deplacee).
+# Blocks that accept the trace wool (EXACT mirror of Java
+# Grounding.isWoolLayable). Everything else (rail, wool, decor) is protected:
+# a trace can never overwrite another line.
+# EVERY soil of the design mix (and nature gravel) is listed here: a support
+# placed by an earlier trace must never divert the next one, otherwise the
+# GEOMETRY would depend on the random mix draw (jun-70 and friends: a
+# pale_oak_wood draw made the trace refused or moved).
 NATURAL_SOFT = {R.AIR, None, "grass_block", "water", "stone", "dirt",
                 "coarse_dirt", "sand", "sandstone", "terracotta", "clay",
                 "snow_block", "ice", "mud", "andesite", "granite", "diorite",
@@ -49,7 +48,7 @@ NATURAL_SOFT = {R.AIR, None, "grass_block", "water", "stone", "dirt",
                 "oak_leaves", "spruce_leaves"}
 
 WOOL_PREFIX = "_wool"
-RAIL_CORE_TOKEN = "black_wool"   # pilier noir = rail, pas une laine residuelle
+RAIL_CORE_TOKEN = "black_wool"   # black pillar = rail, not residual wool
 
 
 def tok(st):
@@ -57,7 +56,7 @@ def tok(st):
 
 
 def make_world(x0, x1, z0, z1, height_fn, depth=12):
-    """Terrain herbeux explicite (comme le superflat du jeu)."""
+    """Explicit grassy terrain, as in the game superflat preset."""
     w = R.World()
     for x in range(x0, x1 + 1):
         for z in range(z0, z1 + 1):
@@ -72,7 +71,7 @@ def flat(h):
 
 
 def stone_top(top_block, h):
-    """Plateau de `top_block` a hauteur h (terrain parseme de roche)."""
+    """Plateau of `top_block` at height h, terrain speckled with rock."""
     return lambda x, z: h, top_block
 
 
@@ -94,7 +93,7 @@ def chaos(base, seed):
 
 
 def lake(base, cx, cz, rx, rz, depth):
-    """Terrain plat creuse d'une cuvette elliptique (le lit du lac)."""
+    """Flat terrain hollowed into an elliptical basin: the lake bed."""
     def h(x, z):
         d = ((x - cx) ** 2) / (rx * rx + 1e-9) + ((z - cz) ** 2) / (rz * rz + 1e-9)
         if d <= 1.0:
@@ -104,8 +103,8 @@ def lake(base, cx, cz, rx, rz, depth):
 
 
 def build_trace_seq(world, control, dug):
-    """Pipeline identique au mod (defauts UI : adaptatif 6, snap ON, purge ON,
-    smooth/tunnel ON)."""
+    """Pipeline identical to the mod (UI defaults: adaptive 6, snap on, purge
+    on, smooth/tunnel on)."""
     floats = R.adaptive_sample([(float(x), float(y), float(z))
                                 for (x, y, z) in control])
     vox = R.voxelize(floats)
@@ -113,9 +112,9 @@ def build_trace_seq(world, control, dug):
         if world.get(*v) in NATURAL_SOFT:
             world.set(v[0], v[1], v[2], R.SPLINE)
     trace = R.rectify_vertical(world, vox, R.SPLINE, R.CORNER, dug=dug)
-    # PAS de re-pose de laine ici : la rectification gere la laine elle-meme
-    # (pipeline exact du mod — un re-lay cachait aux gardes de la purge L
-    # les deplacements et faisait diverger la parite).
+    # No wool re-lay here: rectification handles the wool itself (exact mod
+    # pipeline). Re-laying hid the moves from the "L" purge guards and made
+    # parity diverge.
     trace = R.rectify_l(world, trace, R.SPLINE, R.CORNER)
     trace = R.rectify_vertical(world, trace, R.SPLINE, R.CORNER, dug=dug)
     trace = R.flatten_teeth(world, trace, R.SPLINE)
@@ -127,14 +126,14 @@ CORES = {"coral_south", "coral_east", "black_wool",
 
 
 def self_check(name, world, traces, opt, seeded_wool=()):
-    """Refuse d'ecrire une attente qui viole les contrats visibles.
+    """Refuses to write an expectation that violates the visible contracts.
 
-    Invariants (documentes dans sim/ROBUSTNESS.md) :
-      I1  core (rail) present a chaque voxel de trace (+-1 vertical)
-      I2  une seule composante par trace — jamais de voie sectionnee
-      I3  aucun doublon vertical (monticule/pile)
-      I4  aucun bloc de rail flottant (ni air ni eau sous lui)
-      I5  aucune laine residuelle hors graines semees (rail manquant ailleurs)
+    Invariants (documented in sim/ROBUSTNESS.md):
+      I1  a core (rail) at every trace voxel (+-1 vertically)
+      I2  one component per trace, never a cut line
+      I3  no vertical duplicate (mound or stack)
+      I4  no floating rail block (neither air nor water below)
+      I5  no residual wool outside the seeded blocks (missing rail elsewhere)
     """
     bad = []
     seeded = set(seeded_wool)
@@ -147,13 +146,12 @@ def self_check(name, world, traces, opt, seeded_wool=()):
             if st not in core_want and not any(
                     world.get(v[0], v[1] + dy, v[2]) in core_want
                     for dy in (1, -1)):
-                bad.append(f"I1 core manquant {v} ({st})")
-        # Continuité de la VOIE CONSTRUITE : chaque voxel est remplacé par
-        # la position de son core, puis on vérfie que les cores forment UN
-        # ruban. Deux cores sont liés s'ils sont dans des colonnes voisines
-        # (|dx|<=1 et |dz|<=1, QUEL QUE SOIT dy : un escalier de montagne ou
-        # un croisement superposé sont des voies continues, pas des trous) ou
-        # dans la même colonne (croisement empilé = même point de voie).
+                bad.append(f"I1 missing core {v} ({st})")
+        # Continuity of the BUILT track: each voxel is mapped to its core
+        # position, then the cores must form ONE ribbon. Two cores are linked
+        # when their columns are neighbours (|dx|<=1 and |dz|<=1, whatever dy:
+        # a mountain staircase or a stacked crossing is a continuous line, not
+        # a hole) or when they share a column (stacked crossing = same point).
         mapped = set()
         for v in set(trace):
             for dy in (0, 1, -1):
@@ -207,7 +205,7 @@ class Scene:
         self.buried = buried
         self.seeds = list(seeds)          # [(x, y, z, block)]
         self.water = list(water)          # [(x0,x1,y0,y1,z0,z1)]
-        self.top_block = top_block        # ex. "stone" : couche de surface
+        self.top_block = top_block        # e.g. "stone": surface layer
 
     def fill_initial(self):
         x0, x1, z0, z1 = self.box
@@ -293,7 +291,7 @@ def scenes():
         s.append(Scene(f"zigzag-{suf}", zz, (0, 36, 0, 30), chaos(58, 77),
                        style, theme))
 
-    # ============ 9. fuzz polylignes (180) : flat/hills/chaos ==============
+    # ============ 9. polyline fuzz (180): flat, hills, chaos ===============
     rnd = random.Random(4242)
     for i in range(180):
         n = rnd.randint(6, 16)
@@ -314,7 +312,7 @@ def scenes():
                                    ("nature", 1)))
         s.append(Scene(f"fuzz-{kind}-{i}", [ctrl], box, hf, style, theme))
 
-    # ============ 10. jonctions multi-traces denses (90) ==================
+    # ============ 10. dense multi-trace junctions (90) =====================
     rnd = random.Random(9001)
     for i in range(90):
         base_y = rnd.choice((60, 61))
@@ -361,7 +359,7 @@ def scenes():
         s.append(Scene(f"buried-{i}", [ctrl], box, flat(58), style, theme,
                        buried=True))
 
-    # ============ 12. lacs (80) : voie traversant une mare ================
+    # ============ 12. lakes (80): line crossing a pond =====================
     rnd = random.Random(31337)
     for i in range(80):
         base = 58
@@ -370,9 +368,9 @@ def scenes():
         cz = rnd.randint(14, 22)
         rx = rnd.randint(3, 7)
         rz = rnd.randint(3, 7)
-        wl = base - 1          # surface de l'eau sous le niveau du sol
+        wl = base - 1          # water surface below ground level
         hf = lake(base, cx, cz, rx, rz, wdep)
-        # deux traces croisent le lac dans des directions differentes
+        # two traces cross the lake in different directions
         a = rnd.uniform(0, 6.28)
         L = rnd.randint(14, 20)
         t1 = [(int(round(cx - L * m.cos(a))), base + 3,
@@ -381,7 +379,7 @@ def scenes():
               (int(round(cx + L * m.cos(a))), base + 3,
                int(round(cz + L * m.sin(a))))]
         trs = [t1]
-        if i % 3 == 0:       # 1/3 : deuxieme trace en croix au-dessus du lac
+        if i % 3 == 0:       # one third: a second trace crossing above the lake
             a2 = a + 1.5708
             t2 = [(int(round(cx - 10 * m.cos(a2))), base + 3,
                    int(round(cz - 10 * m.sin(a2)))),
@@ -396,7 +394,7 @@ def scenes():
                                    ("nature", 1)))
         s.append(Scene(f"lake-{i}", trs, box, hf, style, theme, water=water))
 
-    # ============ 13. laines forcees sur le passage (80) ==================
+    # ============ 13. forced wools on the path (80) ========================
     rnd = random.Random(5150)
     WOOLS = ("red_wool", "blue_wool", "lime_wool", "orange_wool",
              "pink_wool", "white_wool")
@@ -405,7 +403,7 @@ def scenes():
         x1c, z1c = x0c + rnd.randint(10, 22), z0c + rnd.randint(4, 14)
         ctrl = [(x0c, 61, z0c), ((x0c + x1c) // 2, 61 + rnd.choice((0, 1)),
                                  (z0c + z1c) // 2), (x1c, 61, z1c)]
-        # champs de laine coloree semee autour/au milieu du passage
+        # fields of coloured wool seeded around and across the crossing
         seeds = []
         for k in range(rnd.randint(6, 14)):
             wx = rnd.randint(min(x0c, x1c) - 4, max(x0c, x1c) + 4)
@@ -419,7 +417,7 @@ def scenes():
         s.append(Scene(f"wool-{i}", [ctrl], box, flat(58), style, theme,
                        seeds=seeds))
 
-    # ============ 14. terrain rocheux / pierre (50) =======================
+    # ============ 14. rocky terrain and stone (50) =========================
     rnd = random.Random(616)
     for i in range(50):
         n = rnd.randint(5, 10)
@@ -438,13 +436,13 @@ def scenes():
             sz = rnd.randint(box[2] + 2, box[3] - 2)
             seeds.append((sx, rnd.choice((59, 60, 61)), sz,
                           rnd.choice(("stone", "andesite", "gravel"))))
-            # gravel est palette de support : protege, la voie contourne
+            # gravel is a support palette block: protected, the line goes around
         style, theme = rnd.choice((("classic", 1), ("classic", 2),
                                    ("nature", 1)))
         s.append(Scene(f"rock-{i}", [ctrl], box, flat(58), style, theme,
                        seeds=seeds))
 
-    # ============ 15. montees/descentes raides (80) =======================
+    # ============ 15. steep climbs and drops (80) ==========================
     rnd = random.Random(2345)
     for i in range(80):
         x, z = rnd.randint(6, 12), rnd.randint(6, 12)
@@ -463,7 +461,7 @@ def scenes():
                                    ("nature", 1)))
         s.append(Scene(f"mount-{i}", [ctrl], box, hf, style, theme))
 
-    # ============ 16. tunnels sous les collines (50) ======================
+    # ============ 16. tunnels under the hills (50) =========================
     rnd = random.Random(4451)
     for i in range(50):
         n = rnd.randint(4, 8)
@@ -472,7 +470,7 @@ def scenes():
         for _ in range(n):
             x += rnd.randint(-7, 7)
             z += rnd.randint(-7, 7)
-            ctrl.append((x, rnd.choice((60, 60, 61)), z))   # sous la crete
+            ctrl.append((x, rnd.choice((60, 60, 61)), z))   # below the crest
         xs = [c[0] for c in ctrl]
         zs = [c[2] for c in ctrl]
         box = (min(xs) - 8, max(xs) + 8, min(zs) - 8, max(zs) + 8)
@@ -480,7 +478,7 @@ def scenes():
                                    ("nature", 1)))
         s.append(Scene(f"tun-{i}", [ctrl], box, hills(64), style, theme))
 
-    # ============ 17. derives dentees aleatoires (80) =====================
+    # ============ 17. random toothed drifts (80) ===========================
     rnd = random.Random(881)
     for i in range(80):
         x, z = rnd.randint(6, 10), rnd.randint(6, 10)
@@ -490,7 +488,7 @@ def scenes():
         for k in range(rnd.randint(8, 16)):
             x += dirx * rnd.randint(1, 4)
             z += dirz * rnd.randint(1, 4)
-            ctrl.append((x, rnd.choice((60, 61)), z))   # y qui oscille a 1
+            ctrl.append((x, rnd.choice((60, 61)), z))   # y oscillating by one
         xs = [c[0] for c in ctrl]
         zs = [c[2] for c in ctrl]
         box = (min(xs) - 7, max(xs) + 7, min(zs) - 7, max(zs) + 7)
@@ -508,22 +506,22 @@ def main():
     total_bad = 0
     written = 0
     with open(out_path, "w", encoding="ascii") as f:
-        f.write("# scenes de parite Java/sim - genere par sim/parity_export.py\n")
-        f.write("# @id / O options / R boites terrain [bloc] / Q boites eau / "
-                "W x y z bloc / C n x y z\n# D/N classification sim / "
-                "E x y z token (cellules changees seulement)\n")
+        f.write("# Java/sim parity scenes - generated by sim/parity_export.py\n")
+        f.write("# @id / O options / R terrain boxes [block] / Q water boxes / "
+                "W x y z block / C n x y z\n# D/N sim classification / "
+                "E x y z token (changed cells only)\n")
         for sc in scenes():
             world, initial, traces, bad, models = sc.run()
             if bad:
                 total_bad += 1
-                print(f"[SCENE INVALIDE] {sc.sid}: {bad[:4]}")
+                print(f"[INVALID SCENE] {sc.sid}: {bad[:4]}")
                 continue
             x0, x1, z0, z1 = sc.box
             f.write(f"@{sc.sid}\n")
             f.write(f"O style={sc.style} theme="
                     f"{'dark' if sc.theme == 1 else 'light'} "
                     f"buried={1 if sc.buried else 0}\n")
-            # boites de terrain par colonne (h-11..h)
+            # Terrain boxes per column (h-11..h)
             for x in range(x0, x1 + 1):
                 zr = z0
                 while zr <= z1:
@@ -543,15 +541,15 @@ def main():
             for i, ctrl in enumerate(sc.controls):
                 for (x, y, z) in ctrl:
                     f.write(f"C {i} {x} {y} {z}\n")
-            # types + voisinage ordonné du SIM (post build) — référence de
-            # classification pour le harnais Java
+            # Sim types and ordered neighbourhood after the build: the
+            # classification reference for the Java harness
             for tr, mo in zip(traces, models):
                 for (x, y, z) in sorted(set(tr)):
                     t = mo.types.get((x, y, z)) or "?"
                     nb = ",".join(R.ordered_neighbors(mo, x, y, z)) or "-"
                     f.write(f"D {x} {y} {z} {t}\nN {x} {y} {z} {nb}\n")
-            # SEULES les cellules changees vs l'etat initial (comparaison
-            # par ensemble de changements cote harnais)
+            # ONLY the cells changed from the initial state; the harness
+            # compares change sets
             keys = set(world.blocks) | set(initial)
             changed = []
             for k in keys:
@@ -563,9 +561,9 @@ def main():
                 f.write(f"E {x} {y} {z} {t}\n")
             f.write("@end\n")
             written += 1
-    print(f"OK: {written} scenes exportees -> {out_path}")
+    print(f"OK: {written} scenes exported -> {out_path}")
     if total_bad:
-        print(f"{total_bad} scenes invalides (attentes NON ecrites)")
+        print(f"{total_bad} invalid scenes (expectations NOT written)")
         sys.exit(1)
 
 
