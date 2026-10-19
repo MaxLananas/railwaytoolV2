@@ -1,9 +1,9 @@
-[05:21:02] [main/INFO]: Loading Minecraft 1.21.10 with Fabric Loader 0.19.3
-[05:21:02] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
-[05:21:02] [main/WARN]: Warnings were found!
+[05:37:45] [main/INFO]: Loading Minecraft 1.21.10 with Fabric Loader 0.19.3
+[05:37:45] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[05:37:46] [main/WARN]: Warnings were found!
  - Mod 'Railway Tools for Axiom' (bte_railpathtool) 2.0.1 recommends any version of modmenu, which is missing!
 	 - You should install any version of modmenu for the optimal experience.
-[05:21:02] [main/INFO]: Loading 53 mods:
+[05:37:46] [main/INFO]: Loading 53 mods:
 	- axiom 5.4.2
 	   |-- com_moulberry_axiomclientapi 1.0.10
 	   |-- com_moulberry_mixinconstraints 1.0.9
@@ -57,16 +57,16 @@
 	   \-- mixinextras 0.5.4
 	- java 21
 	- minecraft 1.21.10
-[05:21:02] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
-[05:21:02] [main/INFO]: Compatibility level set to JAVA_17
-[05:21:02] [main/INFO]: Compatibility level set to JAVA_21
-[05:21:02] [main/INFO]: Loading Mixin Plugin for Axiom/5.4.2
-[05:21:03] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
-[05:21:04] [Datafixer Bootstrap/INFO]: 278 Datafixer optimizations took 410 milliseconds
-[05:21:08] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
-[05:21:08] [Render thread/INFO]: Setting user: ArenaTest
-[05:21:08] [Render thread/INFO]: Initializing Axiom/5.4.2
-[05:21:09] [Download-2/ERROR]: Failed to fetch user properties
+[05:37:46] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/net/fabricmc/sponge-mixin/0.17.3+mixin.0.8.7/sponge-mixin-0.17.3+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[05:37:46] [main/INFO]: Compatibility level set to JAVA_17
+[05:37:46] [main/INFO]: Compatibility level set to JAVA_21
+[05:37:46] [main/INFO]: Loading Mixin Plugin for Axiom/5.4.2
+[05:37:47] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.4).
+[05:37:48] [Datafixer Bootstrap/INFO]: 278 Datafixer optimizations took 488 milliseconds
+[05:37:54] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[05:37:54] [Render thread/INFO]: Setting user: ArenaTest
+[05:37:54] [Render thread/INFO]: Initializing Axiom/5.4.2
+[05:37:54] [Download-2/ERROR]: Failed to fetch user properties
 com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
 	at knot/com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:59) ~[authlib-7.0.61.jar:?]
 	at knot/com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:150) ~[authlib-7.0.61.jar:?]
@@ -80,14 +80,14 @@ Caused by: com.mojang.authlib.exceptions.MinecraftClientHttpException: Status: 4
 	at knot/com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:56) ~[authlib-7.0.61.jar:?]
 	at knot/com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:121) ~[authlib-7.0.61.jar:?]
 	... 5 more
-[05:21:09] [Render thread/INFO]: [SELFTEST] armed
-[05:21:09] [Render thread/INFO]: [RailwayTool] BTE rail tool registered with Axiom.
-[05:21:09] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
-[05:21:09] [Render thread/ERROR]: Illegal option value 2870 for FOV
-[05:21:09] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
-[05:21:12] [Render thread/INFO]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access
-[05:21:12] [Download-2/INFO]: Could not authorize you against Realms server: javax.ws.rs.BadRequestException: Invalid session
-[05:21:12] [Download-2/ERROR]: Failed to fetch Realms feature flags
+[05:37:55] [Render thread/INFO]: [SELFTEST] armed
+[05:37:55] [Render thread/INFO]: [RailwayTool] BTE rail tool registered with Axiom.
+[05:37:55] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
+[05:37:55] [Render thread/ERROR]: Illegal option value 2870 for FOV
+[05:37:55] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[05:37:56] [Render thread/INFO]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access
+[05:37:57] [Download-2/INFO]: Could not authorize you against Realms server: javax.ws.rs.BadRequestException: Invalid session
+[05:37:57] [Download-2/ERROR]: Failed to fetch Realms feature flags
 net.minecraft.class_4355: Realms authentication error with message 'javax.ws.rs.BadRequestException: Invalid session'
 	at knot/net.minecraft.class_4341.method_20998(class_4341.java:536) ~[client-intermediary.jar:?]
 	at knot/net.minecraft.class_4341.method_68466(class_4341.java:189) ~[client-intermediary.jar:?]
@@ -95,7 +95,7 @@ net.minecraft.class_4355: Realms authentication error with message 'javax.ws.rs.
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
 	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
-[05:21:12] [Render thread/ERROR]: Error while loading the narrator
+[05:37:57] [Render thread/ERROR]: Error while loading the narrator
 com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
 	at knot/com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:81) ~[text2speech-1.18.11.jar:?]
 	at knot/com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:18) ~[text2speech-1.18.11.jar:?]
@@ -157,15 +157,15 @@ Native library (linux-x86-64/libflite.so) not found in resource path (/home/runn
 		at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:514) [fabric-loader-0.19.3.jar:?]
 		at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.3.jar:?]
 		at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.3.jar:?]
-[05:21:12] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, axiom, bte_railpathtool, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-command-api-v2, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-resource-loader-v1, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-serialization-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, lattice
-[05:21:13] [Worker-Main-3/INFO]: Found unifont_all_no_pua-16.0.03.hex, loading
-[05:21:13] [Worker-Main-2/INFO]: Found unifont_pua-16.0.03.hex, loading
-[05:21:13] [Worker-Main-3/INFO]: Found unifont_jp_patch-16.0.03.hex, loading
-[05:21:14] [Worker-Main-1/WARN]: Missing texture references in model minecraft:block/moving_piston:
+[05:37:57] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, axiom, bte_railpathtool, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-command-api-v2, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-resource-loader-v1, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-serialization-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, lattice
+[05:37:57] [Worker-Main-1/INFO]: Found unifont_all_no_pua-16.0.03.hex, loading
+[05:37:57] [Worker-Main-2/INFO]: Found unifont_pua-16.0.03.hex, loading
+[05:37:58] [Worker-Main-1/INFO]: Found unifont_jp_patch-16.0.03.hex, loading
+[05:37:59] [Worker-Main-3/WARN]: Missing texture references in model minecraft:block/moving_piston:
     particle
-[05:21:14] [Worker-Main-1/WARN]: Missing texture references in model minecraft:block/structure_void:
+[05:37:59] [Worker-Main-3/WARN]: Missing texture references in model minecraft:block/structure_void:
     particle
-[05:21:15] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+[05:38:00] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
 java.lang.IllegalStateException: Failed to open OpenAL device
 	at knot/net.minecraft.class_4225.method_38501(class_4225.java:297) ~[client-intermediary.jar:?]
 	at knot/net.minecraft.class_4225.method_19661(class_4225.java:154) ~[client-intermediary.jar:?]
@@ -187,871 +187,876 @@ java.lang.IllegalStateException: Failed to open OpenAL device
 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:514) [fabric-loader-0.19.3.jar:?]
 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72) [fabric-loader-0.19.3.jar:?]
 	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23) [fabric-loader-0.19.3.jar:?]
-[05:21:15] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/decorated_pot.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 2048x1024x0 minecraft:textures/atlas/armor_trims.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/chest.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/beds.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/signs.png-atlas
-[05:21:15] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/shulker_boxes.png-atlas
-[05:21:15] [Render thread/INFO]: Found new data pack axiom, loading it automatically
-[05:21:15] [Render thread/INFO]: Found new data pack fabric, loading it automatically
-[05:21:15] [Render thread/INFO]: Found new data pack fabric-convention-tags-v2, loading it automatically
-[05:21:16] [Render thread/INFO]: Loaded 1461 recipes
-[05:21:16] [Render thread/INFO]: Loaded 1574 advancements
-[05:21:16] [Render thread/INFO]: Applied 0 biome modifications to 0 of 65 new biomes in 1.293 ms
-[05:21:16] [Server thread/INFO]: Starting integrated minecraft server version 1.21.10
-[05:21:16] [Server thread/INFO]: Generating keypair
-[05:21:17] [Server thread/INFO]: Loading 0 persistent chunks...
-[05:21:17] [Server thread/INFO]: Preparing spawn area: 16%
-[05:21:18] [Render thread/INFO]: Using DearImGui config: config/axiom/imgui.ini
-[05:21:20] [Server thread/INFO]: Loading 48 chunks for player spawn...
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 16%
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 18%
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 18%
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 30%
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 58%
-[05:21:20] [Server thread/INFO]: Preparing spawn area: 100%
-[05:21:20] [Server thread/INFO]: Time elapsed: 3415 ms
-[05:21:20] [Server thread/INFO]: ArenaTest[local:E:e0455a46] logged in with entity id 1 at (0.5, -59.0, -6.5)
-[05:21:20] [Server thread/INFO]: ArenaTest joined the game
-[05:21:20] [Server thread/INFO]: Changing simulation distance to 8, from 0
-[05:21:20] [Render thread/INFO]: Loaded 2 advancements
-[05:21:21] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
-[05:21:21] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
-[05:21:21] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
-[05:21:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[05:21:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 32 reached during a single frame. New capacity will be 64.
-[05:21:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 64 reached during a single frame. New capacity will be 128.
-[05:21:23] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 128 reached during a single frame. New capacity will be 256.
-[05:21:23] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 256 reached during a single frame. New capacity will be 512.
-[05:21:28] [Server thread/INFO]: [ArenaTest: Gamerule sendCommandFeedback is now set to: false]
-[05:21:28] [Server thread/INFO]: [ArenaTest: Gamerule doDaylightCycle is now set to: false]
-[05:21:28] [Server thread/INFO]: [ArenaTest: Set the time to 6000]
-[05:21:28] [Server thread/INFO]: [ArenaTest: Gamerule doWeatherCycle is now set to: false]
-[05:21:28] [Server thread/INFO]: [ArenaTest: Gamerule doMobSpawning is now set to: false]
-[05:21:31] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (straight)
-[05:21:31] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:21:31] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to -2.820000, -55.000000, 16.500000]
-[05:21:38] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS plan applied (straight)
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS no side effects (straight)
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS cores supported (straight)
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS single ribbon (straight)
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS no temp wool (straight)
-[05:21:41] [Render thread/INFO]: [SELFTEST] PASS cores match plan (straight)
-[05:21:41] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:21:41] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to -2.820000, -55.000000, 16.500000]
-[05:21:47] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:21:47] [Render thread/INFO]: [SELFTEST] PASS render lock released (straight)
-[05:21:47] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (straight)
-[05:21:49] [Render thread/INFO]: [SELFTEST] PASS first plan non empty
-[05:21:49] [Render thread/INFO]: [SELFTEST] PASS replan has the same size
-[05:21:49] [Render thread/INFO]: [SELFTEST] PASS replan keeps every core
-[05:21:49] [Render thread/INFO]: [SELFTEST] PASS replan only changes soil
-[05:21:52] [Render thread/INFO]: [SELFTEST] PASS build keeps every core
-[05:21:52] [Render thread/INFO]: [SELFTEST] PASS render lock released (repeat)
-[05:21:52] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (repeat)
-[05:21:53] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (curve)
-[05:21:54] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:21:54] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 23.450000, -55.000000, 16.500000]
-[05:22:00] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS plan applied (curve)
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS no side effects (curve)
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS cores supported (curve)
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS single ribbon (curve)
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS no temp wool (curve)
-[05:22:03] [Render thread/INFO]: [SELFTEST] PASS cores match plan (curve)
-[05:22:03] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:03] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 23.450000, -55.000000, 16.500000]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:10] [Render thread/INFO]: [SELFTEST] PASS render lock released (curve)
-[05:22:10] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (curve)
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 8]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 9]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 10]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 11]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 12]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 13]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 14]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 15]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 16]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 17]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 18]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 19]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 20]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 21]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 22]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 23]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 24]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 25]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 26]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 27]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 28]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 29]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 30]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 31]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -56, 32]
-[05:22:10] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -56, 32]
-[05:22:13] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (slope)
-[05:22:13] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:13] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 45.180000, -53.000000, 16.500000]
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS plan applied (slope)
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS no side effects (slope)
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS cores supported (slope)
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS single ribbon (slope)
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS no temp wool (slope)
-[05:22:22] [Render thread/INFO]: [SELFTEST] PASS cores match plan (slope)
-[05:22:22] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:22] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 45.180000, -53.000000, 16.500000]
-[05:22:29] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:29] [Render thread/INFO]: [SELFTEST] PASS render lock released (slope)
-[05:22:29] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (slope)
-[05:22:30] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (nature)
-[05:22:30] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:30] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 69.180000, -55.000000, 16.500000]
-[05:22:37] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS plan applied (nature)
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS no side effects (nature)
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS cores supported (nature)
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS single ribbon (nature)
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS no temp wool (nature)
-[05:22:40] [Render thread/INFO]: [SELFTEST] PASS cores match plan (nature)
-[05:22:40] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:40] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 69.180000, -55.000000, 16.500000]
-[05:22:47] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:47] [Render thread/INFO]: [SELFTEST] PASS render lock released (nature)
-[05:22:47] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (nature)
-[05:22:48] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (zigzag)
-[05:22:49] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:49] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 92.340000, -54.950000, 20.500000]
-[05:22:55] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS plan applied (zigzag)
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS no side effects (zigzag)
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS cores supported (zigzag)
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS single ribbon (zigzag)
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS no temp wool (zigzag)
-[05:22:58] [Render thread/INFO]: [SELFTEST] PASS cores match plan (zigzag)
-[05:22:58] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:22:58] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 92.340000, -54.950000, 20.500000]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:05] [Render thread/INFO]: [SELFTEST] PASS render lock released (zigzag)
-[05:23:05] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (zigzag)
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -59, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -58, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -57, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -56, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -55, 16]
-[05:23:05] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -55, 16]
-[05:23:08] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (clutter)
-[05:23:08] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:08] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 165.180000, -50.000000, 16.500000]
-[05:23:14] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS plan applied (clutter)
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS no side effects (clutter)
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS cores supported (clutter)
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS single ribbon (clutter)
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS no temp wool (clutter)
-[05:23:17] [Render thread/INFO]: [SELFTEST] PASS cores match plan (clutter)
-[05:23:17] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:17] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 165.180000, -50.000000, 16.500000]
-[05:23:24] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:24] [Render thread/INFO]: [SELFTEST] PASS render lock released (clutter)
-[05:23:24] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (clutter)
-[05:23:24] [Server thread/INFO]: [ArenaTest: Successfully filled 975 block(s)]
-[05:23:25] [Render thread/INFO]: Loaded 12 advancements
-[05:23:26] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (water)
-[05:23:26] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:26] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 189.180000, -55.000000, 16.500000]
-[05:23:32] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS plan applied (water)
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS no side effects (water)
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS cores supported (water)
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS single ribbon (water)
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS no temp wool (water)
-[05:23:35] [Render thread/INFO]: [SELFTEST] PASS cores match plan (water)
-[05:23:35] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:35] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 189.180000, -55.000000, 16.500000]
-[05:23:42] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:42] [Render thread/INFO]: [SELFTEST] PASS render lock released (water)
-[05:23:42] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (water)
-[05:23:43] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (long)
-[05:23:43] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:43] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 175.740000, -44.920000, 52.500000]
-[05:23:50] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS plan applied (long)
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS no side effects (long)
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS cores supported (long)
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS single ribbon (long)
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS no temp wool (long)
-[05:23:53] [Render thread/INFO]: [SELFTEST] PASS cores match plan (long)
-[05:23:53] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:23:53] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 175.740000, -44.920000, 52.500000]
-[05:23:59] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:23:59] [Render thread/INFO]: [SELFTEST] PASS render lock released (long)
-[05:23:59] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (long)
-[05:24:01] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (many)
-[05:24:02] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:24:02] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 233.350000, -54.030000, 23.500000]
-[05:24:08] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS plan applied (many)
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS no side effects (many)
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS cores supported (many)
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS single ribbon (many)
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS no temp wool (many)
-[05:24:11] [Render thread/INFO]: [SELFTEST] PASS cores match plan (many)
-[05:24:11] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
-[05:24:11] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 233.350000, -54.030000, 23.500000]
-[05:24:18] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
-[05:24:18] [Render thread/INFO]: [SELFTEST] PASS render lock released (many)
-[05:24:18] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (many)
-[05:24:19] [Render thread/INFO]: [SELFTEST] PASS first line planned
-[05:24:22] [Render thread/INFO]: [SELFTEST] PASS crossing replaces decor only
-[05:24:25] [Render thread/INFO]: [SELFTEST] PASS first line intact after the crossing
-[05:24:25] [Render thread/INFO]: [SELFTEST] PASS crossing is one junction
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS render lock released (cross)
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (cross)
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS preset restores density
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS preset restores style
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS config saved to disk
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS render lock released (presets)
-[05:24:26] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (presets)
-[05:24:27] [Render thread/INFO]: [SELFTEST] PASS delete removes a point
-[05:24:27] [Render thread/INFO]: [SELFTEST] PASS undo plan still builds
-[05:24:30] [Render thread/INFO]: [SELFTEST] PASS undo built the line
-[05:24:30] [Render thread/INFO]: [SELFTEST] PASS undo honours the deleted point
-[05:24:30] [Render thread/INFO]: [SELFTEST] PASS render lock released (undo)
-[05:24:30] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (undo)
-[05:24:31] [Render thread/INFO]: [SELFTEST] PASS sky click adds no point
-[05:24:34] [Render thread/INFO]: [SELFTEST] PASS empty confirm is harmless
-[05:24:34] [Render thread/INFO]: [SELFTEST] PASS render lock released (edges)
-[05:24:34] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (edges)
-[05:24:34] [Render thread/INFO]: [SELFTEST] PASS no mod errors in log
-[05:24:34] [Render thread/INFO]: [SELFTEST] PASS 110/110 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
-[05:24:34] [Render thread/INFO]: [SELFTEST] finished PASS
-[05:24:34] [Render thread/INFO]: [STDOUT]: [SELFTEST] finished PASS
-[05:24:38] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-19_05.24.38.png
+[05:38:00] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 2048x1024x0 minecraft:textures/atlas/armor_trims.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/blocks.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/chest.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/beds.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/signs.png-atlas
+[05:38:00] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[05:38:00] [Render thread/INFO]: Found new data pack axiom, loading it automatically
+[05:38:00] [Render thread/INFO]: Found new data pack fabric, loading it automatically
+[05:38:00] [Render thread/INFO]: Found new data pack fabric-convention-tags-v2, loading it automatically
+[05:38:02] [Render thread/INFO]: Loaded 1461 recipes
+[05:38:02] [Render thread/INFO]: Loaded 1574 advancements
+[05:38:02] [Render thread/INFO]: Applied 0 biome modifications to 0 of 65 new biomes in 1.594 ms
+[05:38:02] [Server thread/INFO]: Starting integrated minecraft server version 1.21.10
+[05:38:02] [Server thread/INFO]: Generating keypair
+[05:38:02] [Server thread/INFO]: Loading 0 persistent chunks...
+[05:38:02] [Server thread/INFO]: Preparing spawn area: 16%
+[05:38:04] [Render thread/INFO]: Using DearImGui config: config/axiom/imgui.ini
+[05:38:06] [Server thread/INFO]: Loading 48 chunks for player spawn...
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 16%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 16%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 18%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 18%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 30%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 30%
+[05:38:06] [Server thread/INFO]: Preparing spawn area: 58%
+[05:38:06] [Server thread/INFO]: Time elapsed: 3963 ms
+[05:38:07] [Server thread/INFO]: ArenaTest[local:E:be771431] logged in with entity id 1 at (-6.5, -59.0, -4.5)
+[05:38:07] [Server thread/INFO]: ArenaTest joined the game
+[05:38:07] [Server thread/INFO]: Changing simulation distance to 8, from 0
+[05:38:07] [Render thread/INFO]: Loaded 2 advancements
+[05:38:07] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[05:38:08] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[05:38:08] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[05:38:09] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[05:38:09] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[05:38:10] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[05:38:10] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 128 reached during a single frame. New capacity will be 256.
+[05:38:11] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 256 reached during a single frame. New capacity will be 512.
+[05:38:15] [Server thread/INFO]: [ArenaTest: Gamerule sendCommandFeedback is now set to: false]
+[05:38:15] [Server thread/INFO]: [ArenaTest: Gamerule doDaylightCycle is now set to: false]
+[05:38:15] [Server thread/INFO]: [ArenaTest: Set the time to 6000]
+[05:38:15] [Server thread/INFO]: [ArenaTest: Gamerule doWeatherCycle is now set to: false]
+[05:38:15] [Server thread/INFO]: [ArenaTest: Gamerule doMobSpawning is now set to: false]
+[05:38:17] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (straight)
+[05:38:18] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:38:18] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to -2.820000, -55.000000, 16.500000]
+[05:38:24] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS plan applied (straight)
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS no side effects (straight)
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS cores supported (straight)
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS single ribbon (straight)
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS no temp wool (straight)
+[05:38:27] [Render thread/INFO]: [SELFTEST] PASS cores match plan (straight)
+[05:38:27] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:38:27] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to -2.820000, -55.000000, 16.500000]
+[05:38:34] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:38:34] [Render thread/INFO]: [SELFTEST] PASS render lock released (straight)
+[05:38:34] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (straight)
+[05:38:35] [Render thread/INFO]: [SELFTEST] PASS first plan non empty
+[05:38:35] [Render thread/INFO]: [SELFTEST] PASS replan has the same size
+[05:38:35] [Render thread/INFO]: [SELFTEST] PASS replan keeps every core
+[05:38:35] [Render thread/INFO]: [SELFTEST] PASS replan only changes soil
+[05:38:38] [Render thread/INFO]: [SELFTEST] PASS build keeps every core
+[05:38:38] [Render thread/INFO]: [SELFTEST] PASS render lock released (repeat)
+[05:38:38] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (repeat)
+[05:38:40] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (curve)
+[05:38:40] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:38:40] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 23.450000, -55.000000, 16.500000]
+[05:38:46] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS plan applied (curve)
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS no side effects (curve)
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS cores supported (curve)
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS single ribbon (curve)
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS no temp wool (curve)
+[05:38:49] [Render thread/INFO]: [SELFTEST] PASS cores match plan (curve)
+[05:38:49] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:38:49] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 23.450000, -55.000000, 16.500000]
+[05:38:56] [Render thread/INFO]: [SELFTEST] PASS render lock released (curve)
+[05:38:56] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (curve)
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 8]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 9]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 10]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 11]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 12]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 13]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 14]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 15]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 16]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 17]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 18]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 19]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 20]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 21]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 22]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 23]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 24]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 25]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 26]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 27]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 28]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 29]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 30]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 31]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -60, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -59, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -58, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -57, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 52, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 53, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 54, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 55, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 56, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 57, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 58, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 59, -56, 32]
+[05:38:56] [Server thread/INFO]: [ArenaTest: Changed the block at 60, -56, 32]
+[05:38:59] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (slope)
+[05:38:59] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:38:59] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 45.180000, -53.000000, 16.500000]
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS plan applied (slope)
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS no side effects (slope)
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS cores supported (slope)
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS single ribbon (slope)
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS no temp wool (slope)
+[05:39:09] [Render thread/INFO]: [SELFTEST] PASS cores match plan (slope)
+[05:39:09] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:09] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 45.180000, -53.000000, 16.500000]
+[05:39:15] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:39:15] [Render thread/INFO]: [SELFTEST] PASS render lock released (slope)
+[05:39:15] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (slope)
+[05:39:17] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (nature)
+[05:39:17] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:17] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 69.180000, -55.000000, 16.500000]
+[05:39:23] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS plan applied (nature)
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS no side effects (nature)
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS cores supported (nature)
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS single ribbon (nature)
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS no temp wool (nature)
+[05:39:26] [Render thread/INFO]: [SELFTEST] PASS cores match plan (nature)
+[05:39:26] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:26] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 69.180000, -55.000000, 16.500000]
+[05:39:33] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:39:33] [Render thread/INFO]: [SELFTEST] PASS render lock released (nature)
+[05:39:33] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (nature)
+[05:39:35] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (zigzag)
+[05:39:35] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:35] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 92.340000, -54.950000, 20.500000]
+[05:39:41] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS plan applied (zigzag)
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS no side effects (zigzag)
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS cores supported (zigzag)
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS single ribbon (zigzag)
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS no temp wool (zigzag)
+[05:39:44] [Render thread/INFO]: [SELFTEST] PASS cores match plan (zigzag)
+[05:39:44] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:44] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 92.340000, -54.950000, 20.500000]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:39:51] [Render thread/INFO]: [SELFTEST] PASS render lock released (zigzag)
+[05:39:51] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (zigzag)
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -59, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -58, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -57, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -56, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 170, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 171, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 172, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 173, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 174, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 175, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 176, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 177, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 178, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 179, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 180, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 181, -55, 16]
+[05:39:51] [Server thread/INFO]: [ArenaTest: Changed the block at 182, -55, 16]
+[05:39:54] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (clutter)
+[05:39:54] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:39:54] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 165.180000, -50.000000, 16.500000]
+[05:40:00] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS plan applied (clutter)
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS no side effects (clutter)
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS cores supported (clutter)
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS single ribbon (clutter)
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS no temp wool (clutter)
+[05:40:04] [Render thread/INFO]: [SELFTEST] PASS cores match plan (clutter)
+[05:40:04] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:04] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 165.180000, -50.000000, 16.500000]
+[05:40:10] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:10] [Render thread/INFO]: [SELFTEST] PASS render lock released (clutter)
+[05:40:10] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (clutter)
+[05:40:10] [Server thread/INFO]: [ArenaTest: Successfully filled 975 block(s)]
+[05:40:11] [Render thread/INFO]: Loaded 12 advancements
+[05:40:12] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (water)
+[05:40:12] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:12] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 189.180000, -55.000000, 16.500000]
+[05:40:18] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS plan applied (water)
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS no side effects (water)
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS cores supported (water)
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS single ribbon (water)
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS no temp wool (water)
+[05:40:21] [Render thread/INFO]: [SELFTEST] PASS cores match plan (water)
+[05:40:21] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:21] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 189.180000, -55.000000, 16.500000]
+[05:40:28] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:28] [Render thread/INFO]: [SELFTEST] PASS render lock released (water)
+[05:40:28] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (water)
+[05:40:29] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (long)
+[05:40:29] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:29] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 175.740000, -44.920000, 52.500000]
+[05:40:36] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS plan applied (long)
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS no side effects (long)
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS cores supported (long)
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS single ribbon (long)
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS no temp wool (long)
+[05:40:39] [Render thread/INFO]: [SELFTEST] PASS cores match plan (long)
+[05:40:39] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:39] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 175.740000, -44.920000, 52.500000]
+[05:40:46] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:46] [Render thread/INFO]: [SELFTEST] PASS render lock released (long)
+[05:40:46] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (long)
+[05:40:48] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (many)
+[05:40:48] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:48] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 233.350000, -54.030000, 23.500000]
+[05:40:55] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS plan applied (many)
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS no side effects (many)
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS cores supported (many)
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS single ribbon (many)
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS no temp wool (many)
+[05:40:58] [Render thread/INFO]: [SELFTEST] PASS cores match plan (many)
+[05:40:58] [Server thread/INFO]: [ArenaTest: Set own game mode to Spectator Mode]
+[05:40:58] [Server thread/INFO]: [ArenaTest: Teleported ArenaTest to 233.350000, -54.030000, 23.500000]
+[05:41:04] [Server thread/INFO]: [ArenaTest: Set own game mode to Creative Mode]
+[05:41:04] [Render thread/INFO]: [SELFTEST] PASS render lock released (many)
+[05:41:04] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (many)
+[05:41:06] [Render thread/INFO]: [SELFTEST] PASS first line planned
+[05:41:09] [Render thread/INFO]: [SELFTEST] PASS crossing replaces decor only
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS first line intact after the crossing
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS crossing is one junction
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS render lock released (cross)
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (cross)
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS preset restores density
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS preset restores style
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS config saved to disk
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS render lock released (presets)
+[05:41:12] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (presets)
+[05:41:14] [Render thread/INFO]: [SELFTEST] PASS delete removes a point
+[05:41:14] [Render thread/INFO]: [SELFTEST] PASS undo plan still builds
+[05:41:17] [Render thread/INFO]: [SELFTEST] PASS undo built the line
+[05:41:17] [Render thread/INFO]: [SELFTEST] PASS undo honours the deleted point
+[05:41:17] [Render thread/INFO]: [SELFTEST] PASS render lock released (undo)
+[05:41:17] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (undo)
+[05:41:19] [Render thread/INFO]: [SELFTEST] PASS undo build planned
+[05:41:22] [Render thread/INFO]: [SELFTEST] PASS undo build applied
+[05:41:27] [Render thread/INFO]: [SELFTEST] FAIL undo restored the world [102 cells class_2338{x=401, y=-60, z=10} was minecraft:grass_block now minecraft:deepslate]
+[05:41:27] [Render thread/INFO]: [SELFTEST] PASS render lock released (undo-build)
+[05:41:27] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (undo-build)
+[05:41:28] [Render thread/INFO]: [SELFTEST] PASS sky click adds no point
+[05:41:31] [Render thread/INFO]: [SELFTEST] PASS empty confirm is harmless
+[05:41:31] [Render thread/INFO]: [SELFTEST] PASS render lock released (edges)
+[05:41:31] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (edges)
+[05:41:31] [Render thread/INFO]: [SELFTEST] PASS no mod errors in log
+[05:41:31] [Render thread/INFO]: [SELFTEST] FAIL 114/115 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS undo build planned | PASS undo build applied | FAIL undo restored the world [102 cells class_2338{x=401, y=-60, z=10} was minecraft:grass_block now minecraft:deepslate] | PASS render lock released (undo-build) | PASS ghost cleared (undo-build) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
+[05:41:31] [Render thread/INFO]: [SELFTEST] finished FAIL
+[05:41:31] [Render thread/INFO]: [STDOUT]: [SELFTEST] finished FAIL
+[05:41:35] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-19_05.41.35.png
