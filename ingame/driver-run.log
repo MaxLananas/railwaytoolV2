@@ -1,16 +1,17 @@
-[00:02:46] fabric loader jar: True
-[00:02:46] reusing generated world
-[00:02:46] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[00:02:46] Fabric API 0.138.4+1.21.10
-[00:02:47] main class index: 9
-[00:02:47] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:02:47] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:02:47] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:02:47] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:02:47] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
-[00:02:47] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
-[00:02:47] classpath entry: fabric-loader-0.19.3-1.21.10
-[00:02:47] launching client
-[00:03:08] visible: 
-[00:03:26] selftest result detected
-[00:03:33] done: [SELFTEST] FAIL dismissed screen class_3928 | dismissed screen AxiomIntroductionScreen | cores=0 walls=0 supports=0 airAbove=0 woolLeft=0 ghost=first=true second=false reacquired=true probe=acquired sample= | ghostOk=true
+[00:11:10] fabric loader jar: True
+[00:11:10] reusing generated world
+[00:11:10] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[00:11:11] Fabric API 0.138.4+1.21.10
+[00:11:11] main class index: 9
+[00:11:11] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:11:11] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:11:11] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:11:11] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:11:11] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
+[00:11:11] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
+[00:11:11] classpath entry: fabric-loader-0.19.3-1.21.10
+[00:11:11] launching client
+[00:11:32] visible: 
+[00:11:55] visible: eere, ers: a, =] es 7 3F3 ta ® al EE We we
+[00:11:55] selftest result detected
+[00:12:01] done: [SELFTEST] PASS dismissed screen class_3928 | dismissed screen AxiomIntroductionScreen | z=8 ground=-60 hit=BLOCK@class_2338{x=8, y=-60, z=8} | control=1 | z=16 ground=-60 hit=BLOCK@class_2338{x=8, y=-60, z=16} | control=2 | z=24 ground=-60 hit=BLOCK@class_2338{x=8, y=-60, z=24} | control=3 | plan=153 | block 9,-60,20=minecraft:deepslate}[axis=y] | block 9,-59,13=minecraft:mud_brick_wall}[east=none,north=tall,south=t | block 8,-60,16=minecraft:cobbled_deepslate} | block 7,-58,23=minecraft:air} | block 7,-59,14=minecraft:mud_brick_wall}[east=none,north=tall,south=t | block 7,-59,17=minecraft:mud_brick_wall}[east=none,north=tall,south=t | confirm status="Rail built (153 blocks)." | snapshot=17 [-59:minecraft:dead_bubble_coral_wall_fan}[facing=south,wat, -59:minecraft:dead_bubble_coral_wall_fan}[facing=south,wat, -59:minecraft:dead_bubble_coral_wall_fan}[facing=south,wat, -59:minecraft:dead_bubble_coral_wall_fan}[facing=south,wat, -59:minecraft:dead_bubble_coral_wall_fan}[facing=south,wat] | cores=17 walls=34 supports=17 airAbove=17 woolLeft=0 ghost=first=true second=false reacquired=true probe=acquired sample=minecraft:dead_bubble_coral_wall_fan}[facing=south,wat | ghostOk=true
