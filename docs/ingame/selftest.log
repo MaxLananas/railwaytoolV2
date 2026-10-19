@@ -1,114 +1,114 @@
-[03:06:45] [Render thread/INFO]: [SELFTEST] armed
-[03:07:05] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS plan applied (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS no side effects (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS cores supported (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS single ribbon (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS no temp wool (straight)
-[03:07:11] [Render thread/INFO]: [SELFTEST] PASS cores match plan (straight)
-[03:07:14] [Render thread/INFO]: [SELFTEST] PASS render lock released (straight)
-[03:07:14] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (straight)
-[03:07:15] [Render thread/INFO]: [SELFTEST] PASS first plan non empty
-[03:07:15] [Render thread/INFO]: [SELFTEST] PASS replan has the same size
-[03:07:15] [Render thread/INFO]: [SELFTEST] PASS replan keeps every core
-[03:07:15] [Render thread/INFO]: [SELFTEST] PASS replan only changes soil
-[03:07:18] [Render thread/INFO]: [SELFTEST] PASS build keeps every core
-[03:07:18] [Render thread/INFO]: [SELFTEST] PASS render lock released (repeat)
-[03:07:18] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (repeat)
-[03:07:20] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS plan applied (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS no side effects (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS cores supported (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS single ribbon (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS no temp wool (curve)
-[03:07:25] [Render thread/INFO]: [SELFTEST] PASS cores match plan (curve)
-[03:07:28] [Render thread/INFO]: [SELFTEST] PASS render lock released (curve)
-[03:07:28] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (curve)
-[03:07:31] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS plan applied (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS no side effects (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS cores supported (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS single ribbon (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS no temp wool (slope)
-[03:07:36] [Render thread/INFO]: [SELFTEST] PASS cores match plan (slope)
-[03:07:39] [Render thread/INFO]: [SELFTEST] PASS render lock released (slope)
-[03:07:39] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (slope)
-[03:07:40] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS plan applied (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS no side effects (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS cores supported (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS single ribbon (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS no temp wool (nature)
-[03:07:46] [Render thread/INFO]: [SELFTEST] PASS cores match plan (nature)
-[03:07:48] [Render thread/INFO]: [SELFTEST] PASS render lock released (nature)
-[03:07:48] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (nature)
-[03:07:50] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS plan applied (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS no side effects (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS cores supported (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS single ribbon (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS no temp wool (zigzag)
-[03:07:56] [Render thread/INFO]: [SELFTEST] PASS cores match plan (zigzag)
-[03:07:58] [Render thread/INFO]: [SELFTEST] PASS render lock released (zigzag)
-[03:07:58] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (zigzag)
-[03:08:01] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS plan applied (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS no side effects (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS cores supported (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS single ribbon (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS no temp wool (clutter)
-[03:08:07] [Render thread/INFO]: [SELFTEST] PASS cores match plan (clutter)
-[03:08:09] [Render thread/INFO]: [SELFTEST] PASS render lock released (clutter)
-[03:08:09] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (clutter)
-[03:08:11] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS plan applied (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS no side effects (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS cores supported (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS single ribbon (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS no temp wool (water)
-[03:08:17] [Render thread/INFO]: [SELFTEST] PASS cores match plan (water)
-[03:08:19] [Render thread/INFO]: [SELFTEST] PASS render lock released (water)
-[03:08:19] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (water)
-[03:08:20] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS plan applied (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS no side effects (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS cores supported (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS single ribbon (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS no temp wool (long)
-[03:08:26] [Render thread/INFO]: [SELFTEST] PASS cores match plan (long)
-[03:08:29] [Render thread/INFO]: [SELFTEST] PASS render lock released (long)
-[03:08:29] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (long)
-[03:08:31] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS plan applied (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS no side effects (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS cores supported (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS single ribbon (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS no temp wool (many)
-[03:08:36] [Render thread/INFO]: [SELFTEST] PASS cores match plan (many)
-[03:08:39] [Render thread/INFO]: [SELFTEST] PASS render lock released (many)
-[03:08:39] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (many)
-[03:08:40] [Render thread/INFO]: [SELFTEST] PASS first line planned
-[03:08:44] [Render thread/INFO]: [SELFTEST] PASS crossing replaces decor only
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS first line intact after the crossing
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS crossing is one junction
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS render lock released (cross)
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (cross)
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS preset restores density
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS preset restores style
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS config saved to disk
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS render lock released (presets)
-[03:08:47] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (presets)
-[03:08:48] [Render thread/INFO]: [SELFTEST] PASS delete removes a point
-[03:08:48] [Render thread/INFO]: [SELFTEST] PASS undo plan still builds
-[03:08:52] [Render thread/INFO]: [SELFTEST] PASS undo built the line
-[03:08:52] [Render thread/INFO]: [SELFTEST] PASS undo honours the deleted point
-[03:08:52] [Render thread/INFO]: [SELFTEST] PASS render lock released (undo)
-[03:08:52] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (undo)
-[03:08:52] [Render thread/INFO]: [SELFTEST] PASS sky click adds no point
-[03:08:56] [Render thread/INFO]: [SELFTEST] PASS empty confirm is harmless
-[03:08:56] [Render thread/INFO]: [SELFTEST] PASS render lock released (edges)
-[03:08:56] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (edges)
-[03:08:56] [Render thread/INFO]: [SELFTEST] PASS no mod errors in log
-[03:08:56] [Render thread/INFO]: [SELFTEST] PASS 110/110 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
-[03:08:56] [Render thread/INFO]: [SELFTEST] finished PASS
-[03:08:56] [Render thread/INFO]: [STDOUT]: [SELFTEST] finished PASS
+[03:20:23] [Render thread/INFO]: [SELFTEST] armed
+[03:20:46] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS plan applied (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS no side effects (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS cores supported (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS single ribbon (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS no temp wool (straight)
+[03:20:51] [Render thread/INFO]: [SELFTEST] PASS cores match plan (straight)
+[03:20:54] [Render thread/INFO]: [SELFTEST] PASS render lock released (straight)
+[03:20:54] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (straight)
+[03:20:55] [Render thread/INFO]: [SELFTEST] PASS first plan non empty
+[03:20:55] [Render thread/INFO]: [SELFTEST] PASS replan has the same size
+[03:20:55] [Render thread/INFO]: [SELFTEST] PASS replan keeps every core
+[03:20:55] [Render thread/INFO]: [SELFTEST] PASS replan only changes soil
+[03:20:58] [Render thread/INFO]: [SELFTEST] PASS build keeps every core
+[03:20:58] [Render thread/INFO]: [SELFTEST] PASS render lock released (repeat)
+[03:20:58] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (repeat)
+[03:21:00] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS plan applied (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS no side effects (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS cores supported (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS single ribbon (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS no temp wool (curve)
+[03:21:05] [Render thread/INFO]: [SELFTEST] PASS cores match plan (curve)
+[03:21:08] [Render thread/INFO]: [SELFTEST] PASS render lock released (curve)
+[03:21:08] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (curve)
+[03:21:11] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS plan applied (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS no side effects (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS cores supported (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS single ribbon (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS no temp wool (slope)
+[03:21:17] [Render thread/INFO]: [SELFTEST] PASS cores match plan (slope)
+[03:21:19] [Render thread/INFO]: [SELFTEST] PASS render lock released (slope)
+[03:21:19] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (slope)
+[03:21:21] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS plan applied (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS no side effects (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS cores supported (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS single ribbon (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS no temp wool (nature)
+[03:21:26] [Render thread/INFO]: [SELFTEST] PASS cores match plan (nature)
+[03:21:29] [Render thread/INFO]: [SELFTEST] PASS render lock released (nature)
+[03:21:29] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (nature)
+[03:21:30] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS plan applied (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS no side effects (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS cores supported (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS single ribbon (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS no temp wool (zigzag)
+[03:21:36] [Render thread/INFO]: [SELFTEST] PASS cores match plan (zigzag)
+[03:21:39] [Render thread/INFO]: [SELFTEST] PASS render lock released (zigzag)
+[03:21:39] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (zigzag)
+[03:21:42] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS plan applied (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS no side effects (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS cores supported (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS single ribbon (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS no temp wool (clutter)
+[03:21:47] [Render thread/INFO]: [SELFTEST] PASS cores match plan (clutter)
+[03:21:50] [Render thread/INFO]: [SELFTEST] PASS render lock released (clutter)
+[03:21:50] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (clutter)
+[03:21:51] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS plan applied (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS no side effects (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS cores supported (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS single ribbon (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS no temp wool (water)
+[03:21:57] [Render thread/INFO]: [SELFTEST] PASS cores match plan (water)
+[03:22:00] [Render thread/INFO]: [SELFTEST] PASS render lock released (water)
+[03:22:00] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (water)
+[03:22:01] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS plan applied (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS no side effects (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS cores supported (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS single ribbon (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS no temp wool (long)
+[03:22:06] [Render thread/INFO]: [SELFTEST] PASS cores match plan (long)
+[03:22:09] [Render thread/INFO]: [SELFTEST] PASS render lock released (long)
+[03:22:09] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (long)
+[03:22:11] [Render thread/INFO]: [SELFTEST] PASS recompute under 2s (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS plan applied (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS no side effects (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS cores supported (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS single ribbon (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS no temp wool (many)
+[03:22:17] [Render thread/INFO]: [SELFTEST] PASS cores match plan (many)
+[03:22:19] [Render thread/INFO]: [SELFTEST] PASS render lock released (many)
+[03:22:19] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (many)
+[03:22:20] [Render thread/INFO]: [SELFTEST] PASS first line planned
+[03:22:24] [Render thread/INFO]: [SELFTEST] PASS crossing replaces decor only
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS first line intact after the crossing
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS crossing is one junction
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS render lock released (cross)
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (cross)
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS preset restores density
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS preset restores style
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS config saved to disk
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS render lock released (presets)
+[03:22:27] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (presets)
+[03:22:29] [Render thread/INFO]: [SELFTEST] PASS delete removes a point
+[03:22:29] [Render thread/INFO]: [SELFTEST] PASS undo plan still builds
+[03:22:32] [Render thread/INFO]: [SELFTEST] PASS undo built the line
+[03:22:32] [Render thread/INFO]: [SELFTEST] PASS undo honours the deleted point
+[03:22:32] [Render thread/INFO]: [SELFTEST] PASS render lock released (undo)
+[03:22:32] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (undo)
+[03:22:33] [Render thread/INFO]: [SELFTEST] PASS sky click adds no point
+[03:22:36] [Render thread/INFO]: [SELFTEST] PASS empty confirm is harmless
+[03:22:36] [Render thread/INFO]: [SELFTEST] PASS render lock released (edges)
+[03:22:36] [Render thread/INFO]: [SELFTEST] PASS ghost cleared (edges)
+[03:22:36] [Render thread/INFO]: [SELFTEST] PASS no mod errors in log
+[03:22:36] [Render thread/INFO]: [SELFTEST] PASS 110/110 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
+[03:22:36] [Render thread/INFO]: [SELFTEST] finished PASS
+[03:22:36] [Render thread/INFO]: [STDOUT]: [SELFTEST] finished PASS
