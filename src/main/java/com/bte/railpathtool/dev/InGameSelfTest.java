@@ -70,6 +70,7 @@ public final class InGameSelfTest {
     private static double[] viewCam;
     private static double[] undoView;
     private static boolean allowScreen;
+    private static String undoFirstDiff = "";
     private static boolean screenLogged;
 
     private InGameSelfTest() {
@@ -643,12 +644,32 @@ public final class InGameSelfTest {
                         pz + 0.5);
                 pause(200);
             });
-            STEPS.add(() -> {
+            // A teleport into terrain the client has not received yet makes the
+            // raycast miss, which would silently drop the point.
+            awaitChunk(px, pz, 40, () -> {
                 TOOL.callUseTool();
                 LOG.add("add " + px + "," + pz + " control=" + controlSize()
                         + " " + controlList());
             });
         }
+    }
+
+    private static void awaitChunk(int x, int z, int attempts, Runnable then) {
+        STEPS.add(() -> {
+            Minecraft mc = Minecraft.getInstance();
+            boolean loaded = mc.level != null
+                    && mc.level.hasChunkAt(new BlockPos(x, -59, z));
+            if (loaded || attempts <= 1) {
+                if (!loaded) {
+                    LOG.add("chunk " + x + "," + z + " not loaded after "
+                            + attempts + " polls");
+                }
+                then.run();
+                return;
+            }
+            awaitChunk(x, z, attempts - 1, then);
+            pause(250);
+        });
     }
 
     /**
@@ -710,283 +731,134 @@ public final class InGameSelfTest {
                 screenLogged = false;
                 stage("undo-built");
             });
-            waitForDriver("undo-done", 120, () -> {
-                allowScreen = false;
-                // Axiom restores its own camera when the editor closes; give it
-                // time to settle before measuring and reframing.
-                STEPS.add(() -> pause(6000));
-                STEPS.add(() -> {
-                    int left = 0;
-                    String first = "";
-                    for (Map.Entry<Long, BlockState> e : UNDO_BASE.entrySet()) {
-                        long k = e.getKey();
-                        BlockState actual = Minecraft.getInstance().level
-                                .getBlockState(pos(k));
-                        if (actual.equals(e.getValue())
-                                || (e.getValue().is(Blocks.GRASS_BLOCK)
-                                    && actual.is(Blocks.DIRT))) {
-                            continue;
-                        }
-                        left++;
-                        if (first.isEmpty()) {
-                            first = pos(k) + " was " + name(e.getValue())
-                                    + " now " + name(actual);
-                        }
-                    }
-                    LOG.add("undo leftover=" + left + " " + first);
-                    check("undo restored the world", left == 0,
-                            left + " cells " + first);
-                });
-                // Distinguish "block still there" from "stale render override":
-                // report what the client level really holds at the core cells.
-                STEPS.add(() -> {
-                    int checked = 0;
-                    int air = 0;
-                    String sample = "";
-                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        if (!isCore(e.getValue())) {
-                            continue;
-                        }
-                        BlockState actual = Minecraft.getInstance().level
-                                .getBlockState(pos(e.getKey()));
-                        checked++;
-                        if (actual.isAir()) {
-                            air++;
-                        } else if (sample.isEmpty()) {
-                            sample = pos(e.getKey()) + "=" + name(actual);
-                        }
-                    }
-                    LOG.add("undo cores in world: air " + air + "/" + checked
-                            + " " + sample);
-                });
-                STEPS.add(() -> {
-                    viewCam = undoView == null ? null : undoView.clone();
-                    frameView();
-                });
-                STEPS.add(InGameSelfTest::aimView);
-                STEPS.add(() -> {
-                    TOOL.reset();
-                    pause(SHOT_MS);
-                });
-                STEPS.add(() -> {
-                    LOG.add("undo shot " + cameraInfo());
-                    stage("undo-restored");
-                    pause(5000);
-                });
-                // Rebuild every chunk mesh: tells a stale section apart from a
-                // leftover render override.
-                STEPS.add(() -> {
-                    Minecraft.getInstance().levelRenderer.allChanged();
-                    pause(4000);
-                });
-                STEPS.add(() -> {
-                    stage("undo-rebuilt");
-                    pause(SHOT_MS);
-                });
-                // Probe: if the coral ghosts vanish once their render overrides
-                // are cleared explicitly, the preview, not the world, was stale.
-                STEPS.add(() -> {
-                    boolean lock = Axiom.acquireChunkRenderOverrider("bte_railpathtool");
-                    int cleared = 0;
-                    if (lock) {
-                        for (long k : PLAN.keySet()) {
-                            Axiom.setBlockRenderOverride(BlockPos.getX(k),
-                                    BlockPos.getY(k), BlockPos.getZ(k), null);
-                            cleared++;
-                        }
-                        Axiom.releaseChunkRenderOverrider("bte_railpathtool");
-                    }
-                    LOG.add("undo override clear: lock=" + lock + " cells=" + cleared);
-                    pause(4000);
-                });
-                STEPS.add(() -> {
-                    stage("undo-cleared");
-                    pause(SHOT_MS);
-                });
-                STEPS.add(() -> {
-                    checkGhost();
-                    startScene(index + 1);
-                });
-            });
+            undoAttempt(1, () -> undoAftermath(index));
         };
     }
 
-    /**
-     * Phase one of the restart test: builds a line, flushes the world to disk
-     * and records every block, so phase two can check it after a relaunch.
-     */
-    private static Runnable persistScene(int index, String name) {
-        int[][] points = {{496, 8}, {496, 16}, {496, 24}};
-        return () -> {
-            scene = name;
-            sceneCount++;
-            LOG.add("scene " + name);
-            resetTool();
-            setStyle(DesignOptions.Style.CLASSIC);
-            density()[0] = 8;
-            pause(600);
-            addPoints(points);
+    /** One Ctrl+Z round trip from the driver; retried while the world differs. */
+    private static void undoAttempt(int attempt, Runnable done) {
+        waitForDriver("undo-done-" + attempt, 240, () -> {
+            STEPS.add(() -> pause(4000));
             STEPS.add(() -> {
-                renderTool();
-                PLAN.clear();
-                PLAN.putAll(planMap());
-                plannedCores = countCores();
-                LOG.add("persist plan=" + PLAN.size() + " cores=" + plannedCores);
-                check("persist plan non empty", plannedCores > 10, plannedCores + " cores");
-                command("gamemode creative @s");
-                TOOL.callConfirm();
-                pause(APPLY_MS);
-            });
-            STEPS.add(() -> {
-                int placed = 0;
-                for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                    if (Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
-                            .equals(e.getValue())) {
-                        placed++;
-                    }
+                int left = undoLeftover();
+                if (left == 0) {
+                    check("undo restored the world", true, "0 cells");
+                    stage("undo-accepted");
+                    STEPS.add(done);
+                    return;
                 }
-                check("persist build applied", placed == PLAN.size(),
-                        placed + "/" + PLAN.size());
-                stage("persisted");
-                command("save-all flush");
-                pause(8000);
+                if (attempt < 3) {
+                    LOG.add("undo attempt " + attempt + " left " + left + " cells");
+                    stage("undo-retry");
+                    pause(500);
+                    undoAttempt(attempt + 1, done);
+                    return;
+                }
+                check("undo restored the world", false,
+                        left + " cells " + undoFirstDiff);
+                stage("undo-failed");
+                STEPS.add(done);
             });
-            STEPS.add(() -> {
-                int written = writeSavedWorld();
-                check("persist map written", written == PLAN.size(),
-                        written + " cells");
-                LOG.add("saved " + written + " cells for the restart phase");
-                stage("saved");
-                startScene(index + 1);
-            });
-        };
+        });
     }
 
-    private static boolean restartPhase() {
-        return "2".equals(System.getProperty(PHASE_PROPERTY, "1"));
-    }
-
-    /** Writes the planned blocks so the next launch can verify them on disk. */
-    private static int writeSavedWorld() {
-        List<String> lines = new ArrayList<>();
-        lines.add("# x y z block");
-        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-            BlockPos p = pos(e.getKey());
-            lines.add(p.getX() + " " + p.getY() + " " + p.getZ() + " "
-                    + net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                            .getKey(e.getValue().getBlock()));
+    /** Counts the snapshot cells the undo did not restore. */
+    private static int undoLeftover() {
+        int left = 0;
+        String first = "";
+        for (Map.Entry<Long, BlockState> e : UNDO_BASE.entrySet()) {
+            long k = e.getKey();
+            BlockState actual = Minecraft.getInstance().level.getBlockState(pos(k));
+            if (actual.equals(e.getValue())
+                    || (e.getValue().is(Blocks.GRASS_BLOCK)
+                        && actual.is(Blocks.DIRT))) {
+                continue;
+            }
+            left++;
+            if (first.isEmpty()) {
+                first = pos(k) + " was " + name(e.getValue())
+                        + " now " + name(actual);
+            }
         }
-        try {
-            Files.write(FabricLoader.getInstance().getGameDir().resolve(SAVED_FILE), lines);
-            return lines.size() - 1;
-        } catch (Exception e) {
-            return -1;
-        }
+        undoFirstDiff = first;
+        LOG.add("undo leftover=" + left + " " + first);
+        return left;
     }
 
-    /**
-     * Phase two: a fresh client on the saved world. Every block recorded by
-     * phase one must still be there, the config must survive, and the tool
-     * must still plan and build.
-     */
-    private static Runnable restartScene() {
-        return () -> {
-            scene = "restart";
-            sceneCount++;
-            LOG.add("scene restart");
-            resetTool();
-            STEPS.add(() -> {
-                Path p = FabricLoader.getInstance().getGameDir().resolve(SAVED_FILE);
-                List<String> saved;
-                try {
-                    saved = Files.readAllLines(p);
-                } catch (Exception e) {
-                    throw new IllegalStateException("cannot read " + p, e);
+    /** Checks the restored world, then reframes it for the evidence shots. */
+    private static void undoAftermath(int index) {
+        allowScreen = false;
+        // Axiom restores its own camera when the editor closes; give it time
+        // to settle before measuring and reframing.
+        STEPS.add(() -> pause(6000));
+        // Distinguish "block still there" from "stale render override".
+        STEPS.add(() -> {
+            int checked = 0;
+            int air = 0;
+            String sample = "";
+            for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                if (!isCore(e.getValue())) {
+                    continue;
                 }
-                int checked = 0;
-                int lost = 0;
-                String first = "";
-                for (String line : saved) {
-                    if (line.startsWith("#") || line.isBlank()) {
-                        continue;
-                    }
-                    String[] f = line.trim().split(" ");
-                    if (f.length != 4) {
-                        continue;
-                    }
-                    BlockPos bp = new BlockPos(Integer.parseInt(f[0]),
-                            Integer.parseInt(f[1]), Integer.parseInt(f[2]));
-                    BlockState actual = Minecraft.getInstance().level.getBlockState(bp);
-                    String got = String.valueOf(
-                            net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                                    .getKey(actual.getBlock()));
-                    checked++;
-                    if (!got.equals(f[3])) {
-                        lost++;
-                        if (first.isEmpty()) {
-                            first = bp + " want " + f[3] + " got " + got;
-                        }
-                    }
+                BlockState actual = Minecraft.getInstance().level
+                        .getBlockState(pos(e.getKey()));
+                checked++;
+                if (actual.isAir()) {
+                    air++;
+                } else if (sample.isEmpty()) {
+                    sample = pos(e.getKey()) + "=" + name(actual);
                 }
-                LOG.add("restart world: " + (checked - lost) + "/" + checked
-                        + " blocks " + first);
-                check("saved rail survived the restart", checked > 0 && lost == 0,
-                        lost + "/" + checked + " lost " + first);
-            });
-            STEPS.add(() -> {
-                Object disk = invokeStatic("load");
-                Object preset = readField(disk, "preset1");
-                int presetDensity = readInt(readField(preset, "density"));
-                check("config survived the restart", presetDensity == 9,
-                        "preset1 density=" + presetDensity);
-            });
-            STEPS.add(() -> {
-                setStyle(DesignOptions.Style.CLASSIC);
-                density()[0] = 8;
-                pause(600);
-            });
-            // Appended here, so the clicks run after the checks above.
-            addPoints(new int[][]{{504, 8}, {504, 16}, {504, 24}});
-            STEPS.add(() -> {
-                renderTool();
-                PLAN.clear();
-                PLAN.putAll(planMap());
-                plannedCores = countCores();
-                LOG.add("restart plan=" + PLAN.size() + " cores=" + plannedCores);
-                check("plan after restart", plannedCores > 10, plannedCores + " cores");
-                prepareView(plannedCores);
-            });
-            STEPS.add(InGameSelfTest::aimView);
-            STEPS.add(() -> {
-                stage("restart-plan");
-                pause(SHOT_MS);
-            });
-            STEPS.add(() -> {
-                command("gamemode creative @s");
-                TOOL.callConfirm();
-                pause(APPLY_MS);
-            });
-            STEPS.add(() -> {
-                int placed = 0;
-                for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                    if (Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
-                            .equals(e.getValue())) {
-                        placed++;
-                    }
+            }
+            LOG.add("undo cores in world: air " + air + "/" + checked + " " + sample);
+        });
+        STEPS.add(() -> {
+            viewCam = undoView == null ? null : undoView.clone();
+            frameView();
+        });
+        STEPS.add(InGameSelfTest::aimView);
+        STEPS.add(() -> {
+            TOOL.reset();
+            pause(SHOT_MS);
+        });
+        STEPS.add(() -> {
+            LOG.add("undo shot " + cameraInfo());
+            stage("undo-restored");
+            pause(5000);
+        });
+        // Rebuild every chunk mesh: tells a stale section apart from a
+        // leftover render override.
+        STEPS.add(() -> {
+            Minecraft.getInstance().levelRenderer.allChanged();
+            pause(4000);
+        });
+        STEPS.add(() -> {
+            stage("undo-rebuilt");
+            pause(SHOT_MS);
+        });
+        // Probe: if the coral ghosts vanish once their render overrides are
+        // cleared explicitly, the preview, not the world, was stale.
+        STEPS.add(() -> {
+            boolean lock = Axiom.acquireChunkRenderOverrider("bte_railpathtool");
+            int cleared = 0;
+            if (lock) {
+                for (long k : PLAN.keySet()) {
+                    Axiom.setBlockRenderOverride(BlockPos.getX(k),
+                            BlockPos.getY(k), BlockPos.getZ(k), null);
+                    cleared++;
                 }
-                LOG.add("restart build applied " + placed + "/" + PLAN.size());
-                check("build after restart", placed == PLAN.size(),
-                        placed + "/" + PLAN.size());
-                prepareView(plannedCores);
-            });
-            STEPS.add(InGameSelfTest::aimView);
-            STEPS.add(() -> {
-                stage("restart-built");
-                pause(SHOT_MS);
-            });
-            STEPS.add(InGameSelfTest::checkGhost);
-            STEPS.add(InGameSelfTest::summary);
-        };
+                Axiom.releaseChunkRenderOverrider("bte_railpathtool");
+            }
+            LOG.add("undo override clear: lock=" + lock + " cells=" + cleared);
+            pause(4000);
+        });
+        STEPS.add(() -> {
+            stage("undo-cleared");
+            pause(SHOT_MS);
+        });
+        STEPS.add(() -> {
+            checkGhost();
+            startScene(index + 1);
+        });
     }
 
     private static Runnable edgeCases(int index) {

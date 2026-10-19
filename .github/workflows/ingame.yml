@@ -92,7 +92,7 @@ jobs:
                    stage-built-clutter stage-built-long stage-built-cross \
                    stage-undo-base stage-undo-built stage-undo-restored \
                    stage-undo-rebuilt stage-undo-cleared \
-                   stage-undo-restored-late stage-restart-plan \
+                   stage-undo-accepted stage-undo-restored-late stage-restart-plan \
                    stage-restart-built world; do
             if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
           done

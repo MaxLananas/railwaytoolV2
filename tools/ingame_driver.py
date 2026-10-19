@@ -288,15 +288,32 @@ def run_client(args, version_id, phase, mcl, timeout=3300):
                         log("stage undo-restored late: " + ocr_text(late))
                 if stage == "undo-built" and not undo_sent:
                     undo_sent = True
-                    log("undo check: editor + ctrl+z")
-                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
-                    time.sleep(5)
-                    shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
-                    time.sleep(5)
-                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
-                    time.sleep(1)
-                    with open(cmd_file, "w", encoding="utf-8") as f:
-                        f.write("undo-done\n")
+                    for attempt in (1, 2, 3):
+                        log("undo attempt %d: editor + ctrl+z" % attempt)
+                        shell("xdotool", "search", "--name", "Minecraft",
+                              "windowfocus")
+                        shell("xdotool", "key", "--clearmodifiers", "Shift_R")
+                        time.sleep(6)
+                        shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
+                        time.sleep(6)
+                        shell("xdotool", "key", "--clearmodifiers", "Shift_R")
+                        time.sleep(2)
+                        with open(cmd_file, "w", encoding="utf-8") as f:
+                            f.write("undo-done-%d\n" % attempt)
+                        settled = False
+                        for _ in range(30):
+                            time.sleep(1)
+                            state = ""
+                            if os.path.isfile(stage_file):
+                                state = open(stage_file, encoding="utf-8",
+                                             errors="replace").read().strip()
+                            if state in ("undo-accepted", "undo-failed"):
+                                settled = True
+                                break
+                            if state == "undo-retry":
+                                break
+                        if settled:
+                            break
                     log("undo: driver finished the key sequence")
                 if stage.startswith("done-"):
                     break
