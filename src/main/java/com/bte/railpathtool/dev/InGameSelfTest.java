@@ -759,6 +759,16 @@ public final class InGameSelfTest {
                     stage("undo-restored");
                     pause(5000);
                 });
+                // Rebuild every chunk mesh: tells a stale section apart from a
+                // leftover render override.
+                STEPS.add(() -> {
+                    Minecraft.getInstance().levelRenderer.allChanged();
+                    pause(4000);
+                });
+                STEPS.add(() -> {
+                    stage("undo-rebuilt");
+                    pause(SHOT_MS);
+                });
                 STEPS.add(() -> {
                     checkGhost();
                     startScene(index + 1);
