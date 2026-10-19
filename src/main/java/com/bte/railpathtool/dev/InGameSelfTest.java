@@ -64,7 +64,7 @@ public final class InGameSelfTest {
     private static String scene = "";
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
-    private static Map<Long, BlockState> lastPlan = new LinkedHashMap<>();
+    private static final Map<String, Map<Long, BlockState>> PLANS = new LinkedHashMap<>();
 
     private InGameSelfTest() {
     }
@@ -128,7 +128,9 @@ public final class InGameSelfTest {
         out.add(scene(5, "zigzag", 12, DesignOptions.Style.CLASSIC,
                 new int[][]{{104, 8}, {112, 16}, {104, 24}, {112, 32}},
                 new LinkedHashMap<>(), false));
-        out.add(edgeCases(6));
+        out.add(scene(6, "clutter", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{176, 8}, {176, 16}, {176, 24}}, terrainWall(), false));
+        out.add(edgeCases(7));
         return out;
     }
 
@@ -140,6 +142,17 @@ public final class InGameSelfTest {
             return;
         }
         list.get(index).run();
+    }
+
+    /** A stone wall across the line, to check how existing blocks are handled. */
+    private static Map<Long, String> terrainWall() {
+        Map<Long, String> fills = new LinkedHashMap<>();
+        for (int y = -59; y <= -55; y++) {
+            for (int x = 170; x <= 182; x++) {
+                fills.put(key(x, y, 16), "minecraft:stone_bricks");
+            }
+        }
+        return fills;
     }
 
     /** Replaces the flat surface with a stone ramp, so no grass is buried. */
@@ -204,26 +217,29 @@ public final class InGameSelfTest {
                 long started = System.nanoTime();
                 renderTool();
                 long millis = (System.nanoTime() - started) / 1_000_000L;
+                Map<Long, BlockState> copy = new LinkedHashMap<>(planMap());
                 PLAN.clear();
-                PLAN.putAll(planMap());
+                PLAN.putAll(copy);
+                PLANS.put(name, copy);
                 plannedCores = countCores();
                 LOG.add("plan=" + PLAN.size() + " cores=" + plannedCores
                         + " est=" + field(TOOL, "planCount") + " recompute=" + millis + "ms");
                 check("recompute under 2s (" + name + ")", millis < 2000, millis + "ms");
                 if (repeat) {
+                    Map<Long, BlockState> previous = PLANS.get("straight");
                     int diff = 0;
                     String first = "";
                     for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        BlockState previous = lastPlan.get(e.getKey());
-                        if (previous == null || !previous.equals(e.getValue())) {
+                        BlockState was = previous == null ? null : previous.get(e.getKey());
+                        if (was == null || !was.equals(e.getValue())) {
                             diff++;
                             if (first.isEmpty()) {
-                                first = pos(e.getKey()) + " " + previous + " -> "
+                                first = pos(e.getKey()) + " " + was + " -> "
                                         + name(e.getValue());
                             }
                         }
                     }
-                    check("rebuild plan identical", diff == 0 && !lastPlan.isEmpty(),
+                    check("rebuild plan identical", diff == 0 && previous != null,
                             diff + " differences " + first);
                 }
                 BASELINE.clear();
@@ -237,12 +253,6 @@ public final class InGameSelfTest {
                 pause(APPLY_MS);
             });
             STEPS.add(InGameSelfTest::check);
-            STEPS.add(() -> {
-                if (!repeat) {
-                    lastPlan.clear();
-                    lastPlan.putAll(PLAN);
-                }
-            });
         };
     }
 
@@ -315,7 +325,7 @@ public final class InGameSelfTest {
                             + " got " + name(actual);
                 }
             }
-            if (e.getValue().is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+            if (isCore(e.getValue())) {
                 cores++;
                 corePositions.add(k);
             }
@@ -377,6 +387,7 @@ public final class InGameSelfTest {
     }
 
     private static void summary() {
+        scanLog();
         long passed = RESULTS.stream().filter(r -> r.startsWith("PASS")).count();
         boolean ok = passed == RESULTS.size() && !RESULTS.isEmpty();
         String line = "[SELFTEST] " + (ok ? "PASS" : "FAIL") + " "
@@ -396,6 +407,33 @@ public final class InGameSelfTest {
         stage(ok ? "done-pass" : "done-fail");
         finished = true;
         exit(ok ? "PASS" : "FAIL");
+    }
+
+    /** The game log must not carry mod errors or crashes. */
+    private static void scanLog() {
+        try {
+            Path log = FabricLoader.getInstance().getGameDir().resolve("logs/latest.log");
+            if (!Files.isRegularFile(log)) {
+                check("log readable", false, "latest.log missing");
+                return;
+            }
+            int errors = 0;
+            String first = "";
+            for (String line : Files.readAllLines(log)) {
+                String lower = line.toLowerCase();
+                boolean ours = lower.contains("railpathtool")
+                        || lower.contains("bte_railpathtool");
+                if (ours && (lower.contains("error") || lower.contains("exception"))) {
+                    errors++;
+                    if (first.isEmpty()) {
+                        first = line.length() > 160 ? line.substring(0, 160) : line;
+                    }
+                }
+            }
+            check("no mod errors in log", errors == 0, errors + " lines " + first);
+        } catch (Exception e) {
+            check("log readable", false, String.valueOf(e));
+        }
     }
 
     private static void check(String name, boolean ok) {
@@ -464,10 +502,16 @@ public final class InGameSelfTest {
         return out;
     }
 
+    private static boolean isCore(BlockState state) {
+        return state.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)
+                || state.is(Blocks.LECTERN)
+                || state.is(Blocks.PALE_MOSS_BLOCK);
+    }
+
     private static int countCores() {
         int n = 0;
         for (BlockState st : PLAN.values()) {
-            if (st.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+            if (isCore(st)) {
                 n++;
             }
         }
