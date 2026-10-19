@@ -665,21 +665,25 @@ public final class InGameSelfTest {
     }
 
     private static void awaitChunk(int x, int z, int attempts, Runnable then) {
-        STEPS.add(() -> {
-            Minecraft mc = Minecraft.getInstance();
-            boolean loaded = mc.level != null
-                    && mc.level.hasChunkAt(new BlockPos(x, -59, z));
-            if (loaded || attempts <= 1) {
-                if (!loaded) {
-                    LOG.add("chunk " + x + "," + z + " not loaded after "
-                            + attempts + " polls");
-                }
-                then.run();
-                return;
+        STEPS.add(() -> awaitChunkCheck(x, z, attempts, then));
+    }
+
+    private static void awaitChunkCheck(int x, int z, int attempts, Runnable then) {
+        Minecraft mc = Minecraft.getInstance();
+        boolean loaded = mc.level != null
+                && mc.level.hasChunkAt(new BlockPos(x, -59, z));
+        if (loaded || attempts <= 1) {
+            if (!loaded) {
+                LOG.add("chunk " + x + "," + z + " not loaded after "
+                        + attempts + " polls");
             }
-            awaitChunk(x, z, attempts - 1, then);
-            pause(250);
-        });
+            then.run();
+            return;
+        }
+        // Retries go to the front: the queued checks must not run before the
+        // chunk arrives.
+        STEPS.addFirst(() -> awaitChunkCheck(x, z, attempts - 1, then));
+        pause(250);
     }
 
     /**
