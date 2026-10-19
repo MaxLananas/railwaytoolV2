@@ -87,7 +87,7 @@ jobs:
           grep -E "SELFTEST" ingame/latest.log > docs/ingame/selftest.log || true
           for f in stage-plan-straight stage-built-straight stage-built-nature \
                    stage-built-clutter stage-built-long stage-built-cross \
-                   stage-undo-built stage-undo-restored \
+                   stage-undo-base stage-undo-built stage-undo-restored \
                    stage-undo-restored-late world; do
             if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
           done

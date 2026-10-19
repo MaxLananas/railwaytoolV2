@@ -670,6 +670,11 @@ public final class InGameSelfTest {
                 undoView = viewCam == null ? null : viewCam.clone();
             });
             STEPS.add(InGameSelfTest::aimView);
+            // Same framing as the post-undo shot, so the pair can be compared.
+            STEPS.add(() -> {
+                stage("undo-base");
+                pause(SHOT_MS);
+            });
             STEPS.add(() -> {
                 command("gamemode creative @s");
                 TOOL.callConfirm();
