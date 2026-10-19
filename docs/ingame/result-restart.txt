@@ -5,9 +5,9 @@ scene restart
 restart world: 81/81 blocks 
 PASS saved rail survived the restart
 PASS presets survived the restart
-add 504,8 control=1 [class_2338{x=504, y=-59, z=8]
-add 504,16 control=2 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16]
-add 504,24 control=3 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16, class_2338{x=504, y=-59, z=24]
+add 504,8 control=1 y=-59.00 [class_2338{x=504, y=-59, z=8]
+add 504,16 control=2 y=-59.00 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16]
+add 504,24 control=3 y=-59.00 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16, class_2338{x=504, y=-59, z=24]
 restart plan=153 cores=17
 PASS plan after restart
 restart build applied 153/153
