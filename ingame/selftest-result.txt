@@ -1,4 +1,4 @@
-[SELFTEST] FAIL 58/59 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS recompute under 2s (repeat) | FAIL rebuild plan identical [153 differences class_2338{x=9, y=-57, z=14} null -> minecraft:mud_brick_wall] | PASS plan applied (repeat) | PASS no side effects (repeat) | PASS cores supported (repeat) | PASS single ribbon (repeat) | PASS no temp wool (repeat) | PASS cores match plan (repeat) | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges)
+[SELFTEST] FAIL 66/69 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS recompute under 2s (repeat) | FAIL rebuild plan identical [153 differences class_2338{x=9, y=-57, z=14} null -> minecraft:mud_brick_wall] | PASS plan applied (repeat) | PASS no side effects (repeat) | PASS cores supported (repeat) | PASS single ribbon (repeat) | PASS no temp wool (repeat) | PASS cores match plan (repeat) | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | FAIL no side effects (clutter) [2 changed class_2338{x=180, y=-60, z=16} was minecraft:grass_block now minecraft:dirt] | PASS cores supported (clutter) | FAIL single ribbon (clutter) [3 components] | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
 FAIL
 dismissed class_3928
 dismissed AxiomIntroductionScreen
@@ -6,7 +6,7 @@ scene straight
 point 8,8 control 0->1
 point 8,16 control 1->2
 point 8,24 control 2->3
-plan=153 cores=17 est=153 recompute=55ms
+plan=153 cores=17 est=153 recompute=65ms
 PASS recompute under 2s (straight)
 confirm status="Rail built (153 blocks)."
 PASS plan applied (straight)
@@ -21,7 +21,7 @@ scene repeat
 point 8,8 control 0->1
 point 8,16 control 1->2
 point 8,24 control 2->3
-plan=153 cores=17 est=153 recompute=3ms
+plan=153 cores=17 est=153 recompute=8ms
 PASS recompute under 2s (repeat)
 FAIL rebuild plan identical [153 differences class_2338{x=9, y=-57, z=14} null -> minecraft:mud_brick_wall]
 confirm status="Rail built (153 blocks)."
@@ -37,7 +37,7 @@ scene curve
 point 32,8 control 0->1
 point 32,16 control 1->2
 point 40,24 control 2->3
-plan=156 cores=17 est=156 recompute=25ms
+plan=156 cores=17 est=156 recompute=14ms
 PASS recompute under 2s (curve)
 confirm status="Rail built (156 blocks)."
 PASS plan applied (curve)
@@ -52,7 +52,7 @@ scene slope
 point 56,8 control 0->1
 point 56,16 control 1->2
 point 56,24 control 2->3
-plan=154 cores=17 est=154 recompute=3ms
+plan=154 cores=17 est=154 recompute=11ms
 PASS recompute under 2s (slope)
 confirm status="Rail built (154 blocks)."
 PASS plan applied (slope)
@@ -67,7 +67,7 @@ scene nature
 point 80,8 control 0->1
 point 80,16 control 1->2
 point 80,24 control 2->3
-plan=102 cores=0 est=102 recompute=4ms
+plan=102 cores=17 est=102 recompute=10ms
 PASS recompute under 2s (nature)
 confirm status="Rail built (102 blocks)."
 PASS plan applied (nature)
@@ -83,7 +83,7 @@ point 104,8 control 0->1
 point 112,16 control 1->2
 point 104,24 control 2->3
 point 112,32 control 3->4
-plan=246 cores=27 est=246 recompute=5ms
+plan=246 cores=27 est=246 recompute=13ms
 PASS recompute under 2s (zigzag)
 confirm status="Rail built (246 blocks)."
 PASS plan applied (zigzag)
@@ -94,6 +94,21 @@ PASS no temp wool (zigzag)
 PASS cores match plan (zigzag)
 PASS render lock released (zigzag)
 PASS ghost cleared (zigzag)
+scene clutter
+point 176,8 control 0->1
+point 176,16 control 1->2
+point 176,24 control 2->3
+plan=153 cores=17 est=153 recompute=4ms
+PASS recompute under 2s (clutter)
+confirm status="Rail built (153 blocks)."
+PASS plan applied (clutter)
+FAIL no side effects (clutter) [2 changed class_2338{x=180, y=-60, z=16} was minecraft:grass_block now minecraft:dirt]
+PASS cores supported (clutter)
+FAIL single ribbon (clutter) [3 components]
+PASS no temp wool (clutter)
+PASS cores match plan (clutter)
+PASS render lock released (clutter)
+PASS ghost cleared (clutter)
 scene edges
 air click handled=true control 0->0 status="No block targeted."
 PASS sky click adds no point
@@ -106,3 +121,4 @@ second confirm status="Nothing to build: place at least 2 points."
 PASS empty confirm is harmless
 PASS render lock released (edges)
 PASS ghost cleared (edges)
+PASS no mod errors in log
