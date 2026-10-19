@@ -752,7 +752,7 @@ public final class InGameSelfTest {
         });
     }
 
-    /** Frames the built line from above so the screenshot shows the result. */
+    /** Frames the built line from the side so the screenshot shows the result. */
     private static void viewFromAbove(int cores) {
         Minecraft mc = Minecraft.getInstance();
         if (cores == 0) {
@@ -763,7 +763,7 @@ public final class InGameSelfTest {
         int x2 = Integer.MIN_VALUE;
         int z2 = Integer.MIN_VALUE;
         int y = -59;
-        for (long k : new HashSet<>(coreKeys())) {
+        for (long k : coreKeys()) {
             BlockPos p = pos(k);
             x1 = Math.min(x1, p.getX());
             z1 = Math.min(z1, p.getZ());
@@ -773,11 +773,27 @@ public final class InGameSelfTest {
         }
         double cx = (x1 + x2) / 2.0 + 0.5;
         double cz = (z1 + z2) / 2.0 + 0.5;
-        double dy = Math.max(18.0, Math.max(x2 - x1, z2 - z1) * 1.3);
-        teleport(mc, cx, y + dy, cz);
-        mc.player.setXRot(62.0f);
-        mc.player.setOldPosAndRot();
+        double span = Math.max(Math.max(x2 - x1, z2 - z1), 8);
+        double px = cx - span * 0.55 - 4;
+        double pz = cz - span * 0.55 - 4;
+        double py = y + span * 0.45 + 5;
+        lookAt(mc, px, py, pz, cx, y + 0.5, cz);
         pause(SHOT_MS);
+    }
+
+    private static void lookAt(Minecraft mc, double px, double py, double pz,
+                               double tx, double ty, double tz) {
+        double dx = tx - px;
+        double dy = ty - py;
+        double dz = tz - pz;
+        double horizontal = Math.sqrt(dx * dx + dz * dz);
+        float yaw = (float) (Math.toDegrees(Math.atan2(-dx, dz)));
+        float pitch = (float) (Math.toDegrees(Math.atan2(-dy, horizontal)));
+        mc.player.setPos(px, py, pz);
+        mc.player.setDeltaMovement(0, 0, 0);
+        mc.player.setYRot(yaw);
+        mc.player.setXRot(pitch);
+        mc.player.setOldPosAndRot();
     }
 
     private static Set<Long> coreKeys() {
