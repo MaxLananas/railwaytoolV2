@@ -861,6 +861,184 @@ public final class InGameSelfTest {
         });
     }
 
+    /**
+     * Phase one of the restart test: builds a line, flushes the world to disk
+     * and records every block, so phase two can check it after a relaunch.
+     */
+    private static Runnable persistScene(int index, String name) {
+        int[][] points = {{496, 8}, {496, 16}, {496, 24}};
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            setStyle(DesignOptions.Style.CLASSIC);
+            density()[0] = 8;
+            pause(600);
+            addPoints(points);
+            STEPS.add(() -> {
+                renderTool();
+                PLAN.clear();
+                PLAN.putAll(planMap());
+                plannedCores = countCores();
+                LOG.add("persist plan=" + PLAN.size() + " cores=" + plannedCores);
+                check("persist plan non empty", plannedCores > 10, plannedCores + " cores");
+                command("gamemode creative @s");
+                TOOL.callConfirm();
+                pause(APPLY_MS);
+            });
+            STEPS.add(() -> {
+                int placed = 0;
+                for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                    if (Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                            .equals(e.getValue())) {
+                        placed++;
+                    }
+                }
+                check("persist build applied", placed == PLAN.size(),
+                        placed + "/" + PLAN.size());
+                stage("persisted");
+                command("save-all flush");
+                pause(8000);
+            });
+            STEPS.add(() -> {
+                int written = writeSavedWorld();
+                check("persist map written", written == PLAN.size(),
+                        written + " cells");
+                LOG.add("saved " + written + " cells for the restart phase");
+                stage("saved");
+                startScene(index + 1);
+            });
+        };
+    }
+
+    private static boolean restartPhase() {
+        return "2".equals(System.getProperty(PHASE_PROPERTY, "1"));
+    }
+
+    /** Writes the planned blocks so the next launch can verify them on disk. */
+    private static int writeSavedWorld() {
+        List<String> lines = new ArrayList<>();
+        lines.add("# x y z block");
+        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+            BlockPos p = pos(e.getKey());
+            lines.add(p.getX() + " " + p.getY() + " " + p.getZ() + " "
+                    + net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                            .getKey(e.getValue().getBlock()));
+        }
+        try {
+            Files.write(FabricLoader.getInstance().getGameDir().resolve(SAVED_FILE), lines);
+            return lines.size() - 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    /**
+     * Phase two: a fresh client on the saved world. Every block recorded by
+     * phase one must still be there, the config must survive, and the tool
+     * must still plan and build.
+     */
+    private static Runnable restartScene() {
+        return () -> {
+            scene = "restart";
+            sceneCount++;
+            LOG.add("scene restart");
+            resetTool();
+            STEPS.add(() -> {
+                Path p = FabricLoader.getInstance().getGameDir().resolve(SAVED_FILE);
+                List<String> saved;
+                try {
+                    saved = Files.readAllLines(p);
+                } catch (Exception e) {
+                    throw new IllegalStateException("cannot read " + p, e);
+                }
+                int checked = 0;
+                int lost = 0;
+                String first = "";
+                for (String line : saved) {
+                    if (line.startsWith("#") || line.isBlank()) {
+                        continue;
+                    }
+                    String[] f = line.trim().split(" ");
+                    if (f.length != 4) {
+                        continue;
+                    }
+                    BlockPos bp = new BlockPos(Integer.parseInt(f[0]),
+                            Integer.parseInt(f[1]), Integer.parseInt(f[2]));
+                    BlockState actual = Minecraft.getInstance().level.getBlockState(bp);
+                    String got = String.valueOf(
+                            net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                                    .getKey(actual.getBlock()));
+                    checked++;
+                    if (!got.equals(f[3])) {
+                        lost++;
+                        if (first.isEmpty()) {
+                            first = bp + " want " + f[3] + " got " + got;
+                        }
+                    }
+                }
+                LOG.add("restart world: " + (checked - lost) + "/" + checked
+                        + " blocks " + first);
+                check("saved rail survived the restart", checked > 0 && lost == 0,
+                        lost + "/" + checked + " lost " + first);
+            });
+            STEPS.add(() -> {
+                Object disk = invokeStatic("load");
+                Object preset = readField(disk, "preset2");
+                int presetDensity = readInt(readField(preset, "density"));
+                check("presets survived the restart", presetDensity == 9,
+                        "slot 2 density=" + presetDensity);
+            });
+            STEPS.add(() -> {
+                setStyle(DesignOptions.Style.CLASSIC);
+                density()[0] = 8;
+                pause(600);
+            });
+            // Appended here, so the clicks run after the checks above.
+            addPoints(new int[][]{{504, 8}, {504, 16}, {504, 24}});
+            STEPS.add(() -> {
+                renderTool();
+                PLAN.clear();
+                PLAN.putAll(planMap());
+                plannedCores = countCores();
+                LOG.add("restart plan=" + PLAN.size() + " cores=" + plannedCores);
+                check("plan after restart", plannedCores > 10, plannedCores + " cores");
+                prepareView(plannedCores);
+            });
+            STEPS.add(InGameSelfTest::aimView);
+            STEPS.add(() -> {
+                stage("restart-plan");
+                pause(SHOT_MS);
+            });
+            STEPS.add(() -> {
+                command("gamemode creative @s");
+                TOOL.callConfirm();
+                pause(APPLY_MS);
+            });
+            STEPS.add(() -> {
+                int placed = 0;
+                for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                    if (Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                            .equals(e.getValue())) {
+                        placed++;
+                    }
+                }
+                LOG.add("restart build applied " + placed + "/" + PLAN.size());
+                check("build after restart", placed == PLAN.size(),
+                        placed + "/" + PLAN.size());
+                prepareView(plannedCores);
+            });
+            STEPS.add(InGameSelfTest::aimView);
+            STEPS.add(() -> {
+                stage("restart-built");
+                pause(SHOT_MS);
+            });
+            STEPS.add(InGameSelfTest::checkGhost);
+            STEPS.add(InGameSelfTest::summary);
+        };
+    }
+
     private static Runnable edgeCases(int index) {
         return () -> {
             scene = "edges";
