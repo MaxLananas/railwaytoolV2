@@ -383,7 +383,7 @@ public final class InGameSelfTest {
                             }
                             lostCores++;
                             if (lostAt.isEmpty()) {
-                                lostAt = pos(e.getKey());
+                                lostAt = String.valueOf(pos(e.getKey()));
                             }
                         }
                         LOG.add("line B plan=" + planB.size() + " cores="
