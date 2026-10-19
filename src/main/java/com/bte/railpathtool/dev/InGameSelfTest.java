@@ -64,6 +64,7 @@ public final class InGameSelfTest {
     private static String scene = "";
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
+    private static double[] viewCam;
 
     private InGameSelfTest() {
     }
@@ -244,10 +245,15 @@ public final class InGameSelfTest {
                 check("recompute under 2s (" + name + ")", millis < 2000, millis + "ms");
                 BASELINE.clear();
                 BASELINE.putAll(snapshot(x1 - 6, x2 + 6, z1 - 4, z2 + 4));
+            });
+            STEPS.add(() -> prepareView(plannedCores));
+            STEPS.add(InGameSelfTest::aimView);
+            STEPS.add(() -> {
                 stage("plan-" + name);
                 pause(SHOT_MS);
             });
             STEPS.add(() -> {
+                command("gamemode creative @s");
                 TOOL.callConfirm();
                 LOG.add("confirm status=\"" + field(TOOL, "status") + "\"");
                 pause(APPLY_MS);
@@ -744,19 +750,27 @@ public final class InGameSelfTest {
         check("no temp wool (" + scene + ")", wool == 0, wool + " wool left");
         check("cores match plan (" + scene + ")", cores == plannedCores,
                 cores + " vs " + plannedCores);
-        viewFromAbove(cores);
+        prepareView(cores);
+        STEPS.add(InGameSelfTest::aimView);
+        STEPS.add(() -> {
+            stage("built-" + scene);
+            pause(SHOT_MS);
+        });
         STEPS.add(() -> {
             command("gamemode creative @s");
-            stage("built-" + scene);
             STEPS.add(InGameSelfTest::checkGhost);
             STEPS.add(() -> startScene(nextSceneIndex + 1));
         });
     }
 
-    /** Frames the built line broadside so the screenshot shows the result. */
-    private static void viewFromAbove(int cores) {
+    /**
+     * Moves the camera broadside to the planned line. The teleport is a server
+     * command, so aiming happens in a later step, once the client has landed.
+     */
+    private static void prepareView(int cores) {
         Minecraft mc = Minecraft.getInstance();
         if (cores == 0) {
+            viewCam = null;
             return;
         }
         int x1 = Integer.MAX_VALUE;
@@ -779,35 +793,26 @@ public final class InGameSelfTest {
         double span = Math.max(Math.max(sx, sz), 8);
         double back = span * 0.55 + 8;
         double up = Math.max(5, span * 0.22);
-        double px;
-        double pz;
-        if (sx >= sz) {
-            px = cx;
-            pz = cz - back;
-        } else {
-            px = cx - back;
-            pz = cz;
-        }
-        float[] angles = angles(px, y + up, pz, cx, y, cz);
+        double px = sx >= sz ? cx : cx - back;
+        double pz = sx >= sz ? cz - back : cz;
+        viewCam = new double[]{px, y + up, pz, cx, y, cz};
         command("gamemode spectator @s");
         command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz));
-        pause(1200);
-        // The server owns the camera, so the final orientation is applied once
-        // the teleport packet has been acknowledged.
+        pause(1500);
+    }
+
+    /** Aims the camera once the server teleport has been applied. */
+    private static void aimView() {
+        if (viewCam == null) {
+            return;
+        }
+        Minecraft mc = Minecraft.getInstance();
+        float[] angles = angles(viewCam[0], viewCam[1], viewCam[2],
+                viewCam[3], viewCam[4], viewCam[5]);
         mc.player.setYRot(angles[0]);
         mc.player.setXRot(angles[1]);
         mc.player.setOldPosAndRot();
         pause(SHOT_MS);
-    }
-
-    private static void lookAt(Minecraft mc, double px, double py, double pz,
-                               double tx, double ty, double tz) {
-        float[] angles = angles(px, py, pz, tx, ty, tz);
-        mc.player.setPos(px, py, pz);
-        mc.player.setDeltaMovement(0, 0, 0);
-        mc.player.setYRot(angles[0]);
-        mc.player.setXRot(angles[1]);
-        mc.player.setOldPosAndRot();
     }
 
     private static float[] angles(double px, double py, double pz,
