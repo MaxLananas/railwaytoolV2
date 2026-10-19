@@ -120,8 +120,10 @@ water, long, many, cross, presets, undo, undo-build, edges)
 through the production callbacks and Axiom pipeline, then checks the resulting
 blocks against the plan: exact block map, no side effects, supported cores,
 single ribbon, no temporary wool, released render lock, cleared ghost, saved
-presets. The `undo-build` scene waits for the CI driver to press `Ctrl+Z`, then
-checks that every block of the build is gone. A summary is written to
+presets. The `undo-build` scene builds 153 blocks, then waits while the CI
+driver opens Axiom's editor, presses `Ctrl+Z` and closes it, and checks that
+every block of the build, and every cell around it, is back to its previous
+state. A summary is written to
 `selftest-result.txt` in the game directory and to the log with the
 `[SELFTEST]` prefix.
 
