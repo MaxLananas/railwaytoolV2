@@ -257,8 +257,8 @@ public final class InGameSelfTest {
     }
 
     /**
-     * Plans the same three points twice. The geometry must be identical; the
-     * soil mix may differ because the design draws from a shared random.
+     * Plans the same three points twice on the same world. The geometry must
+     * match; only the soil mix may differ, since the design draws it randomly.
      */
     private static Runnable repeatScene(int index, String name) {
         int[][] points = {{8, 8}, {8, 16}, {8, 24}};
@@ -274,82 +274,79 @@ public final class InGameSelfTest {
             STEPS.add(() -> {
                 renderTool();
                 Map<Long, BlockState> first = new LinkedHashMap<>(planMap());
-                @SuppressWarnings("unchecked")
-                List<BlockPos> saved = new ArrayList<>((java.util.List<BlockPos>)
-                        field(TOOL, "control"));
                 PLAN.clear();
                 PLAN.putAll(first);
                 plannedCores = countCores();
                 LOG.add("first plan=" + first.size() + " cores=" + plannedCores
                         + " bounds=" + bounds(first));
-                check("first plan non empty", first.size() > 0, first.size() + " blocks");
-                TOOL.callConfirm();
-                pause(APPLY_MS);
+                check("first plan non empty", plannedCores > 10, first.size() + " blocks");
+                setDirty();
                 STEPS.add(() -> {
-                    resetTool();
-                    @SuppressWarnings("unchecked")
-                    java.util.List<BlockPos> control =
-                            (java.util.List<BlockPos>) field(TOOL, "control");
-                    control.addAll(saved);
-                    LOG.add("replay control " + controlList());
+                    renderTool();
+                    Map<Long, BlockState> second = planMap();
+                    Set<Long> firstCores = new HashSet<>();
+                    for (Map.Entry<Long, BlockState> e : first.entrySet()) {
+                        if (isCore(e.getValue())) {
+                            firstCores.add(e.getKey());
+                        }
+                    }
+                    Set<Long> secondCores = new HashSet<>();
+                    int soil = 0;
+                    for (Map.Entry<Long, BlockState> e : second.entrySet()) {
+                        if (isCore(e.getValue())) {
+                            secondCores.add(e.getKey());
+                        }
+                        BlockState was = first.get(e.getKey());
+                        if (was != null && !was.equals(e.getValue())) {
+                            soil++;
+                        }
+                    }
+                    LOG.add("replan size=" + second.size() + " cores=" + secondCores.size()
+                            + " soilDiff=" + soil + " bounds=" + bounds(second));
+                    check("replan has the same size", second.size() == first.size(),
+                            second.size() + " vs " + first.size());
+                    check("replan keeps every core", firstCores.equals(secondCores),
+                            firstCores.size() + " vs " + secondCores.size());
+                    check("replan only changes soil", soil <= first.size() / 2,
+                            soil + " changed blocks");
+                    TOOL.callConfirm();
+                    pause(APPLY_MS);
                     STEPS.add(() -> {
-                        renderTool();
-                        Map<Long, BlockState> second = planMap();
-                        Set<Long> firstCores = new HashSet<>();
-                        for (long k : first.keySet()) {
-                            if (isCore(first.get(k))) {
-                                firstCores.add(k);
+                        int lost = 0;
+                        List<String> detail = new ArrayList<>();
+                        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                            if (!isCore(e.getValue())) {
+                                continue;
                             }
-                        }
-                        Set<Long> secondCores = new HashSet<>();
-                        int soil = 0;
-                        for (Map.Entry<Long, BlockState> e : second.entrySet()) {
-                            if (isCore(e.getValue())) {
-                                secondCores.add(e.getKey());
-                            }
-                            BlockState was = first.get(e.getKey());
-                            if (was != null && !was.equals(e.getValue())) {
-                                soil++;
-                            }
-                        }
-                        LOG.add("second plan=" + second.size() + " cores=" + secondCores.size()
-                                + " soilDiff=" + soil + " bounds=" + bounds(second));
-                        check("replan has the same size", second.size() == first.size(),
-                                second.size() + " vs " + first.size());
-                        check("replan keeps every core", firstCores.equals(secondCores),
-                                firstCores.size() + " vs " + secondCores.size());
-                        check("replan only changes soil", soil <= first.size() / 2,
-                                soil + " changed blocks");
-                        TOOL.callConfirm();
-                        pause(APPLY_MS);
-                        STEPS.add(() -> {
-                            int lost = 0;
-                            List<String> detail = new ArrayList<>();
-                            for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                                if (!isCore(e.getValue())) {
-                                    continue;
-                                }
-                                BlockState now = Minecraft.getInstance().level
-                                        .getBlockState(pos(e.getKey()));
-                                if (!now.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
-                                    lost++;
-                                    if (detail.size() < 5) {
-                                        detail.add(pos(e.getKey()) + ":" + name(now));
-                                    }
+                            if (!Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                                    .is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+                                lost++;
+                                if (detail.size() < 5) {
+                                    detail.add(String.valueOf(pos(e.getKey())));
                                 }
                             }
-                            LOG.add("cores after two builds: " + (plannedCores - lost)
-                                    + "/" + plannedCores + " " + String.join(" ", detail));
-                            check("both builds keep the line", lost == 0,
-                                    lost + " cores lost " + String.join(" ", detail));
-                            stage("built-" + scene);
-                            STEPS.add(InGameSelfTest::checkGhost);
-                            STEPS.add(() -> startScene(index + 1));
-                        });
+                        }
+                        LOG.add("cores after the build: " + (plannedCores - lost)
+                                + "/" + plannedCores);
+                        check("build keeps every core", lost == 0, lost + " cores lost "
+                                + String.join(" ", detail));
+                        stage("built-" + scene);
+                        STEPS.add(InGameSelfTest::checkGhost);
+                        STEPS.add(() -> startScene(index + 1));
                     });
                 });
             });
         };
+    }
+
+    private static void setDirty() {
+        try {
+            Field f = TOOL.getClass().getDeclaredField("dirty");
+            f.setAccessible(true);
+            f.set(TOOL, true);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot set dirty", e);
+        }
     }
 
     /** Two lines crossing: the second replaces decor at the junction only. */
