@@ -917,15 +917,14 @@ public final class InGameSelfTest {
                     BlockPos bp = new BlockPos(Integer.parseInt(f[0]),
                             Integer.parseInt(f[1]), Integer.parseInt(f[2]));
                     BlockState actual = Minecraft.getInstance().level.getBlockState(bp);
-                    var want = net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                            .get(net.minecraft.resources.ResourceLocation.parse(f[3]));
+                    String got = String.valueOf(
+                            net.minecraft.core.registries.BuiltInRegistries.BLOCK
+                                    .getKey(actual.getBlock()));
                     checked++;
-                    if (actual.getBlock() != want) {
+                    if (!got.equals(f[3])) {
                         lost++;
                         if (first.isEmpty()) {
-                            first = bp + " want " + f[3] + " got "
-                                    + net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                                            .getKey(actual.getBlock());
+                            first = bp + " want " + f[3] + " got " + got;
                         }
                     }
                 }
