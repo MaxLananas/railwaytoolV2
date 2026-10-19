@@ -43,7 +43,7 @@ starts normally.
 | Right click | Add a control point above the targeted block |
 | `Delete` | Remove the last control point |
 | `Enter` | Build the previewed rail |
-| `Ctrl+Z` | Undo the last build (Axiom history) |
+| `Ctrl+Z` (Editor Mode) | Undo the last build through Axiom's history |
 
 The tool panel exposes density, terrain snapping, crest smoothing, corner
 cleanup, both ghosts, style, theme, orientation, soil fill and height.
