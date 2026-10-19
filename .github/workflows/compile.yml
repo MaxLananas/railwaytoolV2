@@ -45,7 +45,7 @@ jobs:
           ./gradlew compileJava --no-daemon 2>&1 | tee /tmp/compile.log
 
       - name: Publish the log
-        if: always()
+        if: failure()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'

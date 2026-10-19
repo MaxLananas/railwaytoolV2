@@ -235,6 +235,7 @@ public final class InGameSelfTest {
                 renderTool();
                 long millis = (System.nanoTime() - started) / 1_000_000L;
                 Map<Long, BlockState> copy = new LinkedHashMap<>(planMap());
+                LOG.add("control " + controlList());
                 PLAN.clear();
                 PLAN.putAll(copy);
                 plannedCores = countCores();
@@ -609,7 +610,8 @@ public final class InGameSelfTest {
             });
             STEPS.add(() -> {
                 TOOL.callUseTool();
-                LOG.add("point " + px + "," + pz + " control=" + controlSize());
+                LOG.add("add " + px + "," + pz + " control=" + controlSize()
+                        + " " + controlList());
             });
         }
     }
@@ -1009,6 +1011,15 @@ public final class InGameSelfTest {
         } catch (Exception e) {
             RailPathToolMod.LOGGER.warn("[SELFTEST] cannot write stage", e);
         }
+    }
+
+    private static String controlList() {
+        List<?> control = (List<?>) field(TOOL, "control");
+        List<String> out = new ArrayList<>();
+        for (Object p : control) {
+            out.add(String.valueOf(p).replace("BlockPos{", "").replace("}", ""));
+        }
+        return out.toString();
     }
 
     private static int controlSize() {

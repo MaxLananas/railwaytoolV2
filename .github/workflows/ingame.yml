@@ -93,8 +93,13 @@ jobs:
           git add -f docs/ingame
           if ! git diff --cached --quiet; then
             git commit -m "test(ingame): update client evidence [skip ci]"
-            git push
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
+              if git push; then break; fi
+              sleep 5
+            done
           fi
+          exit 0
 
       - name: Upload logs and screenshots
         if: always()
