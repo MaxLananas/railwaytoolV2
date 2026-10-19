@@ -66,6 +66,7 @@ public final class InGameSelfTest {
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
     private static double[] viewCam;
+    private static double[] undoView;
     private static boolean allowScreen;
     private static boolean screenLogged;
 
@@ -666,6 +667,7 @@ public final class InGameSelfTest {
                 UNDO_BASE.clear();
                 UNDO_BASE.putAll(snapshot(394, 406, 4, 28));
                 prepareView(plannedCores);
+                undoView = viewCam == null ? null : viewCam.clone();
             });
             STEPS.add(InGameSelfTest::aimView);
             STEPS.add(() -> {
@@ -714,10 +716,16 @@ public final class InGameSelfTest {
                     check("undo restored the world", left == 0,
                             left + " cells " + first);
                 });
-                // Closing the editor swings the camera; aim it again before
-                // the shot, then drop the preview so the picture shows the
-                // stored world.
-                STEPS.add(() -> prepareView(plannedCores));
+                // Closing Axiom's editor moves the camera: restore the exact
+                // framing of the "before" shot, then drop the ghost so the
+                // picture shows the stored world.
+                STEPS.add(() -> {
+                    viewCam = undoView == null ? null : undoView.clone();
+                    LOG.add("undo view=" + (viewCam == null ? "none"
+                            : fmt(viewCam[0]) + " " + fmt(viewCam[1])
+                              + " " + fmt(viewCam[2])));
+                    frameView();
+                });
                 STEPS.add(InGameSelfTest::aimView);
                 STEPS.add(() -> {
                     TOOL.reset();
@@ -870,7 +878,6 @@ public final class InGameSelfTest {
      * command, so aiming happens in a later step, once the client has landed.
      */
     private static void prepareView(int cores) {
-        Minecraft mc = Minecraft.getInstance();
         if (cores == 0) {
             viewCam = null;
             return;
@@ -898,8 +905,17 @@ public final class InGameSelfTest {
         double px = sx >= sz ? cx : cx - back;
         double pz = sx >= sz ? cz - back : cz;
         viewCam = new double[]{px, y + up, pz, cx, y, cz};
+        frameView();
+    }
+
+    /** Teleports to the current view; aimView sets the angles once it lands. */
+    private static void frameView() {
+        if (viewCam == null) {
+            return;
+        }
         command("gamemode spectator @s");
-        command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz));
+        command("tp @s " + fmt(viewCam[0]) + " " + fmt(viewCam[1])
+                + " " + fmt(viewCam[2]));
         pause(1500);
     }
 
