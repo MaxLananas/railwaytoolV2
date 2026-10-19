@@ -301,6 +301,12 @@ def main():
                 shot = os.path.join(args.out, "stage-" + stage + ".png")
                 if screenshot(args.display, shot):
                     log("stage " + stage + ": " + ocr_text(shot))
+                if stage == "undo-restored":
+                    # Settled frame: chunks rebuilt, no transient overlay.
+                    time.sleep(6)
+                    late = os.path.join(args.out, "stage-undo-restored-late.png")
+                    if screenshot(args.display, late):
+                        log("stage undo-restored late: " + ocr_text(late))
                 if stage == "undo-built" and not undo_sent:
                     undo_sent = True
                     log("undo check: editor + ctrl+z")

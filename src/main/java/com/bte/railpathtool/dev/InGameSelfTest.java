@@ -665,6 +665,10 @@ public final class InGameSelfTest {
                 check("undo build planned", plannedCores > 10, plannedCores + " cores");
                 UNDO_BASE.clear();
                 UNDO_BASE.putAll(snapshot(394, 406, 4, 28));
+                prepareView(plannedCores);
+            });
+            STEPS.add(InGameSelfTest::aimView);
+            STEPS.add(() -> {
                 command("gamemode creative @s");
                 TOOL.callConfirm();
                 LOG.add("undo build status=\"" + field(TOOL, "status") + "\"");
@@ -709,10 +713,18 @@ public final class InGameSelfTest {
                     LOG.add("undo leftover=" + left + " " + first);
                     check("undo restored the world", left == 0,
                             left + " cells " + first);
-                    stage("undo-restored");
                 });
-                STEPS.add(InGameSelfTest::checkGhost);
-                STEPS.add(() -> startScene(index + 1));
+                // Drop the preview so the screenshot shows the stored world,
+                // not the tool's ghost.
+                STEPS.add(() -> {
+                    TOOL.reset();
+                    pause(SHOT_MS);
+                });
+                STEPS.add(() -> {
+                    stage("undo-restored");
+                    checkGhost();
+                    startScene(index + 1);
+                });
             });
         };
     }
