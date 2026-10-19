@@ -282,6 +282,26 @@ Evidence committed:
   before the final screenshot; the world needs no repair and no mod behaviour
   was changed on this evidence.
 
+### B15 - Harness: clicks and keystrokes lost at the edges of a run
+
+These were defects in the regression harness, not in the shipped mod, and both
+would have produced misleading evidence.
+
+- **Symptom**: the first control point of a scene outside the spawn area was
+  silently dropped (`control=0` after the click), and in one run the undo
+  keystroke sequence had no effect.
+- **Cause**: the harness clicked before the client had received the target
+  chunk, so the heightmap read was a placeholder and the raycast missed; and
+  the driver typed `Ctrl+Z` without checking that the editor was actually
+  focused, and without any retry.
+- **Fix** (`9177a6c`, `7e4777e`, `d54f9d4`): `awaitChunk` polls
+  `level.hasChunkAt` with its retries at the head of the step queue, the
+  harness then re-teleports onto the real surface and clicks; the driver retries
+  the editor/`Ctrl+Z` sequence up to three times, and the suite only accepts an
+  undo when the world is actually restored.
+- **Re-test**: run `39223733867`, 118/118 in the first launch and 7/7 in the
+  second; the persisted line is 153 blocks and `undo leftover=0`.
+
 ## 5. Repository work
 
 - README rewritten in English (features, install, usage, layout, build, tests,
@@ -307,12 +327,12 @@ Evidence committed:
 
 ## 6. Current state
 
-- Branch `arena/f944b842-railwaytoolv2`, code head `3630c2f` plus the evidence
+- Branch `arena/f944b842-railwaytoolv2`, code head `7e4777e` plus the evidence
   commit CI writes after the run.
-- CI green on `3630c2f`: `Compile` `39216152945`, `Build & Release`
-  `39216152934`, `In-game test` `39216153023` (115/115 checks). `Build & Release`
-  runs the Java/simulator parity gate on the regenerated 752-scene corpus and
-  then `./gradlew build`.
+- CI green on `7e4777e`: `Compile` `39223733714`, `Build & Release`
+  `39223733754`, `In-game test` `39223733867` (118/118 checks, then 7/7 after
+  the restart). `Build & Release` runs the Java/simulator parity gate on the
+  regenerated 752-scene corpus and then `./gradlew build`.
 - Artifact: `rail-path-tool-v2.0.1-mc1.21.10`; released only when the version
   bump runs on `main`.
 
