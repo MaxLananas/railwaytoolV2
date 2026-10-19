@@ -246,19 +246,28 @@ Evidence committed:
 - `.gitignore` covers Gradle/Loom output, IDE folders, caches, generated parity
   scenes, `libs/*.jar`, logs, `ci/`, `run-mc/` and local `ingame/` output.
 - `sim/ROBUSTNESS.md` rewritten in English with corrected counts.
-- Java sources: every comment rewritten in English and trimmed to the
-  non-obvious rationale; no generated or restating comments remain.
+- Java sources: every comment and log line rewritten in English and trimmed to
+  the non-obvious rationale; no generated or restating comments remain.
 - `sim/` dead code and unused imports removed; `pyflakes` is clean on the
-  active harnesses and the exporter.
+  active harnesses and the exporter. Every simulator docstring, comment and
+  console message is in English; identifiers and logic are untouched so the
+  parity corpus still exports the same 752 scenes block for block.
+- `mass_stress.py` applied an older rebuild rule that flagged the intended
+  decor-to-core upgrade of dense junctions (contract C7). Its check now matches
+  C7: a core is never replaced, a decor only by a core. 20 000 seed scenarios /
+  160 000 builds pass.
+- The stale tracked build log `ci/last-build.log` was removed; `build.yml` still
+  publishes a failing log on demand, and `ci/` stays ignored.
 - CI: `build.yml` (parity gate + build + release), `compile.yml` (fast feedback
   while iterating) and `ingame.yml` (real client, see section 3). The in-game
   job publishes `docs/ingame/` and never fights the branch with other jobs.
 
 ## 6. Current state
 
-- Branch `arena/f944b842-railwaytoolv2`, head `aea0154` plus evidence commits.
-- CI green: `Compile` and `Build & Release` on `aea0154`
-  (`39191800948`, `39191801061`); `In-game test` `39191800926`, 110/110.
+- Branch `arena/f944b842-railwaytoolv2`, head `e10f0e6` plus the evidence commit.
+- CI green on `e10f0e6`: `Compile` `39201838301`, `Build & Release`
+  `39201838274`, `In-game test` `39201838317` (110/110 checks). `Build & Release`
+  runs the Java/simulator parity gate on the regenerated 752-scene corpus.
 - Artifact: `rail-path-tool-v2.0.1-mc1.21.10`, 289,905 bytes
   (`build/libs/rail-path-tool-2.0.1.jar`); released only when the version bump
   runs on `main`.
