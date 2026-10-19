@@ -181,8 +181,8 @@ def write_options(mc_dir):
         "overrideHeight": "720",
         "fullscreen": "false",
         "maxFps": "30",
-        "renderDistance": "4",
-        "simulationDistance": "6",
+        "renderDistance": "10",
+        "simulationDistance": "8",
         "graphicsMode": "0",
         "ao": "false",
         "entityShadows": "false",
@@ -275,10 +275,12 @@ def main():
 
     time.sleep(20)
     shell("xdotool", "search", "--name", "Minecraft", "windowfocus")
+    menu_shot = os.path.join(args.out, "axiom-menu.png")
     result = os.path.join(args.mc_dir, "selftest-result.txt")
     stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
     last_stage = ""
-    deadline = time.time() + 1500
+    start = time.time()
+    deadline = start + 2400
     while time.time() < deadline and proc.poll() is None:
         if os.path.isfile(stage_file):
             stage = open(stage_file, encoding="utf-8", errors="replace").read().strip()
@@ -289,6 +291,12 @@ def main():
                     log("stage " + stage + ": " + ocr_text(shot))
                 if stage.startswith("done-"):
                     break
+        if not os.path.isfile(menu_shot) and time.time() - start > 55:
+            shell("xdotool", "key", "alt")
+            time.sleep(4)
+            screenshot(args.display, menu_shot)
+            shell("xdotool", "key", "alt")
+            log("axiom menu: " + ocr_text(menu_shot))
         if os.path.isfile(result):
             log("selftest result detected")
             break

@@ -128,7 +128,16 @@ public final class InGameSelfTest {
                 new LinkedHashMap<>()));
         out.add(scene(6, "clutter", 8, DesignOptions.Style.CLASSIC,
                 new int[][]{{176, 8}, {176, 16}, {176, 24}}, terrainWall()));
-        out.add(edgeCases(7));
+        out.add(scene(7, "water", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{200, 8}, {200, 16}, {200, 24}}, new LinkedHashMap<>(),
+                new String[]{"fill 194 -60 4 206 -58 28 minecraft:water"}));
+        out.add(scene(8, "long", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{224, 8}, {224, 96}}, new LinkedHashMap<>()));
+        out.add(scene(9, "many", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{248, 8}, {256, 14}, {248, 20}, {256, 26}, {248, 32},
+                        {256, 38}}, new LinkedHashMap<>()));
+        out.add(undoScene(10, "undo"));
+        out.add(edgeCases(11));
         return out;
     }
 
@@ -169,6 +178,11 @@ public final class InGameSelfTest {
 
     private static Runnable scene(int index, String name, int density, DesignOptions.Style style,
                                   int[][] points, Map<Long, String> terrain) {
+        return scene(index, name, density, style, points, terrain, new String[0]);
+    }
+
+    private static Runnable scene(int index, String name, int density, DesignOptions.Style style,
+                                  int[][] points, Map<Long, String> terrain, String[] commands) {
         return () -> {
             scene = name;
             sceneCount++;
@@ -180,6 +194,9 @@ public final class InGameSelfTest {
                 long k = e.getKey();
                 command("setblock " + BlockPos.getX(k) + " " + BlockPos.getY(k)
                         + " " + BlockPos.getZ(k) + " " + e.getValue());
+            }
+            for (String c : commands) {
+                command(c);
             }
             int minX = Integer.MAX_VALUE;
             int maxX = Integer.MIN_VALUE;
@@ -258,7 +275,8 @@ public final class InGameSelfTest {
                 PLAN.clear();
                 PLAN.putAll(first);
                 plannedCores = countCores();
-                LOG.add("first plan=" + first.size() + " cores=" + plannedCores);
+                LOG.add("first plan=" + first.size() + " cores=" + plannedCores
+                        + " bounds=" + bounds(first));
                 check("first plan non empty", first.size() > 0, first.size() + " blocks");
                 BASELINE.clear();
                 BASELINE.putAll(snapshot(2, 14, 4, 28));
@@ -283,7 +301,8 @@ public final class InGameSelfTest {
                             }
                         }
                     }
-                    LOG.add("second plan=" + second.size() + " diff=" + diff);
+                    LOG.add("second plan=" + second.size() + " diff=" + diff
+                            + " bounds=" + bounds(second) + " first=" + bounds(PLAN));
                     check("rebuild plan identical", diff == 0 && second.size() == PLAN.size(),
                             diff + " differences " + detail);
                     TOOL.callConfirm();
@@ -319,6 +338,74 @@ public final class InGameSelfTest {
                 });
             });
         };
+    }
+
+    /** Adds four points, deletes the last, builds: the deletion must be honoured. */
+    private static Runnable undoScene(int index, String name) {
+        int[][] points = {{272, 8}, {272, 16}, {272, 24}, {272, 32}};
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            setStyle(DesignOptions.Style.CLASSIC);
+            density()[0] = 8;
+            pause(600);
+            addPoints(points);
+            STEPS.add(() -> {
+                int before = controlSize();
+                TOOL.callDelete();
+                LOG.add("delete control " + before + "->" + controlSize()
+                        + " status=\"" + field(TOOL, "status") + "\"");
+                check("delete removes a point", controlSize() == before - 1,
+                        before + "->" + controlSize());
+                renderTool();
+                LOG.add("undo plan=" + planMap().size());
+                check("undo plan still builds", planMap().size() > 0);
+                STEPS.add(() -> {
+                    TOOL.callConfirm();
+                    pause(APPLY_MS);
+                });
+                STEPS.add(() -> {
+                    int cores = 0;
+                    for (int z = 8; z <= 28; z++) {
+                        for (int y = -64; y <= -40; y++) {
+                            if (isCore(Minecraft.getInstance().level
+                                    .getBlockState(new BlockPos(272, y, z)))) {
+                                cores++;
+                                break;
+                            }
+                        }
+                    }
+                    check("undo built the line", cores >= 18, cores + " cores");
+                    check("undo stopped before the deleted point",
+                            Minecraft.getInstance().level.getBlockState(new BlockPos(272, -59, 32))
+                                    .isAir() || cores < 26, cores + " cores");
+                    stage("built-" + scene);
+                    STEPS.add(InGameSelfTest::checkGhost);
+                    STEPS.add(() -> startScene(index + 1));
+                });
+            });
+        };
+    }
+
+    private static String bounds(Map<Long, BlockState> map) {
+        int x1 = Integer.MAX_VALUE;
+        int y1 = Integer.MAX_VALUE;
+        int z1 = Integer.MAX_VALUE;
+        int x2 = Integer.MIN_VALUE;
+        int y2 = Integer.MIN_VALUE;
+        int z2 = Integer.MIN_VALUE;
+        for (long k : map.keySet()) {
+            BlockPos p = pos(k);
+            x1 = Math.min(x1, p.getX());
+            y1 = Math.min(y1, p.getY());
+            z1 = Math.min(z1, p.getZ());
+            x2 = Math.max(x2, p.getX());
+            y2 = Math.max(y2, p.getY());
+            z2 = Math.max(z2, p.getZ());
+        }
+        return "[" + x1 + ".." + x2 + "," + y1 + ".." + y2 + "," + z1 + ".." + z2 + "]";
     }
 
     private static void addPoints(int[][] points) {
