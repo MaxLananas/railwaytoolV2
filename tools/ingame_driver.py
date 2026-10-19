@@ -303,7 +303,7 @@ def main():
                     log("stage " + stage + ": " + ocr_text(shot))
                 if stage == "undo-restored":
                     # Settled frame: chunks rebuilt, no transient overlay.
-                    time.sleep(6)
+                    time.sleep(3)
                     late = os.path.join(args.out, "stage-undo-restored-late.png")
                     if screenshot(args.display, late):
                         log("stage undo-restored late: " + ocr_text(late))

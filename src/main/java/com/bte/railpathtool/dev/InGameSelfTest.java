@@ -693,7 +693,9 @@ public final class InGameSelfTest {
             });
             waitForDriver("undo-done", 120, () -> {
                 allowScreen = false;
-                pause(SHOT_MS);
+                // Axiom restores its own camera when the editor closes; give it
+                // time to settle before measuring and reframing.
+                STEPS.add(() -> pause(6000));
                 STEPS.add(() -> {
                     int left = 0;
                     String first = "";
@@ -716,14 +718,8 @@ public final class InGameSelfTest {
                     check("undo restored the world", left == 0,
                             left + " cells " + first);
                 });
-                // Closing Axiom's editor moves the camera: restore the exact
-                // framing of the "before" shot, then drop the ghost so the
-                // picture shows the stored world.
                 STEPS.add(() -> {
                     viewCam = undoView == null ? null : undoView.clone();
-                    LOG.add("undo view=" + (viewCam == null ? "none"
-                            : fmt(viewCam[0]) + " " + fmt(viewCam[1])
-                              + " " + fmt(viewCam[2])));
                     frameView();
                 });
                 STEPS.add(InGameSelfTest::aimView);
@@ -732,7 +728,11 @@ public final class InGameSelfTest {
                     pause(SHOT_MS);
                 });
                 STEPS.add(() -> {
+                    LOG.add("undo shot " + cameraInfo());
                     stage("undo-restored");
+                    pause(5000);
+                });
+                STEPS.add(() -> {
                     checkGhost();
                     startScene(index + 1);
                 });
@@ -931,6 +931,13 @@ public final class InGameSelfTest {
         mc.player.setXRot(angles[1]);
         mc.player.setOldPosAndRot();
         pause(SHOT_MS);
+    }
+
+    private static String cameraInfo() {
+        Minecraft mc = Minecraft.getInstance();
+        return String.format(java.util.Locale.ROOT, "pos=%.1f %.1f %.1f rot=%.1f %.1f",
+                mc.player.getX(), mc.player.getY(), mc.player.getZ(),
+                mc.player.getYRot(), mc.player.getXRot());
     }
 
     private static float[] angles(double px, double py, double pz,
