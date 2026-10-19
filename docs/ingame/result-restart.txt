@@ -2,7 +2,7 @@
 PASS
 dismissed class_3928
 scene restart
-restart world: 81/81 blocks 
+restart world: 153/153 blocks 
 PASS saved rail survived the restart
 PASS presets survived the restart
 add 504,8 control=1 y=-59.00 [class_2338{x=504, y=-59, z=8]
