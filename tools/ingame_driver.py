@@ -285,6 +285,8 @@ def main():
     menu_shot = os.path.join(args.out, "axiom-menu.png")
     result = os.path.join(args.mc_dir, "selftest-result.txt")
     stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
+    cmd_file = os.path.join(args.mc_dir, "selftest-cmd.txt")
+    undo_sent = False
     last_stage = ""
     start = time.time()
     deadline = start + 3300
@@ -299,6 +301,13 @@ def main():
                 shot = os.path.join(args.out, "stage-" + stage + ".png")
                 if screenshot(args.display, shot):
                     log("stage " + stage + ": " + ocr_text(shot))
+                if stage == "undo-built" and not undo_sent:
+                    undo_sent = True
+                    log("undo check: sending ctrl+z")
+                    shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
+                    time.sleep(1)
+                    with open(cmd_file, "w", encoding="utf-8") as f:
+                        f.write("undo-done\n")
                 if stage.startswith("done-"):
                     break
         if not os.path.isfile(menu_shot) and time.time() - start > 55:

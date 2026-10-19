@@ -56,6 +56,7 @@ public final class InGameSelfTest {
     private static final RailwayTool TOOL = new RailwayTool();
     private static final Map<Long, BlockState> PLAN = new LinkedHashMap<>();
     private static final Map<Long, BlockState> BASELINE = new HashMap<>();
+    private static final Map<Long, BlockState> UNDO_BASE = new HashMap<>();
 
     private static long nextStep;
     private static boolean started = false;
@@ -140,7 +141,8 @@ public final class InGameSelfTest {
         out.add(crossScene(10, "cross"));
         out.add(presetScene(11, "presets"));
         out.add(undoScene(12, "undo"));
-        out.add(edgeCases(13));
+        out.add(undoBuildScene(13, "undo-build"));
+        out.add(edgeCases(14));
         return out;
     }
 
@@ -630,6 +632,79 @@ public final class InGameSelfTest {
         }
     }
 
+    /**
+     * Axiom undo: the driver presses Ctrl+Z after the build, and every cell the
+     * plan wrote must return to its previous state.
+     */
+    private static Runnable undoBuildScene(int index, String name) {
+        int[][] points = {{400, 8}, {400, 16}, {400, 24}};
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            setStyle(DesignOptions.Style.CLASSIC);
+            density()[0] = 8;
+            pause(600);
+            addPoints(points);
+            STEPS.add(() -> {
+                renderTool();
+                PLAN.clear();
+                PLAN.putAll(planMap());
+                plannedCores = countCores();
+                LOG.add("undo-build plan=" + PLAN.size() + " cores=" + plannedCores);
+                check("undo build planned", plannedCores > 10, plannedCores + " cores");
+                UNDO_BASE.clear();
+                UNDO_BASE.putAll(snapshot(394, 406, 4, 28));
+                command("gamemode creative @s");
+                TOOL.callConfirm();
+                LOG.add("undo build status=\"" + field(TOOL, "status") + "\"");
+                pause(APPLY_MS);
+            });
+            STEPS.add(() -> {
+                int placed = 0;
+                for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                    if (Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                            .equals(e.getValue())) {
+                        placed++;
+                    }
+                }
+                LOG.add("undo build applied " + placed + "/" + PLAN.size());
+                check("undo build applied", placed == PLAN.size(),
+                        placed + "/" + PLAN.size());
+                stage("undo-built");
+            });
+            waitForDriver("undo-done", 90, () -> {
+                pause(SHOT_MS);
+                STEPS.add(() -> {
+                    int left = 0;
+                    String first = "";
+                    for (Map.Entry<Long, BlockState> e : UNDO_BASE.entrySet()) {
+                        long k = e.getKey();
+                        BlockState actual = Minecraft.getInstance().level
+                                .getBlockState(pos(k));
+                        if (actual.equals(e.getValue())
+                                || (e.getValue().is(Blocks.GRASS_BLOCK)
+                                    && actual.is(Blocks.DIRT))) {
+                            continue;
+                        }
+                        left++;
+                        if (first.isEmpty()) {
+                            first = pos(k) + " was " + name(e.getValue())
+                                    + " now " + name(actual);
+                        }
+                    }
+                    LOG.add("undo leftover=" + left + " " + first);
+                    check("undo restored the world", left == 0,
+                            left + " cells " + first);
+                    stage("undo-restored");
+                });
+                STEPS.add(InGameSelfTest::checkGhost);
+                STEPS.add(() -> startScene(index + 1));
+            });
+        };
+    }
+
     private static Runnable edgeCases(int index) {
         return () -> {
             scene = "edges";
@@ -1057,6 +1132,30 @@ public final class InGameSelfTest {
 
     private static long now() {
         return System.currentTimeMillis();
+    }
+
+    /** Waits for the driver to write a token in selftest-cmd.txt, then runs. */
+    private static void waitForDriver(String token, int attempts, Runnable then) {
+        STEPS.add(() -> {
+            if (driverCommand().contains(token) || attempts <= 1) {
+                if (!driverCommand().contains(token)) {
+                    LOG.add("driver token missing: " + token);
+                }
+                then.run();
+                return;
+            }
+            waitForDriver(token, attempts - 1, then);
+            pause(500);
+        });
+    }
+
+    private static String driverCommand() {
+        try {
+            Path p = FabricLoader.getInstance().getGameDir().resolve("selftest-cmd.txt");
+            return Files.isRegularFile(p) ? Files.readString(p) : "";
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     private static void stage(String value) {
