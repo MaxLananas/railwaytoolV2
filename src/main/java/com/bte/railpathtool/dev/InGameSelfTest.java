@@ -992,7 +992,7 @@ public final class InGameSelfTest {
         command("time set noon");
         command("gamerule doWeatherCycle false");
         command("gamerule doMobSpawning false");
-        command("kill @e[type=!player]");
+        command("execute as @e[type=!player] run kill @s");
         command("gamemode creative @s");
         pause(1200);
     }
