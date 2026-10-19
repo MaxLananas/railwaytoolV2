@@ -48,6 +48,7 @@ public final class InGameSelfTest {
     private static final List<String> LOG = new ArrayList<>();
 
     private static int wait = LOAD_DELAY;
+    private static boolean planned = false;
     private static boolean finished = false;
 
     private InGameSelfTest() {
@@ -86,7 +87,12 @@ public final class InGameSelfTest {
             return;
         }
         try {
-            verify(mc);
+            if (!planned) {
+                planned = true;
+                plan(mc);
+            } else {
+                verify(mc);
+            }
         } catch (Throwable t) {
             fail(t);
         }
