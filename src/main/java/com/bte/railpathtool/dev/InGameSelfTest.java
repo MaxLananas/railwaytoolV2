@@ -723,6 +723,28 @@ public final class InGameSelfTest {
                     check("undo restored the world", left == 0,
                             left + " cells " + first);
                 });
+                // Distinguish "block still there" from "stale render override":
+                // report what the client level really holds at the core cells.
+                STEPS.add(() -> {
+                    int checked = 0;
+                    int air = 0;
+                    String sample = "";
+                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                        if (!isCore(e.getValue())) {
+                            continue;
+                        }
+                        BlockState actual = Minecraft.getInstance().level
+                                .getBlockState(pos(e.getKey()));
+                        checked++;
+                        if (actual.isAir()) {
+                            air++;
+                        } else if (sample.isEmpty()) {
+                            sample = pos(e.getKey()) + "=" + name(actual);
+                        }
+                    }
+                    LOG.add("undo cores in world: air " + air + "/" + checked
+                            + " " + sample);
+                });
                 STEPS.add(() -> {
                     viewCam = undoView == null ? null : undoView.clone();
                     frameView();
