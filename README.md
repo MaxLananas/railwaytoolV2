@@ -115,8 +115,8 @@ export JAVA_TOOL_OPTIONS=-Dbte.railtool.selftest=true
 ```
 
 A superflat creative world must be loaded. The suite plans, previews and builds
-fourteen scenes (straight, replan, curve, slope, nature, zigzag, wall, water,
-long, multi-point, crossing, presets, undo, edge cases) through the production
+fourteen scenes (straight, replan, curve, slope, nature, zigzag, clutter,
+water, long, many, crossing, presets, undo, edge cases) through the production
 callbacks and Axiom pipeline, then checks the resulting blocks against the
 plan: exact block map, no side effects, supported cores, single ribbon, no
 temporary wool, released render lock, cleared ghost, saved presets. A summary

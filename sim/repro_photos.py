@@ -24,7 +24,6 @@ Invariants (all builds, both styles, varied themes):
      blocks under it (already covered elsewhere, rechecked on these exact scenes).
 """
 import sys
-import random
 import rail_sim as R
 
 fails = []
@@ -95,7 +94,7 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
             w2.tag = "terrain"
             counts["builds"] += 1
             pre0 = set(w2.blocks.keys())
-            model = R.build_all(w2, trace, opt)
+            R.build_all(w2, trace, opt)
 
             # --- A. Anti-overlap, decor over rail ---------------------------
             # Simple variant: no per-voxel re-simulation here (the strict one

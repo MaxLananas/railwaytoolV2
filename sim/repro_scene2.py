@@ -35,9 +35,7 @@ def build(tag, controls, style, theme="light", terrain="flat", dug=None,
         world.set(x, y, z, R.SPLINE)
     trace = RS.build_trace(world, controls, dug=dug)
     opt = R.Options(style=style, theme=theme)
-    model_before = set(world.blocks.keys())
     R.build_all(world, trace, opt)
-    model = R.TrackModel(world, trace)
 
     # --- A. every trace voxel carries its core -------------------------------
     if style == "nature":
@@ -62,7 +60,6 @@ def build(tag, controls, style, theme="light", terrain="flat", dug=None,
 
     # --- B. No mound: no vertical rail-on-rail stack outside a staircase -----
     for (x, y, z) in set(trace):
-        core = world.get(x, y, z)
         for (dx, dz) in ((0, 0), (0, 1), (0, -1), (1, 0), (-1, 0)):
             for dy in (1, 2):
                 st = world.get(x + dx, y + dy, z + dz)

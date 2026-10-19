@@ -53,8 +53,6 @@ def run_case(tag, controls, style, theme):
     # 1) Support: no placed block has air directly below it.
     built_before = set(world.blocks.keys())
     R.build_all(world, trace, R.Options(style=style, theme=theme))
-    y_min = min(v[1] for v in trace)
-    y_max = max(v[1] for v in trace)
     floating = []
     for (x, y, z), st in world.blocks.items():
         if st not in R.RAIL_FAMILY:
