@@ -65,8 +65,13 @@ public final class InGameSelfTest {
         if (finished) {
             return;
         }
-        if (mc.level == null || mc.player == null || mc.screen != null) {
+        if (mc.level == null || mc.player == null) {
             wait = LOAD_DELAY;
+            return;
+        }
+        if (mc.screen != null) {
+            LOG.add("dismissed screen " + mc.screen.getClass().getSimpleName());
+            mc.setScreen(null);
             return;
         }
         if (!ACTIONS.isEmpty()) {
@@ -252,7 +257,24 @@ public final class InGameSelfTest {
         boolean reacquired = Axiom.acquireChunkRenderOverrider("bte_railtool_selftest_2");
         out[2] = reacquired;
         Axiom.releaseChunkRenderOverrider("bte_railtool_selftest_2");
-        return "first=" + first + " second=" + second + " reacquired=" + reacquired;
+        return "first=" + first + " second=" + second + " reacquired=" + reacquired
+                + " probe=" + probeLock();
+    }
+
+    /** Reads the real error message instead of the wrapper's boolean. */
+    private static String probeLock() {
+        try {
+            Class<?> c = Class.forName("com.moulberry.axiom.render.ChunkRenderOverrider");
+            try {
+                c.getMethod("acquire", String.class).invoke(null, "bte_probe");
+                c.getMethod("release", String.class).invoke(null, "bte_probe");
+                return "acquired";
+            } catch (java.lang.reflect.InvocationTargetException e) {
+                return String.valueOf(e.getCause());
+            }
+        } catch (Throwable t) {
+            return "unavailable " + t;
+        }
     }
 
     private static int controlSize() {
