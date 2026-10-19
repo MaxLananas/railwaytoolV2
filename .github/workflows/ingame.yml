@@ -86,7 +86,8 @@ jobs:
           cp ingame/heartbeat.txt docs/ingame/heartbeat.txt || true
           grep -E "SELFTEST" ingame/latest.log > docs/ingame/selftest.log || true
           for f in stage-plan-straight stage-built-straight stage-built-nature \
-                   stage-built-clutter stage-built-long stage-built-cross world; do
+                   stage-built-clutter stage-built-long stage-built-cross \
+                   stage-undo-built stage-undo-restored world; do
             if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
           done
           ls -l docs/ingame
