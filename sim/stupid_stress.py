@@ -99,12 +99,12 @@ def check_corridor(case, world, trace, pre_keys=frozenset()):
             continue
         above = world.get(x, y + 1, z)
         if (x, y + 1, z) in pre_keys and above in ("grass_block", "stone", "dirt"):
-            fail(case, f"rail enterre: {st} a {(x, y, z)}, dessus={above!r}")
+            fail(case, f"buried rail: {st} at {(x, y, z)}, above={above!r}")
         gap = 0
         while gap < 64 and world.get(x, y - 1 - gap, z) in (R.AIR, None, "water"):
             gap += 1
         if 0 < gap <= 4:
-            fail(case, f"flottant: {st} a {(x, y, z)} ({gap} air/eau sous lui)")
+            fail(case, f"floating: {st} at {(x, y, z)} ({gap} air/water below)")
 
 
 def check_all_typed(case, model, trace):

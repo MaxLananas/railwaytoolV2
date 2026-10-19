@@ -570,7 +570,7 @@ def rectify_vertical(world, trace, spline, corner, max_up=15, max_down=20, dug=N
                 # visible and never become rail.
                 moved_trace.append((x, y, z))
             continue
-        # Descente
+        # Descent
         if is_unstable(world, x, y, z):
             target = y
             for _ in range(max_down):

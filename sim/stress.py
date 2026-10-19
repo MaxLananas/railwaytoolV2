@@ -215,7 +215,7 @@ def main():
                 continue
             walls_n = sum(1 for s in states4 if s.startswith("wall"))
             if interior and walls_n not in (2, 4):
-                fail(f"true-diag-{dl}", f"diag{i} corail {c} murets {states4}")
+                fail(f"true-diag-{dl}", f"diag{i} coral {c} walls {states4}")
 
     # 5) Stairs and climbs/drops on varying terrain
     for steps in (1, 2, 3, 5, 8):

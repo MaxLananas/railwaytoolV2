@@ -175,21 +175,21 @@ def self_check(name, world, traces, opt, seeded_wool=()):
                     if ra != rb:
                         parent[ra] = rb
         if len({find(p) for p in pts}) != 1:
-            bad.append(f"I2 trace sectionnee ({name})")
+            bad.append(f"I2 cut trace ({name})")
         cols = {}
         for v in set(trace):
             cols.setdefault((v[0], v[2]), []).append(v[1])
         for k, ys in cols.items():
             if len(set(ys)) > 1:
-                bad.append(f"I3 doublon vertical {k} {sorted(set(ys))}")
+                bad.append(f"I3 vertical duplicate {k} {sorted(set(ys))}")
     for (x, y, z), st in world.blocks.items():
         if st in R.RAIL_FAMILY:
             below = world.get(x, y - 1, z)
             if below in (R.AIR, None, "water"):
-                bad.append(f"I4 flottant {st} {(x, y, z)}")
+                bad.append(f"I4 floating {st} {(x, y, z)}")
         if (isinstance(st, str) and st.endswith(WOOL_PREFIX)
                 and st != RAIL_CORE_TOKEN and (x, y, z) not in seeded):
-            bad.append(f"I5 laine residuelle {st} {(x, y, z)}")
+            bad.append(f"I5 residual wool {st} {(x, y, z)}")
     return bad
 
 

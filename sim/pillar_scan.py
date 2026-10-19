@@ -111,14 +111,14 @@ def diagram(world, x, z, base, top, parasites):
             return R.RED(g if g.strip() else "!")
         return g
 
-    lines = [f"    pilier ({x},{z}) base=y{base} sommet=y{top}"]
-    lines.append("    tranche x/y (z=%d)  x = %d..%d" % (z, x - 3, x + 3))
+    lines = [f"    pillar ({x},{z}) base=y{base} top=y{top}"]
+    lines.append("    slice x/y (z=%d)  x = %d..%d" % (z, x - 3, x + 3))
     lines.append("       " + "".join(str((x + dx) % 10) for dx in range(-3, 4)))
     for y in range(y1, y0 - 1, -1):
         row = "".join(glyph(x + dx, y, z) for dx in range(-3, 4))
         if row.strip("."):
             lines.append(f"  y={y:>3} {row}")
-    lines.append("    tranche z/y (x=%d)  z = %d..%d" % (x, z - 3, z + 3))
+    lines.append("    slice z/y (x=%d)  z = %d..%d" % (x, z - 3, z + 3))
     lines.append("       " + "".join(str((z + dz) % 10) for dz in range(-3, 4)))
     for y in range(y1, y0 - 1, -1):
         row = "".join(glyph(x, y, z + dz) for dz in range(-3, 4))

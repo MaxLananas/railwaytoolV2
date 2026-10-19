@@ -79,7 +79,7 @@ def run_scenario(seed):
                     for dg in range(2, 6):
                         verif += 1
                         if w.get(fp[0], fp[1] - dg, fp[2]) not in (R.AIR, None):
-                            viol.append(f"seed{seed}/{style}/th{theme}: flottant plat {fst} {fp}")
+                            viol.append(f"seed{seed}/{style}/th{theme}: flat floating {fst} {fp}")
                             break
 
             except Exception as e:  # noqa: BLE001
