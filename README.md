@@ -116,15 +116,18 @@ export JAVA_TOOL_OPTIONS=-Dbte.railtool.selftest=true
 
 A superflat creative world must be loaded. The suite plans, previews and builds
 fifteen scenes (straight, replan, curve, slope, nature, zigzag, clutter,
-water, long, many, cross, presets, undo, undo-build, edges)
+water, long, many, cross, presets, undo, undo-build, edges, persist)
 through the production callbacks and Axiom pipeline, then checks the resulting
 blocks against the plan: exact block map, no side effects, supported cores,
 single ribbon, no temporary wool, released render lock, cleared ghost, saved
 presets. The `undo-build` scene builds 153 blocks, then waits while the CI
 driver opens Axiom's editor, presses `Ctrl+Z` and closes it, and checks that
 every block of the build, and every cell around it, is back to its previous
-state. A summary is written to
-`selftest-result.txt` in the game directory and to the log with the
+state. The `persist` scene then flushes the world and records every block it
+built; the driver quits the client and launches a second one on the same save,
+which reads those blocks back, checks the preset on disk and builds another
+line. A summary is written to `selftest-result.txt` (phase 1) and
+`selftest-result.txt` again after the restart, and to the log with the
 `[SELFTEST]` prefix.
 
 CI runs that suite headless in `.github/workflows/ingame.yml`: GitHub's
