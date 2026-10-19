@@ -325,6 +325,7 @@ def main():
                     time.sleep(1)
                     with open(cmd_file, "w", encoding="utf-8") as f:
                         f.write("undo-done\n")
+                    log("undo: driver finished the key sequence")
                 if stage.startswith("done-"):
                     break
         if not os.path.isfile(menu_shot) and time.time() - start > 55:
