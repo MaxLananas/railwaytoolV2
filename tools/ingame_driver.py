@@ -202,6 +202,13 @@ def write_options(mc_dir):
             f.write(f"{k}:{v}\n")
 
 
+def tail(path, lines):
+    if not os.path.isfile(path):
+        return "(no console log)"
+    with open(path, encoding="utf-8", errors="replace") as f:
+        return "".join(f.readlines()[-lines:])
+
+
 def shell(*cmd, **kw):
     return subprocess.run(cmd, check=False, capture_output=True, text=True, **kw)
 
@@ -280,8 +287,11 @@ def main():
     stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
     last_stage = ""
     start = time.time()
-    deadline = start + 2400
+    deadline = start + 3300
     while time.time() < deadline and proc.poll() is None:
+        with open(os.path.join(args.out, "heartbeat.txt"), "a", encoding="utf-8") as f:
+            f.write(f"{time.strftime('%H:%M:%S')} stage={last_stage or '-'} "
+                    f"result={os.path.isfile(result)}\n")
         if os.path.isfile(stage_file):
             stage = open(stage_file, encoding="utf-8", errors="replace").read().strip()
             if stage and stage != last_stage:
@@ -330,6 +340,12 @@ def main():
     status = "UNKNOWN"
     if os.path.isfile(result):
         status = open(result, encoding="utf-8", errors="replace").read()
+    else:
+        status = ("MISSING last stage=" + (last_stage or "-") + "\n"
+                  + tail(os.path.join(args.out, "console.log"), 40))
+        with open(os.path.join(args.out, "selftest-result.txt"), "w",
+                  encoding="utf-8") as f:
+            f.write(status)
     with open(os.path.join(args.out, "driver.log"), "w", encoding="utf-8") as f:
         f.write(status + "\n")
     first = status.strip().splitlines()[0] if status.strip() else "no result"

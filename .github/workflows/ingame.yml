@@ -81,11 +81,15 @@ jobs:
           mkdir -p docs/ingame
           cp ingame/selftest-result.txt docs/ingame/result.txt || true
           cp ingame/latest.log docs/ingame/latest.log || true
+          cp ingame/console.log docs/ingame/client-console.log || true
+          cp ingame/driver-run.log docs/ingame/driver.log || true
+          cp ingame/heartbeat.txt docs/ingame/heartbeat.txt || true
           grep -E "SELFTEST" ingame/latest.log > docs/ingame/selftest.log || true
           for f in stage-plan-straight stage-built-straight stage-built-nature \
                    stage-built-clutter stage-built-long stage-built-cross world; do
             if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
           done
+          ls -l docs/ingame
           git add -f docs/ingame
           if ! git diff --cached --quiet; then
             git commit -m "test(ingame): update client evidence [skip ci]"
