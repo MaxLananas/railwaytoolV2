@@ -746,7 +746,7 @@ public final class InGameSelfTest {
                 cores + " vs " + plannedCores);
         viewFromAbove(cores);
         STEPS.add(() -> {
-            Minecraft.getInstance().player.setNoGravity(false);
+            command("gamemode creative @s");
             stage("built-" + scene);
             STEPS.add(InGameSelfTest::checkGhost);
             STEPS.add(() -> startScene(nextSceneIndex + 1));
@@ -788,24 +788,36 @@ public final class InGameSelfTest {
             px = cx - back;
             pz = cz;
         }
-        mc.player.setNoGravity(true);
-        lookAt(mc, px, y + up, pz, cx, y, cz);
+        float[] angles = angles(px, y + up, pz, cx, y, cz);
+        command("gamemode spectator @s");
+        command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz)
+                + " " + fmt(angles[0]) + " " + fmt(angles[1]));
         pause(SHOT_MS);
     }
 
     private static void lookAt(Minecraft mc, double px, double py, double pz,
                                double tx, double ty, double tz) {
+        float[] angles = angles(px, py, pz, tx, ty, tz);
+        mc.player.setPos(px, py, pz);
+        mc.player.setDeltaMovement(0, 0, 0);
+        mc.player.setYRot(angles[0]);
+        mc.player.setXRot(angles[1]);
+        mc.player.setOldPosAndRot();
+    }
+
+    private static float[] angles(double px, double py, double pz,
+                                  double tx, double ty, double tz) {
         double dx = tx - px;
         double dy = ty - py;
         double dz = tz - pz;
         double horizontal = Math.sqrt(dx * dx + dz * dz);
-        float yaw = (float) (Math.toDegrees(Math.atan2(-dx, dz)));
-        float pitch = (float) (Math.toDegrees(Math.atan2(-dy, horizontal)));
-        mc.player.setPos(px, py, pz);
-        mc.player.setDeltaMovement(0, 0, 0);
-        mc.player.setYRot(yaw);
-        mc.player.setXRot(pitch);
-        mc.player.setOldPosAndRot();
+        return new float[]{
+                (float) Math.toDegrees(Math.atan2(-dx, dz)),
+                (float) Math.toDegrees(Math.atan2(-dy, horizontal))};
+    }
+
+    private static String fmt(double value) {
+        return String.format(java.util.Locale.ROOT, "%.2f", value);
     }
 
     private static Set<Long> coreKeys() {
