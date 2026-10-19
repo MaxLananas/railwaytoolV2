@@ -777,8 +777,8 @@ public final class InGameSelfTest {
         double sx = x2 - x1;
         double sz = z2 - z1;
         double span = Math.max(Math.max(sx, sz), 8);
-        double back = span * 0.75 + 10;
-        double up = Math.max(6, span * 0.35);
+        double back = span * 0.55 + 8;
+        double up = Math.max(5, span * 0.22);
         double px;
         double pz;
         if (sx >= sz) {
@@ -790,8 +790,10 @@ public final class InGameSelfTest {
         }
         float[] angles = angles(px, y + up, pz, cx, y, cz);
         command("gamemode spectator @s");
-        command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz)
-                + " " + fmt(angles[0]) + " " + fmt(angles[1]));
+        command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz));
+        mc.player.setYRot(angles[0]);
+        mc.player.setXRot(angles[1]);
+        mc.player.setOldPosAndRot();
         pause(SHOT_MS);
     }
 
@@ -985,6 +987,7 @@ public final class InGameSelfTest {
         command("time set noon");
         command("gamerule doWeatherCycle false");
         command("gamerule doMobSpawning false");
+        command("gamerule sendCommandFeedback false");
         command("kill @e[type=!player]");
         command("gamemode creative @s");
         pause(1200);
