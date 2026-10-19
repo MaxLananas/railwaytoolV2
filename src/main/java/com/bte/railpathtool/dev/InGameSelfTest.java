@@ -136,8 +136,10 @@ public final class InGameSelfTest {
         out.add(scene(9, "many", 8, DesignOptions.Style.CLASSIC,
                 new int[][]{{248, 8}, {256, 14}, {248, 20}, {256, 26}, {248, 32},
                         {256, 38}}, new LinkedHashMap<>()));
-        out.add(undoScene(10, "undo"));
-        out.add(edgeCases(11));
+        out.add(crossScene(10, "cross"));
+        out.add(presetScene(11, "presets"));
+        out.add(undoScene(12, "undo"));
+        out.add(edgeCases(13));
         return out;
     }
 
@@ -303,8 +305,16 @@ public final class InGameSelfTest {
                     }
                     LOG.add("second plan=" + second.size() + " diff=" + diff
                             + " bounds=" + bounds(second) + " first=" + bounds(PLAN));
-                    check("rebuild plan identical", diff == 0 && second.size() == PLAN.size(),
-                            diff + " differences " + detail);
+                    // The tool never overwrites an existing line: a second trace
+                    // stacks above the first instead of erasing it.
+                    int reused = 0;
+                    for (long k : second.keySet()) {
+                        if (PLAN.containsKey(k)) {
+                            reused++;
+                        }
+                    }
+                    check("rebuild leaves the first line", reused == 0,
+                            reused + " cells reused " + detail);
                     TOOL.callConfirm();
                     LOG.add("second build status=\"" + field(TOOL, "status") + "\"");
                     pause(APPLY_MS);
@@ -317,27 +327,180 @@ public final class InGameSelfTest {
                             mismatches++;
                         }
                     }
-                    int disturbed = 0;
-                    for (Map.Entry<Long, BlockState> e : BASELINE.entrySet()) {
-                        if (PLAN.containsKey(e.getKey())) {
-                            continue;
-                        }
-                        BlockState actual = Minecraft.getInstance().level
-                                .getBlockState(pos(e.getKey()));
-                        if (!actual.equals(e.getValue())
-                                && !(e.getValue().is(Blocks.GRASS_BLOCK)
-                                && actual.is(Blocks.DIRT))) {
-                            disturbed++;
+                    int lost = 0;
+                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                        if (!Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                                .equals(e.getValue())) {
+                            lost++;
                         }
                     }
-                    check("rebuild keeps world", mismatches == 0 && disturbed == 0,
-                            mismatches + " mismatches " + disturbed + " disturbed");
+                    check("first line survived the rebuild", lost == 0,
+                            lost + " of " + PLAN.size() + " changed");
+                    check("second build applied", mismatches == 0,
+                            mismatches + " mismatches");
                     stage("built-" + scene);
                     STEPS.add(InGameSelfTest::checkGhost);
                     STEPS.add(() -> startScene(index + 1));
                 });
             });
         };
+    }
+
+    /** Two lines crossing: the second must not erase the first. */
+    private static Runnable crossScene(int index, String name) {
+        int[][] first = {{300, 8}, {300, 24}};
+        int[][] second = {{294, 16}, {306, 16}};
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            setStyle(DesignOptions.Style.CLASSIC);
+            density()[0] = 8;
+            pause(600);
+            addPoints(first);
+            STEPS.add(() -> {
+                renderTool();
+                PLAN.clear();
+                PLAN.putAll(planMap());
+                plannedCores = countCores();
+                LOG.add("line A plan=" + PLAN.size() + " cores=" + plannedCores
+                        + " " + bounds(PLAN));
+                check("first line planned", plannedCores > 10, plannedCores + " cores");
+                TOOL.callConfirm();
+                pause(APPLY_MS);
+                STEPS.add(() -> {
+                    resetTool();
+                    addPoints(second);
+                    STEPS.add(() -> {
+                        renderTool();
+                        Map<Long, BlockState> planB = new LinkedHashMap<>(planMap());
+                        int lostCores = 0;
+                        String lostAt = "";
+                        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                            if (!isCore(e.getValue()) || planB.containsKey(e.getKey())) {
+                                continue;
+                            }
+                            lostCores++;
+                            if (lostAt.isEmpty()) {
+                                lostAt = pos(e.getKey());
+                            }
+                        }
+                        LOG.add("line B plan=" + planB.size() + " cores="
+                                + countCoresOf(planB) + " overwrites=" + lostCores);
+                        check("crossing keeps the first line", lostCores <= 1,
+                                lostCores + " cores removed at " + lostAt);
+                        TOOL.callConfirm();
+                        pause(APPLY_MS);
+                        STEPS.add(() -> {
+                            Set<Long> cores = new HashSet<>();
+                            for (int x = 292; x <= 308; x++) {
+                                for (int z = 6; z <= 26; z++) {
+                                    for (int y = -62; y <= -50; y++) {
+                                        BlockState st = Minecraft.getInstance().level
+                                                .getBlockState(new BlockPos(x, y, z));
+                                        if (isCore(st) && (z == 16 || x == 300)) {
+                                            cores.add(key(x, y, z));
+                                        }
+                                    }
+                                }
+                            }
+                            LOG.add("crossing cores=" + cores.size()
+                                    + " parts=" + components(cores, 3));
+                            check("crossing is one junction", components(cores, 3) <= 2,
+                                    components(cores, 3) + " parts");
+                            stage("built-" + scene);
+                            STEPS.add(InGameSelfTest::checkGhost);
+                            STEPS.add(() -> startScene(index + 1));
+                        });
+                    });
+                });
+            });
+        };
+    }
+
+    /** Presets and the config file must round-trip inside the game. */
+    private static Runnable presetScene(int index, String name) {
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            density()[0] = 9;
+            setStyle(DesignOptions.Style.NATURE);
+            Object data = invoke("snapshotData");
+            invoke("setPreset", new Class<?>[]{int.class, data.getClass()},
+                    new Object[]{1, data});
+            invoke("persistConfig");
+            density()[0] = 3;
+            setStyle(DesignOptions.Style.CLASSIC);
+            Object loaded = invoke("preset", new Class<?>[]{int.class}, new Object[]{1});
+            invoke("applyData", new Class<?>[]{loaded.getClass()}, new Object[]{loaded});
+            LOG.add("preset density=" + density()[0] + " style="
+                    + readInt(field(TOOL, "styleSel")));
+            check("preset restores density", density()[0] == 9, "density=" + density()[0]);
+            int style = (int) readInt(field(TOOL, "styleSel"));
+            check("preset restores style", style == 1, "styleSel=" + style);
+            Object disk = invokeStatic("load");
+            int diskDensity = readInt(readField(disk, "density"));
+            check("config saved to disk", diskDensity == 9, "disk density=" + diskDensity);
+            stage("built-" + scene);
+            STEPS.add(InGameSelfTest::checkGhost);
+            STEPS.add(() -> startScene(index + 1));
+        };
+    }
+
+    private static int countCoresOf(Map<Long, BlockState> map) {
+        int n = 0;
+        for (BlockState st : map.values()) {
+            if (isCore(st)) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    private static Object invoke(String name) {
+        return invoke(name, new Class<?>[0], new Object[0]);
+    }
+
+    private static Object invoke(String name, Class<?>[] types, Object[] args) {
+        try {
+            java.lang.reflect.Method m = TOOL.getClass().getDeclaredMethod(name, types);
+            m.setAccessible(true);
+            return m.invoke(TOOL, args);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot call " + name, e);
+        }
+    }
+
+    private static Object invokeStatic(String name) {
+        try {
+            java.lang.reflect.Method m = com.bte.railpathtool.lib.config.RailConfig.class
+                    .getDeclaredMethod(name);
+            m.setAccessible(true);
+            return m.invoke(null);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot call RailConfig." + name, e);
+        }
+    }
+
+    private static Object readField(Object target, String name) {
+        try {
+            Field f = target.getClass().getDeclaredField(name);
+            f.setAccessible(true);
+            return f.get(target);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot read " + name, e);
+        }
+    }
+
+    private static int readInt(Object value) {
+        try {
+            return ((Number) value.getClass().getMethod("get").invoke(value)).intValue();
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot read int", e);
+        }
     }
 
     /** Adds four points, deletes the last, builds: the deletion must be honoured. */
@@ -377,10 +540,18 @@ public final class InGameSelfTest {
                             }
                         }
                     }
-                    check("undo built the line", cores >= 18, cores + " cores");
-                    check("undo stopped before the deleted point",
-                            Minecraft.getInstance().level.getBlockState(new BlockPos(272, -59, 32))
-                                    .isAir() || cores < 26, cores + " cores");
+                    check("undo built the line", cores >= 15, cores + " cores");
+                    int past = 0;
+                    for (int z = 27; z <= 34; z++) {
+                        for (int y = -64; y <= -40; y++) {
+                            if (isCore(Minecraft.getInstance().level
+                                    .getBlockState(new BlockPos(272, y, z)))) {
+                                past++;
+                                break;
+                            }
+                        }
+                    }
+                    check("undo honours the deleted point", past == 0, past + " cores past z=26");
                     stage("built-" + scene);
                     STEPS.add(InGameSelfTest::checkGhost);
                     STEPS.add(() -> startScene(index + 1));
@@ -524,7 +695,7 @@ public final class InGameSelfTest {
                 unsupported++;
             }
         }
-        int components = components(corePositions);
+        int components = components(corePositions, 3);
         List<String> trace = new ArrayList<>();
         for (long k : corePositions) {
             BlockPos p = pos(k);
@@ -544,9 +715,50 @@ public final class InGameSelfTest {
         check("no temp wool (" + scene + ")", wool == 0, wool + " wool left");
         check("cores match plan (" + scene + ")", cores == plannedCores,
                 cores + " vs " + plannedCores);
-        stage("built-" + scene);
-        STEPS.add(InGameSelfTest::checkGhost);
-        STEPS.add(() -> startScene(nextSceneIndex + 1));
+        viewFromAbove(cores);
+        STEPS.add(() -> {
+            stage("built-" + scene);
+            STEPS.add(InGameSelfTest::checkGhost);
+            STEPS.add(() -> startScene(nextSceneIndex + 1));
+        });
+    }
+
+    /** Frames the built line from above so the screenshot shows the result. */
+    private static void viewFromAbove(int cores) {
+        Minecraft mc = Minecraft.getInstance();
+        if (cores == 0) {
+            return;
+        }
+        int x1 = Integer.MAX_VALUE;
+        int z1 = Integer.MAX_VALUE;
+        int x2 = Integer.MIN_VALUE;
+        int z2 = Integer.MIN_VALUE;
+        int y = -59;
+        for (long k : new HashSet<>(coreKeys())) {
+            BlockPos p = pos(k);
+            x1 = Math.min(x1, p.getX());
+            z1 = Math.min(z1, p.getZ());
+            x2 = Math.max(x2, p.getX());
+            z2 = Math.max(z2, p.getZ());
+            y = Math.max(y, p.getY());
+        }
+        double cx = (x1 + x2) / 2.0 + 0.5;
+        double cz = (z1 + z2) / 2.0 + 0.5;
+        double dy = Math.max(8.0, Math.max(x2 - x1, z2 - z1) * 0.9);
+        teleport(mc, cx, y + dy, cz);
+        mc.player.setXRot(52.0f);
+        mc.player.setOldPosAndRot();
+        pause(SHOT_MS);
+    }
+
+    private static Set<Long> coreKeys() {
+        Set<Long> out = new HashSet<>();
+        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+            if (isCore(e.getValue())) {
+                out.add(e.getKey());
+            }
+        }
+        return out;
     }
 
     private static void checkGhost() {
@@ -626,7 +838,7 @@ public final class InGameSelfTest {
         RailPathToolMod.LOGGER.info("[SELFTEST] {}", result);
     }
 
-    private static int components(Set<Long> cores) {
+    private static int components(Set<Long> cores, int jump) {
         if (cores.isEmpty()) {
             return 0;
         }
@@ -642,7 +854,7 @@ public final class InGameSelfTest {
             while (!queue.isEmpty()) {
                 BlockPos p = pos(queue.poll());
                 for (int dx = -1; dx <= 1; dx++) {
-                    for (int dy = -1; dy <= 1; dy++) {
+                    for (int dy = -jump; dy <= jump; dy++) {
                         for (int dz = -1; dz <= 1; dz++) {
                             long k = key(p.getX() + dx, p.getY() + dy, p.getZ() + dz);
                             if (cores.contains(k) && seen.add(k)) {

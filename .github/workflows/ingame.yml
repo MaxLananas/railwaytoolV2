@@ -73,14 +73,22 @@ jobs:
             --mod "$MOD" --java "$JAVA_HOME/bin/java" \
             --mc-dir run-mc --out ingame 2>&1 | tee ingame/driver-run.log
 
-      - name: Publish results as a commit
+      - name: Publish evidence
         if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f ingame || true
+          mkdir -p docs/ingame
+          cp ingame/selftest-result.txt docs/ingame/result.txt || true
+          cp ingame/latest.log docs/ingame/latest.log || true
+          grep -E "SELFTEST" ingame/latest.log > docs/ingame/selftest.log || true
+          for f in stage-plan-straight stage-built-straight stage-built-nature \
+                   stage-built-clutter stage-built-long stage-built-cross world; do
+            if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
+          done
+          git add -f docs/ingame
           if ! git diff --cached --quiet; then
-            git commit -m "test(ingame): automated client report [skip ci]"
+            git commit -m "test(ingame): update client evidence [skip ci]"
             git push
           fi
 

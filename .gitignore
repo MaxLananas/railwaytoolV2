@@ -22,3 +22,6 @@ libs/*.jar
 # Logs and local test output
 *.log
 ci/
+
+# Generated evidence kept only as the curated copy in docs/ingame
+ingame/
