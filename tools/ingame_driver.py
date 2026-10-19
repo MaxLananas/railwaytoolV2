@@ -231,6 +231,121 @@ def ocr_text(path):
     return " ".join(out.split())[:200]
 
 
+def run_client(args, version_id, phase, mcl, timeout=3300):
+    """One client launch. Phase 1 runs the suite and saves the world, phase 2
+    reopens that world and checks the saved rail."""
+    tag = "phase%d" % phase
+    for name in ("selftest-result.txt", "selftest-stage.txt", "selftest-cmd.txt"):
+        p = os.path.join(args.mc_dir, name)
+        if os.path.exists(p):
+            os.remove(p)
+
+    offline_uuid = str(uuid.uuid3(uuid.NAMESPACE_DNS, "ArenaTest"))
+    options = {
+        "username": "ArenaTest",
+        "uuid": offline_uuid,
+        "token": "",
+        "executablePath": args.java,
+        "gameDirectory": args.mc_dir,
+        "jvmArguments": ["-Xmx2G", "-Dbte.railtool.selftest=true",
+                         "-Dbte.railtool.selftest.phase=%d" % phase],
+    }
+    cmd = mcl.command.get_minecraft_command(version_id, args.mc_dir, options)
+    cmd += ["--quickPlaySingleplayer", WORLD_NAME,
+            "--width", "1280", "--height", "720"]
+    log("launching client (%s)" % tag)
+    console_path = os.path.join(args.out, "console-%s.log" % tag)
+    console = open(console_path, "w", encoding="utf-8", errors="replace")
+    proc = subprocess.Popen(cmd, cwd=args.mc_dir, stdout=console,
+                            stderr=subprocess.STDOUT)
+
+    time.sleep(20)
+    shell("xdotool", "search", "--name", "Minecraft", "windowfocus")
+    menu_shot = os.path.join(args.out, "axiom-menu-%s.png" % tag)
+    result = os.path.join(args.mc_dir, "selftest-result.txt")
+    stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
+    cmd_file = os.path.join(args.mc_dir, "selftest-cmd.txt")
+    undo_sent = False
+    last_stage = ""
+    start = time.time()
+    deadline = start + timeout
+    while time.time() < deadline and proc.poll() is None:
+        with open(os.path.join(args.out, "heartbeat.txt"), "a", encoding="utf-8") as f:
+            f.write(f"{time.strftime('%H:%M:%S')} {tag} stage={last_stage or '-'} "
+                    f"result={os.path.isfile(result)}\n")
+        if os.path.isfile(stage_file):
+            stage = open(stage_file, encoding="utf-8", errors="replace").read().strip()
+            if stage and stage != last_stage:
+                last_stage = stage
+                shot = os.path.join(args.out, "stage-" + stage + ".png")
+                if screenshot(args.display, shot):
+                    log("stage " + stage + ": " + ocr_text(shot))
+                if stage == "undo-restored":
+                    # Settled frame: chunks rebuilt, no transient overlay.
+                    time.sleep(3)
+                    late = os.path.join(args.out, "stage-undo-restored-late.png")
+                    if screenshot(args.display, late):
+                        log("stage undo-restored late: " + ocr_text(late))
+                if stage == "undo-built" and not undo_sent:
+                    undo_sent = True
+                    log("undo check: editor + ctrl+z")
+                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
+                    time.sleep(5)
+                    shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
+                    time.sleep(5)
+                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
+                    time.sleep(1)
+                    with open(cmd_file, "w", encoding="utf-8") as f:
+                        f.write("undo-done\n")
+                    log("undo: driver finished the key sequence")
+                if stage.startswith("done-"):
+                    break
+        if not os.path.isfile(menu_shot) and time.time() - start > 55:
+            shell("xdotool", "key", "alt")
+            time.sleep(4)
+            screenshot(args.display, menu_shot)
+            shell("xdotool", "key", "alt")
+            log("axiom menu (%s): %s" % (tag, ocr_text(menu_shot)))
+        if os.path.isfile(result):
+            log("selftest result detected (%s)" % tag)
+            break
+        time.sleep(2)
+
+    time.sleep(2)
+    shell("xdotool", "key", "F1")
+    time.sleep(1)
+    shell("xdotool", "key", "F2")
+    time.sleep(1)
+    screenshot(args.display, os.path.join(args.out, "world-%s.png" % tag))
+    try:
+        proc.wait(timeout=90)
+    except subprocess.TimeoutExpired:
+        proc.terminate()
+        try:
+            proc.wait(timeout=20)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+    console.close()
+
+    for name, dest in (("logs/latest.log", "latest-%s.log" % tag),
+                       ("selftest-result.txt", "result-%s.txt" % tag)):
+        src = os.path.join(args.mc_dir, name)
+        if os.path.isfile(src):
+            shutil.copy2(src, os.path.join(args.out, dest))
+
+    if os.path.isfile(result):
+        status = open(result, encoding="utf-8", errors="replace").read()
+    else:
+        status = ("MISSING last stage=" + (last_stage or "-") + "\n"
+                  + tail(console_path, 40))
+        with open(os.path.join(args.out, "result-%s.txt" % tag), "w",
+                  encoding="utf-8") as f:
+            f.write(status)
+    first = status.strip().splitlines()[0] if status.strip() else "no result"
+    log("%s done: %s" % (tag, first))
+    return status
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mc-dir", default="run-mc")
@@ -265,118 +380,21 @@ def main():
     fabric_api_jar(mods)
     write_options(args.mc_dir)
 
-    offline_uuid = str(uuid.uuid3(uuid.NAMESPACE_DNS, "ArenaTest"))
-    options = {
-        "username": "ArenaTest",
-        "uuid": offline_uuid,
-        "token": "",
-        "executablePath": args.java,
-        "gameDirectory": args.mc_dir,
-        "jvmArguments": ["-Xmx2G", "-Dbte.railtool.selftest=true"],
-    }
-    cmd = mcl.command.get_minecraft_command(version_id, args.mc_dir, options)
-    cmd += ["--quickPlaySingleplayer", WORLD_NAME,
-            "--width", "1280", "--height", "720"]
-    log("main class index: " + str(cmd.index("-cp") if "-cp" in cmd else -1))
-    for part in cmd:
-        if "fabric-loader" in part or "KnotClient" in part:
-            log("classpath entry: " + part[:200])
-    log("launching client")
-    console_path = os.path.join(args.out, "console.log")
-    console = open(console_path, "w", encoding="utf-8", errors="replace")
-    proc = subprocess.Popen(cmd, cwd=args.mc_dir, stdout=console,
-                            stderr=subprocess.STDOUT)
+    first = run_client(args, version_id, 1, mcl)
+    second = run_client(args, version_id, 2, mcl, timeout=900)
 
-    time.sleep(20)
-    shell("xdotool", "search", "--name", "Minecraft", "windowfocus")
-    menu_shot = os.path.join(args.out, "axiom-menu.png")
-    result = os.path.join(args.mc_dir, "selftest-result.txt")
-    stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
-    cmd_file = os.path.join(args.mc_dir, "selftest-cmd.txt")
-    undo_sent = False
-    last_stage = ""
-    start = time.time()
-    deadline = start + 3300
-    while time.time() < deadline and proc.poll() is None:
-        with open(os.path.join(args.out, "heartbeat.txt"), "a", encoding="utf-8") as f:
-            f.write(f"{time.strftime('%H:%M:%S')} stage={last_stage or '-'} "
-                    f"result={os.path.isfile(result)}\n")
-        if os.path.isfile(stage_file):
-            stage = open(stage_file, encoding="utf-8", errors="replace").read().strip()
-            if stage and stage != last_stage:
-                last_stage = stage
-                shot = os.path.join(args.out, "stage-" + stage + ".png")
-                if screenshot(args.display, shot):
-                    log("stage " + stage + ": " + ocr_text(shot))
-                if stage == "undo-restored":
-                    # Settled frame: chunks rebuilt, no transient overlay.
-                    time.sleep(3)
-                    late = os.path.join(args.out, "stage-undo-restored-late.png")
-                    if screenshot(args.display, late):
-                        log("stage undo-restored late: " + ocr_text(late))
-                if stage == "undo-built" and not undo_sent:
-                    undo_sent = True
-                    log("undo check: editor + ctrl+z")
-                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
-                    time.sleep(5)
-                    shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
-                    time.sleep(5)
-                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
-                    time.sleep(1)
-                    with open(cmd_file, "w", encoding="utf-8") as f:
-                        f.write("undo-done\n")
-                    log("undo: driver finished the key sequence")
-                if stage.startswith("done-"):
-                    break
-        if not os.path.isfile(menu_shot) and time.time() - start > 55:
-            shell("xdotool", "key", "alt")
-            time.sleep(4)
-            screenshot(args.display, menu_shot)
-            shell("xdotool", "key", "alt")
-            log("axiom menu: " + ocr_text(menu_shot))
-        if os.path.isfile(result):
-            log("selftest result detected")
-            break
-        time.sleep(2)
+    shutil.copy2(os.path.join(args.out, "result-phase1.txt"),
+                 os.path.join(args.out, "selftest-result.txt"))
+    for src, dest in (("latest-phase1.log", "latest.log"),
+                      ("result-phase2.txt", "selftest-result-restart.txt"),
+                      ("latest-phase2.log", "latest-restart.log")):
+        s_path = os.path.join(args.out, src)
+        if os.path.isfile(s_path):
+            shutil.copy2(s_path, os.path.join(args.out, dest))
 
-    time.sleep(2)
-    shell("xdotool", "key", "F1")
-    time.sleep(1)
-    shell("xdotool", "key", "F2")
-    time.sleep(1)
-    screenshot(args.display, os.path.join(args.out, "world.png"))
-    try:
-        proc.wait(timeout=60)
-    except subprocess.TimeoutExpired:
-        proc.terminate()
-        try:
-            proc.wait(timeout=20)
-        except subprocess.TimeoutExpired:
-            proc.kill()
-    console.close()
-
-    for name in ("logs/latest.log", "logs/debug.log", "selftest-result.txt"):
-        src = os.path.join(args.mc_dir, name)
-        if os.path.isfile(src):
-            shutil.copy2(src, os.path.join(args.out, os.path.basename(src)))
-    shots_dir = os.path.join(args.mc_dir, "screenshots")
-    if os.path.isdir(shots_dir):
-        for name in sorted(os.listdir(shots_dir))[-3:]:
-            shutil.copy2(os.path.join(shots_dir, name),
-                         os.path.join(args.out, "ingame-" + name))
-    status = "UNKNOWN"
-    if os.path.isfile(result):
-        status = open(result, encoding="utf-8", errors="replace").read()
-    else:
-        status = ("MISSING last stage=" + (last_stage or "-") + "\n"
-                  + tail(os.path.join(args.out, "console.log"), 40))
-        with open(os.path.join(args.out, "selftest-result.txt"), "w",
-                  encoding="utf-8") as f:
-            f.write(status)
     with open(os.path.join(args.out, "driver.log"), "w", encoding="utf-8") as f:
-        f.write(status + "\n")
-    first = status.strip().splitlines()[0] if status.strip() else "no result"
-    log("done: " + first)
+        f.write("phase1: " + first.strip().splitlines()[0] + "\n")
+        f.write("phase2: " + second.strip().splitlines()[0] + "\n")
     return 0
 
 

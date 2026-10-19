@@ -81,7 +81,10 @@ jobs:
           mkdir -p docs/ingame
           cp ingame/selftest-result.txt docs/ingame/result.txt || true
           cp ingame/latest.log docs/ingame/latest.log || true
-          cp ingame/console.log docs/ingame/client-console.log || true
+          cp ingame/latest-restart.log docs/ingame/latest-restart.log || true
+          cp ingame/selftest-result-restart.txt docs/ingame/result-restart.txt || true
+          cp ingame/console-phase1.log docs/ingame/client-console.log || true
+          cp ingame/console-phase2.log docs/ingame/client-console-restart.log || true
           cp ingame/driver-run.log docs/ingame/driver.log || true
           cp ingame/heartbeat.txt docs/ingame/heartbeat.txt || true
           grep -E "SELFTEST" ingame/latest.log > docs/ingame/selftest.log || true
@@ -89,7 +92,8 @@ jobs:
                    stage-built-clutter stage-built-long stage-built-cross \
                    stage-undo-base stage-undo-built stage-undo-restored \
                    stage-undo-rebuilt stage-undo-cleared \
-                   stage-undo-restored-late world; do
+                   stage-undo-restored-late stage-restart-plan \
+                   stage-restart-built world; do
             if [ -f "ingame/$f.png" ]; then cp "ingame/$f.png" docs/ingame/; fi
           done
           ls -l docs/ingame
