@@ -692,6 +692,11 @@ public final class InGameSelfTest {
                 LOG.add("undo build applied " + placed + "/" + PLAN.size());
                 check("undo build applied", placed == PLAN.size(),
                         placed + "/" + PLAN.size());
+                Object ghost = field(TOOL, "ghostPositions");
+                int ghostCells = ghost instanceof java.util.Collection<?> c
+                        ? c.size() : -1;
+                LOG.add("ghost after build: cells=" + ghostCells + " lock="
+                        + field(TOOL, "phantomAcquired"));
                 allowScreen = true;
                 screenLogged = false;
                 stage("undo-built");
