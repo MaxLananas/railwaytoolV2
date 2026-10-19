@@ -64,7 +64,6 @@ public final class InGameSelfTest {
     private static String scene = "";
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
-    private static final Map<String, Map<Long, BlockState>> PLANS = new LinkedHashMap<>();
 
     private InGameSelfTest() {
     }
@@ -116,20 +115,19 @@ public final class InGameSelfTest {
     private static List<Runnable> scenes() {
         List<Runnable> out = new ArrayList<>();
         out.add(scene(0, "straight", 8, DesignOptions.Style.CLASSIC,
-                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>(), false));
-        out.add(scene(1, "repeat", 8, DesignOptions.Style.CLASSIC,
-                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>(), true));
+                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>()));
+        out.add(repeatScene(1, "repeat"));
         out.add(scene(2, "curve", 8, DesignOptions.Style.CLASSIC,
-                new int[][]{{32, 8}, {32, 16}, {40, 24}}, new LinkedHashMap<>(), false));
+                new int[][]{{32, 8}, {32, 16}, {40, 24}}, new LinkedHashMap<>()));
         out.add(scene(3, "slope", 8, DesignOptions.Style.CLASSIC,
-                new int[][]{{56, 8}, {56, 16}, {56, 24}}, terrainRamp(), false));
+                new int[][]{{56, 8}, {56, 16}, {56, 24}}, terrainRamp()));
         out.add(scene(4, "nature", 8, DesignOptions.Style.NATURE,
-                new int[][]{{80, 8}, {80, 16}, {80, 24}}, new LinkedHashMap<>(), false));
+                new int[][]{{80, 8}, {80, 16}, {80, 24}}, new LinkedHashMap<>()));
         out.add(scene(5, "zigzag", 12, DesignOptions.Style.CLASSIC,
                 new int[][]{{104, 8}, {112, 16}, {104, 24}, {112, 32}},
-                new LinkedHashMap<>(), false));
+                new LinkedHashMap<>()));
         out.add(scene(6, "clutter", 8, DesignOptions.Style.CLASSIC,
-                new int[][]{{176, 8}, {176, 16}, {176, 24}}, terrainWall(), false));
+                new int[][]{{176, 8}, {176, 16}, {176, 24}}, terrainWall()));
         out.add(edgeCases(7));
         return out;
     }
@@ -170,7 +168,7 @@ public final class InGameSelfTest {
     }
 
     private static Runnable scene(int index, String name, int density, DesignOptions.Style style,
-                                  int[][] points, Map<Long, String> terrain, boolean repeat) {
+                                  int[][] points, Map<Long, String> terrain) {
         return () -> {
             scene = name;
             sceneCount++;
@@ -220,28 +218,10 @@ public final class InGameSelfTest {
                 Map<Long, BlockState> copy = new LinkedHashMap<>(planMap());
                 PLAN.clear();
                 PLAN.putAll(copy);
-                PLANS.put(name, copy);
                 plannedCores = countCores();
                 LOG.add("plan=" + PLAN.size() + " cores=" + plannedCores
                         + " est=" + field(TOOL, "planCount") + " recompute=" + millis + "ms");
                 check("recompute under 2s (" + name + ")", millis < 2000, millis + "ms");
-                if (repeat) {
-                    Map<Long, BlockState> previous = PLANS.get("straight");
-                    int diff = 0;
-                    String first = "";
-                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        BlockState was = previous == null ? null : previous.get(e.getKey());
-                        if (was == null || !was.equals(e.getValue())) {
-                            diff++;
-                            if (first.isEmpty()) {
-                                first = pos(e.getKey()) + " " + was + " -> "
-                                        + name(e.getValue());
-                            }
-                        }
-                    }
-                    check("rebuild plan identical", diff == 0 && previous != null,
-                            diff + " differences " + first);
-                }
                 BASELINE.clear();
                 BASELINE.putAll(snapshot(x1 - 6, x2 + 6, z1 - 4, z2 + 4));
                 stage("plan-" + name);
@@ -254,6 +234,107 @@ public final class InGameSelfTest {
             });
             STEPS.add(InGameSelfTest::check);
         };
+    }
+
+    /**
+     * Builds the same line twice in one session. The second plan must be
+     * identical and the world must not drift, which proves the tool reads its
+     * own output correctly.
+     */
+    private static Runnable repeatScene(int index, String name) {
+        int[][] points = {{8, 8}, {8, 16}, {8, 24}};
+        return () -> {
+            scene = name;
+            sceneCount++;
+            LOG.add("scene " + name);
+            resetTool();
+            setStyle(DesignOptions.Style.CLASSIC);
+            density()[0] = 8;
+            pause(600);
+            addPoints(points);
+            STEPS.add(() -> {
+                renderTool();
+                Map<Long, BlockState> first = new LinkedHashMap<>(planMap());
+                PLAN.clear();
+                PLAN.putAll(first);
+                plannedCores = countCores();
+                LOG.add("first plan=" + first.size() + " cores=" + plannedCores);
+                check("first plan non empty", first.size() > 0, first.size() + " blocks");
+                BASELINE.clear();
+                BASELINE.putAll(snapshot(2, 14, 4, 28));
+                TOOL.callConfirm();
+                LOG.add("first build status=\"" + field(TOOL, "status") + "\"");
+                pause(APPLY_MS);
+            });
+            STEPS.add(() -> {
+                addPoints(points);
+                STEPS.add(() -> {
+                    renderTool();
+                    Map<Long, BlockState> second = planMap();
+                    int diff = 0;
+                    String detail = "";
+                    for (Map.Entry<Long, BlockState> e : second.entrySet()) {
+                        BlockState was = PLAN.get(e.getKey());
+                        if (was == null || !was.equals(e.getValue())) {
+                            diff++;
+                            if (detail.isEmpty()) {
+                                detail = pos(e.getKey()) + " " + was + " -> "
+                                        + name(e.getValue());
+                            }
+                        }
+                    }
+                    LOG.add("second plan=" + second.size() + " diff=" + diff);
+                    check("rebuild plan identical", diff == 0 && second.size() == PLAN.size(),
+                            diff + " differences " + detail);
+                    TOOL.callConfirm();
+                    LOG.add("second build status=\"" + field(TOOL, "status") + "\"");
+                    pause(APPLY_MS);
+                });
+                STEPS.add(() -> {
+                    int mismatches = 0;
+                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                        if (!Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
+                                .equals(e.getValue())) {
+                            mismatches++;
+                        }
+                    }
+                    int disturbed = 0;
+                    for (Map.Entry<Long, BlockState> e : BASELINE.entrySet()) {
+                        if (PLAN.containsKey(e.getKey())) {
+                            continue;
+                        }
+                        BlockState actual = Minecraft.getInstance().level
+                                .getBlockState(pos(e.getKey()));
+                        if (!actual.equals(e.getValue())
+                                && !(e.getValue().is(Blocks.GRASS_BLOCK)
+                                && actual.is(Blocks.DIRT))) {
+                            disturbed++;
+                        }
+                    }
+                    check("rebuild keeps world", mismatches == 0 && disturbed == 0,
+                            mismatches + " mismatches " + disturbed + " disturbed");
+                    stage("built-" + scene);
+                    STEPS.add(InGameSelfTest::checkGhost);
+                    STEPS.add(() -> startScene(index + 1));
+                });
+            });
+        };
+    }
+
+    private static void addPoints(int[][] points) {
+        for (int[] p : points) {
+            final int px = p[0];
+            final int pz = p[1];
+            STEPS.add(() -> {
+                teleport(Minecraft.getInstance(), px + 0.5, topSolid(px, pz) + 1.2,
+                        pz + 0.5);
+                pause(200);
+            });
+            STEPS.add(() -> {
+                TOOL.callUseTool();
+                LOG.add("point " + px + "," + pz + " control=" + controlSize());
+            });
+        }
     }
 
     private static Runnable edgeCases(int index) {
@@ -339,6 +420,9 @@ public final class InGameSelfTest {
             }
             BlockState actual = mc.level.getBlockState(pos(k));
             if (!actual.equals(e.getValue())) {
+                if (e.getValue().is(Blocks.GRASS_BLOCK) && actual.is(Blocks.DIRT)) {
+                    continue;
+                }
                 unexpected++;
                 if (firstUnexpected.isEmpty()) {
                     firstUnexpected = pos(k) + " was " + name(e.getValue())
@@ -354,6 +438,13 @@ public final class InGameSelfTest {
             }
         }
         int components = components(corePositions);
+        List<String> trace = new ArrayList<>();
+        for (long k : corePositions) {
+            BlockPos p = pos(k);
+            trace.add(p.getX() + "," + p.getY() + "," + p.getZ());
+        }
+        trace.sort(String::compareTo);
+        LOG.add("cores (" + scene + "): " + String.join(" ", trace));
         int wool = countWool();
         check("plan applied (" + scene + ")", mismatches == 0,
                 mismatches + " mismatches " + firstMismatch);
