@@ -1,25 +1,26 @@
-[00:29:37] fabric loader jar: True
-[00:29:37] reusing generated world
-[00:29:37] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[00:29:37] Fabric API 0.138.4+1.21.10
-[00:29:38] main class index: 9
-[00:29:38] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:29:38] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:29:38] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:29:38] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[00:29:38] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
-[00:29:38] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
-[00:29:38] classpath entry: fabric-loader-0.19.3-1.21.10
-[00:29:38] launching client
-[00:30:19] stage plan-straight: + Gamerule doDayliahtCucle is now set to: false Set the time to 6688 Gamerule dobleatherCucle is now set to: false Gamerule doMobSpauning is now set to: false BER BBEBEREeS
-[00:30:24] stage built-straight: a. Gamerule doDayliahtCucle is now set to: false Set the time to 6688 Gamerule dobleatherCucle is now set to: false Gamerule doMobSpauning is now set to: false Ho entity was found
-[00:30:27] stage plan-curve: pe ‘ aah al EE ~~ aa! CLITTtee hee »
-[00:30:32] stage built-curve: , oon a || _ yy " -_ “7 ul ms lee = _—- -_- = : : = Changed the block at 68, -36, 38 Changed the block at 52, -36, 31 |6Cl/ Changed the block at 53, -36, 31 Changed the block at 54, -36, 31 Changed th
-[00:30:36] stage plan-slope: ‘a on = | i Changed the block at 68, -36, 38 Changed the block at 52, -36, 31 Changed the block at 53, -36, 31 Changed the block at 54, -36, 31 Changed the block at 55, -36, 31 Changed the block at 56
-[00:30:39] stage built-slope: ‘a on = _| i Changed the block at 68, -36, 38 Changed the block at 52, -36, 31 Changed the block at 53, -36, 31 Changed the block at 54, -36, 31 Changed the block at 55, -36, 31 Changed the block at 5
-[00:30:42] stage plan-nature: Soy
-[00:30:46] stage built-nature: TT EEE Leee tl ie} »
-[00:30:48] stage plan-zigzag: TT EEE Eeee lie) =
-[00:30:53] stage built-zigzag: 
-[00:30:57] stage done-fail: ee ee oe a ia Hehe TT ELeEeLeee tL el »
-[00:31:06] done: [SELFTEST] FAIL 42/44 checks | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS plan applied (slope) | FAIL no side effects (slope) [5 changed class_2338{x=53, y=-60, z=8} was minecraft:grass_block now minecraft:dirt] | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | FAIL air-click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges)
+[00:38:37] fabric loader jar: True
+[00:38:37] reusing generated world
+[00:38:37] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[00:38:38] Fabric API 0.138.4+1.21.10
+[00:38:38] main class index: 9
+[00:38:38] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:38:38] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:38:38] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:38:38] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[00:38:38] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
+[00:38:38] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
+[00:38:38] classpath entry: fabric-loader-0.19.3-1.21.10
+[00:38:38] launching client
+[00:39:17] stage plan-straight: + Gamerule doDayliahtCucle is now set to: false Set the time to 6688 Gamerule dobleatherCucle is now set to: false Gamerule doMobSpauning is now set to: false BER BBEBEREeS
+[00:39:24] stage plan-repeat: ae FB i _, = ae Pv oct, OM a LEE Le
+[00:39:31] stage built-repeat: TT EELeee tl ie) »
+[00:39:33] stage plan-curve: set
+[00:39:39] stage built-curve: , oon a || _ yy " -_ | =_ ie | _a | _—- -_- — i — Changed the block at 68, -37, 32 Changed the block at 52, -36, 32 |6Cl/ Changed the block at 53, -36, 32 Changed the block at 54, -36, 32 Changed the 
+[00:39:43] stage plan-slope: + Changed the block at 68, -37, 32 Changed the block at 52, -36, 32 Changed the block at 53, -36, 32 Changed the block at 54, -36, 32 Changed the block at 55, -36, 32 Changed the block at 56, —36, 32 
+[00:39:45] stage built-slope: qq == — = 5 iz ik J Changed the block at 68, -37, 32 Changed the block at 52, -36, 32 Changed the block at 53, -36, 32 Changed the block at 54, -36, 32 Changed the block at 55, -36, 32 Changed the blo
+[00:39:48] stage plan-nature: : TT EEE Eeee lie) :
+[00:39:52] stage built-nature: A, Fo oe = _ en ao om | = = F ‘ Bes . , or a | Y ae & ———— a
+[00:39:55] stage plan-zigzag: TT EEE Eeee lie) sf
+[00:40:01] stage built-zigzag: 2 date Fo rlTTLiii il ie »
+[00:40:06] stage done-fail: eS ee ee nee Poe TT ELeEeLeee tL el »
+[00:40:13] done: [SELFTEST] FAIL 58/59 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS recompute under 2s (repeat) | FAIL rebuild plan identical [153 differences class_2338{x=9, y=-57, z=14} null -> minecraft:mud_brick_wall] | PASS plan applied (repeat) | PASS no side effects (repeat) | PASS cores supported (repeat) | PASS single ribbon (repeat) | PASS no temp wool (repeat) | PASS cores match plan (repeat) | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges)
