@@ -66,6 +66,8 @@ public final class InGameSelfTest {
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
     private static double[] viewCam;
+    private static boolean allowScreen;
+    private static boolean screenLogged;
 
     private InGameSelfTest() {
     }
@@ -87,6 +89,13 @@ public final class InGameSelfTest {
             return;
         }
         if (mc.screen != null) {
+            if (allowScreen) {
+                if (!screenLogged) {
+                    screenLogged = true;
+                    LOG.add("kept screen " + mc.screen.getClass().getSimpleName());
+                }
+                return;
+            }
             LOG.add("dismissed " + mc.screen.getClass().getSimpleName());
             mc.setScreen(null);
             return;
@@ -672,9 +681,12 @@ public final class InGameSelfTest {
                 LOG.add("undo build applied " + placed + "/" + PLAN.size());
                 check("undo build applied", placed == PLAN.size(),
                         placed + "/" + PLAN.size());
+                allowScreen = true;
+                screenLogged = false;
                 stage("undo-built");
             });
-            waitForDriver("undo-done", 90, () -> {
+            waitForDriver("undo-done", 120, () -> {
+                allowScreen = false;
                 pause(SHOT_MS);
                 STEPS.add(() -> {
                     int left = 0;

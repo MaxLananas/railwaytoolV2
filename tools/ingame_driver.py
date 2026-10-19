@@ -303,8 +303,12 @@ def main():
                     log("stage " + stage + ": " + ocr_text(shot))
                 if stage == "undo-built" and not undo_sent:
                     undo_sent = True
-                    log("undo check: sending ctrl+z")
+                    log("undo check: editor + ctrl+z")
+                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
+                    time.sleep(5)
                     shell("xdotool", "key", "--clearmodifiers", "ctrl+z")
+                    time.sleep(5)
+                    shell("xdotool", "key", "--clearmodifiers", "Shift_R")
                     time.sleep(1)
                     with open(cmd_file, "w", encoding="utf-8") as f:
                         f.write("undo-done\n")
