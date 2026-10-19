@@ -1,41 +1,42 @@
-[06:40:23] fabric loader jar: True
-[06:40:23] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[06:40:23] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[06:40:24] Fabric API 0.138.4+1.21.10
-[06:40:24] main class index: 9
-[06:40:24] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[06:40:24] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[06:40:24] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[06:40:24] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
-[06:40:24] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
-[06:40:24] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
-[06:40:24] classpath entry: fabric-loader-0.19.3-1.21.10
-[06:40:24] launching client
-[06:41:11] stage plan-straight: 
-[06:41:19] stage built-straight: 
-[06:41:32] stage built-repeat: SUE Le ar aoe Lik rot oe a a Se aT caer * meth ee Rese rr ake Pee le ee ee a ark a Meta Ph gecset ee etieast ee goes. ee « ease Aare cies a canna ee a a ore enn Seen ce eo ee Os she probed oe tetas ae
-[06:41:34] stage plan-curve: ae a ia ry s
-[06:41:47] axiom menu: ae a ia ry s
-[06:41:49] stage built-curve: 
-[06:41:52] stage plan-slope: 
-[06:42:02] stage built-slope: 
-[06:42:09] stage plan-nature: 
-[06:42:19] stage built-nature: 
-[06:42:28] stage plan-zigzag: ae 3 ae
-[06:42:36] stage built-zigzag: ae 3 age
-[06:42:47] stage plan-clutter: See eee) | ee ee
-[06:42:56] stage built-clutter: te the te OE te tee te ee A Be
-[06:43:05] stage plan-water: a New Recipets? Unlocked! Check your recipe book
-[06:43:14] stage built-water: 
-[06:43:22] stage plan-long: 
-[06:43:31] stage built-long: 
-[06:43:41] stage plan-many: et es a a a #. ot “hag i ge az
-[06:43:50] stage built-many: paper ne Leet oe = ory "hi n a ef
-[06:44:00] stage built-presets: TT EELeeee Lie »
-[06:44:05] stage built-undo: CT EELeee Lite) »
-[06:44:13] stage undo-built: es rae rae ae m ry ss
-[06:44:13] undo check: editor + ctrl+z
-[06:44:39] stage undo-restored: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
-[06:44:46] stage undo-restored late: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
-[06:44:48] stage done-pass: |; & Pi Wi Ze
-[06:44:56] done: [SELFTEST] PASS 115/115 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS undo build planned | PASS undo build applied | PASS undo restored the world | PASS render lock released (undo-build) | PASS ghost cleared (undo-build) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
+[06:49:04] fabric loader jar: True
+[06:49:04] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[06:49:04] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[06:49:04] Fabric API 0.138.4+1.21.10
+[06:49:05] main class index: 9
+[06:49:05] classpath entry: -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[06:49:05] classpath entry: -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[06:49:05] classpath entry: -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[06:49:05] classpath entry: -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives
+[06:49:05] classpath entry: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar:/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-
+[06:49:05] classpath entry: net.fabricmc.loader.impl.launch.knot.KnotClient
+[06:49:05] classpath entry: fabric-loader-0.19.3-1.21.10
+[06:49:05] launching client
+[06:49:52] stage plan-straight: 
+[06:50:00] stage built-straight: 
+[06:50:14] stage built-repeat: SUE Le ar aoe Lik rot oe a a Se aT caer * meth ee Rese rr ake Pee le ee ee a ark a Meta Ph gecset ee etieast ee goes. ee « ease Aare cies a canna ee a a ore enn Seen ce eo ee Os she probed oe tetas ae
+[06:50:16] stage plan-curve: ae a ia ry s
+[06:50:23] stage built-curve: wae Be os at kt ak se eae Pe OG a me ett a ae a mf
+[06:50:28] axiom menu: ea
+[06:50:33] stage plan-slope: 
+[06:50:43] stage built-slope: 
+[06:50:50] stage plan-nature: 
+[06:51:00] stage built-nature: 
+[06:51:09] stage plan-zigzag: ae 3 ae
+[06:51:19] stage built-zigzag: ae 3 age
+[06:51:28] stage plan-clutter: See eee) | ee ee
+[06:51:39] stage built-clutter: te the te OE te tee te ee A Be
+[06:51:45] stage plan-water: ee New Recipets? Unlocked! “4 Check your recipe book
+[06:51:56] stage built-water: 
+[06:52:05] stage plan-long: 
+[06:52:13] stage built-long: 
+[06:52:22] stage plan-many: et es a a a #. ot “hag i ge az
+[06:52:32] stage built-many: paper ne Leet oe = ory "hi n a ef
+[06:52:43] stage built-presets: CT EELeee Lite) »
+[06:52:47] stage built-undo: CTT ELEELeLet iste) »
+[06:52:52] stage undo-base: 
+[06:52:58] stage undo-built: es rae rae ae m ry ss
+[06:52:58] undo check: editor + ctrl+z
+[06:53:25] stage undo-restored: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
+[06:53:28] stage undo-restored late: 
+[06:53:33] stage done-pass: |; & Pi Wi Ze
+[06:53:42] done: [SELFTEST] PASS 115/115 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS undo build planned | PASS undo build applied | PASS undo restored the world | PASS render lock released (undo-build) | PASS ghost cleared (undo-build) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS no mod errors in log
