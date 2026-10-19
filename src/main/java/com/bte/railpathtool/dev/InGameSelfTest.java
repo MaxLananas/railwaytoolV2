@@ -769,6 +769,26 @@ public final class InGameSelfTest {
                     stage("undo-rebuilt");
                     pause(SHOT_MS);
                 });
+                // Probe: if the coral ghosts vanish once their render overrides
+                // are cleared explicitly, the preview, not the world, was stale.
+                STEPS.add(() -> {
+                    boolean lock = Axiom.acquireChunkRenderOverrider("bte_railpathtool");
+                    int cleared = 0;
+                    if (lock) {
+                        for (long k : PLAN.keySet()) {
+                            Axiom.setBlockRenderOverride(BlockPos.getX(k),
+                                    BlockPos.getY(k), BlockPos.getZ(k), null);
+                            cleared++;
+                        }
+                        Axiom.releaseChunkRenderOverrider("bte_railpathtool");
+                    }
+                    LOG.add("undo override clear: lock=" + lock + " cells=" + cleared);
+                    pause(4000);
+                });
+                STEPS.add(() -> {
+                    stage("undo-cleared");
+                    pause(SHOT_MS);
+                });
                 STEPS.add(() -> {
                     checkGhost();
                     startScene(index + 1);
