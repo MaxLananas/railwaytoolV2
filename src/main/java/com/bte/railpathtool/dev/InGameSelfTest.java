@@ -791,6 +791,9 @@ public final class InGameSelfTest {
         float[] angles = angles(px, y + up, pz, cx, y, cz);
         command("gamemode spectator @s");
         command("tp @s " + fmt(px) + " " + fmt(y + up) + " " + fmt(pz));
+        pause(1200);
+        // The server owns the camera, so the final orientation is applied once
+        // the teleport packet has been acknowledged.
         mc.player.setYRot(angles[0]);
         mc.player.setXRot(angles[1]);
         mc.player.setOldPosAndRot();
