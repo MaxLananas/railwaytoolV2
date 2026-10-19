@@ -64,6 +64,7 @@ public final class InGameSelfTest {
     private static String scene = "";
     private static int plannedCores = 0;
     private static int nextSceneIndex = -1;
+    private static Map<Long, BlockState> lastPlan = new LinkedHashMap<>();
 
     private InGameSelfTest() {
     }
@@ -114,18 +115,20 @@ public final class InGameSelfTest {
 
     private static List<Runnable> scenes() {
         List<Runnable> out = new ArrayList<>();
-        out.add(scene(0, "straight", -60, DesignOptions.Style.CLASSIC,
-                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>()));
-        out.add(scene(1, "curve", -60, DesignOptions.Style.CLASSIC,
-                new int[][]{{32, 8}, {32, 16}, {40, 24}}, new LinkedHashMap<>()));
-        out.add(scene(2, "slope", -60, DesignOptions.Style.CLASSIC,
-                new int[][]{{56, 8}, {56, 16}, {56, 24}}, terrainRamp()));
-        out.add(scene(3, "nature", -60, DesignOptions.Style.NATURE,
-                new int[][]{{80, 8}, {80, 16}, {80, 24}}, new LinkedHashMap<>()));
-        out.add(scene(4, "zigzag", -60, DesignOptions.Style.CLASSIC,
+        out.add(scene(0, "straight", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>(), false));
+        out.add(scene(1, "repeat", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{8, 8}, {8, 16}, {8, 24}}, new LinkedHashMap<>(), true));
+        out.add(scene(2, "curve", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{32, 8}, {32, 16}, {40, 24}}, new LinkedHashMap<>(), false));
+        out.add(scene(3, "slope", 8, DesignOptions.Style.CLASSIC,
+                new int[][]{{56, 8}, {56, 16}, {56, 24}}, terrainRamp(), false));
+        out.add(scene(4, "nature", 8, DesignOptions.Style.NATURE,
+                new int[][]{{80, 8}, {80, 16}, {80, 24}}, new LinkedHashMap<>(), false));
+        out.add(scene(5, "zigzag", 12, DesignOptions.Style.CLASSIC,
                 new int[][]{{104, 8}, {112, 16}, {104, 24}, {112, 32}},
-                new LinkedHashMap<>()));
-        out.add(edgeCases(5));
+                new LinkedHashMap<>(), false));
+        out.add(edgeCases(6));
         return out;
     }
 
@@ -139,11 +142,12 @@ public final class InGameSelfTest {
         list.get(index).run();
     }
 
+    /** Replaces the flat surface with a stone ramp, so no grass is buried. */
     private static Map<Long, String> terrainRamp() {
         Map<Long, String> fills = new LinkedHashMap<>();
         for (int z = 8; z <= 32; z++) {
             int top = -60 + (z - 8) / 6;
-            for (int y = top + 1; y <= -56; y++) {
+            for (int y = -60; y <= top; y++) {
                 for (int x = 52; x <= 60; x++) {
                     fills.put(key(x, y, z), "minecraft:stone");
                 }
@@ -152,16 +156,15 @@ public final class InGameSelfTest {
         return fills;
     }
 
-    private static Runnable scene(int index, String name, int ground,
-                                  DesignOptions.Style style, int[][] points,
-                                  Map<Long, String> terrain) {
+    private static Runnable scene(int index, String name, int density, DesignOptions.Style style,
+                                  int[][] points, Map<Long, String> terrain, boolean repeat) {
         return () -> {
             scene = name;
             sceneCount++;
             LOG.add("scene " + name);
             resetTool();
             setStyle(style);
-            density()[0] = 8;
+            density()[0] = density;
             for (Map.Entry<Long, String> e : terrain.entrySet()) {
                 long k = e.getKey();
                 command("setblock " + BlockPos.getX(k) + " " + BlockPos.getY(k)
@@ -181,7 +184,7 @@ public final class InGameSelfTest {
             final int x2 = maxX;
             final int z1 = minZ;
             final int z2 = maxZ;
-            pause(terrain.isEmpty() ? 600 : 1500);
+            pause(terrain.isEmpty() ? 600 : 2000);
             for (int[] p : points) {
                 final int px = p[0];
                 final int pz = p[1];
@@ -198,12 +201,31 @@ public final class InGameSelfTest {
                 });
             }
             STEPS.add(() -> {
+                long started = System.nanoTime();
                 renderTool();
+                long millis = (System.nanoTime() - started) / 1_000_000L;
                 PLAN.clear();
                 PLAN.putAll(planMap());
                 plannedCores = countCores();
                 LOG.add("plan=" + PLAN.size() + " cores=" + plannedCores
-                        + " est=" + field(TOOL, "planCount"));
+                        + " est=" + field(TOOL, "planCount") + " recompute=" + millis + "ms");
+                check("recompute under 2s (" + name + ")", millis < 2000, millis + "ms");
+                if (repeat) {
+                    int diff = 0;
+                    String first = "";
+                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                        BlockState previous = lastPlan.get(e.getKey());
+                        if (previous == null || !previous.equals(e.getValue())) {
+                            diff++;
+                            if (first.isEmpty()) {
+                                first = pos(e.getKey()) + " " + previous + " -> "
+                                        + name(e.getValue());
+                            }
+                        }
+                    }
+                    check("rebuild plan identical", diff == 0 && !lastPlan.isEmpty(),
+                            diff + " differences " + first);
+                }
                 BASELINE.clear();
                 BASELINE.putAll(snapshot(x1 - 6, x2 + 6, z1 - 4, z2 + 4));
                 stage("plan-" + name);
@@ -215,6 +237,12 @@ public final class InGameSelfTest {
                 pause(APPLY_MS);
             });
             STEPS.add(InGameSelfTest::check);
+            STEPS.add(() -> {
+                if (!repeat) {
+                    lastPlan.clear();
+                    lastPlan.putAll(PLAN);
+                }
+            });
         };
     }
 
@@ -226,16 +254,17 @@ public final class InGameSelfTest {
             resetTool();
             setStyle(DesignOptions.Style.CLASSIC);
             STEPS.add(() -> {
-                teleport(Minecraft.getInstance(), 128.5, 100.0, 16.5);
-                Minecraft.getInstance().player.setXRot(90.0f);
-                pause(300);
+                teleport(Minecraft.getInstance(), 128.5, 120.0, 16.5);
+                Minecraft.getInstance().player.setXRot(-90.0f);
+                pause(400);
             });
             STEPS.add(() -> {
                 int before = controlSize();
                 boolean handled = TOOL.callUseTool();
                 LOG.add("air click handled=" + handled + " control " + before
                         + "->" + controlSize() + " status=\"" + field(TOOL, "status") + "\"");
-                check("air-click adds no point", controlSize() == before);
+                check("sky click adds no point", controlSize() == before,
+                        "control=" + controlSize() + " handled=" + handled);
             });
             STEPS.add(() -> {
                 teleport(Minecraft.getInstance(), 128.5, topSolid(128, 16) + 1.2, 16.5);
