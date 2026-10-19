@@ -773,9 +773,9 @@ public final class InGameSelfTest {
         }
         double cx = (x1 + x2) / 2.0 + 0.5;
         double cz = (z1 + z2) / 2.0 + 0.5;
-        double dy = Math.max(8.0, Math.max(x2 - x1, z2 - z1) * 0.9);
+        double dy = Math.max(18.0, Math.max(x2 - x1, z2 - z1) * 1.3);
         teleport(mc, cx, y + dy, cz);
-        mc.player.setXRot(52.0f);
+        mc.player.setXRot(62.0f);
         mc.player.setOldPosAndRot();
         pause(SHOT_MS);
     }

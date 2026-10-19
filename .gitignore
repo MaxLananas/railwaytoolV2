@@ -22,6 +22,11 @@ libs/*.jar
 # Logs and local test output
 *.log
 ci/
+docs/ci/
+run-mc/
+
+# Machine-local Minecraft installs
+*.jar.part
 
 # Generated evidence kept only as the curated copy in docs/ingame
 ingame/
