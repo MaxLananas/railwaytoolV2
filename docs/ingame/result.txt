@@ -7,7 +7,7 @@ point 8,8 control 0->1
 point 8,16 control 1->2
 point 8,24 control 2->3
 control [class_2338{x=8, y=-59, z=8, class_2338{x=8, y=-59, z=16, class_2338{x=8, y=-59, z=24]
-plan=153 cores=17 est=153 recompute=60ms
+plan=153 cores=17 est=153 recompute=59ms
 PASS recompute under 2s (straight)
 confirm status="Rail built (153 blocks)."
 cores (straight): 8,-59,10 8,-59,11 8,-59,12 8,-59,13 8,-59,14 8,-59,15 8,-59,16 8,-59,17 8,-59,18 8,-59,19 8,-59,20 8,-59,21 8,-59,22 8,-59,23 8,-59,24 8,-59,8 8,-59,9
@@ -38,7 +38,7 @@ point 32,8 control 0->1
 point 32,16 control 1->2
 point 40,24 control 2->3
 control [class_2338{x=32, y=-59, z=8, class_2338{x=32, y=-59, z=16, class_2338{x=40, y=-59, z=24]
-plan=156 cores=17 est=156 recompute=6ms
+plan=156 cores=17 est=156 recompute=5ms
 PASS recompute under 2s (curve)
 confirm status="Rail built (156 blocks)."
 cores (curve): 31,-59,12 31,-59,13 31,-59,14 32,-59,10 32,-59,11 32,-59,15 32,-59,16 32,-59,8 32,-59,9 33,-59,17 34,-59,18 35,-59,19 36,-59,20 37,-59,21 38,-59,22 39,-59,23 40,-59,24
@@ -55,7 +55,7 @@ point 56,8 control 0->1
 point 56,16 control 1->2
 point 56,24 control 2->3
 control [class_2338{x=56, y=-59, z=8, class_2338{x=56, y=-58, z=16, class_2338{x=56, y=-57, z=24]
-plan=154 cores=17 est=154 recompute=10ms
+plan=154 cores=17 est=154 recompute=5ms
 PASS recompute under 2s (slope)
 confirm status="Rail built (154 blocks)."
 cores (slope): 56,-57,20 56,-57,21 56,-57,22 56,-57,23 56,-57,24 56,-58,13 56,-58,14 56,-58,15 56,-58,16 56,-58,17 56,-58,18 56,-58,19 56,-59,10 56,-59,11 56,-59,12 56,-59,8 56,-59,9
@@ -72,7 +72,7 @@ point 80,8 control 0->1
 point 80,16 control 1->2
 point 80,24 control 2->3
 control [class_2338{x=80, y=-59, z=8, class_2338{x=80, y=-59, z=16, class_2338{x=80, y=-59, z=24]
-plan=102 cores=17 est=102 recompute=10ms
+plan=102 cores=17 est=102 recompute=5ms
 PASS recompute under 2s (nature)
 confirm status="Rail built (102 blocks)."
 cores (nature): 80,-60,10 80,-60,11 80,-60,12 80,-60,13 80,-60,14 80,-60,15 80,-60,16 80,-60,17 80,-60,18 80,-60,19 80,-60,20 80,-60,21 80,-60,22 80,-60,23 80,-60,24 80,-60,8 80,-60,9
@@ -90,7 +90,7 @@ point 112,16 control 1->2
 point 104,24 control 2->3
 point 112,32 control 3->4
 control [class_2338{x=104, y=-59, z=8, class_2338{x=112, y=-59, z=16, class_2338{x=104, y=-59, z=24, class_2338{x=112, y=-59, z=32]
-plan=246 cores=27 est=246 recompute=5ms
+plan=246 cores=27 est=246 recompute=4ms
 PASS recompute under 2s (zigzag)
 confirm status="Rail built (246 blocks)."
 cores (zigzag): 104,-59,24 104,-59,8 105,-59,23 105,-59,25 105,-59,26 105,-59,9 106,-59,10 106,-59,22 106,-59,27 107,-59,11 107,-59,21 107,-59,28 108,-59,12 108,-59,20 108,-59,29 109,-59,12 109,-59,19 109,-59,30 110,-59,13 110,-59,18 110,-59,31 111,-59,14 111,-59,17 111,-59,32 112,-59,15 112,-59,16 112,-59,32
@@ -107,7 +107,7 @@ point 176,8 control 0->1
 point 176,16 control 1->2
 point 176,24 control 2->3
 control [class_2338{x=176, y=-59, z=8, class_2338{x=176, y=-54, z=16, class_2338{x=176, y=-59, z=24]
-plan=153 cores=17 est=153 recompute=5ms
+plan=153 cores=17 est=153 recompute=4ms
 PASS recompute under 2s (clutter)
 confirm status="Rail built (153 blocks)."
 cores (clutter): 176,-54,16 176,-59,10 176,-59,11 176,-59,12 176,-59,13 176,-59,14 176,-59,15 176,-59,17 176,-59,18 176,-59,19 176,-59,20 176,-59,21 176,-59,22 176,-59,23 176,-59,24 176,-59,8 176,-59,9
@@ -140,7 +140,7 @@ scene long
 point 224,8 control 0->1
 point 224,96 control 1->2
 control [class_2338{x=224, y=-59, z=8, class_2338{x=224, y=-59, z=96]
-plan=801 cores=89 est=801 recompute=16ms
+plan=801 cores=89 est=801 recompute=9ms
 PASS recompute under 2s (long)
 confirm status="Rail built (801 blocks)."
 cores (long): 224,-59,10 224,-59,11 224,-59,12 224,-59,13 224,-59,14 224,-59,15 224,-59,16 224,-59,17 224,-59,18 224,-59,19 224,-59,20 224,-59,21 224,-59,22 224,-59,23 224,-59,24 224,-59,25 224,-59,26 224,-59,27 224,-59,28 224,-59,29 224,-59,30 224,-59,31 224,-59,32 224,-59,33 224,-59,34 224,-59,35 224,-59,36 224,-59,37 224,-59,38 224,-59,39 224,-59,40 224,-59,41 224,-59,42 224,-59,43 224,-59,44 224,-59,45 224,-59,46 224,-59,47 224,-59,48 224,-59,49 224,-59,50 224,-59,51 224,-59,52 224,-59,53 224,-59,54 224,-59,55 224,-59,56 224,-59,57 224,-59,58 224,-59,59 224,-59,60 224,-59,61 224,-59,62 224,-59,63 224,-59,64 224,-59,65 224,-59,66 224,-59,67 224,-59,68 224,-59,69 224,-59,70 224,-59,71 224,-59,72 224,-59,73 224,-59,74 224,-59,75 224,-59,76 224,-59,77 224,-59,78 224,-59,79 224,-59,8 224,-59,80 224,-59,81 224,-59,82 224,-59,83 224,-59,84 224,-59,85 224,-59,86 224,-59,87 224,-59,88 224,-59,89 224,-59,9 224,-59,90 224,-59,91 224,-59,92 224,-59,93 224,-59,94 224,-59,95 224,-59,96
@@ -218,6 +218,7 @@ undo build applied 153/153
 PASS undo build applied
 undo leftover=0 
 PASS undo restored the world
+undo cores in world: air 17/17 
 undo shot pos=389.2 -55.0 16.5 rot=-90.0 19.5
 PASS render lock released (undo-build)
 PASS ghost cleared (undo-build)
