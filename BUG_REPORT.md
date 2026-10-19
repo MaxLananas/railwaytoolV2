@@ -180,7 +180,7 @@ screenshotted at every stage by `tools/ingame_driver.py`.
 
 ## 3. In-game verification
 
-Run `39191800926` (`In-game test`, head `aea0154`), 110 checks, 0 failures.
+Run `39203889709` (`In-game test`, head `a0ee184`), 110 checks, 0 failures.
 The suite is `src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java`,
 inactive unless `-Dbte.railtool.selftest=true`. It uses the production
 callbacks (`callUseTool`, `render`, `callConfirm`, `callDelete`), the real
@@ -194,7 +194,7 @@ Axiom `pushBlockRegionChange` pipeline and the real client level.
 | `slope` | stone ramp, 154 blocks, cores follow the ramp | pass |
 | `nature` | nature style, 102 blocks, 17 lectern/moss cores | pass |
 | `zigzag` | 4 points, 246 blocks, 27 cores, single ribbon | pass |
-| `wall` | 5-high stone-brick wall across the line | pass (see 4) |
+| `clutter` | 5-high stone-brick wall across the line | pass (see 4) |
 | `water` | line through a water pool, 153 blocks | pass |
 | `long` | 88-block line, 801 blocks, 89 cores, 4 ms recompute | pass |
 | `many` | 6 points, 372 blocks, 41 cores | pass |
@@ -218,6 +218,7 @@ Evidence committed:
 - `docs/ingame/stage-plan-straight.png` - ghost preview;
 - `docs/ingame/stage-built-straight.png`, `-nature`, `-long`, `-clutter` -
   finished lines in the world;
+- `docs/ingame/stage-built-cross.png` - the second line after the crossing;
 - `docs/ingame/world.png` - first-person view after the run.
 
 ## 4. Investigated and deliberately not changed
@@ -264,9 +265,10 @@ Evidence committed:
 
 ## 6. Current state
 
-- Branch `arena/f944b842-railwaytoolv2`, head `e10f0e6` plus the evidence commit.
-- CI green on `e10f0e6`: `Compile` `39201838301`, `Build & Release`
-  `39201838274`, `In-game test` `39201838317` (110/110 checks). `Build & Release`
+- Branch `arena/f944b842-railwaytoolv2`, code head `a0ee184` plus evidence
+  commit `e3e887d`.
+- CI green on `a0ee184`: `Compile` `39203889813`, `Build & Release`
+  `39203889823`, `In-game test` `39203889709` (110/110 checks). `Build & Release`
   runs the Java/simulator parity gate on the regenerated 752-scene corpus.
 - Artifact: `rail-path-tool-v2.0.1-mc1.21.10`, 289,905 bytes
   (`build/libs/rail-path-tool-2.0.1.jar`); released only when the version bump
