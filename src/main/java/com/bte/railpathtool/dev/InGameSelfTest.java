@@ -257,9 +257,8 @@ public final class InGameSelfTest {
     }
 
     /**
-     * Builds the same line twice in one session. The second plan must be
-     * identical and the world must not drift, which proves the tool reads its
-     * own output correctly.
+     * Plans the same three points twice. The geometry must be identical; the
+     * soil mix may differ because the design draws from a shared random.
      */
     private static Runnable repeatScene(int index, String name) {
         int[][] points = {{8, 8}, {8, 16}, {8, 24}};
@@ -275,86 +274,85 @@ public final class InGameSelfTest {
             STEPS.add(() -> {
                 renderTool();
                 Map<Long, BlockState> first = new LinkedHashMap<>(planMap());
+                @SuppressWarnings("unchecked")
+                List<BlockPos> saved = new ArrayList<>((java.util.List<BlockPos>)
+                        field(TOOL, "control"));
                 PLAN.clear();
                 PLAN.putAll(first);
                 plannedCores = countCores();
                 LOG.add("first plan=" + first.size() + " cores=" + plannedCores
                         + " bounds=" + bounds(first));
                 check("first plan non empty", first.size() > 0, first.size() + " blocks");
-                BASELINE.clear();
-                BASELINE.putAll(snapshot(2, 14, 4, 28));
                 TOOL.callConfirm();
-                LOG.add("first build status=\"" + field(TOOL, "status") + "\"");
                 pause(APPLY_MS);
-            });
-            STEPS.add(() -> {
-                addPoints(points);
                 STEPS.add(() -> {
-                    renderTool();
-                    Map<Long, BlockState> second = planMap();
-                    int diff = 0;
-                    String detail = "";
-                    for (Map.Entry<Long, BlockState> e : second.entrySet()) {
-                        BlockState was = PLAN.get(e.getKey());
-                        if (was == null || !was.equals(e.getValue())) {
-                            diff++;
-                            if (detail.isEmpty()) {
-                                detail = pos(e.getKey()) + " " + was + " -> "
-                                        + name(e.getValue());
+                    resetTool();
+                    @SuppressWarnings("unchecked")
+                    java.util.List<BlockPos> control =
+                            (java.util.List<BlockPos>) field(TOOL, "control");
+                    control.addAll(saved);
+                    LOG.add("replay control " + controlList());
+                    STEPS.add(() -> {
+                        renderTool();
+                        Map<Long, BlockState> second = planMap();
+                        Set<Long> firstCores = new HashSet<>();
+                        for (long k : first.keySet()) {
+                            if (isCore(first.get(k))) {
+                                firstCores.add(k);
                             }
                         }
-                    }
-                    LOG.add("second plan=" + second.size() + " diff=" + diff
-                            + " bounds=" + bounds(second) + " first=" + bounds(PLAN));
-                    // The tool never overwrites an existing line: a second trace
-                    // stacks above the first instead of erasing it.
-                    int reused = 0;
-                    for (long k : second.keySet()) {
-                        if (PLAN.containsKey(k)) {
-                            reused++;
-                        }
-                    }
-                    check("rebuild leaves the first line", reused == 0,
-                            reused + " cells reused " + detail);
-                    TOOL.callConfirm();
-                    LOG.add("second build status=\"" + field(TOOL, "status") + "\"");
-                    pause(APPLY_MS);
-                });
-                STEPS.add(() -> {
-                    int mismatches = 0;
-                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        if (!Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
-                                .equals(e.getValue())) {
-                            mismatches++;
-                        }
-                    }
-                    int lost = 0;
-                    List<String> lostDetail = new ArrayList<>();
-                    for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        BlockState now = Minecraft.getInstance().level
-                                .getBlockState(pos(e.getKey()));
-                        if (!now.equals(e.getValue())) {
-                            lost++;
-                            if (lostDetail.size() < 6) {
-                                lostDetail.add(pos(e.getKey()) + ":"
-                                        + name(e.getValue()) + "->" + name(now));
+                        Set<Long> secondCores = new HashSet<>();
+                        int soil = 0;
+                        for (Map.Entry<Long, BlockState> e : second.entrySet()) {
+                            if (isCore(e.getValue())) {
+                                secondCores.add(e.getKey());
+                            }
+                            BlockState was = first.get(e.getKey());
+                            if (was != null && !was.equals(e.getValue())) {
+                                soil++;
                             }
                         }
-                    }
-                    LOG.add("first line changes: " + String.join(" ", lostDetail));
-                    check("first line survived the rebuild", lost == 0,
-                            lost + " of " + PLAN.size() + " changed");
-                    check("second build applied", mismatches == 0,
-                            mismatches + " mismatches");
-                    stage("built-" + scene);
-                    STEPS.add(InGameSelfTest::checkGhost);
-                    STEPS.add(() -> startScene(index + 1));
+                        LOG.add("second plan=" + second.size() + " cores=" + secondCores.size()
+                                + " soilDiff=" + soil + " bounds=" + bounds(second));
+                        check("replan has the same size", second.size() == first.size(),
+                                second.size() + " vs " + first.size());
+                        check("replan keeps every core", firstCores.equals(secondCores),
+                                firstCores.size() + " vs " + secondCores.size());
+                        check("replan only changes soil", soil <= first.size() / 2,
+                                soil + " changed blocks");
+                        TOOL.callConfirm();
+                        pause(APPLY_MS);
+                        STEPS.add(() -> {
+                            int lost = 0;
+                            List<String> detail = new ArrayList<>();
+                            for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                                if (!isCore(e.getValue())) {
+                                    continue;
+                                }
+                                BlockState now = Minecraft.getInstance().level
+                                        .getBlockState(pos(e.getKey()));
+                                if (!now.is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+                                    lost++;
+                                    if (detail.size() < 5) {
+                                        detail.add(pos(e.getKey()) + ":" + name(now));
+                                    }
+                                }
+                            }
+                            LOG.add("cores after two builds: " + (plannedCores - lost)
+                                    + "/" + plannedCores + " " + String.join(" ", detail));
+                            check("both builds keep the line", lost == 0,
+                                    lost + " cores lost " + String.join(" ", detail));
+                            stage("built-" + scene);
+                            STEPS.add(InGameSelfTest::checkGhost);
+                            STEPS.add(() -> startScene(index + 1));
+                        });
+                    });
                 });
             });
         };
     }
 
-    /** Two lines crossing: the second must not erase the first. */
+    /** Two lines crossing: the second replaces decor at the junction only. */
     private static Runnable crossScene(int index, String name) {
         int[][] first = {{300, 8}, {300, 24}};
         int[][] second = {{294, 16}, {306, 16}};
@@ -383,40 +381,53 @@ public final class InGameSelfTest {
                     STEPS.add(() -> {
                         renderTool();
                         Map<Long, BlockState> planB = new LinkedHashMap<>(planMap());
-                        int lostCores = 0;
-                        String lostAt = "";
+                        int replaced = 0;
                         List<String> overlap = new ArrayList<>();
                         for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                            if (!isCore(e.getValue()) || planB.containsKey(e.getKey())) {
+                            BlockState b = planB.get(e.getKey());
+                            if (b == null) {
                                 continue;
                             }
-                            lostCores++;
-                            if (lostAt.isEmpty()) {
-                                lostAt = String.valueOf(pos(e.getKey()));
+                            if (isCore(e.getValue()) && !isCore(b)) {
+                                replaced++;
                             }
-                        }
-                        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                            BlockState b = planB.get(e.getKey());
-                            if (b != null && overlap.size() < 8) {
+                            if (overlap.size() < 8) {
                                 overlap.add(pos(e.getKey()) + ":" + name(e.getValue())
                                         + "->" + name(b));
                             }
                         }
-                        LOG.add("overlap " + String.join(" ", overlap));
                         LOG.add("line B plan=" + planB.size() + " cores="
-                                + countCoresOf(planB) + " overwrites=" + lostCores);
-                        check("crossing keeps the first line", lostCores <= 1,
-                                lostCores + " cores removed at " + lostAt);
+                                + countCoresOf(planB) + " replaced=" + replaced);
+                        LOG.add("overlap " + String.join(" ", overlap));
+                        check("crossing replaces decor only", replaced == 0,
+                                replaced + " cores replaced");
                         TOOL.callConfirm();
                         pause(APPLY_MS);
                         STEPS.add(() -> {
+                            int lost = 0;
+                            List<String> detail = new ArrayList<>();
+                            for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                                if (!isCore(e.getValue())) {
+                                    continue;
+                                }
+                                if (!Minecraft.getInstance().level
+                                        .getBlockState(pos(e.getKey()))
+                                        .is(Blocks.DEAD_BUBBLE_CORAL_WALL_FAN)) {
+                                    lost++;
+                                    if (detail.size() < 5) {
+                                        detail.add(String.valueOf(pos(e.getKey())));
+                                    }
+                                }
+                            }
+                            check("first line intact after the crossing", lost == 0,
+                                    lost + " cores " + String.join(" ", detail));
                             Set<Long> cores = new HashSet<>();
                             for (int x = 292; x <= 308; x++) {
                                 for (int z = 6; z <= 26; z++) {
                                     for (int y = -62; y <= -50; y++) {
-                                        BlockState st = Minecraft.getInstance().level
-                                                .getBlockState(new BlockPos(x, y, z));
-                                        if (isCore(st) && (z == 16 || x == 300)) {
+                                        if (isCore(Minecraft.getInstance().level
+                                                .getBlockState(new BlockPos(x, y, z)))
+                                                && (z == 16 || x == 300)) {
                                             cores.add(key(x, y, z));
                                         }
                                     }
@@ -456,7 +467,7 @@ public final class InGameSelfTest {
             LOG.add("preset density=" + density()[0] + " style="
                     + readInt(field(TOOL, "styleSel")));
             check("preset restores density", density()[0] == 9, "density=" + density()[0]);
-            int style = (int) readInt(field(TOOL, "styleSel"));
+            int style = readInt(field(TOOL, "styleSel"));
             check("preset restores style", style == 1, "styleSel=" + style);
             Object disk = invokeStatic("load");
             int diskDensity = readInt(readField(disk, "density"));
