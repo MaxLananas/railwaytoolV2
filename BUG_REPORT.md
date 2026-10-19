@@ -209,12 +209,12 @@ Axiom `pushBlockRegionChange` pipeline and the real client level.
 | `presets` | preset save/reload and JSON round-trip | pass |
 | `undo` | 4 points, last removed, build stops before it | pass |
 | `undo-build` | 153-block build, driver opens Axiom's editor (`Right Shift`), presses `Ctrl+Z` and closes it: all 153 plan cells and every cell of a 13x25 snapshot column return to the pre-build state (retried by the driver if a keystroke is lost) | pass |
+| `edges` | sky click adds no point, second confirm is harmless, lock/ghost clean | pass |
 | `persist` | 153-block build, `save-all flush`, then the 153 blocks are written to `selftest-saved.txt` for the next launch | pass |
 
-| Second launch (phase 2) | What it proves | Result |
-| --- | --- | --- |
-| `restart` | all 153 saved blocks read back from the reopened world, the preset written before the restart is still on disk, and the tool plans and builds 153 new blocks | pass |
-| `edges` | sky click adds no point, second confirm is harmless, lock/ghost clean | pass |
+Second launch (phase 2), `restart`: all 153 saved blocks read back from the
+reopened world, the preset written before the restart is still on disk, and
+the tool plans and builds 153 new blocks (7 checks, pass).
 
 Per scene, the suite also checks: exact block map (every planned block equals
 the world block), no side effects (no other cell in a 12xNx8 window changed,
@@ -233,7 +233,7 @@ errors: none.
 
 Evidence committed:
 
-- `docs/ingame/result.txt` - the 115 checks and every scene log line;
+- `docs/ingame/result.txt` - the 118 checks and every scene log line;
 - `docs/ingame/selftest.log` - the same lines as seen in the game log;
 - `docs/ingame/latest.log`, `docs/ingame/client-console.log` - full client log;
 - `docs/ingame/stage-plan-straight.png` - ghost preview;
