@@ -644,12 +644,22 @@ public final class InGameSelfTest {
                         pz + 0.5);
                 pause(200);
             });
-            // A teleport into terrain the client has not received yet makes the
-            // raycast miss, which would silently drop the point.
-            awaitChunk(px, pz, 40, () -> {
-                TOOL.callUseTool();
-                LOG.add("add " + px + "," + pz + " control=" + controlSize()
-                        + " " + controlList());
+            // The heightmap is meaningless until the chunk arrives, so the
+            // first teleport is only a rough guess: once the chunk is loaded,
+            // land on the real surface and then click. Both steps go to the
+            // front of the queue so the click still precedes the checks.
+            awaitChunk(px, pz, 60, () -> {
+                STEPS.addFirst(() -> {
+                    TOOL.callUseTool();
+                    LOG.add("add " + px + "," + pz + " control=" + controlSize()
+                            + " y=" + fmt(Minecraft.getInstance().player.getY())
+                            + " " + controlList());
+                });
+                STEPS.addFirst(() -> {
+                    teleport(Minecraft.getInstance(), px + 0.5,
+                            topSolid(px, pz) + 1.2, pz + 0.5);
+                    pause(300);
+                });
             });
         }
     }
