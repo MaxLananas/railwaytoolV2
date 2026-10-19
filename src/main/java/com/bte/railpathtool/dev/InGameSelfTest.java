@@ -714,8 +714,11 @@ public final class InGameSelfTest {
                     check("undo restored the world", left == 0,
                             left + " cells " + first);
                 });
-                // Drop the preview so the screenshot shows the stored world,
-                // not the tool's ghost.
+                // Closing the editor swings the camera; aim it again before
+                // the shot, then drop the preview so the picture shows the
+                // stored world.
+                STEPS.add(() -> prepareView(plannedCores));
+                STEPS.add(InGameSelfTest::aimView);
                 STEPS.add(() -> {
                     TOOL.reset();
                     pause(SHOT_MS);
