@@ -746,13 +746,14 @@ public final class InGameSelfTest {
                 cores + " vs " + plannedCores);
         viewFromAbove(cores);
         STEPS.add(() -> {
+            Minecraft.getInstance().player.setNoGravity(false);
             stage("built-" + scene);
             STEPS.add(InGameSelfTest::checkGhost);
             STEPS.add(() -> startScene(nextSceneIndex + 1));
         });
     }
 
-    /** Frames the built line from the side so the screenshot shows the result. */
+    /** Frames the built line broadside so the screenshot shows the result. */
     private static void viewFromAbove(int cores) {
         Minecraft mc = Minecraft.getInstance();
         if (cores == 0) {
@@ -773,11 +774,22 @@ public final class InGameSelfTest {
         }
         double cx = (x1 + x2) / 2.0 + 0.5;
         double cz = (z1 + z2) / 2.0 + 0.5;
-        double span = Math.max(Math.max(x2 - x1, z2 - z1), 8);
-        double px = cx - span * 0.55 - 4;
-        double pz = cz - span * 0.55 - 4;
-        double py = y + span * 0.45 + 5;
-        lookAt(mc, px, py, pz, cx, y + 0.5, cz);
+        double sx = x2 - x1;
+        double sz = z2 - z1;
+        double span = Math.max(Math.max(sx, sz), 8);
+        double back = span * 0.75 + 10;
+        double up = Math.max(6, span * 0.35);
+        double px;
+        double pz;
+        if (sx >= sz) {
+            px = cx;
+            pz = cz - back;
+        } else {
+            px = cx - back;
+            pz = cz;
+        }
+        mc.player.setNoGravity(true);
+        lookAt(mc, px, y + up, pz, cx, y, cz);
         pause(SHOT_MS);
     }
 
