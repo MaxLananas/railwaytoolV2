@@ -1,1 +1,3 @@
-UNKNOWN
+[SELFTEST] FAIL dismissed screen class_3928 | dismissed screen AxiomIntroductionScreen | cores=0 walls=0 supports=0 airAbove=0 woolLeft=0 ghost=first=true second=false reacquired=true probe=acquired sample= | ghostOk=true
+FAIL
+
