@@ -1,108 +1,130 @@
-07:29:56 stage=- result=False
-07:29:58 stage=- result=False
-07:30:00 stage=- result=False
-07:30:02 stage=- result=False
-07:30:04 stage=- result=False
-07:30:06 stage=- result=False
-07:30:08 stage=- result=False
-07:30:10 stage=- result=False
-07:30:12 stage=- result=False
-07:30:14 stage=- result=False
-07:30:16 stage=plan-straight result=False
-07:30:18 stage=plan-straight result=False
-07:30:20 stage=plan-straight result=False
-07:30:22 stage=plan-straight result=False
-07:30:24 stage=plan-straight result=False
-07:30:26 stage=built-straight result=False
-07:30:28 stage=built-straight result=False
-07:30:30 stage=built-straight result=False
-07:30:33 stage=built-repeat result=False
-07:30:35 stage=built-repeat result=False
-07:30:37 stage=built-repeat result=False
-07:30:39 stage=plan-curve result=False
-07:30:41 stage=plan-curve result=False
-07:30:43 stage=plan-curve result=False
-07:30:45 stage=plan-curve result=False
-07:30:48 stage=built-curve result=False
-07:30:50 stage=built-curve result=False
-07:30:52 stage=built-curve result=False
-07:30:58 stage=built-curve result=False
-07:31:01 stage=plan-slope result=False
-07:31:03 stage=plan-slope result=False
-07:31:05 stage=plan-slope result=False
-07:31:07 stage=built-slope result=False
-07:31:09 stage=built-slope result=False
-07:31:11 stage=built-slope result=False
-07:31:13 stage=built-slope result=False
-07:31:15 stage=plan-nature result=False
-07:31:17 stage=plan-nature result=False
-07:31:19 stage=plan-nature result=False
-07:31:21 stage=plan-nature result=False
-07:31:24 stage=built-nature result=False
-07:31:26 stage=built-nature result=False
-07:31:28 stage=built-nature result=False
-07:31:30 stage=built-nature result=False
-07:31:32 stage=plan-zigzag result=False
-07:31:34 stage=plan-zigzag result=False
-07:31:36 stage=plan-zigzag result=False
-07:31:38 stage=plan-zigzag result=False
-07:31:40 stage=plan-zigzag result=False
-07:31:43 stage=built-zigzag result=False
-07:31:45 stage=built-zigzag result=False
-07:31:47 stage=built-zigzag result=False
-07:31:49 stage=built-zigzag result=False
-07:31:51 stage=plan-clutter result=False
-07:31:53 stage=plan-clutter result=False
-07:31:55 stage=plan-clutter result=False
-07:31:57 stage=plan-clutter result=False
-07:31:59 stage=plan-clutter result=False
-07:32:02 stage=built-clutter result=False
-07:32:04 stage=built-clutter result=False
-07:32:06 stage=built-clutter result=False
-07:32:08 stage=built-clutter result=False
-07:32:10 stage=plan-water result=False
-07:32:12 stage=plan-water result=False
-07:32:14 stage=plan-water result=False
-07:32:16 stage=plan-water result=False
-07:32:19 stage=built-water result=False
-07:32:21 stage=built-water result=False
-07:32:23 stage=built-water result=False
-07:32:25 stage=built-water result=False
-07:32:27 stage=plan-long result=False
-07:32:29 stage=plan-long result=False
-07:32:31 stage=plan-long result=False
-07:32:33 stage=plan-long result=False
-07:32:35 stage=plan-long result=False
-07:32:38 stage=built-long result=False
-07:32:40 stage=built-long result=False
-07:32:42 stage=built-long result=False
-07:32:44 stage=built-long result=False
-07:32:48 stage=plan-many result=False
-07:32:50 stage=plan-many result=False
-07:32:52 stage=plan-many result=False
-07:32:55 stage=built-many result=False
-07:32:57 stage=built-many result=False
-07:32:59 stage=built-many result=False
-07:33:01 stage=built-many result=False
-07:33:03 stage=built-many result=False
-07:33:05 stage=built-presets result=False
-07:33:07 stage=built-presets result=False
-07:33:09 stage=built-presets result=False
-07:33:13 stage=built-undo result=False
-07:33:15 stage=undo-base result=False
-07:33:17 stage=undo-base result=False
-07:33:19 stage=undo-base result=False
-07:33:33 stage=undo-built result=False
-07:33:35 stage=undo-built result=False
-07:33:37 stage=undo-built result=False
-07:33:39 stage=undo-built result=False
-07:33:41 stage=undo-built result=False
-07:33:43 stage=undo-built result=False
-07:33:45 stage=undo-built result=False
-07:33:52 stage=undo-restored result=False
-07:33:54 stage=undo-restored result=False
-07:33:58 stage=undo-rebuilt result=False
-07:34:00 stage=undo-rebuilt result=False
-07:34:02 stage=undo-cleared result=False
-07:34:04 stage=undo-cleared result=False
-07:34:06 stage=undo-cleared result=True
+07:48:07 phase1 stage=- result=False
+07:48:09 phase1 stage=- result=False
+07:48:11 phase1 stage=- result=False
+07:48:13 phase1 stage=- result=False
+07:48:15 phase1 stage=- result=False
+07:48:17 phase1 stage=- result=False
+07:48:19 phase1 stage=- result=False
+07:48:21 phase1 stage=- result=False
+07:48:23 phase1 stage=- result=False
+07:48:25 phase1 stage=- result=False
+07:48:27 phase1 stage=- result=False
+07:48:29 phase1 stage=- result=False
+07:48:31 phase1 stage=- result=False
+07:48:33 phase1 stage=- result=False
+07:48:35 phase1 stage=plan-straight result=False
+07:48:37 phase1 stage=plan-straight result=False
+07:48:39 phase1 stage=plan-straight result=False
+07:48:41 phase1 stage=plan-straight result=False
+07:48:44 phase1 stage=built-straight result=False
+07:48:46 phase1 stage=built-straight result=False
+07:48:48 phase1 stage=built-straight result=False
+07:48:50 phase1 stage=built-straight result=False
+07:48:56 phase1 stage=built-repeat result=False
+07:48:59 phase1 stage=plan-curve result=False
+07:49:01 phase1 stage=plan-curve result=False
+07:49:03 phase1 stage=plan-curve result=False
+07:49:10 phase1 stage=plan-curve result=False
+07:49:13 phase1 stage=built-curve result=False
+07:49:15 phase1 stage=built-curve result=False
+07:49:17 phase1 stage=plan-slope result=False
+07:49:19 phase1 stage=plan-slope result=False
+07:49:21 phase1 stage=plan-slope result=False
+07:49:23 phase1 stage=plan-slope result=False
+07:49:26 phase1 stage=built-slope result=False
+07:49:28 phase1 stage=built-slope result=False
+07:49:30 phase1 stage=built-slope result=False
+07:49:32 phase1 stage=built-slope result=False
+07:49:34 phase1 stage=plan-nature result=False
+07:49:36 phase1 stage=plan-nature result=False
+07:49:38 phase1 stage=plan-nature result=False
+07:49:40 phase1 stage=plan-nature result=False
+07:49:42 phase1 stage=plan-nature result=False
+07:49:45 phase1 stage=built-nature result=False
+07:49:47 phase1 stage=built-nature result=False
+07:49:49 phase1 stage=built-nature result=False
+07:49:51 phase1 stage=built-nature result=False
+07:49:53 phase1 stage=plan-zigzag result=False
+07:49:55 phase1 stage=plan-zigzag result=False
+07:49:57 phase1 stage=plan-zigzag result=False
+07:49:59 phase1 stage=plan-zigzag result=False
+07:50:02 phase1 stage=built-zigzag result=False
+07:50:04 phase1 stage=built-zigzag result=False
+07:50:06 phase1 stage=built-zigzag result=False
+07:50:08 phase1 stage=built-zigzag result=False
+07:50:11 phase1 stage=plan-clutter result=False
+07:50:13 phase1 stage=plan-clutter result=False
+07:50:15 phase1 stage=plan-clutter result=False
+07:50:17 phase1 stage=plan-clutter result=False
+07:50:19 phase1 stage=plan-clutter result=False
+07:50:21 phase1 stage=built-clutter result=False
+07:50:23 phase1 stage=built-clutter result=False
+07:50:25 phase1 stage=built-clutter result=False
+07:50:27 phase1 stage=built-clutter result=False
+07:50:33 phase1 stage=plan-water result=False
+07:50:35 phase1 stage=plan-water result=False
+07:50:37 phase1 stage=plan-water result=False
+07:50:40 phase1 stage=built-water result=False
+07:50:42 phase1 stage=built-water result=False
+07:50:44 phase1 stage=built-water result=False
+07:50:46 phase1 stage=plan-long result=False
+07:50:48 phase1 stage=plan-long result=False
+07:50:50 phase1 stage=plan-long result=False
+07:50:52 phase1 stage=plan-long result=False
+07:50:54 phase1 stage=plan-long result=False
+07:50:57 phase1 stage=built-long result=False
+07:50:59 phase1 stage=built-long result=False
+07:51:01 phase1 stage=built-long result=False
+07:51:03 phase1 stage=built-long result=False
+07:51:06 phase1 stage=plan-many result=False
+07:51:08 phase1 stage=plan-many result=False
+07:51:10 phase1 stage=plan-many result=False
+07:51:12 phase1 stage=plan-many result=False
+07:51:15 phase1 stage=built-many result=False
+07:51:17 phase1 stage=built-many result=False
+07:51:19 phase1 stage=built-many result=False
+07:51:21 phase1 stage=built-many result=False
+07:51:23 phase1 stage=built-many result=False
+07:51:25 phase1 stage=built-presets result=False
+07:51:27 phase1 stage=built-presets result=False
+07:51:30 phase1 stage=built-undo result=False
+07:51:32 phase1 stage=built-undo result=False
+07:51:34 phase1 stage=built-undo result=False
+07:51:36 phase1 stage=undo-base result=False
+07:51:38 phase1 stage=undo-base result=False
+07:51:40 phase1 stage=undo-base result=False
+07:52:01 phase1 stage=undo-built result=False
+07:52:03 phase1 stage=undo-built result=False
+07:52:05 phase1 stage=undo-built result=False
+07:52:07 phase1 stage=undo-built result=False
+07:52:09 phase1 stage=undo-built result=False
+07:52:11 phase1 stage=undo-built result=False
+07:52:13 phase1 stage=undo-built result=False
+07:52:19 phase1 stage=undo-restored result=False
+07:52:21 phase1 stage=undo-restored result=False
+07:52:23 phase1 stage=undo-rebuilt result=False
+07:52:25 phase1 stage=undo-rebuilt result=False
+07:52:27 phase1 stage=undo-rebuilt result=False
+07:52:29 phase1 stage=undo-rebuilt result=False
+07:52:32 phase1 stage=undo-cleared result=False
+07:52:34 phase1 stage=undo-cleared result=False
+07:52:36 phase1 stage=undo-cleared result=False
+07:52:38 phase1 stage=undo-cleared result=False
+07:52:40 phase1 stage=undo-cleared result=False
+07:52:42 phase1 stage=persisted result=False
+07:52:44 phase1 stage=persisted result=False
+07:52:46 phase1 stage=persisted result=True
+07:53:17 phase2 stage=- result=False
+07:53:19 phase2 stage=- result=False
+07:53:21 phase2 stage=- result=False
+07:53:23 phase2 stage=- result=False
+07:53:25 phase2 stage=- result=False
+07:53:27 phase2 stage=- result=False
+07:53:29 phase2 stage=- result=False
+07:53:31 phase2 stage=- result=False
+07:53:33 phase2 stage=- result=False
+07:53:37 phase2 stage=restart-plan result=False
+07:53:39 phase2 stage=restart-plan result=False
+07:53:41 phase2 stage=restart-plan result=False
+07:53:43 phase2 stage=restart-plan result=False
+07:53:46 phase2 stage=restart-built result=True
