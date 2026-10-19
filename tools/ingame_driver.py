@@ -85,10 +85,17 @@ def version_document(mc_dir):
 
 
 def superflat_world(mc_dir, java, out):
-    """Generate a flat creative world with the vanilla server."""
+    """Give the run a pristine flat world; generate the template once."""
     save = os.path.join(mc_dir, "saves", WORLD_NAME)
-    if os.path.isdir(save):
-        log("reusing generated world")
+    template = os.path.join(mc_dir, "server", "world")
+    if os.path.isdir(os.path.join(template, "region")):
+        if os.path.isdir(save):
+            shutil.rmtree(save)
+        shutil.copytree(template, save)
+        lock = os.path.join(save, "session.lock")
+        if os.path.exists(lock):
+            os.remove(lock)
+        log("world reset from the pristine template: " + save)
         return save
     doc = version_document(mc_dir)
     server_url = doc.get("downloads", {}).get("server", {}).get("url")
