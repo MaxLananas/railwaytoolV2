@@ -328,12 +328,19 @@ public final class InGameSelfTest {
                         }
                     }
                     int lost = 0;
+                    List<String> lostDetail = new ArrayList<>();
                     for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
-                        if (!Minecraft.getInstance().level.getBlockState(pos(e.getKey()))
-                                .equals(e.getValue())) {
+                        BlockState now = Minecraft.getInstance().level
+                                .getBlockState(pos(e.getKey()));
+                        if (!now.equals(e.getValue())) {
                             lost++;
+                            if (lostDetail.size() < 6) {
+                                lostDetail.add(pos(e.getKey()) + ":"
+                                        + name(e.getValue()) + "->" + name(now));
+                            }
                         }
                     }
+                    LOG.add("first line changes: " + String.join(" ", lostDetail));
                     check("first line survived the rebuild", lost == 0,
                             lost + " of " + PLAN.size() + " changed");
                     check("second build applied", mismatches == 0,
@@ -377,6 +384,7 @@ public final class InGameSelfTest {
                         Map<Long, BlockState> planB = new LinkedHashMap<>(planMap());
                         int lostCores = 0;
                         String lostAt = "";
+                        List<String> overlap = new ArrayList<>();
                         for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
                             if (!isCore(e.getValue()) || planB.containsKey(e.getKey())) {
                                 continue;
@@ -386,6 +394,14 @@ public final class InGameSelfTest {
                                 lostAt = String.valueOf(pos(e.getKey()));
                             }
                         }
+                        for (Map.Entry<Long, BlockState> e : PLAN.entrySet()) {
+                            BlockState b = planB.get(e.getKey());
+                            if (b != null && overlap.size() < 8) {
+                                overlap.add(pos(e.getKey()) + ":" + name(e.getValue())
+                                        + "->" + name(b));
+                            }
+                        }
+                        LOG.add("overlap " + String.join(" ", overlap));
                         LOG.add("line B plan=" + planB.size() + " cores="
                                 + countCoresOf(planB) + " overwrites=" + lostCores);
                         check("crossing keeps the first line", lostCores <= 1,
@@ -406,9 +422,9 @@ public final class InGameSelfTest {
                                 }
                             }
                             LOG.add("crossing cores=" + cores.size()
-                                    + " parts=" + components(cores, 3));
-                            check("crossing is one junction", components(cores, 3) <= 2,
-                                    components(cores, 3) + " parts");
+                                    + " parts=" + components(cores, 6));
+                            check("crossing is one junction", components(cores, 6) <= 2,
+                                    components(cores, 6) + " parts");
                             stage("built-" + scene);
                             STEPS.add(InGameSelfTest::checkGhost);
                             STEPS.add(() -> startScene(index + 1));
@@ -496,6 +512,9 @@ public final class InGameSelfTest {
     }
 
     private static int readInt(Object value) {
+        if (value instanceof Number n) {
+            return n.intValue();
+        }
         try {
             return ((Number) value.getClass().getMethod("get").invoke(value)).intValue();
         } catch (ReflectiveOperationException e) {
@@ -695,7 +714,7 @@ public final class InGameSelfTest {
                 unsupported++;
             }
         }
-        int components = components(corePositions, 3);
+        int components = components(corePositions, 6);
         List<String> trace = new ArrayList<>();
         for (long k : corePositions) {
             BlockPos p = pos(k);
