@@ -276,31 +276,30 @@ def main():
     time.sleep(20)
     shell("xdotool", "search", "--name", "Minecraft", "windowfocus")
     result = os.path.join(args.mc_dir, "selftest-result.txt")
-    shots = []
-    captures = 0
-    deadline = time.time() + 900
+    stage_file = os.path.join(args.mc_dir, "selftest-stage.txt")
+    last_stage = ""
+    deadline = time.time() + 1500
     while time.time() < deadline and proc.poll() is None:
-        shot = os.path.join(args.out, "screen.png")
-        if screenshot(args.display, shot):
-            shots.append(shot)
-            if captures % 4 == 0:
-                log("visible: " + ocr_text(shot))
-            if captures % 8 == 0:
-                shutil.copy2(shot, os.path.join(args.out, f"step-{captures:03d}.png"))
-            captures += 1
+        if os.path.isfile(stage_file):
+            stage = open(stage_file, encoding="utf-8", errors="replace").read().strip()
+            if stage and stage != last_stage:
+                last_stage = stage
+                shot = os.path.join(args.out, "stage-" + stage + ".png")
+                if screenshot(args.display, shot):
+                    log("stage " + stage + ": " + ocr_text(shot))
+                if stage.startswith("done-"):
+                    break
         if os.path.isfile(result):
             log("selftest result detected")
             break
-        time.sleep(5)
-
-    if os.path.isfile(result):
         time.sleep(2)
-        shell("xdotool", "key", "F1")
-        time.sleep(1)
-        shell("xdotool", "key", "F2")
-        time.sleep(1)
-        screenshot(args.display, os.path.join(args.out, "world.png"))
-        shots.append(os.path.join(args.out, "world.png"))
+
+    time.sleep(2)
+    shell("xdotool", "key", "F1")
+    time.sleep(1)
+    shell("xdotool", "key", "F2")
+    time.sleep(1)
+    screenshot(args.display, os.path.join(args.out, "world.png"))
     try:
         proc.wait(timeout=60)
     except subprocess.TimeoutExpired:
@@ -320,10 +319,6 @@ def main():
         for name in sorted(os.listdir(shots_dir))[-3:]:
             shutil.copy2(os.path.join(shots_dir, name),
                          os.path.join(args.out, "ingame-" + name))
-    for s in shots:
-        if s not in (os.path.join(args.out, "screen.png"),
-                     os.path.join(args.out, "world.png")):
-            os.remove(s)
     status = "UNKNOWN"
     if os.path.isfile(result):
         status = open(result, encoding="utf-8", errors="replace").read()
