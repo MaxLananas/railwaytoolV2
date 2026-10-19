@@ -790,9 +790,9 @@ public final class InGameSelfTest {
         double cz = (z1 + z2) / 2.0 + 0.5;
         double sx = x2 - x1;
         double sz = z2 - z1;
-        double span = Math.max(Math.max(sx, sz), 8);
-        double back = span * 0.55 + 8;
-        double up = Math.max(5, span * 0.22);
+        double diag = Math.max(Math.hypot(sx, sz), 10);
+        double back = diag * 0.52 + 3;
+        double up = Math.max(4, diag * 0.16);
         double px = sx >= sz ? cx : cx - back;
         double pz = sx >= sz ? cz - back : cz;
         viewCam = new double[]{px, y + up, pz, cx, y, cz};
@@ -987,11 +987,11 @@ public final class InGameSelfTest {
 
     private static void setup() {
         Minecraft mc = Minecraft.getInstance();
+        command("gamerule sendCommandFeedback false");
         command("gamerule doDaylightCycle false");
         command("time set noon");
         command("gamerule doWeatherCycle false");
         command("gamerule doMobSpawning false");
-        command("gamerule sendCommandFeedback false");
         command("kill @e[type=!player]");
         command("gamemode creative @s");
         pause(1200);
