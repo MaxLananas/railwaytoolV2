@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "حذف آخرین نقطه",
   "bte_railpathtool.ui.confirm": "ساختن",
   "bte_railpathtool.ui.clear": "پاک‌سازی همه",
-  "bte_railpathtool.ui.hint": "کلیک راست: افزودن نقطه | Delete: حذف | Enter: ساخت",
   "bte_railpathtool.ui.gen": "مسیر",
   "bte_railpathtool.ui.density": "چگالی اسپلاین",
   "bte_railpathtool.ui.ground_snap": "چسبیدن به زمین",

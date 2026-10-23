@@ -1,8 +1,32 @@
-
-# build artifacts
+# Gradle / Loom
 .gradle/
 build/
-/libs/axiomclientapi.jar
+run/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Python
 __pycache__/
 *.pyc
+
+# Generated simulator artifacts
 sim/parity/scenes.txt
+sim/pillar_report.txt
+
+# Local dependencies (downloaded by CI or by the developer, see README)
+libs/*.jar
+
+# Logs and local test output
+*.log
+ci/
+docs/ci/
+run-mc/
+
+# Machine-local Minecraft installs
+*.jar.part
+
+# Generated evidence kept only as the curated copy in docs/ingame
+ingame/

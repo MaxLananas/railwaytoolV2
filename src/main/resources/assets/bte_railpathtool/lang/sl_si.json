@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Odstrani zadnjo točko",
   "bte_railpathtool.ui.confirm": "Zgradi",
   "bte_railpathtool.ui.clear": "Počisti vse",
-  "bte_railpathtool.ui.hint": "Desni klik: dodaj točko | Delete: odstrani | Enter: zgradi",
   "bte_railpathtool.ui.gen": "Trasa",
   "bte_railpathtool.ui.density": "Gostota zlepka",
   "bte_railpathtool.ui.ground_snap": "Sledi terenu",

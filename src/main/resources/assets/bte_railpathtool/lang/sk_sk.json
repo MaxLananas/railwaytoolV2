@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Odobrať posledný bod",
   "bte_railpathtool.ui.confirm": "Postaviť",
   "bte_railpathtool.ui.clear": "Vymazať všetko",
-  "bte_railpathtool.ui.hint": "Pravý klik: pridať bod | Delete: odobrať | Enter: postaviť",
   "bte_railpathtool.ui.gen": "Trasa",
   "bte_railpathtool.ui.density": "Hustota spline",
   "bte_railpathtool.ui.ground_snap": "Podľa terénu",

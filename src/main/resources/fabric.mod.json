@@ -3,9 +3,9 @@
   "id": "bte_railpathtool",
   "version": "${version}",
   "name": "Railway Tools for Axiom",
-  "description": "Outil de voies ferrées tout-en-un pour Axiom (BuildTheEarth) : spline Catmull-Rom, nivelage, épuration des coins, construction automatique des rails selon le tutoriel BTE France.",
+  "description": "All-in-one railway builder for Axiom (BuildTheEarth): Catmull-Rom spline, levelling, corner cleanup and automatic rail construction following the BTE France tutorial.",
   "authors": ["MaxLananas"],
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/bte_railpathtool/icon.png",
   "environment": "client",
   "contact": {
@@ -28,9 +28,6 @@
   },
   "recommends": {
     "axiom": ">=5.4",
-    "modmenu": "*"
-  },
-  "suggests": {
     "modmenu": "*"
   },
   "custom": {

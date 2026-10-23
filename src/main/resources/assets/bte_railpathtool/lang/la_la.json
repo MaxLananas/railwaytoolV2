@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Punctum ultimum tollere",
   "bte_railpathtool.ui.confirm": "Aedificare",
   "bte_railpathtool.ui.clear": "Omnia delere",
-  "bte_railpathtool.ui.hint": "Dexter click: punctum addere | Delete: tollere | Enter: aedificare",
   "bte_railpathtool.ui.gen": "Trames",
   "bte_railpathtool.ui.density": "Densitas spline",
   "bte_railpathtool.ui.ground_snap": "Terrae adhaerere",

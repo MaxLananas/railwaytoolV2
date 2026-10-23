@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Noņemt pēdējo punktu",
   "bte_railpathtool.ui.confirm": "Uzbūvēt",
   "bte_railpathtool.ui.clear": "Notīrīt visu",
-  "bte_railpathtool.ui.hint": "Labais klikšķis: pievienot punktu | Delete: noņemt | Enter: uzbūvēt",
   "bte_railpathtool.ui.gen": "Trase",
   "bte_railpathtool.ui.density": "Splaina blīvums",
   "bte_railpathtool.ui.ground_snap": "Sekot reljefam",

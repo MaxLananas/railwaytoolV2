@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-stupid_stress.py — torture absolue du moteur rail (rail_sim.py).
+stupid_stress.py - absolute torture test for the rail engine (rail_sim.py).
 
-Des milliers de mises en situation totalement stupides et random :
-  - marches aléatoires avec rebroussements, boucles, téléportations verticales
-  - chaos voxel pur (générateur sans aucune logique de rail)
-  - rebuilds en chaîne 5 passes avec alternance classic/nature/buried
-  - splines dégénérés (points dupliqués, aller-retour A->B->A, zigzags extrêmes)
-  - terrains hostiles (falaises, trous, dalles flottantes, montages raides)
-  - couleurs absurdes contradictoires posées n'importe où
-  - traces géantes / traces-goutte (1 voxel), patterns hérissons, spirales, grillages
+Thousands of deliberately absurd, random situations:
+  - random walks with backtracking, loops and vertical teleports
+  - pure voxel chaos (a generator with no rail logic at all)
+  - chains of 5 rebuild passes alternating classic/nature/buried
+  - degenerate splines (duplicate points, A->B->A round trips, extreme zigzags)
+  - hostile terrain (cliffs, holes, floating slabs, steep climbs)
+  - contradictory colour overrides everywhere
+  - giant traces and one-voxel traces, hedgehog patterns, spirals, grids
 
-Invariants (doivent tenir PARTOUT, même dans l'absurde) :
-  1. Aucune exception dans toute la chaîne (voxelize, rectif, build).
-  2. Seuls des états connus sont posés (noms d'états strictement valides).
-  3. Aucun bloc posé hors du corridor (trace ±3, y trace ±3) hors sol.
-  4. Jamais un bloc de rail existant n'est détruit/remplacé au rebuild,
-     quel que soit le style rejoué par-dessus (hors black_wool volontaire).
-  5. Tout voxel de trace obtient un type NS/EW/DIAG (pas de None).
-  6. Perf : chaque build d'une trace de taille raisonnable restera < ~2 s.
+Invariants that must hold EVERYWHERE, even in the absurd:
+  1. No exception anywhere in the chain (voxelize, rectify, build).
+  2. Only known states are placed (strictly valid state names).
+  3. No block outside the corridor (trace +-3, y trace +-3), ground aside.
+  4. An existing rail block is never destroyed or replaced by a rebuild,
+     whatever style is replayed over it (deliberate black_wool aside).
+  5. Every trace voxel gets an NS/EW/DIAG type (never None).
+  6. Performance: a build of a reasonably sized trace stays under ~2 s.
 """
 
-import json
 import math
 import random
 import sys
 import time
+import zlib
 
 import rail_sim as R
 
@@ -62,18 +62,18 @@ def check_states(case, world):
         if st in IGNORED:
             continue
         if st not in RAIL_STATES and st not in SOIL:
-            fail(case, f"etat inconnu '{st}' a {pos}")
+            fail(case, f"unknown state '{st}' at {pos}")
 
 
 def check_doors(case, world):
-    """Panneaux de porte basse uniquement (rendu script) : pas de moitie upper."""
+    """Only lower door panels (script rendering), never an upper half."""
     blocks = world.blocks
     for (x, y, z), st in blocks.items():
         if not isinstance(st, str) or not st.startswith("door_"):
             continue
         half = st.split("_", 2)[1]
         if half != "lower":
-            fail(case, f"porte complete interdite: {st} a {(x, y, z)} (upper inattendu)")
+            fail(case, f"full door not allowed: {st} at {(x, y, z)} (unexpected upper)")
 
 
 def check_corridor(case, world, trace, pre_keys=frozenset()):
@@ -89,25 +89,22 @@ def check_corridor(case, world, trace, pre_keys=frozenset()):
         if st in IGNORED or st == R.GROUND:
             continue
         if not (x0 <= x <= x1 and y0 <= y <= y1 and z0 <= z <= z1):
-            fail(case, f"hors corridor: {st} a {(x, y, z)}")
-    # flottant de terrain plat : air DIRECTEMENT sous + solide dans les 6
-    # blocs en dessous (sinon c'est un pont/bosse volontaire : pas un bug).
+            fail(case, f"outside the corridor: {st} at {(x, y, z)}")
+    # Floating rail: contract C2 fills up to 4 air/water blocks below a rail,
+    # deeper than that is a deliberate bridge. Air and water are therefore both
+    # counted as the design does, otherwise a line over a pond (4 air plus
+    # water) is wrongly reported although it is a legitimate bridge.
     for (x, y, z), st in world.blocks.items():
         if st not in R.RAIL_FAMILY or (x, y, z) in pre_keys:
             continue
-        # rail invisible : un solide de TERRAIN hostile (roche/herbe) au-dessus
-        # d'une pièce = rail enterré = « il manque le rail » (photo 2). On
-        # n'alerte pas pour les wools marqueurs ni les soils d'un fill
-        # (encore visibles de profil).
         above = world.get(x, y + 1, z)
         if (x, y + 1, z) in pre_keys and above in ("grass_block", "stone", "dirt"):
-            fail(case, f"rail enterre: {st} a {(x, y, z)}, dessus={above!r}")
-        if world.get(x, y - 1, z) not in (R.AIR, None):
-            continue
-        for depth_gap in range(2, 6):
-            if world.get(x, y - depth_gap, z) not in (R.AIR, None):
-                fail(case, f"flottant plat: {st} a {(x, y, z)} ({depth_gap - 1} air sous lui)")
-                break
+            fail(case, f"buried rail: {st} at {(x, y, z)}, above={above!r}")
+        gap = 0
+        while gap < 64 and world.get(x, y - 1 - gap, z) in (R.AIR, None, "water"):
+            gap += 1
+        if 0 < gap <= 4:
+            fail(case, f"floating: {st} at {(x, y, z)} ({gap} air/water below)")
 
 
 def check_all_typed(case, model, trace):
@@ -120,17 +117,27 @@ def snapshot(world):
     return dict(world.blocks)
 
 
+CORES = {"coral_south", "coral_east", "black_wool",
+         "lectern_north", "lectern_east", "pale_moss_block"}
+
+
 def rail_destroyed(before, after):
+    """A core must never change. A decor may however be replaced by the CORE
+    of a neighbouring line at a dense junction, but never by soil, air or
+    another decor."""
     d = []
     for k in set(before) | set(after):
         a, b = before.get(k, R.AIR), after.get(k, R.AIR)
-        if a != b and a in RAIL_STATES:
-            d.append((k, a, b))
+        if a == b or a not in RAIL_STATES:
+            continue
+        if a not in CORES and b in CORES:
+            continue
+        d.append((k, a, b))
     return d
 
 
 def make_hostile_world(trace, seed=None, terrain="flat"):
-    """Terrain autour de la trace : flat | cliffs | holes | shelf | chaos."""
+    """Terrain around the trace: flat, cliffs, holes, shelf or chaos."""
     xs = [v[0] for v in trace] or [0]
     zs = [v[2] for v in trace] or [0]
     x0, x1, z0, z1 = min(xs) - 4, max(xs) + 4, min(zs) - 4, max(zs) + 4
@@ -156,7 +163,7 @@ def make_hostile_world(trace, seed=None, terrain="flat"):
             for y in range(hh - 3, hh + 1):
                 w.set(x, y, z, "stone" if rnd.random() < 0.02 else R.GROUND)
             if terrain == "chaos" and rnd.random() < 0.03:
-                w.set(x, hh + 1, z, "stone")  # débris sur le sol
+                w.set(x, hh + 1, z, "stone")  # debris on the ground
             if terrain == "holes" and rnd.random() < 0.05:
                 w.set(x, hh + 1, z, "water")  # mare
     for (x, y, z) in trace:
@@ -177,14 +184,12 @@ def run_mega(name, trace, colors=None, terrain="flat",
     counts["scenarios"] += 1
     counts["voxels"] += len(trace)
     for base_style in styles:
-        w = make_hostile_world(trace, seed=hash(name) & 0xFFFF, terrain=terrain)
+        w = make_hostile_world(trace, seed=zlib.crc32(name.encode()) & 0xFFFF, terrain=terrain)
         if colors:
             for pos, c in colors.items():
-                if w.get(*pos) != R.AIR or True:
-                    w.set(pos[0], pos[1], pos[2], c)
+                w.set(pos[0], pos[1], pos[2], c)
         pre0 = set(w.blocks.keys())
         t0 = time.time()
-        last = snapshot(w)
         for p in range(passes):
             style = base_style
             buried = options_varies and (p % 2 == 1)
@@ -192,7 +197,6 @@ def run_mega(name, trace, colors=None, terrain="flat",
             theme = 1 + (p % 2)
             opt = R.Options(style=style, theme=theme, fill_mode=fill, buried=buried)
             before = snapshot(w)
-            t_build = time.time()
             try:
                 model = R.build_all(w, trace, opt)
             except Exception as e:
@@ -209,7 +213,6 @@ def run_mega(name, trace, colors=None, terrain="flat",
             check_states(f"{name}/{base_style}/pass{p}", w)
             check_doors(f"{name}/{base_style}/pass{p}", w)
             check_all_typed(f"{name}/{base_style}/pass{p}", model, trace)
-            last = after
         check_corridor(f"{name}/{base_style}", w, trace, pre_keys=pre0)
         dt = time.time() - t0
         if len(trace) > 200 and dt > 5.0:
@@ -218,8 +221,8 @@ def run_mega(name, trace, colors=None, terrain="flat",
 
 def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "nature"),
                   colorize=None, smooth=False):
-    """Chaîne complète d'un joueur : spline -> voxelize -> rectif -> colors -> build.
-    smooth=True active le lissage de cretes (dug) comme l'option par defaut du mod."""
+    """Full player chain: spline -> voxelize -> rectify -> colours -> build.
+    smooth=True enables crest smoothing (digging), the mod default option."""
     counts["scenarios"] += 1
     try:
         floats = R.adaptive_sample(control)
@@ -230,7 +233,7 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
     if not vox:
         warn(name, "spline vide")
         return
-    w = make_hostile_world(vox, seed=hash(name) & 0xFFFF, terrain=terrain)
+    w = make_hostile_world(vox, seed=zlib.crc32(name.encode()) & 0xFFFF, terrain=terrain)
     trace = list(vox)
     dug = set() if smooth else None
     try:
@@ -258,7 +261,6 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
         for theme in (1, 2):
             tag = f"{style}/th{theme}"
             before = snapshot(w)
-            t0 = time.time()
             try:
                 model = R.build_all(w, trace, R.Options(style=style, theme=theme))
             except Exception as e:
@@ -274,11 +276,11 @@ def full_pipeline(name, control, terrain="flat", bury=None, styles=("classic", "
 
 
 # =====================================================================
-# GÉNÉRATEURS STUPIDES
+# ABSURD GENERATORS
 # =====================================================================
 
 def gen_drunk_walk(rnd, n=None):
-    """Marche complètement saoule : peut rebrousser, revenir, monter/descendra au hasard."""
+    """Completely drunk walk: may backtrack, return and climb or drop at random."""
     n = n or rnd.randint(3, 60)
     x, y, z = rnd.randint(0, 20), rnd.randint(1, 10), rnd.randint(0, 20)
     t = [(x, y, z)]
@@ -298,7 +300,7 @@ def gen_drunk_walk(rnd, n=None):
 
 
 def gen_chaos_cube(rnd, size=12, density=0.12):
-    """Nuage bête de voxels : zéro structure de rail, pire cauchemar du classificateur."""
+    """Plain voxel cloud: no rail structure at all, the classifier's nightmare."""
     pts = []
     for x in range(size):
         for y in range(8):
@@ -314,7 +316,7 @@ def gen_chaos_cube(rnd, size=12, density=0.12):
 
 
 def gen_zigzag_hell(rnd):
-    """Zigzag 1/1 alterné très dense : diagonales absurdes en génome."""
+    """Very dense alternating 1/1 zigzag: absurd diagonals everywhere."""
     t = []
     dir_ = 1
     x, y, z = 5, 3, 5
@@ -343,7 +345,7 @@ def gen_spiral(rnd):
 
 
 def gen_stairs_mad(rnd):
-    """Escalier raide 1 marche / bloc, ou 3 blocs d'affilée par montée, mix."""
+    """Steep staircase, one step per block or three blocks in a row, mixed."""
     t = []
     x, y, z = 8, 1, 8
     for _ in range(rnd.randint(6, 26)):
@@ -358,7 +360,7 @@ def gen_stairs_mad(rnd):
 
 
 def gen_grid(rnd):
-    """Grillage orthogonal : intersections en masse."""
+    """Orthogonal grid: intersections everywhere."""
     t = []
     base_x, base_z = 6, 6
     nx, nz = rnd.randint(2, 4), rnd.randint(2, 4)
@@ -377,7 +379,7 @@ def gen_grid(rnd):
 
 
 def gen_spike(rnd):
-    """Lignes radiales depuis un centre : étoile à 3..8 branches."""
+    """Radial lines from a centre: a star with 3 to 8 branches."""
     cx, cy, cz = 14, 3, 14
     t = [(cx, cy, cz)]
     for b in range(rnd.randint(3, 8)):
@@ -410,7 +412,7 @@ def main():
     N_VOID = args.get("voids", 100)
     t_start = time.time()
 
-    # A. Marches saoules massives -------------------------------------------
+    # A. Mass drunk walks ----------------------------------------------------
     for seed in range(N_DRUNK):
         rnd = random.Random(100_000 + seed)
         t = gen_drunk_walk(rnd)
@@ -418,7 +420,7 @@ def main():
         run_mega(f"drunk-{seed}", t, terrain=terrain,
                  styles=(rnd.choice(("classic", "nature")),), passes=2)
 
-    # B. Chaos cube : aucun sens -------------------------------------------
+    # B. Chaos cube: no meaning at all ---------------------------------------
     for seed in range(N_CHAOS):
         rnd = random.Random(200_000 + seed)
         t = gen_chaos_cube(rnd, size=rnd.choice((8, 10, 12)),
@@ -427,7 +429,7 @@ def main():
             continue
         run_mega(f"chaos-{seed}", t, terrain="flat", passes=2)
 
-    # C. Splines vraiment débiles ------------------------------------------
+    # C. Genuinely dumb splines ---------------------------------------------
     stupid_controls = [
         ("dup-points", [(10, 3, 10), (10, 3, 10), (10, 3, 10), (14, 5, 18)]),
         ("one-pixel", [(10, 3, 10), (10, 3, 10)]),
@@ -445,7 +447,7 @@ def main():
         full_pipeline(f"dumb-spline-cliffs-{name}", ctrl, terrain="cliffs")
         full_pipeline(f"dumb-spline-smooth-{name}", ctrl, terrain="cliffs", smooth=True)
 
-    # D. Couleurs absurdes --------------------------------------------------
+    # D. Absurd colours ------------------------------------------------------
     cases_color = N_COLOR
     for seed in range(cases_color):
         rnd = random.Random(300_000 + seed)
@@ -459,7 +461,7 @@ def main():
         run_mega(f"colors-{seed}", t, colors=colors, terrain=terrain,
                  styles=(rnd.choice(("classic", "nature")),), passes=2)
 
-    # E. Patterns satanés ----------------------------------------------------
+    # E. Nasty patterns ------------------------------------------------------
     for seed in range(N_PATTERNS):
         rnd = random.Random(400_000 + seed)
         which = rnd.random()
@@ -475,13 +477,13 @@ def main():
             t, tag = gen_spike(rnd), "spike"
         run_mega(f"{tag}-{seed}", t, passes=3)
 
-    # F. Chaînes de rebuild longues (5 passes, styles alternés) -------------
+    # F. Long rebuild chains (5 passes, alternating styles) ------------------
     for seed in range(N_CHAIN):
         rnd = random.Random(500_000 + seed)
         t = gen_drunk_walk(rnd, n=rnd.randint(10, 30))
         run_mega(f"chain5-{seed}", t, styles=("classic", "nature"), passes=5)
 
-    # G. Buried partout -------------------------------------------------------
+    # G. Buried everywhere ---------------------------------------------------
     for seed in range(N_BURIED):
         rnd = random.Random(600_000 + seed)
         t = gen_drunk_walk(rnd, n=rnd.randint(4, 20))
@@ -507,27 +509,27 @@ def main():
             counts["builds"] += 1
             d = rail_destroyed(before, snapshot(w))
             if d:
-                fail(f"buried-{seed}/{style}-re", f"rail enterre detruit: {d[:3]}")
+                fail(f"buried-{seed}/{style}-re", f"buried rail destroyed: {d[:3]}")
             _ = t0
 
-    # H. Extrêmes ------------------------------------------------------------
+    # H. Extremes ------------------------------------------------------------
     # H1 : 1 voxel, 2 voxels
     run_mega("single-voxel", [(10, 3, 10)], passes=3)
     run_mega("two-voxels-ns", [(10, 3, 10), (10, 3, 11)], passes=3)
     run_mega("two-voxels-diag", [(10, 3, 10), (11, 3, 11)], passes=3)
     run_mega("two-voxels-up", [(10, 3, 10), (10, 4, 11)], passes=3)
-    # H2 : longue ligne 240 (dépasse MAX_LINE_SCAN * 10), diagonale 130
+    # H2: 240 block line (beyond MAX_LINE_SCAN * 10) and a 130 block diagonal
     run_mega("huge-line-ns", [(10, 3, 10 + i) for i in range(240)], passes=2,
              styles=("classic",))
     run_mega("huge-diag", [(10 + i, 3, 10 + i) for i in range(130)], passes=2,
              styles=("classic", "nature"))
-    # H3 : surface vitrée : plateau de voxels laine (2D complet)
+    # H3: glassy surface, a full 2D plateau of wool voxels
     slab = []
     for x in range(8, 16):
         for z in range(8, 16):
             slab.append((x, 3, z))
     run_mega("slab-2d", slab, passes=2)
-    # H4 : croix en X à 40
+    # H4: X cross with 40 block arms
     cross = ([(10 + i, 3, 10 - i) for i in range(-20, 21)]
              + [(10 + i, 3, 10 + i) for i in range(-20, 21)])
     big = []
@@ -535,11 +537,11 @@ def main():
         if v not in big:
             big.append(v)
     run_mega("x-cross-40", big, passes=3)
-    # H5 : pile verticale pure z fixe
+    # H5: pure vertical pile at a fixed z
     pile = [(12, 1 + i, 12) for i in range(12)]
     run_mega("pure-pillar", pile, passes=3)
 
-    # I. Terrains ultra hostiles + splines moyennes ---------------------------
+    # I. Extremely hostile terrain with medium splines ------------------------
     for seed in range(N_TERRAIN):
         rnd = random.Random(700_000 + seed)
         n = rnd.randint(3, 6)
@@ -551,7 +553,7 @@ def main():
                       terrain=rnd.choice(("cliffs", "holes", "shelf", "chaos")),
                       smooth=True)
 
-    # I2. Traces volantes hautes (> max_down 20) + y negatifs -----------------
+    # I2. High floating traces (beyond max_down 20) and negative y ------------
     for seed in range(N_VOID):
         rnd = random.Random(800_000 + seed)
         n = rnd.randint(5, 25)
@@ -569,8 +571,8 @@ def main():
         run_mega(f"void-{seed}", out, styles=(rnd.choice(("classic", "nature")),),
                  passes=2)
 
-    # J. Non-régression canonique --------------------------------------------
-    # s-curve : rendu nature attendu (inscrit lors du portage)
+    # J. Canonical non-regression --------------------------------------------
+    # s-curve: expected nature rendering, captured when the port was written
     floats = R.adaptive_sample([(8, 1, 36), (8, 1, 22), (20, 1, 12), (20, 1, 2)])
     vox = R.voxelize(floats)
     w, tr = None, None
@@ -590,9 +592,9 @@ def main():
     counts["scenarios"] += 1
     counts["builds"] += 1
     if not (n_lect > 0 and n_leaf > 0 and n_grav > 0):
-        fail("s-curve-nature", f"rendu nature casse: lectern={n_lect} leaf={n_leaf} gravel={n_grav}")
+        fail("s-curve-nature", f"nature rendering broken: lectern={n_lect} leaf={n_leaf} gravel={n_grav}")
 
-    # K. Perf borne : trace de ~600 voxels droite + angles --------------------
+    # K. Bounded performance: ~600 voxel trace with a straight run and corners
     t0 = time.time()
     big = []
     for i in range(300):
@@ -608,12 +610,12 @@ def main():
     dt = time.time() - t0
     counts["builds"] += 2
     if dt > 10:
-        warn("perf-big-T", f"{dt:.1f}s pour T de ~600 voxels")
+        warn("perf-big-T", f"{dt:.1f}s for a ~600 voxel trace")
 
     # -------------------------------------------------------------------------
     dt = time.time() - t_start
-    print(f"\n=== {counts['scenarios']} scenarios stupides, {counts['builds']} builds, "
-          f"{counts['voxels']} voxels cumules, {dt:.1f}s ===")
+    print(f"\n=== {counts['scenarios']} absurd scenarios, {counts['builds']} builds, "
+          f"{counts['voxels']} voxels total, {dt:.1f}s ===")
     if violations:
         from collections import Counter
         import re
@@ -624,7 +626,7 @@ def main():
                   re.sub(r"\d+", "N", v.split(": ", 1)[1] if ": " in v else "")
             grp[key] += 1
             ex.setdefault(key, v)
-        print(f"!!! {len(violations)} VIOLATIONS ({len(grp)} groupes) !!!")
+        print(f"!!! {len(violations)} VIOLATIONS ({len(grp)} groups) !!!")
         for key, n in grp.most_common(50):
             print(f"{n:6d}x  {ex[key]}")
         if warnings:
@@ -632,9 +634,9 @@ def main():
             for wr in warnings[:10]:
                 print("   ", wr)
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
     if warnings:
-        print(f"-- {len(warnings)} warnings (non bloquants) --")
+        print(f"-- {len(warnings)} non-blocking warnings --")
         seen = set()
         for wr in warnings:
             k = wr.split(":")[0].split("-")[0]

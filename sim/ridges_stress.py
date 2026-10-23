@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ridges_stress.py — torture du lissage de crêtes (creusage de buttes 1-2 blocs).
+ridges_stress.py - torture test for crest smoothing (digging 1-2 block mounds).
 
-Cas d'école remonté par le joueur : sur terrain bosselé, le rail sautait d'un cran
-tous les ~30 blocs (fragment 3x1 au-dessus / rangee qui sort du sol). Avec
-smoothRidges, une butte de 1-2 blocs franchie par la trace doit être CREUSEE
-(tunnel), le rail restant plat et continu ; une paroi normale (>2 blocs) continue
-de remonter le rail classiquement.
+Case reported by the player: on bumpy ground the rail dropped by one level every
+~30 blocks (a 3x1 fragment above, a line leaving the ground). With smoothRidges
+a 1-2 block mound crossed by the trace must be DUG (tunnel) and the rail stays
+flat and continuous; a normal wall (more than 2 blocks) still lifts the rail as
+usual.
 
-Invariants :
-  - rail à hauteur constante malgré des buttes aléatoires (classic: corail y+1)
-  - dug: jamais plus de 2 blocs par colonne, jamais de bloc rail/laine dedans
-  - rebuild ne détruit aucun rail
-  - états strictement valides, aucune exception
+Invariants:
+  - constant rail height despite random mounds (classic: coral at y+1)
+  - dug: never more than 2 blocks per column, never a rail or wool block inside
+  - a rebuild destroys no rail
+  - strictly valid states, no exception
 """
 
 import random
@@ -102,7 +102,6 @@ def run_ridge(seed):
         if len(ys) > 2:
             fail(f"ridge-{seed}", f"colonne {col} creusee {len(ys)} blocs")
 
-    y_trace = {v[1] for v in t}
     if len(t) > 3:
         y0 = trace[0][1]
         bumped = [v for v in t if v[1] != y0]
@@ -148,7 +147,7 @@ def main():
         run_ridge(20250903 + seed)
         run_ridge(909090 + seed)
     dt = time.time() - t0
-    print(f"\n=== {counts['scenarios']} scenarios cretes, {counts['builds']} builds, {dt:.1f}s ===")
+    print(f"\n=== {counts['scenarios']} crest scenarios, {counts['builds']} builds, {dt:.1f}s ===")
     if violations:
         from collections import Counter
         import re
@@ -158,11 +157,11 @@ def main():
             key = re.sub(r"\d+", "N", v)
             grp[key] += 1
             ex.setdefault(key, v)
-        print(f"!!! {len(violations)} VIOLATIONS ({len(grp)} groupes) !!!")
+        print(f"!!! {len(violations)} VIOLATIONS ({len(grp)} groups) !!!")
         for key, n in grp.most_common(30):
             print(f"{n:6d}x  {ex[key]}")
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
 
 
 if __name__ == "__main__":

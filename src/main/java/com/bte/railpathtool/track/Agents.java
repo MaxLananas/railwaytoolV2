@@ -260,8 +260,8 @@ public final class Agents {
         } else {
             TrackType ext = rel <= mid ? south.exitType : north.exitType;
             if (ext == null) {
-                // Diagonale indeterminee : fragment de transition NS plutot que
-                // le black_wool signal — la voie reste continue en jeu.
+                // Undetermined diagonal: emit an NS transition fragment instead of the
+                // black wool marker, so the track stays continuous in game.
                 core = TrackType.NS;
                 transition = true;
             } else {

@@ -10,9 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Remerciement sur le menu principal : bandeau bas-centre, grand et visible
- * (les 4 coins sont déjà pris par les textes vanilla), avec les liens de la
- * communauté (Discord + Modrinth). Sans dépendance externe.
+ * Credit line on the title screen: a large banner at bottom centre (the four
+ * corners hold vanilla text) with the community links. No extra dependency.
  */
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin {
@@ -32,8 +31,8 @@ public abstract class TitleScreenMixin {
             return;
         }
         int h = graphics.guiHeight();
-        // Titre agrandi (x1.8), doré, centré : mis en valeur dès l'arrivée.
-        // MC 1.21.8+ : pose() renvoie une Matrix3x2fStack (2D, sans z).
+        // Title drawn at 1.8x, gold and centred. Since 1.21.8 pose() returns
+        // a 2D Matrix3x2fStack.
         var pose = graphics.pose();
         pose.pushMatrix();
         float scale = 1.8f;

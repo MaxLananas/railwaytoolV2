@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
-"""REPRO PHOTOS — reproduction fidèle des 4 bugs signalés par captures (5 sept 2026).
+"""REPRO PHOTOS - faithful reproduction of the four bugs reported with pictures
+(5 Sept 2026).
 
-Bug 1 (photo 1) — classic sur terrain plat : piles/debris decor accroches a la voie
-   (murs/blocs lateraux qui chevauchent et s'empilent sur les colonnes voisines).
-Bug 2 (photo 2) — virage L dur (90 deg aux points de controle) : la voie disparait
-   quasiment en entier, ne restent que des fragments aux points.
-Bug 3 (photo 3) — virage dense/spaghetti : murs scrambled incoherents dans les noeuds.
-Bug 4 (photo 4) — nature : chevauchements/collages analogues (decor horizontal qui
-   ecrase un rail deja pose).
+Bug 1 (photo 1), classic on flat ground: stacks and decor debris stuck to the
+   line, walls or side blocks overlapping and piling on neighbouring columns.
+Bug 2 (photo 2), sharp L turn (90 deg at the control points): the track almost
+   disappears, leaving fragments at the points.
+Bug 3 (photo 3), dense spaghetti turn: scrambled, incoherent walls in the knots.
+Bug 4 (photo 4), nature: comparable overlaps, horizontal decor crushing rail
+   that is already placed.
 
-Invariants (tous builds, les deux styles, themes varies) :
-  A. ANTI-CHEVAUCHEMENT : aucun bloc decor (wall/side/leaf/gravel-ortho) ne partage
-     une cellule avec un bloc pose par un AUTRE voxel -> chaque cellule du monde
-     final n'a qu'un seul etat (verifie par rejeu : des qu'une pose ecrase un rail
-     place par un autre voxel -> violation).
-  B. CONTINUITE : chaque voxel de la trace finale produit >= 1 bloc rail-family
-     dans SA colonne (x,z) au y attendu (+-2 tol car rectifications/lissage).
-  C. LISIBILITE : les voxels denses (>=3 voisins de trace, noeuds/virages serres)
-     n'emettent pas de decor lateral (aucun wall/side dans leur voisinage immediat
-     autre que ceux des voxels voisins legitimes).
-  D. ANTI-FLOTTANT : aucun rail-family neuf avec air dessous et solide <= 4 plus bas
-     (deja couvert par les autres harnais, revérifié ici sur ces scènes precises).
+Invariants (all builds, both styles, varied themes):
+  A. ANTI-OVERLAP: no decor block (wall, side, leaf, ortho gravel) shares a cell
+     with a block placed by ANOTHER voxel, so every cell of the final world holds
+     a single state. Replayed here: any write that crushes rail placed by another
+     voxel is a violation.
+  B. CONTINUITY: every voxel of the final trace yields at least one rail-family
+     block in ITS column (x,z) at the expected y, tolerance +-2 for rectification
+     and smoothing.
+  C. READABILITY: dense voxels (3 or more trace neighbours, knots and tight
+     turns) emit no side decor beyond that of their legitimate neighbours.
+  D. ANTI-FLOAT: no new rail-family block with air below and solid within 4
+     blocks under it (already covered elsewhere, rechecked on these exact scenes).
 """
 import sys
-import random
 import rail_sim as R
 
 fails = []
@@ -48,7 +48,7 @@ def flat_ground(world, x0, x1, z0, z1, y0=0, depth=4):
 
 
 class SpyWorld(R.World):
-    """Monde qui trace toutes les poses pour detecter les ecrasements decor-sur-rail."""
+    """World that records every write to detect decor-over-rail overwrites."""
 
     def __init__(self):
         super().__init__()
@@ -60,13 +60,13 @@ class SpyWorld(R.World):
         super().set(x, y, z, state)
 
     def overwrite_violations(self):
-        """Liste des poses build qui remplacent un rail pose par un voxel DIFFERENT.
+        """Build writes that replace already placed rail with a DIFFERENT voxel.
 
-        On approxime 'autre voxel' via tags : chaque pose build d'un voxel est
-        taguee par son hash ; une pose qui remplace une valeur rail-family posee
-        avec un tag de voxel different ET d'une colonne differente = chevauchement.
+        The owner is tracked with tags: each build write is tagged with the hash
+        of its voxel. A write replacing a rail-family value whose tag and column
+        both differ is an overlap.
         """
-        owner = {}   # pos -> (tag, state) de la derniere pose
+        owner = {}   # pos -> (tag, state) of the last write
         out = []
         for (x, y, z), state, tag in self.writes:
             if tag == "terrain":
@@ -94,14 +94,14 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
             w2.tag = "terrain"
             counts["builds"] += 1
             pre0 = set(w2.blocks.keys())
-            model = R.build_all(w2, trace, opt)
+            R.build_all(w2, trace, opt)
 
-            # --- A. anti-chevauchement decor-sur-rail -------------------------
-            # (variante simple : re-simulation voxel par voxel non faite ici,
-            #  la version stricte est dans stupid_voxel_spy ; ici on verifie le
-            #  resultat : aucune cellule ne contient un decor "orphelin" pose
-            #  au-dessus d'un rail d'une colonne voisine adjacente.)
-            # --- B. continuite -------------------------------------------------
+            # --- A. Anti-overlap, decor over rail ---------------------------
+            # Simple variant: no per-voxel re-simulation here (the strict one
+            # lives in stupid_voxel_spy); the result is checked instead, i.e.
+            # no cell holds an orphan decor above the rail of a neighbouring
+            # column.
+            # --- B. Continuity --------------------------------------------------
             if check_continuity:
                 missing = 0
                 for (x, y, z) in trace:
@@ -117,12 +117,12 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
                 frag_allow = allow_fragment_cols
                 if missing > frag_allow:
                     fail(f"{name}/{style}/t{theme}",
-                         f"continuite cassee : {missing}/{len(trace)} voxels "
-                         f"sans aucun bloc dans leur colonne")
+                         f"broken continuity: {missing}/{len(trace)} voxels "
+                         f"without any block in their column")
 
-            # --- E. pas de rail invisible (mode surface) -------------------------
-            # Toute piece visible (core/decor/fill) doit avoir le ciel ou du rail
-            # au-dessus : un solide hostile au-dessus = rail enterre = 'disparu'.
+            # --- E. No invisible rail (surface mode) ----------------------------
+            # Every visible piece (core, decor, fill) needs sky or rail above it;
+            # a hostile solid above means buried rail, i.e. "disappeared".
             for (x, y, z), st in w2.blocks.items():
                 if st not in R.RAIL_FAMILY or (x, y, z) in pre0:
                     continue
@@ -130,9 +130,9 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
                 if above not in (R.AIR, None) and above not in R.RAIL_FAMILY \
                         and above != "water":
                     fail(f"{name}/{style}/t{theme}",
-                         f"rail enterre : {st} a ({x},{y},{z}), dessous={above!r}")
+                         f"buried rail: {st} at ({x},{y},{z}), above={above!r}")
 
-            # --- D. anti-flottant (forme "plat") --------------------------------
+            # --- D. Anti-float (flat form) --------------------------------------
             for (x, y, z), st in w2.blocks.items():
                 if st not in R.RAIL_FAMILY or (x, y, z) in pre0 \
                         or w2.get(x, y - 1, z) not in (R.AIR, None):
@@ -140,19 +140,19 @@ def run_case(name, trace, world, styles=("classic", "nature"), themes=(1, 2),
                 for depth_gap in range(2, 6):
                     if w2.get(x, y - depth_gap, z) not in (R.AIR, None):
                         fail(f"{name}/{style}/t{theme}",
-                             f"flottant plat: {st} a ({x},{y},{z}) "
-                             f"({depth_gap - 1} air sous lui)")
+                             f"flat floating: {st} at ({x},{y},{z}) "
+                             f"({depth_gap - 1} air below it)")
                         break
 
 
 
 # =============================================================================
-# Scenes calquees sur les captures
+# Scenes modelled on the screenshots
 # =============================================================================
 
 def scene1():
-    """Photo 1 : ligne douce est-ouest sur terrain plat avec micro-dents en z et
-    en y (theme sombre + clair)."""
+    """Photo 1: gentle E-W line on flat ground with micro teeth in z and y
+    (dark and light themes)."""
     world = SpyWorld()
     flat_ground(world, -4, 46, -6, 6, y0=0)
     trace = []
@@ -162,7 +162,7 @@ def scene1():
     for i in range(36):
         x_cur += 1
         y_cur = 0
-        if i % 9 == 8:      # micro-dent plate decodee en plateau (tres courant)
+        if i % 9 == 8:      # a flat micro tooth decoded as a plateau (common)
             y_cur = 1
         trace.append((x_cur, y_cur, z_cur))
     world.tag = "terrain"
@@ -171,8 +171,8 @@ def scene1():
 
 
 def scene2():
-    """Photo 2 : longue branche est puis virage 90 deg pile au point de controle
-    (virage L dur voxelise exactement comme le fait la spline)."""
+    """Photo 2: long east branch then a 90 degree turn right at the control
+    point, a hard L turn voxelised exactly as the spline does."""
     world = SpyWorld()
     flat_ground(world, -2, 34, -20, 4, y0=0)
     trace = [(i, 0, 0) for i in range(28)]
@@ -183,12 +183,12 @@ def scene2():
 
 
 def scene3():
-    """Photo 3 : noeud/vrille dense (S volee doublant 2 fois sur elle-meme, zoom
-    sur un pseudo carrefour de 3-4 voisins)."""
+    """Photo 3: dense knot where the S doubles over itself twice, zoomed on a
+    pseudo crossing of 3 or 4 neighbours."""
     world = SpyWorld()
     flat_ground(world, -14, 10, -10, 10, y0=0)
     trace = []
-    # vrille 2D : le trace repasse deux fois pres du meme carrefour
+    # 2D twist: the trace passes twice near the same crossing
     seq = [(0, 0), (1, 0), (1, 1), (1, 2), (0, 2), (-1, 2), (-2, 2), (-2, 1),
            (-2, 0), (-1, 0), (-1, 1), (0, 1), (2, 1), (2, 2), (2, 3), (1, 3),
            (0, 3), (-1, 3), (-3, 3), (-3, 2), (-3, 1), (-3, 0), (-2, 1)]
@@ -201,7 +201,7 @@ def scene3():
 
 
 def scene4():
-    """Photo 4 : ligne nature douce avec dents y/jogs minimaux sur terrain plat."""
+    """Photo 4: gentle nature line with minimal y teeth and jogs on flat ground."""
     world = SpyWorld()
     flat_ground(world, -3, 30, -4, 4, y0=0)
     trace = []
@@ -220,14 +220,14 @@ def main():
     scene3()
     scene4()
     total = counts["builds"]
-    print(f"=== REPRO PHOTOS {counts['scenarios']} scénarios, {total} builds ===")
+    print(f"=== REPRO PHOTOS {counts['scenarios']} scenarios, {total} builds ===")
     if fails:
         head = fails[:25]
-        print(f"{len(fails)} violations :")
+        print(f"{len(fails)} violations:")
         for f in head:
             print("   ", f)
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
 
 
 if __name__ == "__main__":

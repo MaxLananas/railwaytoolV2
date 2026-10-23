@@ -11,8 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Persistance des options de l'outil + 3 presets joueur dans
- * config/bte_railpathtool.json (Gson, ecriture atomique via tmp+move).
+ * Tool options and three player presets, persisted in
+ * config/bte_railpathtool.json with Gson and an atomic tmp+move write.
  */
 public final class RailConfig {
 
@@ -33,7 +33,7 @@ public final class RailConfig {
     public Data preset2 = new Data();
     public Data preset3 = new Data();
 
-    /** Instantane des choix de l'UI (slots de preset). */
+    /** Snapshot of the UI choices (preset slots). */
     public static final class Data {
         public int density = 6;
         public int styleIndex;
@@ -45,19 +45,31 @@ public final class RailConfig {
         public boolean purgeCorners = true;
         public boolean snapGround = true;
 
-        public Data copy() {
-            Data d = new Data();
-            d.density = density;
-            d.styleIndex = styleIndex;
-            d.themeIndex = themeIndex;
-            d.fillIndex = fillIndex;
-            d.heightIndex = heightIndex;
-            d.orientIndex = orientIndex;
-            d.smoothRidges = smoothRidges;
-            d.purgeCorners = purgeCorners;
-            d.snapGround = snapGround;
-            return d;
+        private void sanitize() {
+            density = clamp(density, 2, 12);
+            styleIndex = clamp(styleIndex, 0, 1);
+            themeIndex = clamp(themeIndex, 0, 1);
+            fillIndex = clamp(fillIndex, 0, 1);
+            heightIndex = clamp(heightIndex, 0, 1);
+            orientIndex = clamp(orientIndex, 0, 3);
         }
+    }
+
+    /** Clamps values coming from a hand-edited file. */
+    public void sanitize() {
+        density = clamp(density, 2, 12);
+        styleIndex = clamp(styleIndex, 0, 1);
+        themeIndex = clamp(themeIndex, 0, 1);
+        fillIndex = clamp(fillIndex, 0, 1);
+        heightIndex = clamp(heightIndex, 0, 1);
+        orientIndex = clamp(orientIndex, 0, 3);
+        preset1.sanitize();
+        preset2.sanitize();
+        preset3.sanitize();
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     public static Path path() {
@@ -79,10 +91,11 @@ public final class RailConfig {
                     if (c.preset3 == null) {
                         c.preset3 = new Data();
                     }
+                    c.sanitize();
                     return c;
                 }
             } catch (IOException | RuntimeException ignored) {
-                // Fichier corrompu : on repart sur les defauts.
+                // Corrupt file: fall back to defaults.
             }
         }
         return new RailConfig();
@@ -98,7 +111,7 @@ public final class RailConfig {
             }
             Files.move(tmp, p, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ignored) {
-            // Disque plein / droits : non bloquant pour l'outil.
+            // Disk full or permission denied: not fatal for the tool.
         }
     }
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Ramer-Douglas-Peucker : simplifie une polyligne 3D en gardant les points
- * significatifs. Utilise pour epurer les points de controle redondants
- * (doublons quasi colineaires) avant le calcul de la spline.
+ * Ramer-Douglas-Peucker: simplifies a 3D polyline while keeping the
+ * significant points. Used to drop redundant, nearly collinear control
+ * points before the spline is computed.
  */
 public final class Rdp {
 
@@ -55,7 +55,7 @@ public final class Rdp {
         }
     }
 
-    /** Distance au carre point-segment. */
+    /** Squared point-segment distance. */
     private static double distPointSeg2(Vec3 p, Vec3 a, Vec3 b) {
         double abx = b.x - a.x;
         double aby = b.y - a.y;

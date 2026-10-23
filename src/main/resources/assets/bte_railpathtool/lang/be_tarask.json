@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Выдаліць апошнюю кропку",
   "bte_railpathtool.ui.confirm": "Пабудаваць",
   "bte_railpathtool.ui.clear": "Ачысціць усё",
-  "bte_railpathtool.ui.hint": "ПКМ: дадаць кропку | Delete: выдаліць | Enter: пабудаваць",
   "bte_railpathtool.ui.gen": "Шлях",
   "bte_railpathtool.ui.density": "Шчыльнасць сплайна",
   "bte_railpathtool.ui.ground_snap": "Прывязка да зямлі",

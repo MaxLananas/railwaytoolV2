@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""Scan des piliers de support : aucun bloc parasite autour.
+"""Support pillar scan: no parasitic block around a pillar.
 
-Pour chaque scène (corpus parité + vallées dédiées), le flux complet est
-rejoué (terrain -> trace -> design -> support). Ensuite :
+Every scene (parity corpus plus dedicated valleys) replays the full flow
+(terrain -> trace -> design -> support), then:
 
-1. Détection de tous les PILIERS : empilement vertical de sol (comblement)
-   posé par le build, coiffé d'un bloc de rail et posé sur du terrain.
-2. Autour de chaque pilier (boîte 5x5 sur toute sa hauteur +/-2) on liste
-   tout bloc "parasite" : bloc posé qui n'est ni le pilier, ni le ruban de
-   rail au sommet, et qui FLOTTE (air directement dessous) ou est collé au
-   flanc du pilier à mi-hauteur (verrue de décor en plein vide).
-3. Pour chaque pilier affecté, diagramme complet en coupe verticale
-   (tranche x/y à z=pilier et tranche z/y à x=pilier) avec tous les blocs.
+1. Detects every PILLAR: a vertical stack of fill soil placed by the build,
+   topped by a rail block and resting on terrain.
+2. Around each pillar (a 5x5 box over its whole height +-2) it lists every
+   "parasite": a placed block that is neither the pillar nor the rail ribbon on
+   top and that either FLOATS (air directly below) or sticks to the pillar
+   flank at mid height, a decor wart in mid-air.
+3. For each affected pillar it prints a full vertical cross-section
+   (x/y slice at the pillar z and z/y slice at the pillar x) with all blocks.
 
-Sortie rouge (exit 1) au moindre parasite : un pilier propre n'a rien autour
-que du rail à son sommet et du sol à sa base.
+Exits with status 1 on the slightest parasite: a clean pillar has nothing
+around it but rail on top and ground at its base.
 """
 import sys
 import os
@@ -42,7 +42,7 @@ def soil(st):
 
 
 def find_pillars(world, pre_keys):
-    """Colonnes de sol posees par le build coiffees de rail, basees au sol."""
+    """Build-placed soil columns topped by rail and resting on the ground."""
     pillars = []
     cols = {}
     for (x, y, z), st in world.blocks.items():
@@ -52,7 +52,7 @@ def find_pillars(world, pre_keys):
             cols.setdefault((x, z), []).append(y)
     for (x, z), ys in cols.items():
         ys = sorted(set(ys))
-        # segments verticaux contigus
+        # Contiguous vertical segments.
         seg = [ys[0]]
         for y in ys[1:]:
             if y == seg[-1] + 1:
@@ -67,17 +67,17 @@ def find_pillars(world, pre_keys):
         above = world.get(x, top + 1, z)
         below = world.get(x, base - 1, z)
         if above not in R.RAIL_FAMILY:
-            continue   # simple remblai sans rail au-dessus : pas un pilier
+            continue   # plain backfill with no rail on top: not a pillar
         if len(seg) < 2:
-            continue   # base normale de colonne (1 sol sous le rail), voulue
+            continue   # normal column base (one soil under the rail), intended
         if below in (R.AIR, None):
-            continue   # verifie ailleurs (flottant)
+            continue   # checked elsewhere (floating)
         out.append((x, z, base, top))
     return out
 
 
 def scan_pillar(world, x, z, base, top):
-    """Retourne (parasites, cellules_boîte) autour du pilier x,z base..top."""
+    """Returns (parasites, box cells) around the pillar at x,z from base to top."""
     parasites = []
     for dx in (-2, -1, 0, 1, 2):
         for dz in (-2, -1, 0, 1, 2):
@@ -87,18 +87,18 @@ def scan_pillar(world, x, z, base, top):
                 st = world.get(x + dx, y, z + dz)
                 if st in TERRAIN:
                     continue
-                # ruban de rail au sommet : niveau top+1..top+3 hors pilier,
-                # OK seulement s'il s'appuie sur la suite de la voie
+                # Rail ribbon on top (levels top+1..top+3, outside the pillar)
+                # is fine only when it rests on the rest of the line.
                 below = world.get(x + dx, y - 1, z + dz)
                 floating = below in (R.AIR, None)
-                flank = (y <= top)  # à hauteur du pilier = verrue en plein vide
+                flank = (y <= top)  # at pillar height: a wart in mid-air
                 if floating and (flank or st not in R.RAIL_FAMILY):
                     parasites.append((x + dx, y, z + dz, st))
     return parasites
 
 
 def diagram(world, x, z, base, top, parasites):
-    """Coupe verticale x/y (à z) et z/y (à x) autour du pilier."""
+    """Vertical x/y slice at z and z/y slice at x around the pillar."""
     y0, y1 = base - 1, top + 3
     mark = {(px, py, pz) for (px, py, pz, _st) in parasites}
 
@@ -111,14 +111,14 @@ def diagram(world, x, z, base, top, parasites):
             return R.RED(g if g.strip() else "!")
         return g
 
-    lines = [f"    pilier ({x},{z}) base=y{base} sommet=y{top}"]
-    lines.append("    tranche x/y (z=%d)  x = %d..%d" % (z, x - 3, x + 3))
+    lines = [f"    pillar ({x},{z}) base=y{base} top=y{top}"]
+    lines.append("    slice x/y (z=%d)  x = %d..%d" % (z, x - 3, x + 3))
     lines.append("       " + "".join(str((x + dx) % 10) for dx in range(-3, 4)))
     for y in range(y1, y0 - 1, -1):
         row = "".join(glyph(x + dx, y, z) for dx in range(-3, 4))
         if row.strip("."):
             lines.append(f"  y={y:>3} {row}")
-    lines.append("    tranche z/y (x=%d)  z = %d..%d" % (x, z - 3, z + 3))
+    lines.append("    slice z/y (x=%d)  z = %d..%d" % (x, z - 3, z + 3))
     lines.append("       " + "".join(str((z + dz) % 10) for dz in range(-3, 4)))
     for y in range(y1, y0 - 1, -1):
         row = "".join(glyph(x, y, z + dz) for dz in range(-3, 4))
@@ -142,16 +142,16 @@ def process(sid, world, pre_keys, seeds=()):
     for (x, z, base, top) in pillars:
         parasites = [p for p in scan_pillar(world, x, z, base, top)
                      if (p[0], p[1], p[2]) not in seeded]
-        # Diagramme complet dans le rapport, parasite ou non — l'utilisateur
-        # veut pouvoir inspecter chaque pilier visuellement.
+        # Full diagram in the report, parasitic or not, so every pillar can be
+        # inspected visually.
         report.append(
-            f"[{sid}] pilier ({x},{z}) y{base}..y{top} : "
-            + (f"{len(parasites)} PARASITE(S)" if parasites else "propre")
+            f"[{sid}] pillar ({x},{z}) y{base}..y{top}: "
+            + (f"{len(parasites)} PARASITE(S)" if parasites else "clean")
             + "\n" + diagram(world, x, z, base, top, parasites))
         if parasites:
             dirty += 1
             violations.append(
-                f"[{sid}] pilier ({x},{z}) y{base}..y{top} : "
+                f"[{sid}] pillar ({x},{z}) y{base}..y{top}: "
                 f"{len(parasites)} parasite(s)\n"
                 + diagram(world, x, z, base, top, parasites))
     if not dirty:
@@ -159,9 +159,7 @@ def process(sid, world, pre_keys, seeds=()):
 
 
 def scenes_vallees():
-    """Quelques creux/vallons dédiés pour forcer de vrais piliers."""
-    import realistic_stress as RS
-
+    """A few dedicated hollows and valleys that force real pillars."""
     def valley(h0=62, depth=4, width=2):
         def h(x, z):
             return h0 - depth if (x + z) % 7 < width else h0
@@ -183,23 +181,23 @@ def main():
         if bad:
             violations.append(f"[{sc.sid}] self-check invalide: {bad[:2]}")
             continue
-        # Tout le pré-existant est terrain/graines/eau : filtré côté scan.
+        # All pre-existing blocks are terrain, seeds or water, filtered by the scan.
         process(sc.sid, world, set(), getattr(sc, "seeds", ()))
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "pillar_report.txt")
     with open(out, "w") as f:
         f.write("\n\n".join(report))
-    print(f"=== PILLAR SCAN : {stats['scenes']} scenes | "
-          f"{stats['pillars']} piliers | {stats['clean']} scenes propres ===")
-    print(f"diagrammes complets de chaque pilier -> {out}")
+    print(f"=== PILLAR SCAN: {stats['scenes']} scenes | "
+          f"{stats['pillars']} pillars | {stats['clean']} clean scenes ===")
+    print(f"full diagram of every pillar -> {out}")
     if violations:
         show = int(os.environ.get("PILLAR_DIAG", "12"))
-        print(f"{len(violations)} pilier(s) avec parasites "
-              f"(diagrammes complets, max {show} affiches) :")
+        print(f"{len(violations)} pillar(s) with parasites "
+              f"(full diagrams, first {show} shown):")
         for v in violations[:show]:
             print(v)
         sys.exit(1)
-    print("OK : aucun bloc parasite autour des piliers.")
+    print("OK: no parasitic block around the pillars.")
 
 
 if __name__ == "__main__":

@@ -42,6 +42,7 @@ public class RailwayTool implements CustomTool {
 
     private static final int MAX_PLAN_BLOCKS = 60_000;
     private static final int MAX_GHOST_BLOCKS = 6_000;
+    private static final String OVERRIDER_ID = "bte_railpathtool";
 
     private final List<BlockPos> control = new ArrayList<>();
     private final int[] density = {6};
@@ -71,8 +72,10 @@ public class RailwayTool implements CustomTool {
     private int splineLength = 0;
     private boolean dirty = true;
     private boolean phantomAcquired = false;
+    private boolean ghostDenied = false;
     private String status = "";
     private boolean statusError = false;
+    private String warning = "";
 
     public RailwayTool() {
         config = RailConfig.load();
@@ -116,10 +119,8 @@ public class RailwayTool implements CustomTool {
         dirty = true;
         status = "";
         statusError = false;
-        if (phantomAcquired) {
-            Axiom.releaseChunkRenderOverrider("bte_railpathtool");
-            phantomAcquired = false;
-        }
+        warning = "";
+        releaseGhost();
     }
 
     @Override
@@ -127,7 +128,18 @@ public class RailwayTool implements CustomTool {
                        PoseStack poseStack, Matrix4f projection) {
         if (dirty) {
             dirty = false;
-            recompute(Minecraft.getInstance());
+            try {
+                recompute(Minecraft.getInstance());
+            } catch (RuntimeException e) {
+                plan.clear();
+                planCount = 0;
+                splineLength = 0;
+                warning = "";
+                clearGhost();
+                releaseGhost();
+                clearSplineGhost();
+                setStatus(tr("ui.error", String.valueOf(e.getMessage())), true);
+            }
         }
         if (splineGhost != null) {
             splineGhost.render(camera, Vec3.ZERO, poseStack, projection, nanos, Effects.OUTLINE);
@@ -178,6 +190,9 @@ public class RailwayTool implements CustomTool {
         ImGui.textDisabled(tr("ui.help_1"));
         ImGui.textDisabled(tr("ui.help_2"));
         ImGui.textDisabled(tr("ui.help_3"));
+        if (!warning.isEmpty()) {
+            ImGui.textWrapped("/!\\ " + warning);
+        }
         if (!status.isEmpty()) {
             ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
         }
@@ -266,20 +281,39 @@ public class RailwayTool implements CustomTool {
         if (!ImGui.collapsingHeader(tr("ui.presets"))) {
             return;
         }
-        RailConfig.Data[] slots = {config.preset1, config.preset2, config.preset3};
-        for (int i = 0; i < slots.length; i++) {
+        for (int i = 0; i < 3; i++) {
             final int idx = i;
             if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
-                applyData(slots[idx]);
+                applyData(preset(idx));
             }
             ImGui.sameLine();
             if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
-                slots[idx] = snapshotData();
+                setPreset(idx, snapshotData());
                 persistConfig();
             }
             ImGui.sameLine();
             ImGui.textDisabled("#" + (idx + 1));
         }
+    }
+
+    private RailConfig.Data preset(int index) {
+        return switch (index) {
+            case 1 -> config.preset2;
+            case 2 -> config.preset3;
+            default -> config.preset1;
+        };
+    }
+
+    private void setPreset(int index, RailConfig.Data data) {
+        switch (index) {
+            case 1 -> config.preset2 = data;
+            case 2 -> config.preset3 = data;
+            default -> config.preset1 = data;
+        }
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     private RailConfig.Data snapshotData() {
@@ -301,11 +335,11 @@ public class RailwayTool implements CustomTool {
             return;
         }
         density[0] = Math.max(2, Math.min(12, d.density));
-        styleSel.set(d.styleIndex);
-        themeSel.set(d.themeIndex);
-        fillSel.set(d.fillIndex);
-        heightSel.set(d.heightIndex);
-        orientSel.set(d.orientIndex);
+        styleSel.set(clamp(d.styleIndex, 0, 1));
+        themeSel.set(clamp(d.themeIndex, 0, 1));
+        fillSel.set(clamp(d.fillIndex, 0, 1));
+        heightSel.set(clamp(d.heightIndex, 0, 1));
+        orientSel.set(clamp(d.orientIndex, 0, 3));
         smoothRidges.set(d.smoothRidges);
         purgeCorners.set(d.purgeCorners);
         groundSnap.set(d.snapGround);
@@ -360,8 +394,11 @@ public class RailwayTool implements CustomTool {
             ImGui.textWrapped(tr("ui.fill.block",
                     options.uniformBlock.getBlock().getName().getString()));
             if (ImGui.button(tr("ui.pick_active"))) {
-                options.uniformBlock = Axiom.getActiveBlock();
-                dirty = true;
+                BlockState picked = Axiom.getActiveBlock();
+                if (picked != null && !picked.isAir()) {
+                    options.uniformBlock = picked;
+                    dirty = true;
+                }
             }
         } else {
             ImGui.textDisabled(tr("ui.fill.random_hint"));
@@ -374,8 +411,11 @@ public class RailwayTool implements CustomTool {
                     dirty = true;
                 }
                 if (ImGui.button(tr("ui.pick_active") + "##fillbtn" + i)) {
-                    options.soilSlots[i].state = Axiom.getActiveBlock();
-                    dirty = true;
+                    BlockState picked = Axiom.getActiveBlock();
+                    if (picked != null && !picked.isAir()) {
+                        options.soilSlots[i].state = picked;
+                        dirty = true;
+                    }
                 }
             }
         }
@@ -390,9 +430,13 @@ public class RailwayTool implements CustomTool {
     private void recompute(Minecraft mc) {
         plan.clear();
         planCount = 0;
+        splineLength = 0;
+        warning = "";
         clearGhost();
+        ghostDenied = false;
         clearSplineGhost();
         if (mc.level == null || control.size() < 2) {
+            releaseGhost();
             return;
         }
         WorldView view = new WorldView(mc.level);
@@ -406,8 +450,8 @@ public class RailwayTool implements CustomTool {
         List<BlockPos> trace = Spline.voxelize(samples);
         Profiler.timeEnd("voxelize", t0);
         for (BlockPos v : trace) {
-            // Jamais par-dessus du rail/de la laine existants (jonctions) ;
-            // terrain naturel uniquement (miroir rail_sim.build_trace_seq).
+            // Never over existing rail or wool (junctions); natural terrain only
+            // (mirror of rail_sim.build_trace_seq).
             if (com.bte.railpathtool.track.Grounding.isWoolLayable(
                     view.at(v.getX(), v.getY(), v.getZ()))) {
                 view.put(v.getX(), v.getY(), v.getZ(),
@@ -432,9 +476,7 @@ public class RailwayTool implements CustomTool {
         splineLength = trace.size();
 
         int islands = countIslands(trace);
-        if (islands > 1) {
-            setStatus(tr("ui.disconnected", islands), true);
-        }
+        warning = islands > 1 ? tr("ui.disconnected", islands) : "";
 
         t0 = Profiler.timeStart();
         TrackModel model = new TrackModel(view, trace, overrideMode);
@@ -453,8 +495,8 @@ public class RailwayTool implements CustomTool {
         planCount = plan.size();
 
         if (showGhost.get()) {
-            // Plan trop grand pour un rendu complet : echantillonnage regulier
-            // sur toute la ligne (le fantome ne disparait plus jamais).
+            // Too large for a full ghost: regular sampling over the whole line so the
+            // preview never disappears.
             int stride = plan.size() > MAX_GHOST_BLOCKS
                     ? (int) Math.ceil(plan.size() / (double) MAX_GHOST_BLOCKS)
                     : 1;
@@ -480,15 +522,19 @@ public class RailwayTool implements CustomTool {
                 }
             }
         }
+        if (ghostPositions.isEmpty()) {
+            releaseGhost();
+        }
         if (plan.size() > MAX_PLAN_BLOCKS) {
             setStatus(tr("ui.plan_too_big", plan.size(), MAX_PLAN_BLOCKS), true);
-        } else if (statusError) {
-            status = "";
-            statusError = false;
         }
     }
 
     private void confirm(Minecraft mc) {
+        if (mc.level == null) {
+            setStatus(tr("ui.no_target"), true);
+            return;
+        }
         if (dirty) {
             dirty = false;
             recompute(mc);
@@ -508,7 +554,12 @@ public class RailwayTool implements CustomTool {
                     e.getValue());
         }
         persistConfig();
-        Axiom.push(region);
+        try {
+            Axiom.push(region);
+        } catch (RuntimeException e) {
+            setStatus(tr("ui.error", String.valueOf(e.getMessage())), true);
+            return;
+        }
         int placed = plan.size();
         reset();
         setStatus(tr("ui.built", placed), false);
@@ -547,7 +598,7 @@ public class RailwayTool implements CustomTool {
         return uf.components();
     }
 
-    /** Retire les points de controle quasi colineaires (RDP, 0.5 bloc). */
+    /** Removes nearly collinear control points (RDP, 0.5 block). */
     private void simplifyControl() {
         java.util.List<Vec3> pts = new java.util.ArrayList<>();
         for (BlockPos p : control) {
@@ -566,15 +617,34 @@ public class RailwayTool implements CustomTool {
 
     private void setGhost(long key, BlockState state) {
         if (!phantomAcquired) {
-            Axiom.acquireChunkRenderOverrider("bte_railpathtool");
-            phantomAcquired = true;
+            if (ghostDenied) {
+                return;
+            }
+            phantomAcquired = Axiom.acquireChunkRenderOverrider(OVERRIDER_ID);
+            if (!phantomAcquired) {
+                // Another tool owns the lock: try once per recompute, not once
+                // per ghost block.
+                ghostDenied = true;
+                return;
+            }
         }
         Axiom.setBlockRenderOverride(BlockPos.getX(key), BlockPos.getY(key),
                 BlockPos.getZ(key), state);
         ghostPositions.add(key);
     }
 
+    private void releaseGhost() {
+        if (phantomAcquired) {
+            Axiom.releaseChunkRenderOverrider(OVERRIDER_ID);
+            phantomAcquired = false;
+        }
+    }
+
     private void clearGhost() {
+        if (!phantomAcquired) {
+            ghostPositions.clear();
+            return;
+        }
         for (long key : ghostPositions) {
             Axiom.setBlockRenderOverride(BlockPos.getX(key), BlockPos.getY(key),
                     BlockPos.getZ(key), null);

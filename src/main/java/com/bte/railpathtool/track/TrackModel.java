@@ -3,7 +3,6 @@ package com.bte.railpathtool.track;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.BaseCoralWallFanBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -40,11 +39,11 @@ public final class TrackModel {
     }
 
     /**
-     * Un voxel DIAG sans aucun voxel de TRACE en diagonale est un fragment
-     * perpendiculaire isolé (trace qui « saute » d'une ligne, ex-rail détruit) :
-     * il rend 4 murets + corail de l'autre sens. On le convertit vers le type
-     * axial dominant de son voisinage (NS par défaut). Critère géométrique sur
-     * la trace brute (pas les types) : stable au rebuild, idempotence préservée.
+     * A DIAG voxel with no diagonal trace neighbour is an isolated perpendicular
+     * fragment (a trace jumping off a line): it would build four walls plus a
+     * coral of the wrong axis. It is converted to the dominant axial type of its
+     * neighbourhood (NS by default). The test uses raw trace geometry, not types,
+     * so it is stable across rebuilds.
      */
     private void convertOrphanDiags() {
         int[][] diag = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
@@ -96,14 +95,6 @@ public final class TrackModel {
 
     public TrackType typeOf(BlockPos pos) {
         return types.get(pos.asLong());
-    }
-
-    public boolean isWoolTrace(int x, int y, int z) {
-        // Nom de registre plutôt que BlockTags.WOOL : les tags ne sont pas
-        // liés hors runtime serveur (Bootstrap du harnais de parité) et
-        // is(TagKey) renverrait toujours false, cassant la classification.
-        return net.minecraft.core.registries.BuiltInRegistries.BLOCK
-                .getKey(view.at(x, y, z).getBlock()).getPath().endsWith("_wool");
     }
 
     public TrackType typeAt(int x, int y, int z) {
@@ -188,10 +179,9 @@ public final class TrackModel {
     }
 
     private boolean has(int x, int y, int z) {
-        // Appartenance par POSITION (set de trace figé à la construction) —
-        // miroir exact de rail_sim._neighbors_of ; le monde live ne sert
-        // pas : une laine étrangère (remplissage/décor joueur) n'est pas un
-        // voisin de voie, et un voxel déjà construit garde son appartenance.
+        // Membership by POSITION against the frozen trace set (exact mirror of
+        // rail_sim._neighbors_of). The live world is not consulted: foreign wool
+        // is not a track neighbour, and an already built voxel keeps its type.
         for (int dy : DY_TOLERANCE) {
             if (trace.contains(BlockPos.asLong(x, y + dy, z))) {
                 return true;
@@ -217,7 +207,7 @@ public final class TrackModel {
         return null;
     }
 
-    /** Debug dév (harnais de parité) : détaille les entrées de classify. */
+    /** Debug helper for the parity harness: dumps the classify inputs. */
     public String debugExplain(BlockPos voxel) {
         int x = voxel.getX();
         int y = voxel.getY();
@@ -240,15 +230,13 @@ public final class TrackModel {
                     continue;
                 }
                 for (int dy : DY_TOLERANCE) {
-                    // Voisin = voxel de la trace courante : on lit d'abord le
-                    // set de types (fige a la construction), PAS seulement le
-                    // monde live — sinon le build d'un voxel precedent a deja
-                    // remplace la laine (corail/pupitre) et le voisin diagonal
-                    // disparait avant que le suivant pose sa litiere de coin.
+                    // A neighbour is a voxel of the current trace: the frozen type set is
+                    // read first, not only the live world. Otherwise building a previous
+                    // voxel already replaced its wool with coral and the diagonal neighbour
+                    // vanished before the next voxel places its corner litter.
                     long k = BlockPos.asLong(x + dx, y + dy, z + dz);
-                    // Set de types UNIQUEMENT (miroir sim ordered_neighbors) :
-                    // une laine étrangère (décor du joueur / remplissage)
-                    // n'est jamais un voisin de voie.
+                    // Type set only (mirror of sim ordered_neighbors): foreign wool is never
+                    // a track neighbour.
                     if (types.containsKey(k)) {
                         out.add(directionName(dx, dz));
                         break;

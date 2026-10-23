@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "마지막 포인트 제거",
   "bte_railpathtool.ui.confirm": "건설",
   "bte_railpathtool.ui.clear": "모두 지우기",
-  "bte_railpathtool.ui.hint": "우클릭: 포인트 추가 | Delete: 제거 | Enter: 건설",
   "bte_railpathtool.ui.gen": "궤적",
   "bte_railpathtool.ui.density": "스플라인 밀도",
   "bte_railpathtool.ui.ground_snap": "지형에 맞추기",

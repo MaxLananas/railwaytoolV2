@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "अंतिम अंक हटाएँ",
   "bte_railpathtool.ui.confirm": "निर्माण",
   "bte_railpathtool.ui.clear": "सब साफ़ करें",
-  "bte_railpathtool.ui.hint": "दायाँ क्लिक: अंक जोड़ें | Delete: हटाएँ | Enter: निर्माण",
   "bte_railpathtool.ui.gen": "मार्ग",
   "bte_railpathtool.ui.density": "स्पलाइन घनत्व",
   "bte_railpathtool.ui.ground_snap": "भूभाग से सटाएँ",

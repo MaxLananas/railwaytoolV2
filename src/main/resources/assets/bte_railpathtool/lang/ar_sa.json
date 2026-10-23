@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "إزالة آخر نقطة",
   "bte_railpathtool.ui.confirm": "إنشاء",
   "bte_railpathtool.ui.clear": "مسح الكل",
-  "bte_railpathtool.ui.hint": "زر الفأرة الأيمن: إضافة نقطة | Delete: إزالة | Enter: إنشاء",
   "bte_railpathtool.ui.gen": "المسار",
   "bte_railpathtool.ui.density": "كثافة المنحنى",
   "bte_railpathtool.ui.ground_snap": "تتبع سطح الأرض",

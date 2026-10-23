@@ -1,9 +1,9 @@
 package com.bte.railpathtool.lib.graph;
 
 /**
- * Union-Find (compression de chemin + union par rang) : regroupe des voxels en
- * composantes connexes. Sert a detecter une trace morcelee (ilot coupe du
- * reste) pour avertir le joueur avant la construction.
+ * Union-Find with path compression and union by rank. Groups voxels into
+ * connected components so a fragmented trace can warn the player before the
+ * build.
  */
 public final class UnionFind {
 

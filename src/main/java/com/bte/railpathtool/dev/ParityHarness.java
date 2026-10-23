@@ -30,35 +30,35 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 
 /**
- * Harnais de parité : rejoue les scènes sim/parity/scenes.txt (générées par
- * sim/parity_export.py, auto-validées par les invariants du simulateur) avec
- * le VRAI pipeline Java (sampler adaptatif 6 → voxelize → Grounding×2 →
- * LCorners → flattenTeeth → dedupeColumns → TrackModel → design), puis exige
- * une carte de blocs IDENTIQUE.
+ * Parity harness: replays the scenes in sim/parity/scenes.txt (written by
+ * sim/parity_export.py and validated by the simulator invariants) through the
+ * real Java pipeline (adaptive sampler 6 -> voxelize -> Grounding x2 ->
+ * LCorners -> flattenTeeth -> dedupeColumns -> TrackModel -> design) and
+ * requires an identical block map.
  *
- * Format de scène :
- *   @id                         début de scène
+ * Scene format:
+ *   @id                         scene start
  *   O style=.. theme=.. buried=0|1
- *   R x0 x1 y0 y1 z0 z1 [bloc]  boîte de terrain (grass_block par défaut)
- *   Q x0 x1 y0 y1 z0 z1         boîte d'eau
- *   W x y z bloc                bloc isolé (laine forcée, pierre, rail…)
- *   C n x y z                   point de contrôle de la trace n (entier)
- *   D x y z TYPE / N x y z nb   classification/voisinage attendus du sim
- *   E x y z token               cellule CHANGÉE attendue (vs état initial)
+ *   R x0 x1 y0 y1 z0 z1 [block] terrain box (grass_block by default)
+ *   Q x0 x1 y0 y1 z0 z1         water box
+ *   W x y z block               single pre-placed block
+ *   C n x y z                   control point n of the trace (integers)
+ *   D x y z TYPE / N x y z nb   classification / neighbour count from the sim
+ *   E x y z token               expected CHANGED cell (versus initial state)
  *   @end
  *
- * La comparaison est en « ensemble de changements » bidirectionnelle : toute
- * cellule dont le bloc final diffère du bloc initial doit apparaître en E,
- * et réciproquement — aucune fuite nulle part dans le monde n'est possible.
+ * The comparison is a bidirectional change set: every cell whose final block
+ * differs from its initial block must appear in E and vice versa, so a leak
+ * anywhere in the world fails the build.
  */
 public final class ParityHarness {
 
-    /** Boîte de blocs initiaux (terrain/eau). */
+    /** Box of initial blocks (terrain or water). */
     private record Box(int x0, int x1, int y0, int y1, int z0, int z1,
                        String block) {
     }
 
-    /** Bloc isolé posé avant les traces (laine forcée, pierre, rail…). */
+    /** Single block placed before the traces. */
     private record Seed(int x, int y, int z, String block) {
     }
 
@@ -144,7 +144,7 @@ public final class ParityHarness {
                 ok++;
             } else {
                 fail++;
-                report.add(sc.id + " : " + diffs.size() + " differences");
+                report.add(sc.id + ": " + diffs.size() + " difference(s)");
                 for (int i = 0; i < Math.min(8, diffs.size()); i++) {
                     report.add("   " + diffs.get(i));
                 }
@@ -176,22 +176,13 @@ public final class ParityHarness {
         return out;
     }
 
-    private static List<String> toTraceLinesBP(
-            java.util.List<BlockPos> voxels) {
-        List<String> out = new ArrayList<>(voxels.size());
-        for (BlockPos v : voxels) {
-            out.add(v.getX() + "," + v.getY() + "," + v.getZ());
-        }
-        return out;
-    }
-
-    /** Bloc par nom de registre (défaut air si inconnu — jamais le cas ici). */
+    /** Block by registry name (air when unknown, which never happens here). */
     private static Block blockByName(String name) {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(
                 ResourceLocation.withDefaultNamespace(name));
     }
 
-    /** Rejoue la scène côté Java réel et retourne la liste des divergences. */
+    /** Replays the scene through the real Java pipeline and returns differences. */
     private static List<String> run(Scene sc) {
         return run(sc, new ArrayList<>());
     }
@@ -247,55 +238,22 @@ public final class ParityHarness {
                     AdaptiveSampler.sample(control, 6);
             List<BlockPos> trace = Spline.voxelize(samples);
             for (BlockPos v : trace) {
-                // IDENTIQUE a RailwayTool.recompute (helper partage).
+                // Same wool-laying rule as RailwayTool.recompute.
                 net.minecraft.world.level.block.state.BlockState layCur =
                         view.at(v.getX(), v.getY(), v.getZ());
                 boolean layOk = Grounding.isWoolLayable(layCur);
-                if (sc.id.equals(
-                        System.getProperty("parity.debugScene", ""))
-                        && (v.getX() + "," + v.getY() + "," + v.getZ())
-                                .equals(System.getProperty(
-                                        "grounding.debugCell", "__"))) {
-                    System.out.println("[LCELL] " + v.getX() + "," + v.getY()
-                            + "," + v.getZ() + " cur=" + layCur.getBlock()
-                            + " layable=" + layOk);
-                }
                 if (layOk) {
                     view.put(v.getX(), v.getY(), v.getZ(),
                             Blocks.WHITE_WOOL.defaultBlockState());
                 }
             }
+            // Same pipeline as RailwayTool.recompute (all options enabled).
             LongOpenHashSet dug = new LongOpenHashSet();
-            boolean db = sc.id.equals(
-                    System.getProperty("parity.debugScene", ""));
-            Grounding.DEBUG_SCOPE = db;
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] avant: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
             trace = Grounding.apply(view, trace, dug);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] apresG1: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
-            // Pipeline EXACT du mod (RailwayTool.recompute) : pas de re-lay
-            // intermediaire — le Grounding gere lui-meme la laine.
             trace = LCorners.purge(view, trace);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] apresL: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
             trace = Grounding.apply(view, trace, dug);
             trace = Grounding.flattenTeeth(view, trace);
             trace = Grounding.dedupeColumns(view, trace);
-            if (db) {
-                System.out.println("[DBG " + sc.id + "] fin: "
-                        + toTraceLinesBP(trace).subList(0,
-                                Math.min(64, trace.size())));
-            }
 
             for (BlockPos v : trace) {
                 traceDump.add(new int[]{v.getX(), v.getY(), v.getZ()});
@@ -335,10 +293,10 @@ public final class ParityHarness {
                 }
             }
             if (typeMism > 0 || nbMism > 0) {
-                System.out.println("  -> types divergents=" + typeMism
-                        + " voisinages divergents=" + nbMism);
+                System.out.println("  -> type mismatches=" + typeMism
+                        + " neighbour mismatches=" + nbMism);
             }
-            // Comparaison bidirectionnelle des ensembles de voxels de trace.
+            // Bidirectional comparison of the trace voxel sets.
             {
                 LongOpenHashSet javaKeys = new LongOpenHashSet();
                 for (BlockPos v : trace) {
@@ -351,7 +309,7 @@ public final class ParityHarness {
                     long lk = BlockPos.asLong(i(c[0]), i(c[1]), i(c[2]));
                     if (!javaKeys.contains(lk)) {
                         if (missing < 3) {
-                            System.out.println("  [TRACE-] sim a " + k
+                            System.out.println("  [TRACE-] sim has " + k
                                     + " que java n'a pas");
                         }
                         missing++;
@@ -361,15 +319,15 @@ public final class ParityHarness {
                     String k = key(v.getX(), v.getY(), v.getZ());
                     if (!sc.simTypes.containsKey(k)) {
                         if (extra < 3) {
-                            System.out.println("  [TRACE+] java a " + k
+                            System.out.println("  [TRACE+] java has " + k
                                     + " que sim n'a pas");
                         }
                         extra++;
                     }
                 }
                 if (missing > 0 || extra > 0) {
-                    System.out.println("  -> trace: manquants=" + missing
-                            + " supplementaires=" + extra);
+                    System.out.println("  -> trace: missing=" + missing
+                            + " extra=" + extra);
                 }
             }
             Long2ObjectOpenHashMap<BlockState> plan = new Long2ObjectOpenHashMap<>();
@@ -385,9 +343,8 @@ public final class ParityHarness {
             }
         }
 
-        // Carte finale : overlay du view (l'overlay reflète déjà tout ce que
-        // les passes/track/designs ont écrit — ColumnWriter/Writer écrivent
-        // à double dans plan ET view).
+        // Final map: the view overlay already holds everything the passes, track
+        // model and designs wrote (both writers update plan and view).
         Long2ObjectOpenHashMap<BlockState> ov = view.overlay();
         Map<String, String> diffs = new TreeMap<>();
         Map<String, String> finalTok = new TreeMap<>();
@@ -399,10 +356,9 @@ public final class ParityHarness {
                         BlockPos.getZ(k)), token);
             }
         }
-        // Comparaison « ensemble de changements » : union des clés de
-        // (initial, final, attendu). Une cellule absente de E vaut son bloc
-        // initial (l'export n'écrit que les changements) ; toute différence
-        // finale vs initiale non exportée = fuite, où qu'elle soit.
+        // Change-set comparison over the union of initial, final and expected
+        // keys. A cell missing from E counts as its initial block (the export only
+        // writes changes); any final difference not exported is a leak.
         if (sc.id.equals(System.getProperty("parity.debugScene", ""))) {
             System.out.println("[WORLDDBG " + sc.id + "] finalTok:");
             finalTok.forEach((k, tk) -> System.out.println(
@@ -417,7 +373,7 @@ public final class ParityHarness {
                     initial.getOrDefault(k, "air"));
             String got = finalTok.getOrDefault(k, "air");
             if (!exp.equals(got)) {
-                diffs.put(k, k + " attendu=" + exp + " obtenu=" + got);
+                diffs.put(k, k + " expected=" + exp + " got=" + got);
             }
         }
         return new ArrayList<>(diffs.values());
@@ -431,7 +387,7 @@ public final class ParityHarness {
         return x + "," + y + "," + z;
     }
 
-    /** Nom canonique d'un état de bloc, identique aux tokens du simulateur. */
+    /** Canonical name for a block state, identical to the simulator tokens. */
     static String token(BlockState st) {
         if (st == null || st.isAir()) {
             return "air";
@@ -439,8 +395,8 @@ public final class ParityHarness {
         String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK
                 .getKey(st.getBlock()).getPath();
         if (id.endsWith("_wool")) {
-            // Les 16 couleurs : laines forcées (rouge/bleue/claire), trace
-            // blanche, pilier noir — le token sim est l'id direct.
+            // The 16 colours: forced wools, white trace wool and the black pillar map
+            // directly to their block id.
             return id;
         }
         switch (id) {

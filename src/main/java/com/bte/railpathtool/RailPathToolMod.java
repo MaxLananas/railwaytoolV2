@@ -1,6 +1,7 @@
 package com.bte.railpathtool;
 
 import com.bte.railpathtool.axiom.Axiom;
+import com.bte.railpathtool.dev.InGameSelfTest;
 import com.bte.railpathtool.tools.RailwayTool;
 import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
@@ -13,11 +14,12 @@ public class RailPathToolMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        InGameSelfTest.install();
         if (!Axiom.init()) {
-            LOGGER.warn("[RailwayTool] Axiom introuvable — l'outil rail est désactivé.");
+            LOGGER.warn("[RailwayTool] Axiom not found, the rail tool is disabled.");
             return;
         }
         Axiom.registerTool(new RailwayTool());
-        LOGGER.info("[RailwayTool] Outil Rail BTE enregistré dans Axiom.");
+        LOGGER.info("[RailwayTool] BTE rail tool registered with Axiom.");
     }
 }

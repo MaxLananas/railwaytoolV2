@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Poista viimeinen piste",
   "bte_railpathtool.ui.confirm": "Rakenna",
   "bte_railpathtool.ui.clear": "Tyhjennä kaikki",
-  "bte_railpathtool.ui.hint": "Oikea klikki: lisää piste | Delete: poista | Enter: rakenna",
   "bte_railpathtool.ui.gen": "Reitti",
   "bte_railpathtool.ui.density": "Spline-tiheys",
   "bte_railpathtool.ui.ground_snap": "Maastoon",

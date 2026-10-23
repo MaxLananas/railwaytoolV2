@@ -45,10 +45,6 @@ public final class Axiom {
         }
     }
 
-    public static boolean isReady() {
-        return ready;
-    }
-
     public static void registerTool(CustomTool tool) {
         registry.register(tool);
     }
@@ -73,12 +69,25 @@ public final class Axiom {
         return regions.createBoolean();
     }
 
-    public static void acquireChunkRenderOverrider(String id) {
-        tools.acquireChunkRenderOverrider(id);
+    /**
+     * The render override is global. A failed acquisition (already held by
+     * another tool) disables the preview instead of crashing the client.
+     */
+    public static boolean acquireChunkRenderOverrider(String id) {
+        try {
+            tools.acquireChunkRenderOverrider(id);
+            return true;
+        } catch (RuntimeException | Error e) {
+            return false;
+        }
     }
 
     public static void releaseChunkRenderOverrider(String id) {
-        tools.releaseChunkRenderOverrider(id);
+        try {
+            tools.releaseChunkRenderOverrider(id);
+        } catch (RuntimeException | Error ignored) {
+            // Already released (world change or tool switch).
+        }
     }
 
     public static void setBlockRenderOverride(int x, int y, int z, BlockState state) {

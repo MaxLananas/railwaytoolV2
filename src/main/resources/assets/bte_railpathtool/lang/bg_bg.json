@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Премахни последната точка",
   "bte_railpathtool.ui.confirm": "Построй",
   "bte_railpathtool.ui.clear": "Изчисти всичко",
-  "bte_railpathtool.ui.hint": "Десен бутон: добави точка | Delete: премахни | Enter: построй",
   "bte_railpathtool.ui.gen": "Трасе",
   "bte_railpathtool.ui.density": "Плътност на сплайна",
   "bte_railpathtool.ui.ground_snap": "По релефа",

@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Pašalinti paskutinį tašką",
   "bte_railpathtool.ui.confirm": "Statyti",
   "bte_railpathtool.ui.clear": "Išvalyti viską",
-  "bte_railpathtool.ui.hint": "Dešinysis klav.: pridėti tašką | Delete: pašalinti | Enter: statyti",
   "bte_railpathtool.ui.gen": "Trasa",
   "bte_railpathtool.ui.density": "Spline tankis",
   "bte_railpathtool.ui.ground_snap": "Sekti reljefą",

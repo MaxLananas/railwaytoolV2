@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Harnais "realiste SNCF" : lignes telles qu'un joueur BTE les trace pour du
-rail roleplay 1:1 France — grandes courbes (rayon >= ~120 m), rampes douces
-(<= ~4 %), lacets de montagne, aiguillages en Y, voies paralleles,
-courbes de transition. Chaque ligne passe par la chaine complete
-(spline -> voxelize -> nivelage -> epuration -> construction) avec les options
-UI : terrains plats/valomes puis terrasses, styles classic/nature, themes 1/2.
+"""Realistic railway harness: lines the way a BTE player draws them for 1:1
+French roleplay - wide curves (radius >= ~120 m), gentle grades (<= ~4 %),
+mountain switchbacks, Y junctions, parallel tracks and transition curves.
+Every line goes through the full chain (spline -> voxelize -> levelling ->
+cleanup -> build) with the UI options: flat or hilly terrain then terraces,
+classic/nature styles, themes 1 and 2.
 
-Invariants specifiques au rail realiste verifies en plus des invariants
-generiques (du meme acabit que stupid/mass) :
-- trace finale 26-connexe (pas de morceau isole)
-- pas de marche > 1 en Y entre voxels consecutifs (continuite du profil)
-- chaque voxel de trace recoit un element de rail a y+1 (corail/pupitre/mousse)
-- les grands alignements gardent des murets continus des deux cotes.
+Specific invariants checked on top of the generic ones (same as stupid/mass):
+- the final trace is 26-connected (no isolated fragment)
+- no step greater than 1 in Y between consecutive voxels (profile continuity)
+- every trace voxel receives a rail element at y+1 (coral/lectern/moss)
+- long alignments keep continuous walls on both sides.
 """
 import math
 import os
@@ -39,33 +38,32 @@ def fail(case, msg):
 
 
 # ------------------------------------------------------------------------------
-# GENERATEURS DE LIGNES REALISTES
+# REALISTIC LINE GENERATORS
 # ------------------------------------------------------------------------------
 
 def gen_mainline(seed, length=600.0, min_radius=120.0):
-    """Grande ligne : points de controle espaces ~60 m, angles progressifs.
-    Rayon effectif >= min_radius par construction (angles doux)."""
+    """Main line: control points about 60 m apart with progressive angles.
+    Effective radius >= min_radius by construction (gentle angles)."""
     rnd = random.Random(seed)
     pts = [(0.0, 64.0, 0.0)]
     heading = rnd.uniform(0, math.tau)
     x, z = 0.0, 0.0
-    y = 64.0
     remaining = length
     while remaining > 0:
         seg = rnd.uniform(45.0, 75.0)
-        # angle max tel que rayon ~= seg/angle >= min_radius
+        # max angle such that radius ~= seg/angle >= min_radius
         max_ang = seg / min_radius
         heading += rnd.uniform(-max_ang, max_ang)
         x += math.cos(heading) * seg
         z += math.sin(heading) * seg
-        # profil en long plat (grande ligne : c'est l'outil qui suit le terrain)
+        # flat longitudinal profile; on a long line the tool follows the terrain
         pts.append((x, 64.0, z))
         remaining -= seg
     return pts
 
 
 def gen_ramp(seed, length=400.0, grade=0.035):
-    """Ligne en rampe douce constante (defaut 3.5 %, max SNCF lourd)."""
+    """Line on a constant gentle grade (default 3.5 %, the heavy rail maximum)."""
     rnd = random.Random(seed)
     heading = rnd.uniform(0, math.tau)
     n = max(3, int(length // 60))
@@ -81,7 +79,7 @@ def gen_ramp(seed, length=400.0, grade=0.035):
 
 
 def gen_transition(seed, length=500.0):
-    """Courbe de transition (approx. clothoide) : droite -> arc -> droite."""
+    """Transition curve, approximately a clothoid: straight -> arc -> straight."""
     rnd = random.Random(seed)
     heading_in = rnd.uniform(0, math.tau)
     turn = rnd.choice((-1, 1)) * rnd.uniform(0.5, 1.1)
@@ -89,12 +87,12 @@ def gen_transition(seed, length=500.0):
     x, z = 0.0, 0.0
     h = heading_in
     pts.append((x, 64.0, z))
-    # 1) droite d'approche 100 m
+    # 1) 100 m approach straight
     for _ in range(2):
         x += math.cos(h) * 50.0
         z += math.sin(h) * 50.0
         pts.append((x, 64.0, z))
-    # 2) transition : angles croissants (rayons 400 -> 150)
+    # 2) Transition: growing angles, radius from 400 down to 150
     fracs = 10
     for i in range(1, fracs + 1):
         h += turn / fracs * (i / fracs)
@@ -102,14 +100,14 @@ def gen_transition(seed, length=500.0):
         x += math.cos(h) * seg
         z += math.sin(h) * seg
         pts.append((x, 64.0, z))
-    # 3) arc stable
+    # 3) Steady arc
     for _ in range(fracs):
         h += turn / fracs
         seg = (length - 200.0) / (fracs * 2)
         x += math.cos(h) * seg
         z += math.sin(h) * seg
         pts.append((x, 64.0, z))
-    # 4) droite de sortie
+    # 4) Exit straight
     for _ in range(2):
         x += math.cos(h) * 50.0
         z += math.sin(h) * 50.0
@@ -118,7 +116,7 @@ def gen_transition(seed, length=500.0):
 
 
 def gen_switchbacks(seed):
-    """Montagne : lacets en pente ~4 % (ligne de montagne type Alpes)."""
+    """Mountain line: switchbacks on a ~4 % grade, Alpine style."""
     rnd = random.Random(seed)
     pts = []
     x, z, y = 0.0, 0.0, 64.0
@@ -132,7 +130,7 @@ def gen_switchbacks(seed):
             z += math.sin(h) * (seglen / steps)
             y += (seglen / steps) * 0.04
             pts.append((x, y, z))
-        # lacet : demi-tour progressif sur 3 points
+        # switchback: progressive U-turn over three points
         target = h + rnd.choice((2.4, -2.4))
         for i in range(1, 4):
             hh = h + (target - h) * (i / 3.0) * 0.45
@@ -141,11 +139,11 @@ def gen_switchbacks(seed):
             y += 14.0 * 0.04
             pts.append((x, y, z))
         h = target
-    return pts, pts  # controle + trace brute robustee plus bas
+    return pts, pts  # control points; the raw trace is hardened below
 
 
 def gen_y_junction(seed):
-    """Aiguillage en Y : ligne mere 300 m + embranchement deviant a ~10 degres."""
+    """Y junction: a 300 m main line plus a branch diverging by about 10 degrees."""
     main_pts = gen_mainline(seed * 7 + 1, 300.0, 200.0)
     mid = main_pts[len(main_pts) // 2]
     rnd = random.Random(seed)
@@ -163,7 +161,7 @@ def gen_y_junction(seed):
 
 
 def gen_parallel(seed, length=450.0):
-    """Deux voies paralleles ecar tees de 3 blocs (espacement banlieue SNCF)."""
+    """Two parallel tracks 3 blocks apart, typical commuter spacing."""
     base = gen_mainline(seed * 13 + 5, length, 160.0)
     other = []
     for (x, y, z) in base:
@@ -172,7 +170,7 @@ def gen_parallel(seed, length=450.0):
 
 
 # ------------------------------------------------------------------------------
-# TERRAIN + PIPELINE
+# TERRAIN AND PIPELINE
 # ------------------------------------------------------------------------------
 
 def make_terrain(trace, seed, kind="flat"):
@@ -182,9 +180,9 @@ def make_terrain(trace, seed, kind="flat"):
     rnd = random.Random(seed)
     x0, x1 = min(xs) - 4, max(xs) + 4
     z0, z1 = min(zs) - 4, max(zs) + 4
-    # surface 3 blocs sous le point le plus bas de la trace : les laines
-    # flottent de 0..6 et la rectification les depose en douceur (profil
-    # ferroviaire continu), aucune laine n'est enterree.
+    # Ground sits 3 blocks below the lowest trace point so the wool floats 0..6
+    # blocks up and rectification lays it down gently (continuous railway
+    # profile), leaving no buried wool.
     y_base = min(ys) - 3
     w = R.World()
 
@@ -219,8 +217,8 @@ def build_trace(world, control, dug=None):
     vox = R.voxelize(floats)
     lay_wool(world, vox)
     trace = R.rectify_vertical(world, vox, R.SPLINE, R.CORNER, dug=dug)
-    # PAS de re-pose de laine ici : pipeline exact du mod (la rectification
-    # gere la laine elle-meme — le re-lay faisait diverger la purge L).
+    # No wool re-lay here: this is the exact mod pipeline; rectification
+    # handles the wool itself, and re-laying made the "L" purge diverge.
     trace = R.rectify_l(world, trace, R.SPLINE, R.CORNER)
     trace = R.rectify_vertical(world, trace, R.SPLINE, R.CORNER, dug=dug)
     trace = R.flatten_teeth(world, trace, R.SPLINE)
@@ -228,7 +226,7 @@ def build_trace(world, control, dug=None):
 
 
 def check_trace_quality(name, trace):
-    """Invariants du profil d'une voie exploitable."""
+    """Profile invariants of a usable track."""
     if len(trace) < 2:
         return
     # 26-connexite
@@ -248,7 +246,7 @@ def check_trace_quality(name, trace):
     counts["verif"] += len(trace)
     if len(seen) != len(s):
         fail(name, f"trace non connexe: {len(s) - len(seen)} voxel(s) isoles")
-    # pas de marche > 1 en y entre consecutifs
+    # no step greater than 1 in y between consecutive voxels
     for a, b in zip(trace, trace[1:]):
         counts["verif"] += 1
         if abs(a[1] - b[1]) > 1 and (abs(a[0] - b[0]) + abs(a[2] - b[2])) <= 2:
@@ -256,8 +254,8 @@ def check_trace_quality(name, trace):
 
 
 def check_rail_cover(name, world, trace, style):
-    """Chaque voxel de trace doit etre recouvert de rail (a y+1, ou deja present
-    a y/y+2 pour les croisements et chevauchements multi-lignes)."""
+    """Every trace voxel must be covered by rail, either at y+1 or already
+    present at y or y+2 for multi-line crossings and overlaps."""
     for (x, y, z) in trace:
         counts["verif"] += 1
         trio = (world.get(x, y, z), world.get(x, y + 1, z),
@@ -285,8 +283,8 @@ def check_states_and_doors(name, world):
 
 
 def check_straight_walls(name, world, model, trace):
-    """Sur un alignement a 2 voisins NS (ou EW), les 2 cotes doivent porter
-    un etat rail (mur ou ecran/porte) a y+1 ou etre proteges par du rail."""
+    """On an alignment with two N-S (or E-W) neighbours, both sides must carry a
+    rail state (wall or panel/door) at y+1, or be protected by existing rail."""
     for (x, y, z) in trace:
         t = model.types.get((x, y, z))
         if t == R.NS:
@@ -303,8 +301,8 @@ def check_straight_walls(name, world, model, trace):
             continue
         counts["verif"] += 1
         for (sx, sy, sz) in sides:
-            # muret pose par ce voxel (y+1) ou par le voisin de niveau inferieur
-            # (case y du voxel haut dans un escalier) : continuite laterale ok
+            # Wall placed by this voxel at y+1 or by the lower neighbour (the y
+            # cell of the high voxel on a staircase): lateral continuity holds.
             b1 = world.get(sx, sy + 1, sz)
             b0 = world.get(sx, sy, sz)
             if b1 not in R.RAIL_FAMILY and b0 not in R.RAIL_FAMILY:
@@ -316,8 +314,8 @@ def run_realistic(name, controls, terrain="flat", smooth=False, walls=True,
     counts["scenarios"] += 1
     try:
         if isinstance(controls[0], list):
-            # multi-lignes dans UN SEUL monde (croisements/y/paralleles) :
-            # le build de la ligne B protége le rail de la ligne A.
+            # Multiple lines in ONE world (crossings, Y junctions, parallels):
+            # building line B must preserve the rail of line A.
             pre_all = []
             for ctl in controls:
                 pre_all += [(int(round(x)), int(round(y)), int(round(z)))
@@ -386,7 +384,7 @@ def main():
         run_realistic(f"yjunction-{i}", gen_y_junction(9500 + i), walls=False)
         run_realistic(f"parallel-{i}", gen_parallel(9600 + i))
     dt = time.time() - t0
-    print(f"\n=== REALISTE {counts['scenarios']} lignes | {counts['builds']} builds | "
+    print(f"\n=== REALISTIC {counts['scenarios']} lines | {counts['builds']} builds | "
           f"{counts['verif']:,} verifications | {dt:.1f}s ===")
     if violations:
         print(f"!!! {len(violations)} violations !!!")
@@ -399,7 +397,7 @@ def main():
         for x in violations[:12]:
             print("   ", x)
         sys.exit(1)
-    print("Tout est vert : aucune violation.")
+    print("All green: no violation.")
 
 
 if __name__ == "__main__":

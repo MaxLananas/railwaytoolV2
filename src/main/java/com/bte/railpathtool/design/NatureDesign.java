@@ -128,9 +128,9 @@ public final class NatureDesign implements RailDesign {
         if (nb.size() >= 2) {
             String d1 = nb.get(0);
             String d2 = nb.get(1);
-            // Derive en coin (le troncon glisse d'1 en X ou Z) : la paire
-            // droite (N,S)/(E,O) masque le voisin diagonal — on le substitue
-            // pour rendre la litiere a 3 segments du script dans les coins.
+            // Corner drift (the segment slides one block in X or Z): the straight
+            // N/S or E/W pair hides the diagonal neighbour. Replace it so corners
+            // get the reference three-segment litter.
             if ((d1.equals("N") && d2.equals("S")) || (d1.equals("S") && d2.equals("N"))
                     || (d1.equals("E") && d2.equals("O")) || (d1.equals("O") && d2.equals("E"))) {
                 for (String d : nb) {
@@ -159,9 +159,11 @@ public final class NatureDesign implements RailDesign {
     private static final java.util.Set<String> CARD_E = java.util.Set.of("E", "NE", "SE");
     private static final java.util.Set<String> CARD_O = java.util.Set.of("O", "NO", "SO");
 
-    /** Valeurs {a1, f1, a2, f2} : script Rouquinator pour les 8 paires canoniques,
-     * extension cohérente (litière à 3 segments tournée vers le creux du virage)
-     * pour toutes les autres paires — virages durs, traces dégénérées. */
+    /**
+     * {segments, facing, segments, facing} for the seven canonical pairs. Other
+     * pairs (hard turns, degenerate traces) fall back to a consistent
+     * three-segment litter turned toward the inside of the curve.
+     */
     private static Object[] leafValues(boolean dirNS, String d1, String d2) {
         for (Object[] row : dirNS ? LEAF_NS : LEAF_EW) {
             String[] pair = (String[]) row[0];
@@ -221,9 +223,8 @@ public final class NatureDesign implements RailDesign {
         }
 
         /**
-         * Pose de décor visible : si la cellule dessus est un bloc solide de
-         * terrain hostile (pas du rail/air/eau), le décor serait enterré —
-         * suppression (le cas « il manque le rail » de la capture #2).
+         * Places visible decor. If the cell above is solid terrain (not rail, air
+         * or water) the decor would be buried, so the write is skipped.
          */
         void putDecorVisible(int x, int y, int z, BlockState state) {
             BlockState above = view.at(x, y + 1, z);
@@ -243,36 +244,32 @@ public final class NatureDesign implements RailDesign {
         void put(int x, int y, int z, BlockState state) {
             long key = BlockPos.asLong(x, y, z);
             boolean planned = plan.containsKey(key);
-            // Monde live (overlay) comme le script : tout rail visible avant
-            // ce build est intouchable (initialAt rend le veto muet partout
-            // ou le niveau n'a pas encore recu les rails des coups precedents
-            // — par ex. le harnais de parite, ou level est null).
+            // Live overlay, as in the reference script: any rail already visible
+            // before this build is untouchable. Without a level (parity harness)
+            // the initial-state veto is silent rather than wrong.
             BlockState cur = planned ? plan.get(key) : view.at(x, y, z);
             if (!planned
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 if (ClassicDesign.ColumnWriter.isRailCore(cur)) {
-                    return;                    // jamais d'écrasement d'un core
+                    return;                    // never overwrite a core
                 }
                 if (!ClassicDesign.ColumnWriter.isRailCore(state)) {
-                    // décor ultérieur ne touche ni au décor ni au lit d'une
-                    // voie antérieure — mais un CORE la reprend (jonctions :
-                    // le rail visible passe avant la litière d'à côté).
+                    // Later decor leaves earlier decor and beds alone, but a core may take
+                    // them (junctions: visible rail wins).
                     return;
                 }
             }
-            // Anti-chevauchement intra-build, à priorité : un CORE (pupitre/
-            // mousse) gagne toujours sa case — sinon la litière d'un voxel bas
-            // prendrait la case du core du voxel haut d'un escalier et le
-            // core serait refusé (cores manquants). Un décor ne remplace un
-            // décor existant que s'il est identique ; le gravier est le lit
-            // passif améliorable.
+            // Intra-build priority: a core (lectern/moss) always wins its cell,
+            // otherwise the litter of a lower voxel could claim the core cell of the
+            // voxel above on a stair. Decor only replaces identical decor; gravel is
+            // the passive bed that decor may improve.
             if (planned && cur != null && cur != state
                     && ClassicDesign.ColumnWriter.isRailFamily(cur)) {
                 if (isNatureCore(cur)) {
-                    return;                     // un core posé ne bouge jamais
+                    return;                     // a placed core never moves
                 }
                 if (!isNatureCore(state) && cur.getBlock() != Blocks.GRAVEL) {
-                    return;                     // décor sur décor différent : non
+                    return;                     // decor over a different decor: no
                 }
             }
             plan.put(key, state);
@@ -280,15 +277,13 @@ public final class NatureDesign implements RailDesign {
         }
 
         /**
-         * Comble sous les blocs poses qui flottent : aucun bloc du build ne
-         * garde de l'air directement sous lui (contrat du script, la voie
-         * repose toujours sur le sol — remplissage gravier, max 6 blocs).
+         * Fills under floating rail blocks: no block of this build keeps air
+         * directly below it. Gravel fill, at most four blocks deep.
          */
         void fillSupports(DesignOptions options) {
             final int depthMax = 4;
-            // Tout le rail visible (overlay), comme le script qui parcourt le
-            // monde entier : une trace suivante a pu recreuser le support d'un
-            // rail pose juste avant (dug de la meme passe).
+            // Whole visible overlay, as in the reference script: a later trace may
+            // have dug the support of a rail placed just before.
             long[] keys = view.overlay().keySet().toLongArray();
             for (long key : keys) {
                 BlockState st = view.overlay().get(key);
@@ -303,11 +298,10 @@ public final class NatureDesign implements RailDesign {
                 int x = BlockPos.getX(key);
                 int y = BlockPos.getY(key);
                 int z = BlockPos.getZ(key);
-                // Mesure d'abord le trou réel sous le bloc : un gap plus profond
-                // que depthMax est un pont/viaduc volontaire — ne RIEN faire
-                // (un remplissage tronqué laisserait lui-même 1-3 blocs d'air).
+                // Measure the real gap: deeper than the cap is a deliberate bridge, and
+                // a truncated fill would itself leave air.
                 int gap = 0;
-                // L'eau n'est pas un support (pilier de gravier jusqu'au lit).
+                // Water is not support: the gravel pillar runs down to the bed.
                 while (gap < 64) {
                     BlockState belowSt = view.at(x, y - 1 - gap, z);
                     if (!belowSt.isAir() && !belowSt.is(Blocks.WATER)) {

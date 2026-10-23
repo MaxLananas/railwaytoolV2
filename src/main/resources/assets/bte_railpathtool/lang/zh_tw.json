@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "移除上一個點",
   "bte_railpathtool.ui.confirm": "建造",
   "bte_railpathtool.ui.clear": "全部清除",
-  "bte_railpathtool.ui.hint": "右鍵: 新增點 | Delete: 移除 | Enter: 建造",
   "bte_railpathtool.ui.gen": "軌道",
   "bte_railpathtool.ui.density": "樣條密度",
   "bte_railpathtool.ui.ground_snap": "貼合地形",

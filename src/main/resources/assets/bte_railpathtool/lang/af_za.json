@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Verwyder laaste punt",
   "bte_railpathtool.ui.confirm": "Bou",
   "bte_railpathtool.ui.clear": "Vee alles uit",
-  "bte_railpathtool.ui.hint": "Regsklik: voeg punt by | Delete: verwyder | Enter: bou",
   "bte_railpathtool.ui.gen": "Spoor",
   "bte_railpathtool.ui.density": "Spline-digtheid",
   "bte_railpathtool.ui.ground_snap": "Kliek aan terrein",

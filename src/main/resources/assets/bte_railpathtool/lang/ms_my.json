@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Buang titik terakhir",
   "bte_railpathtool.ui.confirm": "Bina",
   "bte_railpathtool.ui.clear": "Kosongkan semua",
-  "bte_railpathtool.ui.hint": "Klik kanan: tambah titik | Delete: buang | Enter: bina",
   "bte_railpathtool.ui.gen": "Laluan",
   "bte_railpathtool.ui.density": "Ketumpatan spline",
   "bte_railpathtool.ui.ground_snap": "Ikut permukaan",

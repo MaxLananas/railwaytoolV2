@@ -4,7 +4,6 @@
   "bte_railpathtool.ui.undo": "Xoá điểm cuối",
   "bte_railpathtool.ui.confirm": "Xây dựng",
   "bte_railpathtool.ui.clear": "Xoá hết",
-  "bte_railpathtool.ui.hint": "Chuột phải: thêm điểm | Delete: xoá | Enter: xây",
   "bte_railpathtool.ui.gen": "Tuyến",
   "bte_railpathtool.ui.density": "Mật độ spline",
   "bte_railpathtool.ui.ground_snap": "Bám theo địa hình",

@@ -1,0 +1,17 @@
+[SELFTEST] PASS 7/7 checks | PASS saved rail survived the restart | PASS presets survived the restart | PASS plan after restart | PASS build after restart | PASS render lock released (restart) | PASS ghost cleared (restart) | PASS no mod errors in log
+PASS
+dismissed class_3928
+scene restart
+restart world: 153/153 blocks 
+PASS saved rail survived the restart
+PASS presets survived the restart
+add 504,8 control=1 y=-59.00 [class_2338{x=504, y=-59, z=8]
+add 504,16 control=2 y=-59.00 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16]
+add 504,24 control=3 y=-59.00 [class_2338{x=504, y=-59, z=8, class_2338{x=504, y=-59, z=16, class_2338{x=504, y=-59, z=24]
+restart plan=153 cores=17
+PASS plan after restart
+restart build applied 153/153
+PASS build after restart
+PASS render lock released (restart)
+PASS ghost cleared (restart)
+PASS no mod errors in log
