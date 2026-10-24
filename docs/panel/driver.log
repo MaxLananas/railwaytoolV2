@@ -1,30 +1,29 @@
-[02:30:49] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[02:30:49] fabric loader jar: True
-[02:30:49] version: fabric-loader-0.19.3-1.21.10
-[02:30:49] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[02:30:49] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[02:30:49] Fabric API 0.138.4+1.21.10
-[02:30:50] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[02:30:50] waiting for the world
-[02:31:10] ready=True alive=True
-[02:31:22] focused: True
-[02:31:23] shot panel-0-world: True PLETE LE LE Te
-[02:31:23] opening the editor
-[02:31:33] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
-[02:31:35] clicked 'Continue' at 339,178
-[02:31:39] clicked 'Continue' at 341,680
-[02:31:42] clicked 'Continue' at 1311,504
-[02:31:46] clicked 'Continue' at 826,339
-[02:31:49] clicked 'Continue' at 1311,728
-[02:31:52] text not found: Continue
-[02:31:54] text not found: Continue
-[02:31:57] text not found: Continue
-[02:31:58] text not found: Continue
-[02:32:02] clicked 'Skip' at 774,839
-[02:32:11] shot 01-hover-icon2: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:32:15] shot 02-hover-icon34: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:32:24] shot 03-rclick-icon17: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:32:28] shot 04-press-icon10: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:32:36] shot 05-dbl-icon27: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:32:36] closing
-[02:32:40] done
+[02:36:23] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[02:36:23] fabric loader jar: True
+[02:36:23] version: fabric-loader-0.19.3-1.21.10
+[02:36:23] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[02:36:23] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[02:36:24] Fabric API 0.138.4+1.21.10
+[02:36:25] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[02:36:25] waiting for the world
+[02:36:45] ready=True alive=True
+[02:36:57] focused: True
+[02:36:58] shot panel-0-world: True TUTTLE LE L LL es
+[02:36:58] opening the editor
+[02:37:08] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
+[02:37:11] clicked 'Continue' at 339,178
+[02:37:14] clicked 'Continue' at 341,680
+[02:37:19] clicked 'Continue' at 1311,504
+[02:37:24] clicked 'Continue' at 826,339
+[02:37:31] clicked 'Continue' at 1311,728
+[02:37:34] text not found: Continue
+[02:37:37] text not found: Continue
+[02:37:42] text not found: Continue
+[02:37:45] text not found: Continue
+[02:37:49] clicked 'Skip' at 774,839
+[02:37:57] shot 01-start: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info We /SXG 7 ms Bl Emp = . a This is your clipboard. if you have a selection you a / i pend SB 4 ay 
+[02:38:06] shot 02-abs: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. if you have a selection you a / i pend SB 4 ay 
+[02:38:12] shot 03-rel: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:38:16] shot 04-key-m: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay can
+[02:38:16] closing
+[02:38:20] done
