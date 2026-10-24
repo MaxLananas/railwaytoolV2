@@ -20,6 +20,9 @@ import com.moulberry.axiomclientapi.regions.BlockRegion;
 import com.moulberry.axiomclientapi.regions.BooleanRegion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import imgui.moulberry92.ImGui;
+import imgui.moulberry92.ImVec4;
+import imgui.moulberry92.flag.ImGuiCol;
+import imgui.moulberry92.flag.ImGuiTreeNodeFlags;
 import imgui.moulberry92.type.ImBoolean;
 import imgui.moulberry92.type.ImInt;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
@@ -39,6 +42,12 @@ import java.util.List;
 import java.util.Map;
 
 public class RailwayTool implements CustomTool {
+
+    private static final float LABEL_W = 96.0f;
+    private static final ImVec4 ACCENT = new ImVec4(0.91f, 0.66f, 0.26f, 1.0f);
+    private static final ImVec4 OK_TEXT = new ImVec4(0.55f, 0.85f, 0.58f, 1.0f);
+    private static final ImVec4 WARN_TEXT = new ImVec4(0.93f, 0.78f, 0.35f, 1.0f);
+    private static final ImVec4 ERROR_TEXT = new ImVec4(0.93f, 0.47f, 0.47f, 1.0f);
 
     private static final int MAX_PLAN_BLOCKS = 60_000;
     private static final int MAX_GHOST_BLOCKS = 6_000;
@@ -187,244 +196,298 @@ public class RailwayTool implements CustomTool {
         Minecraft mc = Minecraft.getInstance();
         restoreConfigOnce();
 
-        ImGui.textDisabled(tr("ui.help_1"));
-        ImGui.textDisabled(tr("ui.help_2"));
-        ImGui.textDisabled(tr("ui.help_3"));
+        drawHeader();
+        drawStatus();
+        drawHelp();
+
+        drawSummary();
+        drawActions(mc);
+
+        drawTrack();
+        drawLook();
+        drawPresets();
+        drawDebug();
+    }
+
+    private void drawHeader() {
+        ImGui.spacing();
+        ImGui.textColored(ACCENT, tr("tool.name"));
+        ImGui.textDisabled(tr("ui.subtitle"));
+        ImGui.spacing();
+    }
+
+    private void drawStatus() {
         if (!warning.isEmpty()) {
-            ImGui.textWrapped("/!\\ " + warning);
+            ImGui.textColored(WARN_TEXT, "[!] " + warning);
         }
         if (!status.isEmpty()) {
-            ImGui.textWrapped((statusError ? "/!\\ " : "(i) ") + status);
+            ImGui.textColored(statusError ? ERROR_TEXT : OK_TEXT,
+                    (statusError ? "[!] " : "[i] ") + status);
         }
-        ImGui.separator();
+        if (warning.isEmpty() && status.isEmpty()) {
+            ImGui.textDisabled(tr("ui.idle"));
+        }
+    }
 
-        if (ImGui.button(tr("ui.undo"))) {
-            callDelete();
+    private void drawHelp() {
+        if (!ImGui.collapsingHeader(tr("ui.howto"), ImGuiTreeNodeFlags.DefaultOpen)) {
+            return;
         }
-        ImGui.sameLine();
-        if (ImGui.button(tr("ui.confirm"))) {
+        ImGui.textWrapped(tr("ui.help_1"));
+        ImGui.textWrapped(tr("ui.help_2"));
+        ImGui.textWrapped(tr("ui.help_3"));
+        ImGui.spacing();
+    }
+
+    private void drawSummary() {
+        ImGui.separatorText(tr("ui.section.line"));
+        rowStart(tr("ui.points_short"));
+        ImGui.text(String.valueOf(control.size()));
+        if (planCount <= 0) {
+            ImGui.spacing();
+            return;
+        }
+        rowStart(tr("ui.planned_short"));
+        ImGui.text(String.valueOf(planCount));
+        if (splineLength > 0) {
+            rowStart(tr("ui.length_short"));
+            ImGui.text(tr("ui.blocks", splineLength));
+        }
+        ImGui.spacing();
+        float fraction = Math.min(1.0f, planCount / (float) MAX_PLAN_BLOCKS);
+        ImGui.pushStyleColor(ImGuiCol.PlotHistogram, ACCENT);
+        ImGui.progressBar(fraction, tr("ui.plan_budget", planCount, MAX_PLAN_BLOCKS));
+        ImGui.popStyleColor();
+        ImGui.spacing();
+    }
+
+    private void drawActions(Minecraft mc) {
+        float full = ImGui.getContentRegionAvailX();
+        float height = ImGui.getFrameHeight() * 1.35f;
+        if (accentButton(tr("ui.action.build"), full, height, tr("ui.tip_build"))) {
             confirm(mc);
         }
+        if (control.size() < 2) {
+            ImGui.textDisabled(tr("ui.need_points"));
+        }
+
+        float gap = 8.0f;
+        float third = (ImGui.getContentRegionAvailX() - 2.0f * gap) / 3.0f;
+        if (ImGui.button(tr("ui.action.undo") + "##undo", third, 0.0f)) {
+            callDelete();
+        }
+        ImGui.setItemTooltip(tr("ui.tip_undo_point"));
         ImGui.sameLine();
-        if (ImGui.button(tr("ui.clear"))) {
+        ImGui.beginDisabled(control.size() <= 3);
+        if (ImGui.button(tr("ui.action.simplify") + "##simplify", third, 0.0f)) {
+            simplifyControl();
+        }
+        ImGui.endDisabled();
+        ImGui.setItemTooltip(tr("ui.tip_simplify"));
+        ImGui.sameLine();
+        if (ImGui.button(tr("ui.action.clear") + "##clear", third, 0.0f)) {
             control.clear();
             dirty = true;
         }
-        ImGui.text(tr("ui.points", control.size()));
-        if (control.size() > 3) {
-            ImGui.sameLine();
-            if (ImGui.button(tr("ui.simplify"))) {
-                simplifyControl();
-            }
-        }
-        if (planCount > 0) {
-            ImGui.text(tr("ui.est_blocks", planCount));
-            if (splineLength > 0) {
-                ImGui.text(tr("ui.length", splineLength));
-            }
-        }
-        ImGui.separator();
+        ImGui.setItemTooltip(tr("ui.tip_clear"));
+        ImGui.spacing();
+    }
 
-        ImGui.textDisabled(tr("ui.gen"));
-        if (ImGui.sliderInt(tr("ui.density"), density, 2, 12)) {
-            dirty = true;
-        }
-        if (ImGui.checkbox(tr("ui.adaptive"), adaptive)) {
-            dirty = true;
-        }
-        if (ImGui.checkbox(tr("ui.ground_snap"), groundSnap)) {
-            dirty = true;
-        }
-        if (groundSnap.get()) {
-            if (ImGui.checkbox(tr("ui.smooth_ridges"), smoothRidges)) {
-                dirty = true;
-            }
-        }
-        if (ImGui.checkbox(tr("ui.purge_corners"), purgeCorners)) {
-            dirty = true;
-        }
-        if (ImGui.checkbox(tr("ui.ghost"), showGhost)) {
-            dirty = true;
-        }
-        if (ImGui.checkbox(tr("ui.ghost_spline"), showSplineGhost)) {
-            dirty = true;
-        }
-        ImGui.separator();
+    private void drawTrack() {
+        ImGui.separatorText(tr("ui.section.track"));
 
+        rowStart(tr("ui.density_short"));
+        ImGui.setNextItemWidth(-1.0f);
+        if (ImGui.sliderInt("##density", density, 2, 12)) {
+            dirty = true;
+        }
+        ImGui.setItemTooltip(tr("ui.tip_density"));
+
+        rowStart(tr("ui.style_short"));
+        ImGui.setNextItemWidth(-1.0f);
         String[] styles = {tr("ui.style.classic"), tr("ui.style.nature")};
-        if (ImGui.combo(tr("ui.style"), styleSel, styles)) {
+        if (ImGui.combo("##style", styleSel, styles)) {
             options.style = styleSel.get() == 0
                     ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
             dirty = true;
         }
+        ImGui.setItemTooltip(tr("ui.tip_style"));
+
+        rowStart(tr("ui.orient_short"));
+        ImGui.setNextItemWidth(-1.0f);
         String[] orients = {tr("ui.orient.auto"), tr("ui.orient.ns"),
                 tr("ui.orient.ew"), tr("ui.orient.diag")};
         TrackModel.OverrideMode[] modes = TrackModel.OverrideMode.values();
-        if (ImGui.combo(tr("ui.orientation"), orientSel, orients)) {
+        if (ImGui.combo("##orient", orientSel, orients)) {
             overrideMode = modes[orientSel.get()];
             dirty = true;
         }
+        ImGui.setItemTooltip(tr("ui.tip_orient"));
 
-        if (options.style == DesignOptions.Style.CLASSIC) {
-            drawClassicOptions();
+        ImGui.spacing();
+        float half = (ImGui.getContentRegionAvailX() - 10.0f) * 0.5f;
+        ImGui.checkbox(tr("ui.opt.snap"), groundSnap);
+        ImGui.setItemTooltip(tr("ui.tip_snap"));
+        ImGui.sameLine(half + 10.0f);
+        if (ImGui.checkbox(tr("ui.opt.adaptive"), adaptive)) {
+            dirty = true;
         }
-        drawPresets();
-        if (ImGui.collapsingHeader(tr("ui.debug"))) {
-            for (Map.Entry<String, Double> e : Profiler.summaryMs().entrySet()) {
-                ImGui.textDisabled(String.format(java.util.Locale.ROOT,
-                        "%s: %.3f ms", e.getKey(), e.getValue()));
+        ImGui.setItemTooltip(tr("ui.tip_adaptive"));
+
+        if (groundSnap.get()) {
+            if (ImGui.checkbox(tr("ui.opt.ridges"), smoothRidges)) {
+                dirty = true;
             }
+            ImGui.setItemTooltip(tr("ui.tip_ridges"));
+            ImGui.sameLine(half + 10.0f);
         }
+        if (ImGui.checkbox(tr("ui.opt.corners"), purgeCorners)) {
+            dirty = true;
+        }
+        ImGui.setItemTooltip(tr("ui.tip_corners"));
+
+        if (ImGui.checkbox(tr("ui.opt.ghost"), showGhost)) {
+            dirty = true;
+        }
+        ImGui.setItemTooltip(tr("ui.tip_ghost"));
+        ImGui.sameLine(half + 10.0f);
+        if (ImGui.checkbox(tr("ui.opt.spline"), showSplineGhost)) {
+            dirty = true;
+        }
+        ImGui.setItemTooltip(tr("ui.tip_spline"));
+
+        ImGui.spacing();
     }
 
-    private void drawPresets() {
-        if (!ImGui.collapsingHeader(tr("ui.presets"))) {
+    private void drawLook() {
+        if (options.style != DesignOptions.Style.CLASSIC) {
             return;
         }
-        for (int i = 0; i < 3; i++) {
-            final int idx = i;
-            if (ImGui.button(tr("ui.preset_load") + "##pL" + idx)) {
-                applyData(preset(idx));
-            }
-            ImGui.sameLine();
-            if (ImGui.button(tr("ui.preset_save") + "##pS" + idx)) {
-                setPreset(idx, snapshotData());
-                persistConfig();
-            }
-            ImGui.sameLine();
-            ImGui.textDisabled("#" + (idx + 1));
-        }
-    }
-
-    private RailConfig.Data preset(int index) {
-        return switch (index) {
-            case 1 -> config.preset2;
-            case 2 -> config.preset3;
-            default -> config.preset1;
-        };
-    }
-
-    private void setPreset(int index, RailConfig.Data data) {
-        switch (index) {
-            case 1 -> config.preset2 = data;
-            case 2 -> config.preset3 = data;
-            default -> config.preset1 = data;
-        }
-    }
-
-    private static int clamp(int value, int min, int max) {
-        return Math.max(min, Math.min(max, value));
-    }
-
-    private RailConfig.Data snapshotData() {
-        RailConfig.Data d = new RailConfig.Data();
-        d.density = density[0];
-        d.styleIndex = styleSel.get();
-        d.themeIndex = themeSel.get();
-        d.fillIndex = fillSel.get();
-        d.heightIndex = heightSel.get();
-        d.orientIndex = orientSel.get();
-        d.smoothRidges = smoothRidges.get();
-        d.purgeCorners = purgeCorners.get();
-        d.snapGround = groundSnap.get();
-        return d;
-    }
-
-    private void applyData(RailConfig.Data d) {
-        if (d == null) {
+        if (!ImGui.collapsingHeader(tr("ui.section.look"))) {
             return;
         }
-        density[0] = Math.max(2, Math.min(12, d.density));
-        styleSel.set(clamp(d.styleIndex, 0, 1));
-        themeSel.set(clamp(d.themeIndex, 0, 1));
-        fillSel.set(clamp(d.fillIndex, 0, 1));
-        heightSel.set(clamp(d.heightIndex, 0, 1));
-        orientSel.set(clamp(d.orientIndex, 0, 3));
-        smoothRidges.set(d.smoothRidges);
-        purgeCorners.set(d.purgeCorners);
-        groundSnap.set(d.snapGround);
-        applySelections();
-        dirty = true;
-    }
-
-    private void applySelections() {
-        options.style = styleSel.get() == 0
-                ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
-        options.theme = themeSel.get() == 0
-                ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
-        options.fillMode = fillSel.get() == 0
-                ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
-        options.baseDy = heightSel.get() == 0 ? 0 : -1;
-        overrideMode = TrackModel.OverrideMode.values()[
-                Math.max(0, Math.min(TrackModel.OverrideMode.values().length - 1,
-                        orientSel.get()))];
-    }
-
-    private void persistConfig() {
-        RailConfig.Data cur = snapshotData();
-        config.density = cur.density;
-        config.styleIndex = cur.styleIndex;
-        config.themeIndex = cur.themeIndex;
-        config.fillIndex = cur.fillIndex;
-        config.heightIndex = cur.heightIndex;
-        config.orientIndex = cur.orientIndex;
-        config.smoothRidges = cur.smoothRidges;
-        config.purgeCorners = cur.purgeCorners;
-        config.snapGround = cur.snapGround;
-        config.showGhost = showGhost.get();
-        config.showSplineGhost = showSplineGhost.get();
-        RailConfig.save(config);
-    }
-
-    private void drawClassicOptions() {
+        rowStart(tr("ui.theme_short"));
+        ImGui.setNextItemWidth(-1.0f);
         String[] themes = {tr("ui.theme.dark"), tr("ui.theme.light")};
-        if (ImGui.combo(tr("ui.theme"), themeSel, themes)) {
+        if (ImGui.combo("##theme", themeSel, themes)) {
             options.theme = themeSel.get() == 0
                     ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
             dirty = true;
         }
+
+        rowStart(tr("ui.fill_short"));
+        ImGui.setNextItemWidth(-1.0f);
         String[] fills = {tr("ui.fill.random"), tr("ui.fill.uniform")};
-        if (ImGui.combo(tr("ui.fill"), fillSel, fills)) {
+        if (ImGui.combo("##fill", fillSel, fills)) {
             options.fillMode = fillSel.get() == 0
                     ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
             dirty = true;
         }
 
         if (options.fillMode == DesignOptions.FillMode.UNIFORM) {
-            ImGui.textWrapped(tr("ui.fill.block",
-                    options.uniformBlock.getBlock().getName().getString()));
-            if (ImGui.button(tr("ui.pick_active"))) {
-                BlockState picked = Axiom.getActiveBlock();
-                if (picked != null && !picked.isAir()) {
+            rowStart(tr("ui.block_short"));
+            ImGui.textWrapped(options.uniformBlock.getBlock().getName().getString());
+            if (ImGui.button(tr("ui.pick_active") + "##uniform")) {
+                BlockState picked = activeBlockOrNull();
+                if (picked != null) {
                     options.uniformBlock = picked;
                     dirty = true;
                 }
             }
+            ImGui.setItemTooltip(tr("ui.tip_pick"));
         } else {
             ImGui.textDisabled(tr("ui.fill.random_hint"));
             for (int i = 0; i < options.soilSlots.length; i++) {
-                if (ImGui.sliderInt(
-                        options.soilSlots[i].state.getBlock().getName().getString()
-                                + "##fill" + i,
-                        soilPercentUI[i], 0, 100)) {
-                    options.soilSlots[i].percent = soilPercentUI[i][0];
-                    dirty = true;
-                }
-                if (ImGui.button(tr("ui.pick_active") + "##fillbtn" + i)) {
-                    BlockState picked = Axiom.getActiveBlock();
-                    if (picked != null && !picked.isAir()) {
-                        options.soilSlots[i].state = picked;
+                final int slot = i;
+                ImGui.pushID("soil" + i);
+                ImGui.alignTextToFramePadding();
+                ImGui.textDisabled(options.soilSlots[i].state.getBlock()
+                        .getName().getString());
+                ImGui.sameLine(ImGui.getContentRegionMaxX() - 42.0f);
+                if (ImGui.smallButton(tr("ui.pick") + "##pick")) {
+                    BlockState picked = activeBlockOrNull();
+                    if (picked != null) {
+                        options.soilSlots[slot].state = picked;
                         dirty = true;
                     }
                 }
+                ImGui.setItemTooltip(tr("ui.tip_pick"));
+                ImGui.setNextItemWidth(-1.0f);
+                if (ImGui.sliderInt("##share", soilPercentUI[i], 0, 100, "%d%%")) {
+                    options.soilSlots[i].percent = soilPercentUI[i][0];
+                    dirty = true;
+                }
+                ImGui.popID();
             }
         }
 
+        rowStart(tr("ui.height_short"));
+        ImGui.setNextItemWidth(-1.0f);
         String[] heights = {tr("ui.height.surface"), tr("ui.height.buried")};
-        if (ImGui.combo(tr("ui.height"), heightSel, heights)) {
+        if (ImGui.combo("##height", heightSel, heights)) {
             options.baseDy = heightSel.get() == 0 ? 0 : -1;
             dirty = true;
         }
+        ImGui.spacing();
+    }
+
+    /** The block selected in Axiom's palette, or null when it is unusable. */
+    private static BlockState activeBlockOrNull() {
+        BlockState picked = Axiom.getActiveBlock();
+        return picked == null || picked.isAir() ? null : picked;
+    }
+
+    private void drawPresets() {
+        if (!ImGui.collapsingHeader(tr("ui.section.presets"))) {
+            return;
+        }
+        float width = (ImGui.getContentRegionAvailX() - 44.0f) * 0.5f;
+        for (int i = 0; i < 3; i++) {
+            final int idx = i;
+            ImGui.pushID("preset" + i);
+            ImGui.alignTextToFramePadding();
+            ImGui.textDisabled("#" + (i + 1));
+            ImGui.sameLine(38.0f);
+            if (ImGui.button(tr("ui.preset_load"), width, 0.0f)) {
+                applyData(preset(idx));
+            }
+            ImGui.sameLine();
+            if (ImGui.button(tr("ui.preset_save"), width, 0.0f)) {
+                setPreset(idx, snapshotData());
+                persistConfig();
+            }
+            ImGui.popID();
+        }
+        ImGui.spacing();
+    }
+
+    private void drawDebug() {
+        if (!ImGui.collapsingHeader(tr("ui.debug"))) {
+            return;
+        }
+        for (Map.Entry<String, Double> e : Profiler.summaryMs().entrySet()) {
+            ImGui.textDisabled(String.format(java.util.Locale.ROOT,
+                    "%s: %.3f ms", e.getKey(), e.getValue()));
+        }
+    }
+
+    /** Small right-aligned switch that keeps the primary action obvious. */
+    private boolean accentButton(String label, float width, float height, String tooltip) {
+        ImGui.pushStyleColor(ImGuiCol.Button, 0.72f, 0.45f, 0.12f, 1.0f);
+        ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.86f, 0.56f, 0.18f, 1.0f);
+        ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.62f, 0.37f, 0.08f, 1.0f);
+        ImGui.pushStyleColor(ImGuiCol.Text, 0.10f, 0.07f, 0.03f, 1.0f);
+        boolean pressed = ImGui.button(label, width, height);
+        ImGui.setItemTooltip(tooltip);
+        ImGui.popStyleColor(4);
+        return pressed;
+    }
+
+    /** Label column shared by every option row. */
+    private static void rowStart(String label) {
+        ImGui.alignTextToFramePadding();
+        ImGui.textDisabled(label);
+        ImGui.sameLine(LABEL_W);
     }
 
     private void recompute(Minecraft mc) {
