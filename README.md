@@ -159,6 +159,12 @@ committed to `docs/panel/`. `dev/EditorShot` only skips Axiom's six-step
 introduction, which needs a keyboard; it is inert without
 `-Dbte.railtool.ui=true`.
 
+## Changelog
+
+Notable changes per release are in [CHANGELOG.md](CHANGELOG.md); it is also the
+source of the GitHub release notes. `.github/workflows/release.yml` publishes a
+jar manually and refuses to run without a matching changelog section.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).

@@ -332,10 +332,12 @@ New layout, top to bottom:
 - Disabled states are explicit (`beginDisabled` on Simplify under four points)
   and the build button greys itself out through the same helper.
 - The tool name lost its `═` prefix, which Axiom's ImGui font renders as `?`.
-- 45 new translation keys, in `en_us` and `fr_fr`; the two files now hold the
-  same 96 keys. The prefix bug that made 45 new keys dead (`ui.subtitle`
-  instead of `bte_railpathtool.ui.subtitle`) was caught by the screenshot run
-  and fixed.
+- 45 new translation keys in `en_us` and 46 in `fr_fr` (one pre-existing gap,
+  `ui.error`, was filled in); the two files now hold the same 96 keys.
+- The rewrite first wrote those keys without the `bte_railpathtool.` prefix
+  (`ui.subtitle` instead of `bte_railpathtool.ui.subtitle`), which would have
+  made all 45 unresolvable. Caught before the first in-game run by comparing
+  every `tr()` call in `RailwayTool` against the language files, then fixed.
 
 Verification is a real client, not a simulation: `.github/workflows/panel.yml`
 launches the same Xvfb client as the test job and opens Axiom's editor, then
