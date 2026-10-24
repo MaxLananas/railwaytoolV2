@@ -1,20 +1,20 @@
-[13:56:06] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[13:56:06] fabric loader jar: True
-[13:56:06] version: fabric-loader-0.19.3-1.21.10
-[13:56:06] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[13:56:06] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[13:56:06] Fabric API 0.138.4+1.21.10
-[13:56:07] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Dbte.railtool.ui=true -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[13:56:07] waiting for the world
-[13:56:27] ready=True alive=True
-[13:56:39] focused: True
-[13:56:41] shot panel-0-world: True TT ELLIE TLL le
-[13:56:41] opening the editor
-[13:56:50] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
-[13:56:57] shot 01-open: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
-[13:57:01] shot 02-tool-selected: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools) + ¥ (Clipboard, Target info 4 Os EI — Empty (Tees ss *ELTAYT % dla 40% *® @QALSF... a ¥_ Tool Options V How to use 1. Right
-[13:57:04] clicked 'Skip' at 774,839
-[13:57:18] shot 03-preview: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA *BLTAYV Gola ADH ALS © (EE inventory ¥ Tool Options 1 point 9 add
-[13:57:25] shot 04-built: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA *BLTAYV Gola ADH ALS © (EE inventory ‘F ToolOptins = 1 point 9 ad
-[13:57:25] closing
-[13:57:29] done
+[14:00:24] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[14:00:24] fabric loader jar: True
+[14:00:24] version: fabric-loader-0.19.3-1.21.10
+[14:00:24] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[14:00:24] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[14:00:24] Fabric API 0.138.4+1.21.10
+[14:00:25] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Dbte.railtool.ui=true -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[14:00:25] waiting for the world
+[14:00:45] ready=True alive=True
+[14:00:57] focused: True
+[14:00:59] shot panel-0-world: True TT TEE LETT he
+[14:00:59] opening the editor
+[14:01:09] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
+[14:01:10] shot 01-open: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
+[14:01:16] shot 02-tool-selected: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools) + ¥ (Clipboard, Target info 4 Os EI — Empty (Tees ss *ELTAYT % dla 40% *® @QALSF... a ¥_ Tool Options V How to use 1. Right
+[14:01:18] clicked 'Skip' at 774,839
+[14:01:34] shot 03-preview: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 @« EI — Empty /7Te8Eas/ Ss LA *BLTAYV Gola ADH ALS © (EE inventory ¥ Tool Options SEEMED 1. Rig
+[14:01:43] shot 04-built: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target Info 4 @« EI — Empty THA s LA *BLTAYV Odin sOH* ALS © (EE inventory 7 ADEE 1. Right-click: place contro
+[14:01:43] closing
+[14:01:47] done
