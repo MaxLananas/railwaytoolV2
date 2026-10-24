@@ -1,18 +1,30 @@
-[01:42:09] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[01:42:09] fabric loader jar: True
-[01:42:09] version: fabric-loader-0.19.3-1.21.10
-[01:42:09] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[01:42:09] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[01:42:09] Fabric API 0.138.4+1.21.10
-[01:42:10] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[01:42:10] waiting for the world
-[01:42:30] ready=True alive=True
-[01:42:42] focused: True
-[01:42:43] shot panel-0-world: True TT ELLE Ly le
-[01:42:43] opening the editor
-[01:42:53] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty ‘em _ £0" Painting, terraf
-[01:45:03] shot 01-clean: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info > lane 4 O@« | : Empty /T7Tses/ss LA *EaLTAYV ¥ (Palette) inventory a Alin 14 TH ie ¥ Tool Option
-[01:45:08] shot 02-plus: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info sme’ Oe 7 th: a” = 4 a Empty PA 1 pend pj 4 7? ay . Be LA “ELTA ¥ (Palette) inventory & Alin +4 D
-[01:45:11] shot 03-hover1: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info sme’ Oe 7 th: a” = 4 a Empty PA 1 pend pj 4 7? ay . Be LA “ELTA ¥ (Palette) inventory & Alin +4 D
-[01:45:11] closing
-[01:45:15] done
+[01:49:18] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[01:49:18] fabric loader jar: True
+[01:49:18] version: fabric-loader-0.19.3-1.21.10
+[01:49:18] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[01:49:18] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[01:49:19] Fabric API 0.138.4+1.21.10
+[01:49:20] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[01:49:20] waiting for the world
+[01:49:35] ready=True alive=True
+[01:49:47] focused: True
+[01:49:47] shot panel-0-world: True 4 TTL LTC ele
+[01:49:47] opening the editor
+[01:49:58] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em £0" Painting, terraform
+[01:49:59] clicked 'Continue' at 341,132
+[01:50:04] clicked 'Continue' at 341,455
+[01:50:07] clicked 'Continue' at 670,342
+[01:50:10] clicked 'Continue' at 506,249
+[01:50:14] clicked 'Continue' at 671,494
+[01:50:17] clicked 'Continue' at 671,114
+[01:50:20] text not found: Continue
+[01:50:22] text not found: Continue
+[01:50:30] clicked 'Skip' at 454,569
+[01:50:34] shot 01-clean: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard, Target info =) ; ee FEL OWES an Va ” _— ¥ Palette Inventory a& Alin AMD ie ¥_ Tool Options = Sphere Y Shape i
+[01:50:54] shot 02-grid-down: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target info 4 Os EI /7ees ie ” SLE ea — Text ¥ [Palette Inventory a Alin +A ee DH ie ¥ Tool Options Sphere ¥) 
+[01:51:12] shot 03-grid-down2: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target info 4 Os EI /7ees ie ” SLE ea — Text ¥ [Palette Inventory a Alin +A ee DH ie ¥ Tool Options Sphere ¥) 
+[01:51:16] shot 04-plus: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard, Target info 4 Os EI an Va ” *ELTAYT _— ¥ Palette Inventory a& Alin AMD ie ¥_ Tool Options Sphere Y Shape i |
+[01:51:30] shot 05-window-menu: True File Edit Select View [@perationS) Tool Masks Window Keybinds... Help ¥ Tools Fill > ¥ (Clipboard, Target info a = < S @ Fill Nearest a Replace... CtrleR Ena PA T Pan] P-] Type Replace... # setBiome..
+[01:51:34] shot 06-operations: True File Edit Select [WiGW)) Operations ToolMasks Window Keybinds... Help ¥ Tools New View + ¥ (Clipboard, Target info 7 a & 4 show Selection v Show Biomes Empty PA F pend { ‘Show Annotations v Show Ruler
+[01:51:34] closing
+[01:51:38] done
