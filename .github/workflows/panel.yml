@@ -1,0 +1,85 @@
+name: Panel shot
+
+on:
+  push:
+    paths:
+      - 'tools/panel_shot.py'
+      - '.github/workflows/panel.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  shot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Install virtual display and tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb xdotool imagemagick tesseract-ocr \
+            libgl1-mesa-dri libglx-mesa0 mesa-utils \
+            libxi6 libxcursor1 libxrandr2 libxinerama1 libxxf86vm1
+
+      - name: Python dependencies
+        run: pip install --break-system-packages minecraft-launcher-lib nbtlib
+
+      - name: Cache Minecraft files
+        uses: actions/cache@v4
+        with:
+          path: run-mc
+          key: mc-${{ runner.os }}-1.21.10-fabric-0.19.3-v1
+
+      - name: Download Axiom
+        run: |
+          mkdir -p libs
+          curl -L --retry 3 --retry-delay 5 --fail \
+            -o "libs/Axiom-5.4.2-for-MC1.21.10.jar" \
+            "https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar"
+
+      - name: Build mod
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build --no-daemon 2>          ./gradlew build --no-daemon -x parityCheck 2>&1 | tail -201 | tail -20
+
+      - name: Run client and capture the panel
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1280x720x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
+          sleep 3
+          mkdir -p panel
+          MOD=$(ls build/libs/rail-path-tool-*.jar | grep -v sources | head -1)
+          python3 tools/panel_shot.py \
+            --mod "$MOD" --java "$JAVA_HOME/bin/java" \
+            --mc-dir run-mc --out panel 2>&1 | tee panel/driver-run.log
+
+      - name: Publish
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          mkdir -p docs/panel
+          cp panel/*.png docs/panel/ 2>/dev/null || true
+          cp panel/driver-run.log docs/panel/driver.log 2>/dev/null || true
+          cp panel/latest.log docs/panel/latest.log 2>/dev/null || true
+          ls -l docs/panel
+          git add -f docs/panel
+          if ! git diff --cached --quiet; then
+            git commit -m "test(panel): update screenshots [skip ci]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
+              if git push; then break; fi
+              sleep 5
+            done
+          fi
+          exit 0
