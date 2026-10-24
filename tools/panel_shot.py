@@ -35,6 +35,28 @@ def key(name):
     drv.shell("xdotool", "key", "--clearmodifiers", name)
 
 
+def move_to(x, y, steps=24):
+    """Glide the pointer: Axiom's editor tracks the cursor through deltas."""
+    cur = drv.shell("xdotool", "getmouselocation", "--shell").stdout
+    cx, cy = x, y
+    for line in cur.splitlines():
+        if line.startswith("X="):
+            cx = int(line[2:])
+        elif line.startswith("Y="):
+            cy = int(line[2:])
+    for i in range(1, steps + 1):
+        nx = cx + (x - cx) * i // steps
+        ny = cy + (y - cy) * i // steps
+        drv.shell("xdotool", "mousemove", str(nx), str(ny))
+        time.sleep(0.02)
+
+
+def click_at(x, y):
+    move_to(x, y)
+    time.sleep(0.25)
+    drv.shell("xdotool", "click", "1")
+
+
 def click_text(word, out, timeout=1.0):
     """Click the first on-screen word matching `word` (OCR bounding box)."""
     path = os.path.join(out, "_ocr.png")
@@ -104,9 +126,7 @@ def scan_tools(out):
         row = index // GRID_COLS
         x = int(GRID_X + col * GRID_DX)
         y = int(GRID_Y + row * GRID_DY)
-        drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
-        time.sleep(0.25)
-        drv.shell("xdotool", "click", "1")
+        click_at(x, y)
         time.sleep(1.2)
         full = os.path.join(out, "_scan.png")
         drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", full)
@@ -123,8 +143,8 @@ def scan_tools(out):
 
 def place_points(out):
     for x, y in ((700, 820), (1000, 860), (1300, 800)):
-        drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
-        time.sleep(0.4)
+        move_to(x, y)
+        time.sleep(0.3)
         drv.shell("xdotool", "click", "3")
         time.sleep(2.0)
     time.sleep(2.0)
@@ -140,12 +160,9 @@ def run_script(out, script):
         verb, rest = parts[0], parts[1:]
         try:
             if verb == "click":
-                x, y = int(rest[0]), int(rest[1])
-                drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
-                time.sleep(0.3)
-                drv.shell("xdotool", "click", "1")
+                click_at(int(rest[0]), int(rest[1]))
             elif verb == "move":
-                drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
+                move_to(int(rest[0]), int(rest[1]))
             elif verb == "wheel":
                 drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
                 button = "5" if len(rest) > 3 and rest[3] == "down" else "4"
