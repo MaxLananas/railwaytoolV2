@@ -160,6 +160,24 @@ def calibrate(out):
         time.sleep(1.0)
 
 
+def reset_cursor():
+    """Bounce through the pause menu so the client re-grabs the cursor."""
+    key("Escape")
+    time.sleep(1.2)
+    key("Escape")
+    time.sleep(1.2)
+
+
+def calibrate2(out):
+    for x in (200, 300, 400, 500, 700, 900):
+        reset_cursor()
+        click_at(x, 20)
+        time.sleep(1.5)
+        shot(out, "cal2-%d" % x)
+        key("Escape")
+        time.sleep(1.0)
+
+
 def place_points(out):
     for x, y in ((700, 820), (1000, 860), (1300, 800)):
         move_to(x, y)
@@ -210,6 +228,8 @@ def run_script(out, script):
                 drv.shell("xdotool", "mousemove", "--sync", rest[2], rest[3])
                 time.sleep(0.2)
                 drv.shell("xdotool", "mouseup", "1")
+            elif verb == "calibrate2":
+                calibrate2(out)
             elif verb == "calibrate":
                 calibrate(out)
             elif verb == "scan_tools":
