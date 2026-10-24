@@ -268,6 +268,7 @@ def main():
     ap.add_argument("--wait", type=int, default=240)
     ap.add_argument("--size", default="1280x720")
     ap.add_argument("--script", default="")
+    ap.add_argument("--ui", action="store_true")
     args = ap.parse_args()
 
     args.mc_dir = os.path.abspath(args.mc_dir)
@@ -313,7 +314,7 @@ def main():
             "token": "",
             "executablePath": args.java,
             "gameDirectory": args.mc_dir,
-            "jvmArguments": ["-Xmx2G"],
+            "jvmArguments": ["-Xmx2G"] + (["-Dbte.railtool.ui=true"] if args.ui else []),
         }
         cmd = mcl.command.get_minecraft_command(version, args.mc_dir, options)
         cmd += ["--quickPlaySingleplayer", drv.WORLD_NAME,

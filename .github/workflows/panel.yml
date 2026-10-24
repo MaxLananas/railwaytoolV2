@@ -58,13 +58,9 @@ jobs:
         env:
           PANEL_SCRIPT: >-
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
-            clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
-            clicktext Continue; sleep 2; clicktext Skip; sleep 2;
-            click 100 343; sleep 2; shot 01-shape-combo; key Escape; sleep 1;
-            click 200 369; sleep 2; shot 02-radius;
-            click 63 67; sleep 2; click 63 67; sleep 2; shot 03-icon2-twice;
-            click 95 22; sleep 1; click 63 67; sleep 2; shot 04-title-then-icon;
-            click 103 105; sleep 2; shot 05-icon10
+            clicktext Continue; clicktext Continue; sleep 1; shot 01-editor;
+            key Escape; sleep 1.5; shot 02-editor-clean;
+            key Escape; sleep 1; key Shift_R; sleep 3; shot 03-reopen
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
@@ -73,7 +69,7 @@ jobs:
           MOD=$(ls build/libs/rail-path-tool-*.jar | grep -v sources | head -1)
           python3 tools/panel_shot.py \
             --mod "$MOD" --java "$JAVA_HOME/bin/java" \
-            --mc-dir run-mc --out panel --size 1920x1080 \
+            --mc-dir run-mc --out panel --size 1920x1080 --ui \
             --script "$PANEL_SCRIPT" 2>&1 | tee panel/driver-run.log
           cat panel/driver-run.log
 

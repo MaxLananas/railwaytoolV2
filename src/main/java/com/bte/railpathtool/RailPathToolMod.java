@@ -1,6 +1,7 @@
 package com.bte.railpathtool;
 
 import com.bte.railpathtool.axiom.Axiom;
+import com.bte.railpathtool.dev.EditorShot;
 import com.bte.railpathtool.dev.InGameSelfTest;
 import com.bte.railpathtool.tools.RailwayTool;
 import net.fabricmc.api.ClientModInitializer;
@@ -15,6 +16,7 @@ public class RailPathToolMod implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         InGameSelfTest.install();
+        EditorShot.install();
         if (!Axiom.init()) {
             LOGGER.warn("[RailwayTool] Axiom not found, the rail tool is disabled.");
             return;
