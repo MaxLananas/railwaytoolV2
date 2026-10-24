@@ -60,10 +60,7 @@ jobs:
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; sleep 2; clicktext Skip; sleep 2;
-            shot 01-start;
-            move 23 67; sleep 1; shot 02-abs;
-            move 960 540; move 940 520; move 920 500; move 900 480; sleep 1; shot 03-rel;
-            key m; sleep 1.5; shot 04-key-m
+            calibrate
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &

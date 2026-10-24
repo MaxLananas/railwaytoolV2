@@ -150,6 +150,16 @@ def scan_tools(out):
     return -1
 
 
+def calibrate(out):
+    """Click along the menu bar to learn where the editor thinks the cursor is."""
+    for x in (200, 400, 600, 800, 1000, 1200):
+        click_at(x, 20)
+        time.sleep(1.5)
+        shot(out, "cal-%d" % x)
+        key("Escape")
+        time.sleep(1.0)
+
+
 def place_points(out):
     for x, y in ((700, 820), (1000, 860), (1300, 800)):
         move_to(x, y)
@@ -200,6 +210,8 @@ def run_script(out, script):
                 drv.shell("xdotool", "mousemove", "--sync", rest[2], rest[3])
                 time.sleep(0.2)
                 drv.shell("xdotool", "mouseup", "1")
+            elif verb == "calibrate":
+                calibrate(out)
             elif verb == "scan_tools":
                 scan_tools(out)
             elif verb == "place_points":
