@@ -363,6 +363,21 @@ def run_client(args, version_id, phase, mcl, timeout=3300):
     return status
 
 
+PASS_PREFIX = "[SELFTEST] PASS"
+
+
+def suite_verdict(first, second):
+    """Verdicts for both launches; an empty list means everything passed."""
+    problems = []
+    for tag, status in (("phase1", first), ("phase2", second)):
+        lines = status.strip().splitlines()
+        head = lines[0].strip() if lines else ""
+        if not head.startswith(PASS_PREFIX) or "FAIL" in head:
+            summary = head.split("|")[0].strip() or "no result"
+            problems.append("%s: %s" % (tag, summary))
+    return problems
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mc-dir", default="run-mc")
@@ -412,6 +427,14 @@ def main():
     with open(os.path.join(args.out, "driver.log"), "w", encoding="utf-8") as f:
         f.write("phase1: " + first.strip().splitlines()[0] + "\n")
         f.write("phase2: " + second.strip().splitlines()[0] + "\n")
+
+    problems = suite_verdict(first, second)
+    if problems:
+        log("suite failed:")
+        for problem in problems:
+            log("  " + problem)
+        return 1
+    log("both launches passed")
     return 0
 
 

@@ -31,6 +31,10 @@ starts from a pristine copy of the generated template world. The job then
 closes the client, relaunches it on the world it just saved and checks that
 the build survived the round trip.
 
+The driver exits non-zero unless both launches report `[SELFTEST] PASS` as the
+first line of their result file, so a regression turns the job red instead of
+only being visible in the committed evidence.
+
 ## 2. Fixed bugs
 
 ### B1 - Presets were never saved (logic)
