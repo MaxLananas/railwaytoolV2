@@ -461,6 +461,85 @@ public class RailwayTool implements CustomTool {
         ImGui.spacing();
     }
 
+    private RailConfig.Data preset(int index) {
+        return switch (index) {
+            case 1 -> config.preset2;
+            case 2 -> config.preset3;
+            default -> config.preset1;
+        };
+    }
+
+    private void setPreset(int index, RailConfig.Data data) {
+        switch (index) {
+            case 1 -> config.preset2 = data;
+            case 2 -> config.preset3 = data;
+            default -> config.preset1 = data;
+        }
+    }
+
+    private static int clamp(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    private RailConfig.Data snapshotData() {
+        RailConfig.Data d = new RailConfig.Data();
+        d.density = density[0];
+        d.styleIndex = styleSel.get();
+        d.themeIndex = themeSel.get();
+        d.fillIndex = fillSel.get();
+        d.heightIndex = heightSel.get();
+        d.orientIndex = orientSel.get();
+        d.smoothRidges = smoothRidges.get();
+        d.purgeCorners = purgeCorners.get();
+        d.snapGround = groundSnap.get();
+        return d;
+    }
+
+    private void applyData(RailConfig.Data d) {
+        if (d == null) {
+            return;
+        }
+        density[0] = clamp(d.density, 2, 12);
+        styleSel.set(clamp(d.styleIndex, 0, 1));
+        themeSel.set(clamp(d.themeIndex, 0, 1));
+        fillSel.set(clamp(d.fillIndex, 0, 1));
+        heightSel.set(clamp(d.heightIndex, 0, 1));
+        orientSel.set(clamp(d.orientIndex, 0, 3));
+        smoothRidges.set(d.smoothRidges);
+        purgeCorners.set(d.purgeCorners);
+        groundSnap.set(d.snapGround);
+        applySelections();
+        dirty = true;
+    }
+
+    private void applySelections() {
+        options.style = styleSel.get() == 0
+                ? DesignOptions.Style.CLASSIC : DesignOptions.Style.NATURE;
+        options.theme = themeSel.get() == 0
+                ? DesignOptions.Theme.DARK : DesignOptions.Theme.LIGHT;
+        options.fillMode = fillSel.get() == 0
+                ? DesignOptions.FillMode.RANDOM : DesignOptions.FillMode.UNIFORM;
+        options.baseDy = heightSel.get() == 0 ? 0 : -1;
+        overrideMode = TrackModel.OverrideMode.values()[
+                clamp(orientSel.get(), 0, TrackModel.OverrideMode.values().length - 1)];
+    }
+
+    private void persistConfig() {
+        RailConfig.Data cur = snapshotData();
+        config.density = cur.density;
+        config.styleIndex = cur.styleIndex;
+        config.themeIndex = cur.themeIndex;
+        config.fillIndex = cur.fillIndex;
+        config.heightIndex = cur.heightIndex;
+        config.orientIndex = cur.orientIndex;
+        config.smoothRidges = cur.smoothRidges;
+        config.purgeCorners = cur.purgeCorners;
+        config.snapGround = cur.snapGround;
+        config.showGhost = showGhost.get();
+        config.showSplineGhost = showSplineGhost.get();
+        RailConfig.save(config);
+    }
+
     private void drawDebug() {
         if (!ImGui.collapsingHeader(tr("ui.debug"))) {
             return;
