@@ -1,0 +1,610 @@
+== classes mentioning tool/custom ==
+META-INF/services/com.moulberry.axiomclientapi.service.ToolPatherProvider
+META-INF/services/com.moulberry.axiomclientapi.service.ToolRegistryService
+META-INF/services/com.moulberry.axiomclientapi.service.ToolService
+assets/axiom/gui/tool_swapper.png
+assets/axiom/textures/gui/sprites/custom_tab_active.png
+assets/axiom/textures/gui/sprites/custom_tab_inactive.png
+assets/axiom/tools/
+assets/axiom/tools/builder_wand.png
+assets/axiom/tools/freehand_select.png
+assets/axiom/tools/magic_select.png
+assets/axiom/tools/paintbrush.png
+assets/axiom/tools/region_select.png
+com/moulberry/axiom/block_maps/FamilyMap$CustomBlockFamily.class
+com/moulberry/axiom/block_maps/FamilyMap$CustomVariants.class
+com/moulberry/axiom/buildertools/
+com/moulberry/axiom/buildertools/BuilderTool$1.class
+com/moulberry/axiom/buildertools/BuilderTool.class
+com/moulberry/axiom/buildertools/BuilderToolManager$1.class
+com/moulberry/axiom/buildertools/BuilderToolManager.class
+com/moulberry/axiom/buildertools/BuilderToolSelectionState$Restore.class
+com/moulberry/axiom/buildertools/BuilderToolSelectionState.class
+com/moulberry/axiom/buildertools/CloneBuilderTool$1.class
+com/moulberry/axiom/buildertools/CloneBuilderTool.class
+com/moulberry/axiom/buildertools/EraseBuilderTool.class
+com/moulberry/axiom/buildertools/ExtrudeBuilderTool.class
+com/moulberry/axiom/buildertools/MirrorBuilderTool.class
+com/moulberry/axiom/buildertools/MoveBuilderTool$1.class
+com/moulberry/axiom/buildertools/MoveBuilderTool.class
+com/moulberry/axiom/buildertools/PendingAction.class
+com/moulberry/axiom/buildertools/SmearBuilderTool$1BlockStateWithDistance.class
+com/moulberry/axiom/buildertools/SmearBuilderTool.class
+com/moulberry/axiom/buildertools/StackBuilderTool.class
+com/moulberry/axiom/configuration/AxiomConfig$SubcategoryBuilderTools.class
+com/moulberry/axiom/configuration/BuilderToolMiddleClick.class
+com/moulberry/axiom/custom_blocks/
+com/moulberry/axiom/custom_blocks/CustomBlock.class
+com/moulberry/axiom/custom_blocks/CustomBlockImplementation.class
+com/moulberry/axiom/custom_blocks/CustomBlockState.class
+com/moulberry/axiom/custom_blocks/CustomBlockStateImplementation.class
+com/moulberry/axiom/custom_blocks/ServerCustomBlocks$1.class
+com/moulberry/axiom/custom_blocks/ServerCustomBlocks.class
+com/moulberry/axiom/custom_blocks/StringProperty.class
+com/moulberry/axiom/custom_blocks/update/
+com/moulberry/axiom/custom_blocks/update/AxisCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/CustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/FacingClickedCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/FacingClickedOppositeCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/FacingCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/FacingOppositeCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/HalfCustomBlockPlacementLogic.class
+com/moulberry/axiom/custom_blocks/update/WaterloggedCustomBlockPlacementLogic.class
+com/moulberry/axiom/editor/BlockList$MinecraftOrCustomTagSet.class
+com/moulberry/axiom/editor/CustomImGuiImplGl3$1.class
+com/moulberry/axiom/editor/CustomImGuiImplGl3.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$1.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$2.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$3.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$CreateWindowFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$DestroyWindowFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$GetWindowFocusFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$GetWindowMinimizedFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$GetWindowPosFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$GetWindowSizeFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$ImGuiViewportDataGlfw.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$MouseHandledBy.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$RenderWindowFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SetWindowAlphaFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SetWindowFocusFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SetWindowPosFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SetWindowSizeFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SetWindowTitleFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$ShowWindowFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw$SwapBuffersFunction.class
+com/moulberry/axiom/editor/CustomImGuiImplGlfw.class
+com/moulberry/axiom/editor/palette/CustomBlockStateOrTombstone.class
+com/moulberry/axiom/editor/windows/ToolOptionsWindow.class
+com/moulberry/axiom/editor/windows/ToolsWindow.class
+com/moulberry/axiom/editor/windows/global_mask/ToolMaskWindow$FloatingWidget.class
+com/moulberry/axiom/editor/windows/global_mask/ToolMaskWindow.class
+com/moulberry/axiom/mixin/custom_block/
+com/moulberry/axiom/mixin/custom_block/MixinBlock.class
+com/moulberry/axiom/mixin/custom_block/MixinBlockState.class
+com/moulberry/axiom/mixin/tooltip/
+com/moulberry/axiom/mixin/tooltip/MixinBlockItemStateProperties.class
+com/moulberry/axiom/mixin/tooltip/MixinItemStackExtraTooltip.class
+com/moulberry/axiom/packets/AxiomClientboundCustomBlocks$CustomBlockEntry.class
+com/moulberry/axiom/packets/AxiomClientboundCustomBlocks.class
+com/moulberry/axiom/packets/AxiomClientboundRegisterCustomBlockV2.class
+com/moulberry/axiom/packets/AxiomClientboundRegisterCustomItems.class
+com/moulberry/axiom/pather/ToolPatherPoint$1.class
+com/moulberry/axiom/pather/ToolPatherPoint.class
+com/moulberry/axiom/pather/ToolPatherSurface.class
+com/moulberry/axiom/pather/ToolPatherUnique.class
+com/moulberry/axiom/pather/ToolPatherVec3.class
+com/moulberry/axiom/pather/async/AsyncToolPathProvider$AsyncTask.class
+com/moulberry/axiom/pather/async/AsyncToolPathProvider.class
+com/moulberry/axiom/pather/async/AsyncToolPather.class
+com/moulberry/axiom/pather/async/AsyncToolPatherCombined.class
+com/moulberry/axiom/pather/async/AsyncToolPatherMinSDF.class
+com/moulberry/axiom/pather/async/AsyncToolPatherUnique.class
+com/moulberry/axiom/screen/CustomCreativeTabButton.class
+com/moulberry/axiom/screen/SwitchBuilderToolScreen.class
+com/moulberry/axiom/services/ToolPatherProvider.class
+com/moulberry/axiom/services/ToolRegistryService$1.class
+com/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool.class
+com/moulberry/axiom/services/ToolRegistryService.class
+com/moulberry/axiom/services/ToolService.class
+com/moulberry/axiom/tools/
+com/moulberry/axiom/tools/ChamferClosestBlockMap$PropagateData.class
+com/moulberry/axiom/tools/ChamferClosestBlockMap.class
+com/moulberry/axiom/tools/HeightmapApplier.class
+com/moulberry/axiom/tools/ImageHeightmapProvider.class
+com/moulberry/axiom/tools/ServerHeightmaps$1.class
+com/moulberry/axiom/tools/ServerHeightmaps$NamedImage.class
+com/moulberry/axiom/tools/ServerHeightmaps.class
+com/moulberry/axiom/tools/SimpleRadiusAdjustment.class
+com/moulberry/axiom/tools/Tool.class
+com/moulberry/axiom/tools/ToolManager$1.class
+com/moulberry/axiom/tools/ToolManager.class
+com/moulberry/axiom/tools/annotation/
+com/moulberry/axiom/tools/annotation/AnnotationByteOffset.class
+com/moulberry/axiom/tools/annotation/AnnotationTool$1.class
+com/moulberry/axiom/tools/annotation/AnnotationTool.class
+com/moulberry/axiom/tools/annotation/AnnotationsDisabled.class
+com/moulberry/axiom/tools/biome_painter/
+com/moulberry/axiom/tools/biome_painter/BiomePainterTool$1.class
+com/moulberry/axiom/tools/biome_painter/BiomePainterTool$BiomeWithIndex.class
+com/moulberry/axiom/tools/biome_painter/BiomePainterTool.class
+com/moulberry/axiom/tools/blend/
+com/moulberry/axiom/tools/blend/BlendTool$1.class
+com/moulberry/axiom/tools/blend/BlendTool.class
+com/moulberry/axiom/tools/box_select/
+com/moulberry/axiom/tools/box_select/BoxSelectTool$1.class
+com/moulberry/axiom/tools/box_select/BoxSelectTool.class
+com/moulberry/axiom/tools/distort/
+com/moulberry/axiom/tools/distort/DistortTool$1.class
+com/moulberry/axiom/tools/distort/DistortTool.class
+com/moulberry/axiom/tools/distort/NoiseVectorField.class
+com/moulberry/axiom/tools/elevation/
+com/moulberry/axiom/tools/elevation/ElevationTool$1.class
+com/moulberry/axiom/tools/elevation/ElevationTool.class
+com/moulberry/axiom/tools/extrude/
+com/moulberry/axiom/tools/extrude/ExtrudeExpandTask.class
+com/moulberry/axiom/tools/extrude/ExtrudeShrinkTask.class
+com/moulberry/axiom/tools/extrude/ExtrudeTool$1.class
+com/moulberry/axiom/tools/extrude/ExtrudeTool.class
+com/moulberry/axiom/tools/floodfill/
+com/moulberry/axiom/tools/floodfill/FloodfillTask.class
+com/moulberry/axiom/tools/floodfill/FloodfillTool$1.class
+com/moulberry/axiom/tools/floodfill/FloodfillTool.class
+com/moulberry/axiom/tools/floodfill/FloodfillWaterTask.class
+com/moulberry/axiom/tools/fluidball/
+com/moulberry/axiom/tools/fluidball/FluidBall$1.class
+com/moulberry/axiom/tools/fluidball/FluidBall$FluidSimulation.class
+com/moulberry/axiom/tools/fluidball/FluidBall.class
+com/moulberry/axiom/tools/freehand/
+com/moulberry/axiom/tools/freehand/FreehandDraw$1.class
+com/moulberry/axiom/tools/freehand/FreehandDraw.class
+com/moulberry/axiom/tools/freehand/FreehandSelect$1.class
+com/moulberry/axiom/tools/freehand/FreehandSelect.class
+com/moulberry/axiom/tools/generator/
+com/moulberry/axiom/tools/generator/GeneratorTool$1.class
+com/moulberry/axiom/tools/generator/GeneratorTool.class
+com/moulberry/axiom/tools/generator/SpaceColonization$TreeNode.class
+com/moulberry/axiom/tools/generator/SpaceColonization.class
+com/moulberry/axiom/tools/generator/TreeGeneration.class
+com/moulberry/axiom/tools/gradient_painter/
+com/moulberry/axiom/tools/gradient_painter/GradientPainterTool$1.class
+com/moulberry/axiom/tools/gradient_painter/GradientPainterTool$1LinearOperator.class
+com/moulberry/axiom/tools/gradient_painter/GradientPainterTool.class
+com/moulberry/axiom/tools/lasso_select/
+com/moulberry/axiom/tools/lasso_select/LassoSelect$1.class
+com/moulberry/axiom/tools/lasso_select/LassoSelect.class
+com/moulberry/axiom/tools/lasso_select/PendingLassoSelect.class
+com/moulberry/axiom/tools/magic_select/
+com/moulberry/axiom/tools/magic_select/MagicSelectTool.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionFast$ArrayCalculatedSection.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionFast$BooleanCalculatedSection.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionFast$CalculatedSection.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionFast$MagicSelectionTask.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionFast.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionPreciseTask.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionRangedTask.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionSurfaceTask.class
+com/moulberry/axiom/tools/magic_select/MagicSelectionTask.class
+com/moulberry/axiom/tools/modelling/
+com/moulberry/axiom/tools/modelling/GizmoList$AddGizmo.class
+com/moulberry/axiom/tools/modelling/GizmoList$ClearGizmos.class
+com/moulberry/axiom/tools/modelling/GizmoList$GizmoListHistoryAction.class
+com/moulberry/axiom/tools/modelling/GizmoList$MoveGizmo.class
+com/moulberry/axiom/tools/modelling/GizmoList$RemoveGizmo.class
+com/moulberry/axiom/tools/modelling/GizmoList$SetGizmos.class
+com/moulberry/axiom/tools/modelling/GizmoList.class
+com/moulberry/axiom/tools/modelling/GridSurface.class
+com/moulberry/axiom/tools/modelling/ModellingTool$1.class
+com/moulberry/axiom/tools/modelling/ModellingTool.class
+com/moulberry/axiom/tools/modify/
+com/moulberry/axiom/tools/modify/ModifyRevolve.class
+com/moulberry/axiom/tools/modify/ModifyTool$1.class
+com/moulberry/axiom/tools/modify/ModifyTool.class
+grep: write error: Broken pipe
+
+== language keys mentioning tool ==
+--- assets/axiom/lang/en_us.json
+    "axiom.buildertool.cancel": "Cancel",
+    "axiom.buildertool.clone": "Clone",
+    "axiom.buildertool.clone.finish": "Finish",
+    "axiom.buildertool.clone.scroll": "Scroll to clone",
+    "axiom.buildertool.confirm": "Confirm",
+    "axiom.buildertool.erase": "Erase",
+    "axiom.buildertool.erase.delete": "Delete",
+    "axiom.buildertool.erase.erase_box": "Erase Box",
+    "axiom.buildertool.erase.erase_connected": "Erase Connected",
+    "axiom.buildertool.first_point": "First Point",
+    "axiom.buildertool.move": "Move",
+    "axiom.buildertool.move.scroll": "Scroll to move",
+    "axiom.buildertool.scroll_extend": "Click to Extend",
+    "axiom.buildertool.scroll_magic": "Click to Magic Select",
+    "axiom.buildertool.scroll_nudge": "Scroll to Nudge",
+    "axiom.buildertool.second_point": "Second Point",
+    "axiom.buildertool.setup_symmetry": "Setup Symmetry",
+    "axiom.buildertool.setup_symmetry.flip": "Flip %s",
+    "axiom.buildertool.setup_symmetry.move_symmetry": "Move Symmetry",
+    "axiom.buildertool.setup_symmetry.cmd_nudge_symmetry": "[CMD] Nudge Symmetry",
+    "axiom.buildertool.setup_symmetry.ctrl_nudge_symmetry": "[CTRL] Nudge Symmetry",
+    "axiom.buildertool.setup_symmetry.nudge_symmetry": "Nudge Symmetry",
+    "axiom.buildertool.setup_symmetry.place_symmetry": "Place Symmetry",
+    "axiom.buildertool.setup_symmetry.rotate": "Rotate %s",
+    "axiom.buildertool.smear": "Smear",
+    "axiom.buildertool.smear.scroll": "Scroll to smear",
+    "axiom.buildertool.stack": "Stack",
+    "axiom.buildertool.stack.scroll": "Scroll to stack",
+    "axiom.capability.angel_placement.description": "Place blocks in mid-air",
+    "axiom.capability.angel_placement.title": "Angel Placement",
+    "axiom.capability.bulldozer.description_alt": "Hold down left-click to break blocks very fast",
+    "axiom.capability.bulldozer.description": "Hold down %s to break blocks very fast",
+    "axiom.capability.bulldozer.title": "Bulldozer",
+    "axiom.capability.fast_place.description": "Place blocks very fast in a controlled manner",
+    "axiom.capability.fast_place.title": "Fast Place",
+    "axiom.capability.force_place.description": "Bypass block placement restrictions",
+    "axiom.capability.force_place.title": "Force Place",
+    "axiom.capability.infinite_reach.description": "Removes the reach limit",
+    "axiom.capability.infinite_reach.title": "Infinite Reach",
+    "axiom.capability.no_clip.description": "Move through blocks while flying",
+    "axiom.capability.no_clip.title": "No Clip",
+    "axiom.capability.phantom.description": "Prevent physically triggering blocks (eg. pressure plates)",
+    "axiom.capability.phantom.title": "Phantom",
+    "axiom.capability.no_updates.description": "Prevent triggering neighbor updates when placing/breaking",
+    "axiom.capability.no_updates.title": "No Updates",
+    "axiom.capability.replace_mode.description": "Right-click blocks to replace them with the held block",
+    "axiom.capability.replace_mode.title": "Replace Mode",
+    "axiom.capability.tinker.description": "Various useful interactions when right-clicking with your fist",
+    "axiom.capability.tinker.title": "Tinker",
+    "axiom.contextmenu.create_display_entity": "Create Display Entity",
+    "axiom.contextmenu.flight_direction": "Flight Direction",
+    "axiom.contextmenu.flight_direction.camera": "Camera",
+    "axiom.contextmenu.flight_direction.horizontal": "Horizontal",
+    "axiom.contextmenu.flight_momentum": "Flight Momentum: %s%%",
+    "axiom.contextmenu.infinite_reach_limit": "Infinite Reach Limit: %s blocks",
+    "axiom.contextmenu.infinite_reach_limit_none": "Infinite Reach Limit: \u221e",
+    "axiom.contextmenu.liquid_opacity": "Liquid Opacity: %s%%",
+    "axiom.contextmenu.min_brightness": "Min Brightness: %s%%",
+    "axiom.contextmenu.show_display_entity_gizmos": "Show Display Entity Gizmos",
+    "axiom.contextmenu.show_key_hints": "Show Key Hints",
+    "axiom.contextmenu.show_marker_entity_gizmos": "Show Marker Entity Gizmos",
+    "axiom.contextmenu.type_replace": "Type Replace",
+    "axiom.editorui.enter_key": "Enter",
+    "axiom.editorui.escape_key": "Escape",
+    "axiom.editorui.hold_for_more_options": "Hold %s for more options",
+    "axiom.editorui.left_mouse_short": "LMB",
+    "axiom.editorui.mainmenu.create": "Create",
+    "axiom.editorui.mainmenu.create.cone": "Cone...",
+    "axiom.editorui.mainmenu.create.cuboid": "Cuboid...",
+    "axiom.editorui.mainmenu.create.cylinder": "Cylinder...",
+    "axiom.editorui.mainmenu.create.pyramid": "Pyramid...",
+    "axiom.editorui.mainmenu.create.sphere": "Sphere...",
+    "axiom.editorui.mainmenu.edit": "Edit",
+    "axiom.editorui.mainmenu.edit.copy": "Copy",
+    "axiom.editorui.mainmenu.edit.cut": "Cut",
+    "axiom.editorui.mainmenu.edit.redo": "Redo",
+    "axiom.editorui.mainmenu.edit.redo_named": "Redo %s",
+    "axiom.editorui.mainmenu.edit.save_blueprint": "Save Blueprint",
+    "axiom.editorui.mainmenu.edit.undo": "Undo",
+    "axiom.editorui.mainmenu.edit.undo_named": "Undo %s",
+    "axiom.editorui.mainmenu.export_schematic": "Export Schematic...",
+    "axiom.editorui.mainmenu.file": "File",
+    "axiom.editorui.mainmenu.file.import_schematic": "Import Schematic...",
+    "axiom.editorui.mainmenu.help": "Help",
+    "axiom.editorui.mainmenu.help.debug_info": "Debug Info",
+    "axiom.editorui.mainmenu.help.discord_server": "Discord Server...",
+    "axiom.editorui.mainmenu.help.documentation": "Documentation...",
+    "axiom.editorui.mainmenu.help.keybinds": "Keybinds...",
+    "axiom.editorui.mainmenu.help.reset_tutorial": "Reset Tutorial",
+    "axiom.editorui.mainmenu.help.style_editor": "Style Editor...",
+    "axiom.editorui.mainmenu.operations": "Operations",
+    "axiom.editorui.mainmenu.operations.analyze": "Analyze...",
+    "axiom.editorui.mainmenu.operations.autoshade": "Autoshade...",
+    "axiom.editorui.mainmenu.operations.drain": "Drain",
+    "axiom.editorui.mainmenu.operations.fill": "Fill...",
+    "axiom.editorui.mainmenu.operations.fill_bottom": "Fill Bottom...",
+    "axiom.editorui.mainmenu.operations.fill_bottom_description": "Fill the bottom edges of a selection with a block",
+    "axiom.editorui.mainmenu.operations.fill_category": "Fill",
+    "axiom.editorui.mainmenu.operations.fill_description": "Fill the selection with a block",
+    "axiom.editorui.mainmenu.operations.fill_nearest": "Fill Nearest",
+    "axiom.editorui.mainmenu.operations.fill_nearest_description": "Replace air blocks with their nearest non-air block",
+    "axiom.editorui.mainmenu.operations.fill_outline": "Fill Outline...",
+    "axiom.editorui.mainmenu.operations.fill_outline_description": "Fill all edges of a selection with a block",
+    "axiom.editorui.mainmenu.operations.fill_top": "Fill Top...",
+    "axiom.editorui.mainmenu.operations.fill_top_description": "Fill the top edges of a selection with a block",
+    "axiom.editorui.mainmenu.operations.fill_walls": "Fill Walls...",
+    "axiom.editorui.mainmenu.operations.fill_walls_description": "Fill the horizontal edges of a selection with a block",
+    "axiom.editorui.mainmenu.operations.generate": "Generate",
+    "axiom.editorui.mainmenu.operations.generate_colour_field": "Generate Colour Field",
+    "axiom.editorui.mainmenu.operations.gravity": "Gravity",
+    "axiom.editorui.mainmenu.operations.replace": "Replace...",
+    "axiom.editorui.mainmenu.operations.set_biome": "Set Biome...",
+    "axiom.editorui.mainmenu.operations.simulation_category": "Simulation",
+    "axiom.editorui.mainmenu.operations.smoothsnow": "Smoothsnow",
+    "axiom.editorui.mainmenu.operations.type_replace": "Type Replace...",
+    "axiom.editorui.mainmenu.operations.waterlog": "Waterlog",
+    "axiom.editorui.mainmenu.select": "Select",
+    "axiom.editorui.mainmenu.select.bounding_box": "Bounding Box",
+    "axiom.editorui.mainmenu.select.clear": "Clear",
+    "axiom.editorui.mainmenu.select.distort": "Distort...",
+    "axiom.editorui.mainmenu.select.expand": "Expand...",
+    "axiom.editorui.mainmenu.select.filter": "Filter...",
+    "axiom.editorui.mainmenu.select.shrink": "Shrink...",
+    "axiom.editorui.mainmenu.select.smooth": "Smooth...",
+    "axiom.editorui.mainmenu.toolmasks": "Tool Masks",
+    "axiom.editorui.mainmenu.toolmasks.clear": "Clear",
+    "axiom.editorui.mainmenu.toolmasks.edit": "Edit",
+    "axiom.editorui.mainmenu.view": "View",
+    "axiom.editorui.mainmenu.view.liquid_opacity": "Liquid Opacity",
+    "axiom.editorui.mainmenu.view.min_brightness": "Min Brightness",
+    "axiom.editorui.mainmenu.view.show_biomes": "Show Biomes",
+    "axiom.editorui.mainmenu.view.show_annotations": "Show Annotations",
+    "axiom.editorui.mainmenu.view.show_key_presses": "Show Key Presses",
+    "axiom.editorui.mainmenu.view.show_selection": "Show Selection",
+    "axiom.editorui.mainmenu.view.show_ruler": "Show Ruler",
+    "axiom.editorui.mainmenu.view.ui_scale": "UI Scale",
+    "axiom.editorui.mainmenu.window": "Window",
+    "axiom.editorui.mainmenu.window.show_close_window_button": "Show Close Window Button",
+    "axiom.editorui.mainmenu.window.windows": "Windows",
+    "axiom.editorui.middle_mouse_short": "MMB",
+    "axiom.editorui.multiple_keybinds": "Multiple",
+    "axiom.editorui.no_keybind": "None",
+    "axiom.editorui.pin_location": "Pin Location",
+    "axiom.editorui.pin_world": "Pin World",
+    "axiom.editorui.right_mouse_short": "RMB",
+    "axiom.editorui.skip_update": "Skip",
+    "axiom.editorui.spectators_generate_chunks_warning": "Warning: The gamerule spectatorsGenerateChunks is false, this will cause major issues with the Editor UI. Please set the gamerule to true",
+    "axiom.editorui.speed": "Speed",
+    "axiom.editorui.tool_stabilization": "Tool Stabilization",
+    "axiom.editorui.styles.imgui_dark": "ImGui Dark",
+    "axiom.editorui.styles.imgui_light": "ImGui Light",
+    "axiom.editorui.teleport": "Teleport...",
+    "axiom.editorui.update": "Update",
+    "axiom.editorui.view.create_new": "New View",
+    "axiom.editorui.view.main_name": "Main",
+    "axiom.editorui.view.new_view_name": "New View",
+    "axiom.editorui.warning_confirmation": "I Understand. Do not show this message again",
+    "axiom.editorui.window.clipboard_installation": "Clipboard Installation",
+    "axiom.editorui.window.active_block": "Active Block",
+    "axiom.editorui.window.active_block.edit_properties_below": "*Edit properties below",
+    "axiom.editorui.window.analyze": "Analyze",
+    "axiom.editorui.window.analyze.block_count": "Count",
+    "axiom.editorui.window.analyze.block_distribution": "Distr",
+    "axiom.editorui.window.analyze.block_type": "Block",
+    "axiom.editorui.window.analyze.clear_information": "Clear",
+    "axiom.editorui.window.analyze.do_analyze": "Analyze",
+    "axiom.editorui.window.autoshade": "Autoshade",
+    "axiom.editorui.window.animated_rebuild": "Animated Rebuild",
+    "axiom.editorui.window.autoshade.do_autoshade": "Autoshade",
+    "axiom.editorui.window.block_distribution_total": "Total",
+    "axiom.editorui.window.blueprint_browser": "Blueprint Browser",
+    "axiom.editorui.window.blueprint_browser.add_folder": "Add Folder",
+    "axiom.editorui.window.blueprint_browser.automatically_refresh": "Automatically Refresh",
+    "axiom.editorui.window.blueprint_browser.automatically_refresh.description": "Automatically refresh the list of blueprints when a file is added/removed",
+    "axiom.editorui.window.blueprint_browser.search_inside_folders": "Search inside folders",
+    "axiom.editorui.window.blueprint_browser.search_inside_folders.description": "If enabled, will recursively search inside subfolders instead of just searching inside the current folder",
+    "axiom.editorui.window.blueprint_browser.close": "Close",
+    "axiom.editorui.window.blueprint_browser.confirm": "Confirm",
+    "axiom.editorui.window.blueprint_browser.delete": "Delete",
+    "axiom.editorui.window.blueprint_browser.disable_auto_refresh": "Disable Auto-Refresh",
+    "axiom.editorui.window.blueprint_browser.edit_blueprint": "Edit Blueprint",
+    "axiom.editorui.window.blueprint_browser.file_browser_osx": "Finder",
+    "axiom.editorui.window.blueprint_browser.file_browser_other": "your system file browser",
+    "axiom.editorui.window.blueprint_browser.file_browser_win": "Windows Explorer",
+    "axiom.editorui.window.blueprint_browser.file_missing": "No such file!",
+    "axiom.editorui.window.blueprint_browser.file_missing_message1": "File '%s' no longer exists!",
+    "axiom.editorui.window.blueprint_browser.file_missing_message2": "Did you move/delete it through %s?",
+    "axiom.editorui.window.blueprint_browser.go_back": "Back",
+    "axiom.editorui.window.blueprint_browser.go_forwards": "Forwards",
+    "axiom.editorui.window.blueprint_browser.move_file": "Move",
+    "axiom.editorui.window.blueprint_browser.move_file_already_exists": "File '%s' already exists in directory",
+    "axiom.editorui.window.blueprint_browser.move_file_overwrite": "Overwrite",
+    "axiom.editorui.window.blueprint_browser.new_folder": "New Folder",
+    "axiom.editorui.window.blueprint_browser.new_folder_i": "New Folder (%s)",
+    "axiom.editorui.window.blueprint_browser.open_folder": "Open Folder",
+    "axiom.editorui.window.blueprint_browser.overflow_files": "Overflow!",
+    "axiom.editorui.window.blueprint_browser.overflow_files_message": "Detected large amount of file changes",
+    "axiom.editorui.window.blueprint_browser.reload": "Reload",
+    "axiom.editorui.window.blueprint_browser.rename_file": "Rename File",
+    "axiom.editorui.window.blueprint_browser.sort_by": "Sort By",
+    "axiom.editorui.window.blueprint_browser.sort_by.ascending": "Ascending",
+    "axiom.editorui.window.blueprint_browser.sort_by.block_count": "Block Count",
+    "axiom.editorui.window.blueprint_browser.sort_by.descending": "Descending",
+    "axiom.editorui.window.blueprint_browser.sort_by.name": "Name",
+    "axiom.editorui.window.blueprint_browser.unnamed_blueprint": "Unnamed",
+    "axiom.editorui.window.clipboard": "Clipboard",
+    "axiom.editorui.window.clipboard.clear": "Clear",
+    "axiom.editorui.window.clipboard.copy_hint": "%s to copy selection to clipboard",
+    "axiom.editorui.window.clipboard.empty": "Empty",
+    "axiom.editorui.window.clipboard.n_blocks": "%s blocks",
+    "axiom.editorui.window.clipboard.n_block_entities": "%s block entities",
+    "axiom.editorui.window.clipboard.n_entities": "%s entities",
+    "axiom.editorui.window.clipboard.single_block": "1 block",
+    "axiom.editorui.window.clipboard.single_block_entity": "1 block entity",
+    "axiom.editorui.window.clipboard.single_entity": "1 entity",
+    "axiom.editorui.window.clipboard.paste_hint": "%s to paste clipboard",
+    "axiom.editorui.window.clipboard.placement_options": "Placement Options",
+    "axiom.editorui.window.clipboard.placement_options.keep_existing": "Keep Existing",
+    "axiom.editorui.window.clipboard.placement_options.paste_air": "Paste Air",
+    "axiom.editorui.window.clipboard.placement_options.rotate_scale": "Rotate/Scale...",
+    "axiom.editorui.window.clipboard.unlock_rotation": "Unlock Rotation",
+    "axiom.editorui.window.clipboard.warning_1": "Rotating by non-90 degree angles is a LOSSY operation",
+    "axiom.editorui.window.clipboard.warning_2": "By rotating a build, information will be lost and it may be difficult to recover the original build",
+    "axiom.editorui.window.clipboard.warning_title": "Non-90 Degree Rotation Warning",
+    "axiom.editorui.window.create_blueprint": "Create Blueprint",
+    "axiom.editorui.window.create_blueprint.angle": "Angle",
+    "axiom.editorui.window.create_blueprint.author": "Author",
+    "axiom.editorui.window.create_blueprint.name": "Name",
+    "axiom.editorui.window.create_blueprint.save": "Save",
+    "axiom.editorui.window.create_blueprint.save_blueprint": "Save Blueprint",
+    "axiom.editorui.window.create_shape": "Create Shape",
+    "axiom.editorui.window.create_shape.advanced": "Advanced",
+    "axiom.editorui.window.create_shape.cone": "Cone",
+    "axiom.editorui.window.create_shape.copied": "Copied!",
+    "axiom.editorui.window.create_shape.copy_to_clipboard": "Copy to clipboard",
+    "axiom.editorui.window.create_shape.cuboid": "Cuboid",
+    "axiom.editorui.window.create_shape.cylinder": "Cylinder",
+    "axiom.editorui.window.create_shape.do_place": "Place",
+    "axiom.editorui.window.create_shape.height": "Height",
+    "axiom.editorui.window.create_shape.hollow": "Hollow",
+    "axiom.editorui.window.create_shape.pitch": "Pitch",
+    "axiom.editorui.window.create_shape.pyramid": "Pyramid",
+    "axiom.editorui.window.create_shape.radius": "Radius",
+    "axiom.editorui.window.create_shape.roll": "Roll",
+    "axiom.editorui.window.create_shape.separate_xyz": "Separate XYZ",
+    "axiom.editorui.window.create_shape.separate_xz": "Separate XZ",
+    "axiom.editorui.window.create_shape.shape": "Shape",
+    "axiom.editorui.window.create_shape.sphere": "Sphere",
+    "axiom.editorui.window.create_shape.width": "Width",
+    "axiom.editorui.window.create_shape.yaw": "Yaw",
+    "axiom.editorui.window.debug_info": "Debug Info",
+    "axiom.editorui.window.distort_selection": "Distort Selection",
+    "axiom.editorui.window.distort_selection.distance": "Distance",
+    "axiom.editorui.window.distort_selection.do_distort": "Distort",
+    "axiom.editorui.window.distort_selection.noise_radius": "Noise Radius",
+    "axiom.editorui.window.expand_selection": "Expand Selection",
+    "axiom.editorui.window.expand_selection.do_expand": "Expand",
+    "axiom.editorui.window.expand_selection.expand_selection_by": "Expand selection by",
+    "axiom.editorui.window.fill": "Fill",
+    "axiom.editorui.window.fill.all": "All",
+    "axiom.editorui.window.fill.bottom": "Bottom",
+    "axiom.editorui.window.fill.do_fill": "Fill",
+    "axiom.editorui.window.fill.inside": "Inside",
+    "axiom.editorui.window.fill.outline": "Outline",
+    "axiom.editorui.window.fill.top": "Top",
+    "axiom.editorui.window.fill.walls": "Walls",
+    "axiom.editorui.window.filter_selection": "Filter Selection",
+    "axiom.editorui.window.filter_selection.filter": "Filter",
+    "axiom.editorui.window.history": "History",
+    "axiom.editorui.window.history.clear": "Clear",
+    "axiom.editorui.window.history.history_size": "History Size: %s",
+    "axiom.editorui.window.history.no_history": "No History",
+    "axiom.editorui.window.keybinds": "Keybinds",
+    "axiom.editorui.window.keybinds.conflicts_with": "This binding conflicts with:",
+    "axiom.editorui.window.keybinds.load_axiom_defaults": "Axiom Defaults",
+    "axiom.editorui.window.keybinds.load_blender_defaults": "Blender-like",
+    "axiom.editorui.window.keybinds.load_default": "Load Default...",
+    "axiom.editorui.window.keybinds.unbind": "Unbind",
+    "axiom.editorui.window.inventory": "Inventory",
+    "axiom.editorui.window.inventory.hotbar": "Hotbar",
+    "axiom.editorui.window.inventory.inventory": "Inventory",
+    "axiom.editorui.window.palette": "Palette",
+    "axiom.editorui.window.palette.add_block_to": "Add block to %s",
+    "axiom.editorui.window.palette.add_new_block": "Add new block",
+    "axiom.editorui.window.palette.add_new_category": "Add new category",
+    "axiom.editorui.window.palette.after": "After %s",
+    "axiom.editorui.window.palette.are_you_sure_delete": "Are you sure you want to delete '%s'?",
+    "axiom.editorui.window.palette.before": "Before %s",
+    "axiom.editorui.window.palette.cannot_be_undone": "This operation CANNOT be undone",
+    "axiom.editorui.window.palette.child_of": "Child of %s",
+    "axiom.editorui.window.palette.custom": "Custom",
+    "axiom.editorui.window.palette.custom_empty": "Empty (Right-click to add)",
+    "axiom.editorui.window.palette.delete": "Delete %s",
+    "axiom.editorui.window.palette.invalid_name_blank": "Invalid name: must not be blank",
+    "axiom.editorui.window.palette.invalid_name_contains_hash": "Invalid name: must not contain '#'",
+    "axiom.editorui.window.palette.invalid_name_duplicate": "Duplicate name: %s already exists",
+    "axiom.editorui.window.palette.recently_used": "Recently Used",
+    "axiom.editorui.window.palette.remove_block": "Remove block",
+    "axiom.editorui.window.palette.rename": "Rename %s",
+    "axiom.editorui.window.palette.this_will_delete_children": "This will also delete all %s children",
+    "axiom.editorui.window.palette.unknown_custom_block": "Unknown Custom Block",
+    "axiom.editorui.window.replace": "Replace",
+    "axiom.editorui.window.replace.copy_properties": "Copy Properties",
+    "axiom.editorui.window.replace.do_replace": "Replace",
+    "axiom.editorui.window.rotate_placement": "Rotate/Scale Placement",
+    "axiom.editorui.window.set_biome": "Set Biome",
+    "axiom.editorui.window.set_biome.do_set_biome": "Set Biome",
+    "axiom.editorui.window.set_biome.fill_vertically": "Fill Vertically",
+    "axiom.editorui.window.shrink_selection": "Shrink Selection",
+    "axiom.editorui.window.shrink_selection.do_shrink": "Shrink",
+    "axiom.editorui.window.shrink_selection.shrink_selection_by": "Shrink selection by",
+    "axiom.editorui.window.smooth_selection": "Smooth Selection",
+    "axiom.editorui.window.smooth_selection.do_smooth": "Smooth",
+    "axiom.editorui.window.smooth_selection.stddev": "StdDev",
+    "axiom.editorui.window.smooth_selection.threshold": "Threshold",
+    "axiom.editorui.window.style_editor": "Style Editor",
+    "axiom.editorui.window.style_editor.base_style": "Base Style",
+    "axiom.editorui.window.style_editor.border_color": "Border",
+    "axiom.editorui.window.style_editor.borders_category": "Borders",
+    "axiom.editorui.window.style_editor.button": "Button",
+    "axiom.editorui.window.style_editor.button_active": "Button (Active)",
+    "axiom.editorui.window.style_editor.button_hovered": "Button (Hovered)",
+    "axiom.editorui.window.style_editor.checkmark": "Checkmark",
+    "axiom.editorui.window.style_editor.child_borders": "Child Borders",
+    "axiom.editorui.window.style_editor.child_rounding": "Child Rounding",
+    "axiom.editorui.window.style_editor.color": "Color",
+    "axiom.editorui.window.style_editor.copied": "Copied!",
+    "axiom.editorui.window.style_editor.custom_theme": "Custom Theme",
+    "axiom.editorui.window.style_editor.disabled_text": "Disabled Text",
+    "axiom.editorui.window.style_editor.docking_empty_background": "Docking Empty Background",
+    "axiom.editorui.window.style_editor.docking_preview": "Docking Preview",
+    "axiom.editorui.window.style_editor.drag_drop_target": "Drag Drop Target",
+    "axiom.editorui.window.style_editor.export_to_clipboard": "Export to Clipboard",
+    "axiom.editorui.window.style_editor.frame_background": "Frame Background",
+    "axiom.editorui.window.style_editor.frame_background_active": "Frame Background (Active)",
+    "axiom.editorui.window.style_editor.frame_background_hovered": "Frame Background (Hovered)",
+    "axiom.editorui.window.style_editor.frame_borders": "Frame Borders",
+    "axiom.editorui.window.style_editor.frame_category": "Frame",
+    "axiom.editorui.window.style_editor.frame_rounding": "Frame Rounding",
+    "axiom.editorui.window.style_editor.header": "Header",
+    "axiom.editorui.window.style_editor.header_active": "Header (Active)",
+    "axiom.editorui.window.style_editor.header_hovered": "Header (Hovered)",
+    "axiom.editorui.window.style_editor.import_from_clipboard": "Import from Clipboard",
+    "axiom.editorui.window.style_editor.menu_bar_background": "Menu Bar Background",
+    "axiom.editorui.window.style_editor.other_category": "Other",
+    "axiom.editorui.window.style_editor.popup_background": "Popup Background",
+    "axiom.editorui.window.style_editor.popup_borders": "Popup Borders",
+    "axiom.editorui.window.style_editor.popup_rounding": "Popup Rounding",
+    "axiom.editorui.window.style_editor.reset": "Reset",
+    "axiom.editorui.window.style_editor.resize_grip": "Resize Grip",
+    "axiom.editorui.window.style_editor.resize_grip_active": "Resize Grip (Active)",
+    "axiom.editorui.window.style_editor.resize_grip_hovered": "Resize Grip (Hovered)",
+    "axiom.editorui.window.style_editor.revert": "Revert",
+    "axiom.editorui.window.style_editor.rounding_category": "Rounding",
+    "axiom.editorui.window.style_editor.scrollbar_background": "Scrollbar Background",
+    "axiom.editorui.window.style_editor.scrollbar_category": "Scrollbar",
+    "axiom.editorui.window.style_editor.scrollbar_grab": "Scrollbar Grab",
+    "axiom.editorui.window.style_editor.scrollbar_grab_active": "Scrollbar Grab (Active)",
+    "axiom.editorui.window.style_editor.scrollbar_grab_hovered": "Scrollbar Grab (Hovered)",
+    "axiom.editorui.window.style_editor.scrollbar_rounding": "Scrollbar Rounding",
+    "axiom.editorui.window.style_editor.separator": "Separator",
+    "axiom.editorui.window.style_editor.separator_active": "Separator (Active)",
+    "axiom.editorui.window.style_editor.separator_hovered": "Separator (Hovered)",
+    "axiom.editorui.window.style_editor.sizes": "Sizes",
+    "axiom.editorui.window.style_editor.slider_grab": "Slider Grab",
+    "axiom.editorui.window.style_editor.slider_grab_active": "Slider Grab (Active)",
+    "axiom.editorui.window.style_editor.slider_grab_rounding": "Slider Grab Rounding",
+    "axiom.editorui.window.style_editor.tab": "Tab",
+    "axiom.editorui.window.style_editor.tab_active": "Tab (Active)",
+    "axiom.editorui.window.style_editor.tab_borders": "Tab Borders",
+    "axiom.editorui.window.style_editor.tab_hovered": "Tab (Hovered)",
+    "axiom.editorui.window.style_editor.tab_rounding": "Tab Rounding",
+    "axiom.editorui.window.style_editor.table_border_light": "Table Border (Light)",
+    "axiom.editorui.window.style_editor.table_border_strong": "Table Border (Strong)",
+    "axiom.editorui.window.style_editor.text": "Text",
+    "axiom.editorui.window.style_editor.text_category": "Text",
+    "axiom.editorui.window.style_editor.theme_name": "Theme Name",
+    "axiom.editorui.window.style_editor.theme_parameters": "Theme Parameters",
+    "axiom.editorui.window.style_editor.title_background": "Title Background",
+    "axiom.editorui.window.style_editor.title_background_active": "Title Background (Active)",
+    "axiom.editorui.window.style_editor.title_background_collapsed": "Title Background (Collapsed)",
+    "axiom.editorui.window.style_editor.unfocused_tab": "Unfocused Tab",
+    "axiom.editorui.window.style_editor.unfocused_tab_active": "Unfocused Tab (Active)",
+    "axiom.editorui.window.style_editor.widget_category": "Widget",
+    "axiom.editorui.window.style_editor.window_background": "Window Background",
+    "axiom.editorui.window.style_editor.window_borders": "Window Borders",
+    "axiom.editorui.window.style_editor.window_category": "Window",
+    "axiom.editorui.window.style_editor.window_rounding": "Window Rounding",
+    "axiom.editorui.window.target_info": "Target Info",
+    "axiom.editorui.window.text_annotations": "Text Annotations",
+    "axiom.editorui.window.target_info.distance": "Distance: %s",
+    "axiom.editorui.window.target_info.no_target": "No target",
+    "axiom.editorui.window.target_info.position": "Position: %s, %s, %s",
+    "axiom.editorui.window.target_info.targeted_biome": "Targeted biome: %s",
+    "axiom.editorui.window.target_info.targeted_block": "Targeted block: %s",
+    "axiom.editorui.window.tool_masks": "Tool Masks",
+    "axiom.editorui.window.tool_masks.logic": "Logic",
+    "axiom.editorui.window.tool_masks.mask_above": "Above",
+    "axiom.editorui.window.tool_masks.mask_adjacent": "Adjacent",
+    "axiom.editorui.window.tool_masks.mask_and": "AND",
+grep: write error: Broken pipe
+
+== strings: custom tool ==
+build/probe/classes/com/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool.class
+build/probe/classes/com/moulberry/axiom/services/ToolRegistryService.class
