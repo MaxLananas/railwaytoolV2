@@ -60,10 +60,11 @@ jobs:
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; sleep 2; clicktext Skip; sleep 2;
-            move 960 540; sleep 1; shot 01-before;
-            click 340 20; sleep 2; shot 02-window-menu;
-            click 23 67; sleep 2; shot 03-tool1;
-            click 265 222; sleep 2; shot 04-tool34
+            move 960 540; sleep 1;
+            press 63 67; sleep 2; shot 01-press-icon2;
+            press 265 222; sleep 2; shot 02-press-icon34;
+            press 23 105; sleep 2; shot 03-press-icon8;
+            press 144 144; sleep 2; shot 04-press-icon17
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &

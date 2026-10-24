@@ -57,6 +57,15 @@ def click_at(x, y):
     drv.shell("xdotool", "click", "1")
 
 
+def press_at(x, y, hold=0.25):
+    """Hold the button long enough for a full frame, then release."""
+    move_to(x, y)
+    time.sleep(0.35)
+    drv.shell("xdotool", "mousedown", "1")
+    time.sleep(hold)
+    drv.shell("xdotool", "mouseup", "1")
+
+
 def click_text(word, out, timeout=1.0):
     """Click the first on-screen word matching `word` (OCR bounding box)."""
     path = os.path.join(out, "_ocr.png")
@@ -159,7 +168,9 @@ def run_script(out, script):
             continue
         verb, rest = parts[0], parts[1:]
         try:
-            if verb == "click":
+            if verb == "press":
+                press_at(int(rest[0]), int(rest[1]))
+            elif verb == "click":
                 click_at(int(rest[0]), int(rest[1]))
             elif verb == "move":
                 move_to(int(rest[0]), int(rest[1]))
