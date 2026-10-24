@@ -1,31 +1,31 @@
-[02:44:13] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[02:44:13] fabric loader jar: True
-[02:44:13] version: fabric-loader-0.19.3-1.21.10
-[02:44:13] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[02:44:13] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[02:44:13] Fabric API 0.138.4+1.21.10
-[02:44:14] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[02:44:14] waiting for the world
-[02:44:34] ready=True alive=True
-[02:44:46] focused: True
-[02:44:47] shot panel-0-world: True TT TELE LI TEL he
-[02:44:47] opening the editor
-[02:44:57] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
-[02:45:07] clicked 'Continue' at 339,178
-[02:45:12] clicked 'Continue' at 341,680
-[02:45:15] clicked 'Continue' at 1311,504
-[02:45:19] clicked 'Continue' at 826,339
-[02:45:22] clicked 'Continue' at 1311,728
-[02:45:25] text not found: Continue
-[02:45:35] text not found: Continue
-[02:45:36] text not found: Continue
-[02:45:38] text not found: Continue
-[02:45:43] clicked 'Skip' at 774,839
-[02:45:51] shot cal-200: True File Edit Select View [@peratioAS) Tool Masks Window Keybinds... Help ¥ Tools Fill > ¥ (Clipboard, Target info x. i S Fill Nearest 7s Replace... _ pty SI Type Replace. This is your clipboard. If you h
-[02:45:58] shot cal-400: True File Edit Select View Operations Tool Masks [WindOW) Keybinds.. Help ¥ Tools + Store Current Layout as Default ¥ (Clipboard Target Info ~~ i S « f Restore Default Layout 7s F Copy Current Layout to Cl
-[02:46:04] shot cal-600: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:46:12] shot cal-800: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 ER a = Game Menu you can use 
-[02:46:19] shot cal-1000: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
-[02:46:29] shot cal-1200: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 ED eo = Game Menu you can use
-[02:46:30] closing
-[02:46:34] done
+[02:49:28] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[02:49:28] fabric loader jar: True
+[02:49:28] version: fabric-loader-0.19.3-1.21.10
+[02:49:28] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[02:49:28] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[02:49:29] Fabric API 0.138.4+1.21.10
+[02:49:29] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[02:49:29] waiting for the world
+[02:49:54] ready=True alive=True
+[02:50:06] focused: True
+[02:50:08] shot panel-0-world: True PTTL LETT Te
+[02:50:08] opening the editor
+[02:50:21] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
+[02:50:24] clicked 'Continue' at 340,178
+[02:50:28] clicked 'Continue' at 341,680
+[02:50:31] clicked 'Continue' at 1311,504
+[02:50:36] clicked 'Continue' at 826,339
+[02:50:39] clicked 'Continue' at 1311,728
+[02:50:41] text not found: Continue
+[02:50:43] text not found: Continue
+[02:50:44] text not found: Continue
+[02:50:45] text not found: Continue
+[02:50:54] clicked 'Skip' at 774,839
+[02:51:04] shot cal2-200: True File Edit Select View [@peratioAS) Tool Masks Window Keybinds... Help ¥ Tools Fill > ¥ (Clipboard, Target info x. i S Fill Nearest 7s Replace... _ pty SI Type Replace. This is your clipboard. If you h
+[02:51:13] shot cal2-300: True File Edit Select View Operations |/T60lMasks) Window Keybinds... Help ¥ Tools Clea ¥ (Clipboard, Target info X i S « B , Edit 7M: El ¢ Empt = . “ This is your clipboard. If you have a selection you a 
+[02:51:21] shot cal2-400: True File Edit Select View Operations Tool Masks [WindOW) Keybinds.. Help ¥ Tools + Store Current Layout as Default ¥ (Clipboard Target Info ~~ i S « f Restore Default Layout 7 ms 4 Copy Current Layout to 
+[02:51:30] shot cal2-500: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools i] Clipboard x eae 4 Oe | = i Empty This is your clipboard. If you have a selection you = you can use Ctrl+V to initiate a p
+[02:51:38] shot cal2-700: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. if you have a selection you a / i pend SB 4 ay 
+[02:51:54] shot cal2-900: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 eR ee oa = Game Menu you can 
+[02:51:55] closing
+[02:51:59] done
