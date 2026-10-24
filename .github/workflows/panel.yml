@@ -60,12 +60,10 @@ jobs:
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
             clicktext Continue; sleep 2; clicktext Skip; sleep 2;
-            move 960 540; sleep 1;
-            hover 63 67; shot 01-hover-icon2;
-            hover 265 222; shot 02-hover-icon34;
-            rclick 144 144; sleep 1.5; shot 03-rclick-icon17;
-            press 103 105; sleep 1.5; shot 04-press-icon10;
-            dbl 225 183; sleep 1.5; shot 05-dbl-icon27
+            shot 01-start;
+            move 23 67; sleep 1; shot 02-abs;
+            move 960 540; move 940 520; move 920 500; move 900 480; sleep 1; shot 03-rel;
+            key m; sleep 1.5; shot 04-key-m
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
@@ -77,6 +75,21 @@ jobs:
             --mc-dir run-mc --out panel --size 1920x1080 \
             --script "$PANEL_SCRIPT" 2>&1 | tee panel/driver-run.log
           cat panel/driver-run.log
+
+      - name: Dump Axiom config
+        if: always()
+        run: |
+          mkdir -p docs/panel
+          {
+            echo "== config tree =="
+            find run-mc/config -maxdepth 3 -type f 2>/dev/null | head -50
+            echo
+            for f in $(find run-mc/config -maxdepth 3 -name '*.json' 2>/dev/null | head -20); do
+              echo "--- $f"
+              head -c 4000 "$f"
+              echo
+            done
+          } > docs/panel/config-dump.txt 2>&1 || true
 
       - uses: actions/upload-artifact@v4
         if: always()
