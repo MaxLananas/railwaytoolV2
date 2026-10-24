@@ -1,0 +1,277 @@
++ echo '== jar =='
+== jar ==
++ echo build/api/axiomclientapi.jar
+build/api/axiomclientapi.jar
++ echo
+
++ echo '== entries =='
+== entries ==
++ unzip -l build/api/axiomclientapi.jar
++ awk '{print $4}'
++ grep -E '\.class$'
++ sed 's|/|.|g; s|\.class$||'
++ sort
+com.moulberry.axiomclientapi.CustomTool
+com.moulberry.axiomclientapi.Effects
+com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer
+com.moulberry.axiomclientapi.pathers.BallShape
+com.moulberry.axiomclientapi.pathers.BallShape$1
+com.moulberry.axiomclientapi.pathers.BallShape$2
+com.moulberry.axiomclientapi.pathers.BallShape$3
+com.moulberry.axiomclientapi.pathers.ToolPatherPoint
+com.moulberry.axiomclientapi.pathers.ToolPatherUnique
+com.moulberry.axiomclientapi.regions.BlockRegion
+com.moulberry.axiomclientapi.regions.BooleanRegion
+com.moulberry.axiomclientapi.service.RegionProvider
+com.moulberry.axiomclientapi.service.ToolPatherProvider
+com.moulberry.axiomclientapi.service.ToolRegistryService
+com.moulberry.axiomclientapi.service.ToolService
+com.moulberry.axi╬┐m.utils.Authorization
+com.moulberry.axi╬┐m.utils.Authorization$Meta
+com.moulberry.axi╬┐m.utils.Authorization$ServerAuthorization
++ echo
+
++ echo '== signatures =='
+== signatures ==
+++ unzip -l build/api/axiomclientapi.jar
+++ awk '{print $4}'
+++ grep -E '\.class$'
+++ sed 's|/|.|g; s|\.class$||'
+++ sort
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.CustomTool'
+### com.moulberry.axiomclientapi.CustomTool
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.CustomTool
+Compiled from "CustomTool.java"
+public interface com.moulberry.axiomclientapi.CustomTool {
+  public default void reset();
+  public default void render(net.minecraft.class_4184, float, long, net.minecraft.class_4587, org.joml.Matrix4f);
+  public default boolean callUseTool();
+  public default boolean callConfirm();
+  public default boolean callDelete();
+  public default void displayImguiOptions();
+  public abstract java.lang.String name();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.Effects'
+### com.moulberry.axiomclientapi.Effects
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.Effects
+Compiled from "Effects.java"
+public class com.moulberry.axiomclientapi.Effects {
+  public static final int BLUE;
+  public static final int RED;
+  public static final int OUTLINE;
+  public static final int REMOVAL;
+  public static final int SELECTION;
+  private static final int ALL;
+  public com.moulberry.axiomclientapi.Effects();
+  public static boolean blueOrRed(int);
+  public static boolean any(int);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer'
+### com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer
+Compiled from "TriIntConsumer.java"
+public interface com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer {
+  public abstract void accept(int, int, int);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.BallShape'
+### com.moulberry.axiomclientapi.pathers.BallShape
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.pathers.BallShape
+Compiled from "BallShape.java"
+public abstract class com.moulberry.axiomclientapi.pathers.BallShape {
+  public static com.moulberry.axiomclientapi.pathers.BallShape SPHERE;
+  public static com.moulberry.axiomclientapi.pathers.BallShape CUBE;
+  public static com.moulberry.axiomclientapi.pathers.BallShape OCTAHEDRON;
+  public com.moulberry.axiomclientapi.pathers.BallShape();
+  public abstract void fillRegion(com.moulberry.axiomclientapi.regions.BlockRegion, int, net.minecraft.class_2680);
+  public abstract void fillRegion(com.moulberry.axiomclientapi.regions.BooleanRegion, int);
+  public abstract float distanceSq(int, int, int);
+  public abstract java.lang.String getName();
+  public int getMaxRadiusForLivePreview();
+  public static com.moulberry.axiomclientapi.pathers.BallShape getByIndex(int);
+  public static java.lang.String[] getAllNames();
+  static {};
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.BallShape$1'
+### com.moulberry.axiomclientapi.pathers.BallShape$1
++ javap -classpath build/api/axiomclientapi.jar -p 'com.moulberry.axiomclientapi.pathers.BallShape$1'
+Compiled from "BallShape.java"
+class com.moulberry.axiomclientapi.pathers.BallShape$1 extends com.moulberry.axiomclientapi.pathers.BallShape {
+  com.moulberry.axiomclientapi.pathers.BallShape$1();
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BlockRegion, int, net.minecraft.class_2680);
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BooleanRegion, int);
+  public float distanceSq(int, int, int);
+  public java.lang.String getName();
+  public int getMaxRadiusForLivePreview();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.BallShape$2'
+### com.moulberry.axiomclientapi.pathers.BallShape$2
++ javap -classpath build/api/axiomclientapi.jar -p 'com.moulberry.axiomclientapi.pathers.BallShape$2'
+Compiled from "BallShape.java"
+class com.moulberry.axiomclientapi.pathers.BallShape$2 extends com.moulberry.axiomclientapi.pathers.BallShape {
+  com.moulberry.axiomclientapi.pathers.BallShape$2();
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BlockRegion, int, net.minecraft.class_2680);
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BooleanRegion, int);
+  public float distanceSq(int, int, int);
+  public java.lang.String getName();
+  public int getMaxRadiusForLivePreview();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.BallShape$3'
+### com.moulberry.axiomclientapi.pathers.BallShape$3
++ javap -classpath build/api/axiomclientapi.jar -p 'com.moulberry.axiomclientapi.pathers.BallShape$3'
+Compiled from "BallShape.java"
+class com.moulberry.axiomclientapi.pathers.BallShape$3 extends com.moulberry.axiomclientapi.pathers.BallShape {
+  com.moulberry.axiomclientapi.pathers.BallShape$3();
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BlockRegion, int, net.minecraft.class_2680);
+  public void fillRegion(com.moulberry.axiomclientapi.regions.BooleanRegion, int);
+  public float distanceSq(int, int, int);
+  public java.lang.String getName();
+  public int getMaxRadiusForLivePreview();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.ToolPatherPoint'
+### com.moulberry.axiomclientapi.pathers.ToolPatherPoint
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.pathers.ToolPatherPoint
+Compiled from "ToolPatherPoint.java"
+public interface com.moulberry.axiomclientapi.pathers.ToolPatherPoint {
+  public abstract void update(com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.pathers.ToolPatherUnique'
+### com.moulberry.axiomclientapi.pathers.ToolPatherUnique
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.pathers.ToolPatherUnique
+Compiled from "ToolPatherUnique.java"
+public interface com.moulberry.axiomclientapi.pathers.ToolPatherUnique {
+  public abstract boolean update(com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.regions.BlockRegion'
+### com.moulberry.axiomclientapi.regions.BlockRegion
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.regions.BlockRegion
+Compiled from "BlockRegion.java"
+public interface com.moulberry.axiomclientapi.regions.BlockRegion {
+  public abstract void clear();
+  public abstract void render(net.minecraft.class_4184, net.minecraft.class_243, net.minecraft.class_4587, org.joml.Matrix4f, float, float);
+  public abstract void addBlockIfNotPresent(int, int, int, net.minecraft.class_2680);
+  public abstract void addBlock(int, int, int, net.minecraft.class_2680);
+  public abstract net.minecraft.class_2338 min();
+  public abstract net.minecraft.class_2338 max();
+  public abstract boolean isEmpty();
+  public abstract int count();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.regions.BooleanRegion'
+### com.moulberry.axiomclientapi.regions.BooleanRegion
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.regions.BooleanRegion
+Compiled from "BooleanRegion.java"
+public interface com.moulberry.axiomclientapi.regions.BooleanRegion {
+  public abstract void render(net.minecraft.class_4184, net.minecraft.class_243, net.minecraft.class_4587, org.joml.Matrix4f, long, int);
+  public abstract void forEach(com.moulberry.axiomclientapi.funcinterfaces.TriIntConsumer);
+  public abstract boolean add(int, int, int);
+  public abstract void close();
+  public abstract void clear();
+  public abstract boolean contains(int, int, int);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.service.RegionProvider'
+### com.moulberry.axiomclientapi.service.RegionProvider
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.service.RegionProvider
+Compiled from "RegionProvider.java"
+public interface com.moulberry.axiomclientapi.service.RegionProvider {
+  public abstract com.moulberry.axiomclientapi.regions.BlockRegion createBlock();
+  public abstract com.moulberry.axiomclientapi.regions.BooleanRegion createBoolean();
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.service.ToolPatherProvider'
+### com.moulberry.axiomclientapi.service.ToolPatherProvider
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.service.ToolPatherProvider
+Compiled from "ToolPatherProvider.java"
+public interface com.moulberry.axiomclientapi.service.ToolPatherProvider {
+  public abstract com.moulberry.axiomclientapi.pathers.ToolPatherPoint createPoint(boolean);
+  public abstract com.moulberry.axiomclientapi.pathers.ToolPatherUnique createUnique(int, com.moulberry.axiomclientapi.pathers.BallShape);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.service.ToolRegistryService'
+### com.moulberry.axiomclientapi.service.ToolRegistryService
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.service.ToolRegistryService
+Compiled from "ToolRegistryService.java"
+public interface com.moulberry.axiomclientapi.service.ToolRegistryService {
+  public abstract void register(com.moulberry.axiomclientapi.CustomTool);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axiomclientapi.service.ToolService'
+### com.moulberry.axiomclientapi.service.ToolService
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axiomclientapi.service.ToolService
+Compiled from "ToolService.java"
+public interface com.moulberry.axiomclientapi.service.ToolService {
+  public abstract void pushBlockRegionChange(com.moulberry.axiomclientapi.regions.BlockRegion);
+  public abstract net.minecraft.class_3965 raycastBlock();
+  public abstract net.minecraft.class_2680 getActiveBlock();
+  public abstract net.minecraft.class_243 getLookDirection();
+  public abstract boolean isMouseDown(int);
+  public abstract java.util.concurrent.ForkJoinPool getSharedPoolThreadExecutor();
+  public abstract java.util.concurrent.ExecutorService getSharedSingleThreadExecutor();
+  public abstract void acquireChunkRenderOverrider(java.lang.String);
+  public abstract void releaseChunkRenderOverrider(java.lang.String);
+  public abstract void setBlockRenderOverride(int, int, int, net.minecraft.class_2680);
+}
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axi╬┐m.utils.Authorization'
+### com.moulberry.axi╬┐m.utils.Authorization
++ javap -classpath build/api/axiomclientapi.jar -p com.moulberry.axi╬┐m.utils.Authorization
+Error: class not found: com.moulberry.axi╬┐m.utils.Authorization
++ true
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axi╬┐m.utils.Authorization$Meta'
+### com.moulberry.axi╬┐m.utils.Authorization$Meta
++ javap -classpath build/api/axiomclientapi.jar -p 'com.moulberry.axi╬┐m.utils.Authorization$Meta'
+Error: class not found: com.moulberry.axi╬┐m.utils.Authorization$Meta
++ true
++ echo
+
++ for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort)
++ echo '### com.moulberry.axi╬┐m.utils.Authorization$ServerAuthorization'
+### com.moulberry.axi╬┐m.utils.Authorization$ServerAuthorization
++ javap -classpath build/api/axiomclientapi.jar -p 'com.moulberry.axi╬┐m.utils.Authorization$ServerAuthorization'
+Error: class not found: com.moulberry.axi╬┐m.utils.Authorization$ServerAuthorization
++ true
++ echo
+
