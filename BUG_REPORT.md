@@ -380,15 +380,23 @@ that `xdotool` does not reproduce on llvmpipe. Both sit behind
 
 ## 7. Current state
 
-- Branch `arena/41482152-railwaytoolv2`.
+- Branch `arena/41482152-railwaytoolv2`, released as `v2.0.3-mc1.21.10`
+  (`rail-path-tool-2.0.3.jar`).
 - CI green on `ac23339`: `Build & Release` `40100442633`, `In-game test`
   `40100442653` (118/118 checks, then 7/7 after the restart), `Panel shot`
   `40100442642`. `Build & Release` runs the Java/simulator parity gate on the
   regenerated 752-scene corpus and then `./gradlew build`.
+- CI green on the release tag `d9b62ca`: `Build & Release` `40105886180`
+  (parity, build, notes from `CHANGELOG.md`, release published). The jar version
+  is `mod_version` expanded into `fabric.mod.json` by `processResources`, so the
+  published jar reports 2.0.3.
 - `docs/ci/` holds the Axiom API dump used to check every ImGui call against
   the shipped bindings (`docs/ci/axiom-api.txt`).
-- Artifact: `rail-path-tool-v2.0.1-mc1.21.10`; released only when the version
-  bump runs on `main`.
+- Artifact: `BTE Rail Path Tool 2.0.3 — MC 1.21.10`, asset
+  `rail-path-tool-2.0.3.jar` (318 941 bytes). Releases are published by
+  `build.yml` when a `v<version>-mc<minecraft>` tag is pushed; the job refuses a
+  tag that disagrees with `gradle.properties` and a version with no changelog
+  section.
 
 ## 8. Not covered
 
