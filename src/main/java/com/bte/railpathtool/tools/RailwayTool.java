@@ -212,21 +212,28 @@ public class RailwayTool implements CustomTool {
     private void drawHeader() {
         ImGui.spacing();
         ImGui.textColored(ACCENT, tr("tool.name"));
-        ImGui.textDisabled(tr("ui.subtitle"));
+        wrap(() -> ImGui.textDisabled(tr("ui.subtitle")));
         ImGui.spacing();
     }
 
     private void drawStatus() {
         if (!warning.isEmpty()) {
-            ImGui.textColored(WARN_TEXT, "[!] " + warning);
+            wrap(() -> ImGui.textColored(WARN_TEXT, "[!] " + warning));
         }
         if (!status.isEmpty()) {
-            ImGui.textColored(statusError ? ERROR_TEXT : OK_TEXT,
-                    (statusError ? "[!] " : "[i] ") + status);
+            wrap(() -> ImGui.textColored(statusError ? ERROR_TEXT : OK_TEXT,
+                    (statusError ? "[!] " : "[i] ") + status));
         }
         if (warning.isEmpty() && status.isEmpty()) {
-            ImGui.textDisabled(tr("ui.idle"));
+            wrap(() -> ImGui.textDisabled(tr("ui.idle")));
         }
+    }
+
+    /** Long sentences wrap at the panel edge instead of being clipped. */
+    private static void wrap(Runnable text) {
+        ImGui.pushTextWrapPos(0.0f);
+        text.run();
+        ImGui.popTextWrapPos();
     }
 
     private void drawHelp() {

@@ -57,9 +57,11 @@ jobs:
         continue-on-error: true
         env:
           PANEL_SCRIPT: >-
-            shot 01-editor;
-            click 63 67; sleep 2; shot 02-after-click;
-            click 18 63; sleep 2; shot 03-after-click2
+            shot 01-open;
+            click 184 222; sleep 2; shot 02-tool-selected;
+            rclick 700 800; sleep 2; rclick 1000 860; sleep 2; rclick 1250 780; sleep 3;
+            shot 03-preview;
+            click 150 498; sleep 4; shot 04-built
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &

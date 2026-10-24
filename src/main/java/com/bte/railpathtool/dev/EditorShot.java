@@ -4,16 +4,12 @@ import com.bte.railpathtool.RailPathToolMod;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
 /**
  * Screenshot helper, disabled unless {@code -Dbte.railtool.ui=true}.
  *
- * <p>Axiom's editor is driven by the mouse, which a headless test cannot use
- * reliably, so this selects the rail tool through Axiom's own tool manager and
- * skips the introductory tutorial. The panel that then appears is Axiom's real
- * tool options window.
+ * <p>Axiom shows a six step tutorial on a fresh profile and blocks the rest of
+ * the editor until it is dismissed. The CI client has no keyboard user, so the
+ * helper skips it once; everything else is driven with real clicks.
  */
 public final class EditorShot {
 
@@ -21,8 +17,7 @@ public final class EditorShot {
     private static final int DELAY_TICKS = 100;
 
     private static int ticks;
-    private static boolean tutorialSkipped;
-    private static boolean selected;
+    private static boolean done;
 
     private EditorShot() {
     }
@@ -36,46 +31,20 @@ public final class EditorShot {
     }
 
     private static void tick(Minecraft mc) {
-        if (selected || mc.player == null) {
+        if (done || mc.player == null) {
             return;
         }
         if (++ticks < DELAY_TICKS) {
             return;
         }
-        ticks = 0;
+        done = true;
         try {
-            if (!tutorialSkipped) {
-                Class<?> tutorial = Class.forName(
-                        "com.moulberry.axiom.editor.tutorial.TutorialManager");
-                tutorial.getMethod("skip").invoke(null);
-                tutorialSkipped = true;
-                RailPathToolMod.LOGGER.info("[EDITORSHOT] tutorial skipped");
-            }
-            selected = selectRailTool();
+            Class<?> tutorial = Class.forName(
+                    "com.moulberry.axiom.editor.tutorial.TutorialManager");
+            tutorial.getMethod("skip").invoke(null);
+            RailPathToolMod.LOGGER.info("[EDITORSHOT] tutorial skipped");
         } catch (Throwable t) {
             RailPathToolMod.LOGGER.warn("[EDITORSHOT] failed: " + t);
         }
-    }
-
-    private static boolean selectRailTool() throws Exception {
-        Class<?> manager = Class.forName("com.moulberry.axiom.tools.ToolManager");
-        Method getTools = manager.getMethod("getTools");
-        Method nameOf = Class.forName("com.moulberry.axiom.tools.Tool")
-                .getMethod("name");
-        List<?> tools = (List<?>) getTools.invoke(null);
-        for (int i = 0; i < tools.size(); i++) {
-            Object tool = tools.get(i);
-            Object name = nameOf.invoke(tool);
-            if (name instanceof String text && text.contains("BTE")) {
-                manager.getMethod("setCurrentToolIndex", int.class).invoke(null, i);
-                manager.getMethod("setToolSelected", boolean.class).invoke(null, true);
-                RailPathToolMod.LOGGER.info("[EDITORSHOT] selected tool " + i
-                        + " of " + tools.size() + ": " + text);
-                return true;
-            }
-        }
-        RailPathToolMod.LOGGER.warn("[EDITORSHOT] rail tool missing from "
-                + tools.size() + " tools");
-        return false;
     }
 }
