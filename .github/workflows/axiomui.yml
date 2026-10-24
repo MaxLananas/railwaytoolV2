@@ -36,6 +36,17 @@ jobs:
               unzip -p libs/axiom.jar "$f" | python3 -m json.tool 2>/dev/null | grep -iE '"' | head -400
             done
             echo
+            echo "== full en_us.json =="
+            for f in $(unzip -l libs/axiom.jar | awk '{print $4}' | grep -E 'lang/en_us\.json$'); do
+              unzip -p libs/axiom.jar "$f"
+            done
+            echo
+            echo "== ToolsWindow =="
+            javap -classpath libs/axiom.jar -p -c com.moulberry.axiom.editor.windows.ToolsWindow 2>&1 | head -400
+            echo
+            echo "== WrappedCustomTool =="
+            javap -classpath libs/axiom.jar -p 'com.moulberry.axiom.services.ToolRegistryService$WrappedCustomTool' 2>&1 | head -120
+            echo
             echo "== strings: custom tool =="
             mkdir -p build/probe/classes
             cd build/probe/classes && unzip -o -q ../../../libs/axiom.jar '*.class' && cd ../../..
