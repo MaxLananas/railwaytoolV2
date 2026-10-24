@@ -6,7 +6,8 @@ on:
     paths:
       - 'tools/ingame_driver.py'
       - '.github/workflows/ingame.yml'
-      - 'src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java'
+      - 'src/main/java/**'
+      - 'src/main/resources/**'
 
 permissions:
   contents: write

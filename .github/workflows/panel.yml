@@ -62,7 +62,7 @@ jobs:
             clicktext Skip; sleep 1;
             rclick 700 820; sleep 2; rclick 1000 880; sleep 2; rclick 1280 800; sleep 3;
             shot 03-preview;
-            click 150 498; sleep 5; shot 04-built
+            click 150 651; sleep 6; shot 04-built
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
@@ -74,21 +74,6 @@ jobs:
             --mc-dir run-mc --out panel --size 1920x1080 --ui \
             --script "$PANEL_SCRIPT" 2>&1 | tee panel/driver-run.log
           cat panel/driver-run.log
-
-      - name: Dump Axiom config
-        if: always()
-        run: |
-          mkdir -p docs/panel
-          {
-            echo "== config tree =="
-            find run-mc/config -maxdepth 3 -type f 2>/dev/null | head -50
-            echo
-            for f in $(find run-mc/config -maxdepth 3 -name '*.json' 2>/dev/null | head -20); do
-              echo "--- $f"
-              head -c 4000 "$f"
-              echo
-            done
-          } > docs/panel/config-dump.txt 2>&1 || true
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -102,12 +87,11 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
+          rm -rf docs/panel
           mkdir -p docs/panel
-          cp panel/*.png docs/panel/ 2>/dev/null || true
-          montage docs/panel/scan-*.png -tile 7x -geometry +2+2 docs/panel/scan-montage.png 2>/dev/null || true
+          cp panel/01-open.png panel/02-tool-selected.png panel/03-preview.png \
+             panel/04-built.png docs/panel/ 2>/dev/null || true
           cp panel/driver-run.log docs/panel/driver.log 2>/dev/null || true
-          tail -n 400 panel/console.log > docs/panel/console-tail.log 2>/dev/null || true
-          tail -n 600 panel/latest.log > docs/panel/latest-tail.log 2>/dev/null || true
           ls -l docs/panel
           git add -f docs/panel
           if ! git diff --cached --quiet; then
