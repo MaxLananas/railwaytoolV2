@@ -2140,21 +2140,186 @@ public class com.moulberry.axiom.editor.windows.ToolsWindow {
 Compiled from "ToolRegistryService.java"
 final class com.moulberry.axiom.services.ToolRegistryService$WrappedCustomTool extends java.lang.Record implements com.moulberry.axiom.tools.Tool {
   private final com.moulberry.axiomclientapi.CustomTool customTool;
+
   private com.moulberry.axiom.services.ToolRegistryService$WrappedCustomTool(com.moulberry.axiomclientapi.CustomTool);
+    Code:
+       0: aload_0
+       1: invokespecial #29                 // Method java/lang/Record."<init>":()V
+       4: aload_0
+       5: aload_1
+       6: putfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       9: return
+
   public com.moulberry.axiom.UserAction$ActionResult callAction(com.moulberry.axiom.UserAction, java.lang.Object);
+    Code:
+       0: getstatic     #41                 // Field com/moulberry/axiom/services/ToolRegistryService$1.$SwitchMap$com$moulberry$axiom$UserAction:[I
+       3: aload_1
+       4: invokevirtual #45                 // Method com/moulberry/axiom/UserAction.ordinal:()I
+       7: iaload
+       8: tableswitch   { // 1 to 3
+                     1: 36
+                     2: 52
+                     3: 68
+               default: 84
+          }
+      36: aload_0
+      37: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+      40: invokeinterface #51,  1           // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.callUseTool:()Z
+      45: ifeq          84
+      48: getstatic     #55                 // Field com/moulberry/axiom/UserAction$ActionResult.USED_STOP:Lcom/moulberry/axiom/UserAction$ActionResult;
+      51: areturn
+      52: aload_0
+      53: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+      56: invokeinterface #58,  1           // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.callConfirm:()Z
+      61: ifeq          84
+      64: getstatic     #55                 // Field com/moulberry/axiom/UserAction$ActionResult.USED_STOP:Lcom/moulberry/axiom/UserAction$ActionResult;
+      67: areturn
+      68: aload_0
+      69: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+      72: invokeinterface #61,  1           // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.callDelete:()Z
+      77: ifeq          84
+      80: getstatic     #55                 // Field com/moulberry/axiom/UserAction$ActionResult.USED_STOP:Lcom/moulberry/axiom/UserAction$ActionResult;
+      83: areturn
+      84: getstatic     #64                 // Field com/moulberry/axiom/UserAction$ActionResult.NOT_HANDLED:Lcom/moulberry/axiom/UserAction$ActionResult;
+      87: areturn
+
   public void displayImguiOptions();
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       4: invokeinterface #69,  1           // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.displayImguiOptions:()V
+       9: return
+
   public void reset();
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       4: invokeinterface #72,  1           // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.reset:()V
+       9: return
+
   public void render(com.moulberry.axiom.render.AxiomWorldRenderContext);
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       4: aload_1
+       5: invokevirtual #81                 // Method com/moulberry/axiom/render/AxiomWorldRenderContext.rawCameraDontUse:()Lnet/minecraft/class_4184;
+       8: aload_1
+       9: invokevirtual #85                 // Method com/moulberry/axiom/render/AxiomWorldRenderContext.partialTick:()F
+      12: aload_1
+      13: invokevirtual #89                 // Method com/moulberry/axiom/render/AxiomWorldRenderContext.nanos:()J
+      16: aload_1
+      17: invokevirtual #93                 // Method com/moulberry/axiom/render/AxiomWorldRenderContext.poseStack:()Lnet/minecraft/class_4587;
+      20: new           #95                 // class org/joml/Matrix4f
+      23: dup
+      24: aload_1
+      25: invokevirtual #99                 // Method com/moulberry/axiom/render/AxiomWorldRenderContext.projection:()Lorg/joml/Matrix4fc;
+      28: invokespecial #102                // Method org/joml/Matrix4f."<init>":(Lorg/joml/Matrix4fc;)V
+      31: invokeinterface #105,  7          // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.render:(Lnet/minecraft/class_4184;FJLnet/minecraft/class_4587;Lorg/joml/Matrix4f;)V
+      36: return
+
   public java.lang.String name();
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       4: invokeinterface #110,  1          // InterfaceMethod com/moulberry/axiomclientapi/CustomTool.name:()Ljava/lang/String;
+       9: areturn
+
   public void writeSettings(net.minecraft.class_2487);
+    Code:
+       0: new           #115                // class java/lang/UnsupportedOperationException
+       3: dup
+       4: invokespecial #116                // Method java/lang/UnsupportedOperationException."<init>":()V
+       7: athrow
+
   public void loadSettings(net.minecraft.class_2487);
+    Code:
+       0: return
+
   public char iconChar();
+    Code:
+       0: ldc           #121                // int 59666
+       2: ireturn
+
   public java.lang.String keybindId();
+    Code:
+       0: aconst_null
+       1: areturn
+
   public java.util.EnumSet<com.moulberry.axiom.restrictions.AxiomPermission> requiredPermissions();
+    Code:
+       0: getstatic     #131                // Field com/moulberry/axiom/restrictions/AxiomPermission.TOOL:Lcom/moulberry/axiom/restrictions/AxiomPermission;
+       3: invokestatic  #137                // Method java/util/EnumSet.of:(Ljava/lang/Enum;)Ljava/util/EnumSet;
+       6: areturn
+
   public final java.lang.String toString();
+    Code:
+       0: aload_0
+       1: invokedynamic #150,  0            // InvokeDynamic #0:toString:(Lcom/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool;)Ljava/lang/String;
+       6: areturn
+
   public final int hashCode();
+    Code:
+       0: aload_0
+       1: invokedynamic #154,  0            // InvokeDynamic #0:hashCode:(Lcom/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool;)I
+       6: ireturn
+
   public final boolean equals(java.lang.Object);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokedynamic #160,  0            // InvokeDynamic #0:equals:(Lcom/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool;Ljava/lang/Object;)Z
+       7: ireturn
+
   public com.moulberry.axiomclientapi.CustomTool customTool();
+    Code:
+       0: aload_0
+       1: getfield      #31                 // Field customTool:Lcom/moulberry/axiomclientapi/CustomTool;
+       4: areturn
+}
+
+== ToolRegistryService ==
+Compiled from "ToolRegistryService.java"
+public class com.moulberry.axiom.services.ToolRegistryService implements com.moulberry.axiomclientapi.service.ToolRegistryService {
+  public com.moulberry.axiom.services.ToolRegistryService();
+    Code:
+       0: aload_0
+       1: invokespecial #16                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public void register(com.moulberry.axiomclientapi.CustomTool);
+    Code:
+       0: new           #11                 // class com/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool
+       3: dup
+       4: aload_1
+       5: invokespecial #23                 // Method com/moulberry/axiom/services/ToolRegistryService$WrappedCustomTool."<init>":(Lcom/moulberry/axiomclientapi/CustomTool;)V
+       8: invokestatic  #29                 // Method com/moulberry/axiom/tools/ToolManager.addTool:(Lcom/moulberry/axiom/tools/Tool;)V
+      11: return
+}
+
+== ToolManager ==
+Compiled from "ToolManager.java"
+public class com.moulberry.axiom.tools.ToolManager {
+  private static final java.util.List<com.moulberry.axiom.tools.Tool> tools;
+  private static boolean isToolSlotSelected;
+  private static int currentTool;
+  private static int lastTool;
+  public static java.util.Map<com.moulberry.axiom.tools.Tool, com.moulberry.axiom.editor.keybinds.Keybind> keybindMap;
+  public com.moulberry.axiom.tools.ToolManager();
+  public static void initializeTools();
+  public static com.moulberry.axiom.editor.keybinds.KeybindCategory createKeybindCategory();
+  public static void addTool(com.moulberry.axiom.tools.Tool);
+  public static java.util.List<com.moulberry.axiom.tools.Tool> getTools();
+  public static com.moulberry.axiom.tools.Tool getToolByIndex(int);
+  public static void setTool(java.lang.Class<? extends com.moulberry.axiom.tools.Tool>);
+  public static int getCurrentToolIndex();
+  public static void swapToLastTool();
+  public static void setCurrentToolIndex(int);
+  public static com.moulberry.axiom.UserAction$ActionResult callAction(com.moulberry.axiom.UserAction, java.lang.Object);
+  public static com.moulberry.axiom.tools.Tool getCurrentTool();
+  public static void setToolSelected(boolean);
+  public static boolean isToolActive();
+  public static void resetAll();
+  static {};
 }
 
 == strings: custom tool ==
