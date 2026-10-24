@@ -50,7 +50,7 @@ jobs:
       - name: Build mod
         run: |
           chmod +x ./gradlew
-          ./gradlew build --no-daemon 2>          ./gradlew build --no-daemon -x parityCheck 2>&1 | tail -201 | tail -20
+          ./gradlew build --no-daemon 2>&1 | tail -20
 
       - name: Run client and capture the panel
         run: |
