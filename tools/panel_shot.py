@@ -76,6 +76,47 @@ def click_text(word, out, timeout=1.0):
     return False
 
 
+GRID_X = 23
+GRID_Y = 67
+GRID_DX = 40.4
+GRID_DY = 38.9
+GRID_COLS = 7
+GRID_ROWS = 5
+MARKERS = ("rail", "bte", "density", "preset", "spline", "build")
+
+
+def scan_tools(out):
+    """Click every tool icon until the rail panel shows up in Tool Options."""
+    for index in range(GRID_COLS * GRID_ROWS):
+        col = index % GRID_COLS
+        row = index // GRID_COLS
+        x = int(GRID_X + col * GRID_DX)
+        y = int(GRID_Y + row * GRID_DY)
+        drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
+        time.sleep(0.3)
+        drv.shell("xdotool", "click", "1")
+        time.sleep(1.6)
+        path = os.path.join(out, "_scan.png")
+        drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", path)
+        text = drv.ocr_text(path).lower()
+        drv.log("tool %d (%d,%d): %s" % (index, x, y, text[:120]))
+        if any(marker in text for marker in MARKERS):
+            drv.log("rail tool found at index %d" % index)
+            shutil.copy2(path, os.path.join(out, "20-tool-selected.png"))
+            return index
+    return -1
+
+
+def place_points(out):
+    for x, y in ((700, 820), (1000, 860), (1300, 800)):
+        drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
+        time.sleep(0.4)
+        drv.shell("xdotool", "click", "3")
+        time.sleep(2.0)
+    time.sleep(2.0)
+    shot(out, "21-tool-with-line")
+
+
 def run_script(out, script):
     """Tiny action list: click/move/wheel/key/drag/sleep/shot."""
     for step in script.split(";"):
@@ -106,6 +147,10 @@ def run_script(out, script):
                 drv.shell("xdotool", "mousemove", "--sync", rest[2], rest[3])
                 time.sleep(0.2)
                 drv.shell("xdotool", "mouseup", "1")
+            elif verb == "scan_tools":
+                scan_tools(out)
+            elif verb == "place_points":
+                place_points(out)
             elif verb == "clicktext":
                 click_text(" ".join(rest), out)
             elif verb == "sleep":
