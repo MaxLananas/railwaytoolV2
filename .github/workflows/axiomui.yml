@@ -50,6 +50,15 @@ jobs:
             echo "== ToolRegistryService =="
             javap -classpath libs/axiom.jar -p -c 'com.moulberry.axiom.services.ToolRegistryService' 2>&1 | head -300
             echo
+            echo "== TutorialManager =="
+            javap -classpath libs/axiom.jar -p -c com.moulberry.axiom.editor.tutorial.TutorialManager 2>&1 | head -300
+            echo
+            echo "== TutorialStage =="
+            javap -classpath libs/axiom.jar -p com.moulberry.axiom.editor.tutorial.TutorialStage 2>&1 | head -60
+            echo
+            echo "== Tutorial strings =="
+            grep -a -o "tutorial[\"a-zA-Z_.: ]\{0,40\}" libs/axiom.jar 2>/dev/null | sort -u | head -40
+            echo
             echo "== ToolManager =="
             javap -classpath libs/axiom.jar -p 'com.moulberry.axiom.tools.ToolManager' 2>&1 | head -120
             echo
