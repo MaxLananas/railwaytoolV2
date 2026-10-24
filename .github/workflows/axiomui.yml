@@ -1,0 +1,60 @@
+name: Axiom UI probe
+
+on:
+  push:
+    paths:
+      - '.github/workflows/axiomui.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Inspect the tool window
+        run: |
+          mkdir -p libs docs/ci build/probe
+          curl -L --retry 3 --retry-delay 5 --fail \
+            -o libs/axiom.jar \
+            "https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar"
+          {
+            echo "== classes mentioning tool/custom =="
+            unzip -l libs/axiom.jar | awk '{print $4}' | grep -iE 'tool|custom' | head -200
+            echo
+            echo "== language keys mentioning tool =="
+            for f in $(unzip -l libs/axiom.jar | awk '{print $4}' | grep -E 'lang/en_us\.json$'); do
+              echo "--- $f"
+              unzip -p libs/axiom.jar "$f" | python3 -m json.tool 2>/dev/null | grep -iE '"' | head -400
+            done
+            echo
+            echo "== strings: custom tool =="
+            mkdir -p build/probe/classes
+            cd build/probe/classes && unzip -o -q ../../../libs/axiom.jar '*.class' && cd ../../..
+            grep -rl "CustomTool" build/probe/classes | head -40
+          } > docs/ci/axiom-ui.txt 2>&1
+          wc -l docs/ci/axiom-ui.txt
+          grep -iE "custom" docs/ci/axiom-ui.txt | head -40 || true
+
+      - name: Publish
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -f docs/ci/axiom-ui.txt || true
+          if ! git diff --cached --quiet; then
+            git commit -m "ci: axiom ui probe [skip ci]"
+            for i in 1 2 3; do
+              git pull --rebase --autostash origin "$GITHUB_REF_NAME" || true
+              if git push; then break; fi
+              sleep 5
+            done
+          fi
