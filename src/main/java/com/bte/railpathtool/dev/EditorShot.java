@@ -60,10 +60,12 @@ public final class EditorShot {
     private static boolean selectRailTool() throws Exception {
         Class<?> manager = Class.forName("com.moulberry.axiom.tools.ToolManager");
         Method getTools = manager.getMethod("getTools");
+        Method nameOf = Class.forName("com.moulberry.axiom.tools.Tool")
+                .getMethod("name");
         List<?> tools = (List<?>) getTools.invoke(null);
         for (int i = 0; i < tools.size(); i++) {
             Object tool = tools.get(i);
-            Object name = tool.getClass().getMethod("name").invoke(tool);
+            Object name = nameOf.invoke(tool);
             if (name instanceof String text && text.contains("BTE")) {
                 manager.getMethod("setCurrentToolIndex", int.class).invoke(null, i);
                 manager.getMethod("setToolSelected", boolean.class).invoke(null, true);
