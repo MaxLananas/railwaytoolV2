@@ -1,62 +1,63 @@
-[02:09:28] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[02:09:28] fabric loader jar: True
-[02:09:28] version: fabric-loader-0.19.3-1.21.10
-[02:09:28] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[02:09:28] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[02:09:28] Fabric API 0.138.4+1.21.10
-[02:09:29] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[02:09:29] waiting for the world
-[02:09:49] ready=True alive=True
-[02:10:01] focused: True
-[02:10:02] shot panel-0-world: True TT TELL IE LTT e
-[02:10:02] opening the editor
-[02:10:13] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
-[02:10:15] clicked 'Continue' at 339,178
-[02:10:19] clicked 'Continue' at 341,680
-[02:10:24] clicked 'Continue' at 1311,504
-[02:10:29] clicked 'Continue' at 826,339
-[02:10:33] clicked 'Continue' at 1311,728
-[02:10:36] text not found: Continue
-[02:10:37] text not found: Continue
-[02:10:38] text not found: Continue
-[02:10:40] text not found: Continue
-[02:10:44] clicked 'Skip' at 774,839
-[02:10:54] tool 0 (23,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info sm sx 7 ms bl emp
-[02:10:58] tool 1 (63,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:05] tool 2 (103,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:10] tool 3 (144,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:14] tool 4 (184,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:21] tool 5 (225,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:27] tool 6 (265,67): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:31] tool 7 (23,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:35] tool 8 (63,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:40] tool 9 (103,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:52] tool 10 (144,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:11:56] tool 11 (184,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:00] tool 12 (225,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:05] tool 13 (265,105): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:11] tool 14 (23,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:15] tool 15 (63,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:21] tool 16 (103,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:28] tool 17 (144,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:34] tool 18 (184,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:38] tool 19 (225,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:44] tool 20 (265,144): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:51] tool 21 (23,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:54] tool 22 (63,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:12:59] tool 23 (103,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:02] tool 24 (144,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:06] tool 25 (184,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:12] tool 26 (225,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:16] tool 27 (265,183): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:27] tool 28 (23,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:34] tool 29 (63,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:38] tool 30 (103,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:43] tool 31 (144,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:49] tool 32 (184,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:13:54] tool 33 (225,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:14:02] tool 34 (265,222): file edit select view operations toolmasks window keybinds..._ help ¥ tools + ¥ (clipboard target info ab s*%b 7 ms bl e
-[02:14:15] shot 21-tool-with-line: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target info x a eS As Ek4 f Empty ee , ms This is your clipboard. If you have a selection you / Fj oe SB 4 ?~ 
-[02:14:21] shot 22-final: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target info x a eS As Ek4 f Empty ee , ms This is your clipboard. if you have a selection you / Fj oe SB 4 ?~ 
-[02:14:21] closing
-[02:14:24] done
+[02:17:10] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[02:17:10] fabric loader jar: True
+[02:17:10] version: fabric-loader-0.19.3-1.21.10
+[02:17:10] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[02:17:10] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[02:17:10] Fabric API 0.138.4+1.21.10
+[02:17:11] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[02:17:11] waiting for the world
+[02:17:26] ready=True alive=True
+[02:17:38] focused: True
+[02:17:39] shot panel-0-world: True TLE LLL LTT ie
+[02:17:39] opening the editor
+[02:17:48] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
+[02:17:49] clicked 'Continue' at 339,178
+[02:17:54] clicked 'Continue' at 341,680
+[02:17:57] clicked 'Continue' at 1311,504
+[02:17:59] clicked 'Continue' at 826,339
+[02:18:02] clicked 'Continue' at 1311,728
+[02:18:05] text not found: Continue
+[02:18:05] text not found: Continue
+[02:18:06] text not found: Continue
+[02:18:07] text not found: Continue
+[02:18:11] clicked 'Skip' at 774,839
+[02:18:16] tool 0 (23,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:18] tool 1 (63,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:21] tool 2 (103,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:23] tool 3 (144,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:25] tool 4 (184,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:27] tool 5 (225,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:29] tool 6 (265,67): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:32] tool 7 (23,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:34] tool 8 (63,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:38] tool 9 (103,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:40] tool 10 (144,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:43] tool 11 (184,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:45] tool 12 (225,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:47] tool 13 (265,105): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:50] tool 14 (23,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:52] tool 15 (63,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:54] tool 16 (103,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:56] tool 17 (144,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:18:58] tool 18 (184,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:01] tool 19 (225,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:03] tool 20 (265,144): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:05] tool 21 (23,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:08] tool 22 (63,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:10] tool 23 (103,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:12] tool 24 (144,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:14] tool 25 (184,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:16] tool 26 (225,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:18] tool 27 (265,183): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:21] tool 28 (23,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:23] tool 29 (63,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:25] tool 30 (103,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:28] tool 31 (144,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:30] tool 32 (184,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:32] tool 33 (225,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:34] tool 34 (265,222): ¥ Tool Options Sphere Y Shape i | 5 Radius Noise Radius | | 5 Noisiness (?) off Noise Field Seed Randomized Smoothing StdDev (7) [B00 Meld Strength (2) 2.00 = Replace Solid Blocks = Extend to Ground =
+[02:19:34] rail tool not in the grid
+[02:19:45] shot 21-tool-with-line: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info As Ek4 : Empt / oe CPs ; , & This is your clipboard. If you have a selection you alas) as Bod 4G 
+[02:19:46] shot 22-final: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info As Ek4 : Empt / oe CPs ; , & This is your clipboard. If you have a selection you alas) as Bod 4G 
+[02:19:46] closing
+[02:19:50] done
