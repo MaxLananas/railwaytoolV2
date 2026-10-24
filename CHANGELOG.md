@@ -4,8 +4,8 @@ All notable changes to BTE Rail Path Tool are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and the project uses [Semantic Versioning](https://semver.org/).
 
-Releases are tagged `v<version>-mc<minecraft>`; the notes below are published
-verbatim as the GitHub release body.
+Releases are tagged `v<version>-mc<minecraft>`. Pushing such a tag builds the
+jar and publishes the matching section below as the GitHub release body.
 
 ## [2.0.3] - 2026-10-24
 

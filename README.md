@@ -162,8 +162,9 @@ introduction, which needs a keyboard; it is inert without
 ## Changelog
 
 Notable changes per release are in [CHANGELOG.md](CHANGELOG.md); it is also the
-source of the GitHub release notes. `.github/workflows/release.yml` publishes a
-jar manually and refuses to run without a matching changelog section.
+source of the GitHub release notes. `build.yml` publishes a release when a
+`v<version>-mc<minecraft>` tag is pushed, and refuses to publish when the tag and
+`gradle.properties` disagree or when the changelog has no matching section.
 
 ## License
 

@@ -3,6 +3,7 @@ name: Build & Release
 on:
   push:
     branches: [main, master, 'arena/**']
+    tags: ['v*']
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -146,33 +147,51 @@ jobs:
             !build/libs/*-sources.jar
           if-no-files-found: error
 
-      - name: Check if tag exists
-        id: tag_check
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'))
+      - name: Decide release
+        id: release
         run: |
-          if git ls-remote --tags origin "refs/tags/${{ steps.version.outputs.tag }}" | grep -q "${{ steps.version.outputs.tag }}"; then
-            echo 'exists=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'exists=false' >> "$GITHUB_OUTPUT"
+          VERSION="${{ steps.version.outputs.version }}"
+          MC="${{ steps.version.outputs.mc_version }}"
+          TAG="${{ steps.version.outputs.tag }}"
+          SHOULD=false
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            if [ "${GITHUB_REF_NAME}" != "$TAG" ]; then
+              echo "tag ${GITHUB_REF_NAME} does not match v${VERSION}-mc${MC} from gradle.properties" >&2
+              echo "expected ${TAG}" >&2
+              exit 1
+            fi
+            SHOULD=true
+            echo "tag push: ${GITHUB_REF_NAME}"
+          elif [ "${{ github.event_name }}" = "push" ] \
+               && { [ "${{ github.ref }}" = "refs/heads/main" ] || [ "${{ github.ref }}" = "refs/heads/master" ]; } \
+               && [ -n "${{ env.NEW_VERSION }}" ]; then
+            if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q "${TAG}"; then
+              echo "tag ${TAG} already exists"
+            else
+              SHOULD=true
+            fi
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] \
+               && [ "${{ github.ref }}" != "refs/heads/main" ] \
+               && [ "${{ github.ref }}" != "refs/heads/master" ]; then
+            if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q "${TAG}"; then
+              echo "tag ${TAG} already exists"
+            else
+              SHOULD=true
+            fi
           fi
+          echo "should=${SHOULD}" >> "$GITHUB_OUTPUT"
 
       - name: Collect release notes
         id: notes
-        if: steps.tag_check.outputs.exists == 'false'
+        if: steps.release.outputs.should == 'true'
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           MC="${{ steps.version.outputs.mc_version }}"
           OUT="$RUNNER_TEMP/notes.md"
-          MANUAL=false
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] \
-             && [ "${{ github.ref }}" != "refs/heads/main" ] \
-             && [ "${{ github.ref }}" != "refs/heads/master" ]; then
-            MANUAL=true
-          fi
           if python3 tools/changelog_section.py "$VERSION" --file CHANGELOG.md > "$OUT" 2>/dev/null \
              && [ -s "$OUT" ]; then
             echo "notes from CHANGELOG.md section [$VERSION]"
-          elif [ "$MANUAL" = true ]; then
+          elif [ "${{ github.ref_type }}" = "tag" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "CHANGELOG.md has no [$VERSION] section; refusing to publish without notes" >&2
             exit 1
           else
@@ -187,16 +206,7 @@ jobs:
           wc -l "$OUT"
 
       - name: Create release
-        if: >
-          steps.tag_check.outputs.exists == 'false' &&
-          steps.notes.outcome == 'success' &&
-          (
-            (github.event_name == 'push' &&
-             (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
-             env.NEW_VERSION != '') ||
-            (github.event_name == 'workflow_dispatch' &&
-             github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master')
-          )
+        if: steps.release.outputs.should == 'true' && steps.notes.outcome == 'success'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.tag }}
