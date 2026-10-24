@@ -58,13 +58,11 @@ jobs:
         env:
           PANEL_SCRIPT: >-
             clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
-            clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue; sleep 2;
-            clicktext Skip; sleep 2; shot 01-clean;
-            move 150 140; sleep 1; wheel 150 140 6; sleep 1; shot 02-grid-down;
-            wheel 150 140 6; sleep 1; shot 03-grid-down2;
-            click 313 30; sleep 2; shot 04-plus;
-            click 208 10; sleep 2; shot 05-window-menu;
-            key Escape; sleep 1; click 167 10; sleep 2; shot 06-operations
+            clicktext Continue; clicktext Continue; sleep 2; clicktext Skip; sleep 2;
+            drag 297 198 297 400; sleep 2; shot 01-tools-resized;
+            drag 150 201 150 400; sleep 2; shot 02-splitter;
+            click 299 14; sleep 2; shot 03-tools-plus; key Escape; sleep 1;
+            click 340 10; sleep 2; shot 04-window-menu; key Escape
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1280x720x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
