@@ -30,4 +30,4 @@ run-mc/
 
 # Generated evidence kept only as the curated copy in docs/ingame and docs/panel
 ingame/
-panel/
+/panel/
