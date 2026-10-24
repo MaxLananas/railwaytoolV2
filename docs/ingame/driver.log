@@ -1,44 +1,45 @@
-[14:01:10] fabric loader jar: True
-[14:01:10] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[14:01:10] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[14:01:11] Fabric API 0.138.4+1.21.10
-[14:01:12] launching client (phase1)
-[14:01:51] stage plan-straight: 
-[14:02:02] stage built-straight: 
-[14:02:08] stage built-repeat: Like “y Se > mmm | TL PLitctit NaN
-[14:02:15] stage plan-curve: wae re aw we re EG ah ete ee ae me
-[14:02:23] stage built-curve: wae Be os at kt ak se eae Pe OG a me ett a ae a mf
-[14:02:32] axiom menu (phase1): 
-[14:02:35] stage plan-slope: + fa fee
-[14:02:43] stage built-slope: 
-[14:02:51] stage plan-nature: 
-[14:03:02] stage built-nature: 
-[14:03:10] stage plan-zigzag: ae 3 ae
-[14:03:19] stage built-zigzag: ae 3 age
-[14:03:28] stage plan-clutter: See eee) | ee ee
-[14:03:39] stage built-clutter: te the te OE te tee te ee A Be
-[14:03:47] stage plan-water: a Hew Fecipetss Unto: Check your recipe
-[14:03:56] stage built-water: 
-[14:04:05] stage plan-long: 
-[14:04:13] stage built-long: 
-[14:04:24] stage plan-many: et es a a a #. ot “hag i ge az
-[14:04:33] stage built-many: Ve in ioe Laat ee = ers "hp ne a rf
-[14:04:44] stage built-presets: 2 ier oe ie A 7 2 a ee <a el EE :
-[14:04:50] stage built-undo: CT EELeee Lite) »
-[14:04:56] stage undo-base: 
-[14:05:03] stage undo-built: es rae rae ae m ry ss
-[14:05:03] undo attempt 1: editor + ctrl+z
-[14:05:22] undo: driver finished the key sequence
-[14:05:25] stage undo-accepted: SBOE eB HR RS RS SR KRESEES Ea +
-[14:05:37] stage undo-restored: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
-[14:05:42] stage undo-restored late: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
-[14:05:46] stage undo-rebuilt: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
-[14:05:53] stage undo-cleared: 
-[14:06:06] stage persisted: = ee ee =a ee es N eae or incomplete command. See below Tor error saversll flush<-—fHERET | I = |__| a a L_| el] ELELELELL I Iie)
-[14:06:13] stage done-pass: = ee ee =a ee es N eae or incomplete command. See below Tor error saversll flush<-—fHERET | I = |__| a a L_| el] ELELELELL I Iie)
-[14:06:21] phase1 done: [SELFTEST] PASS 118/118 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS undo build planned | PASS undo build applied | PASS undo restored the world | PASS render lock released (undo-build) | PASS ghost cleared (undo-build) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS persist plan non empty | PASS persist build applied | PASS persist map written | PASS no mod errors in log
-[14:06:21] launching client (phase2)
-[14:07:00] stage restart-plan: “HE, ey As By ey %% aig * if? ae? gat: aoet aasts aask Le, Gi, a Oe ae a a a RE CRE RE CAE
-[14:07:09] stage restart-built: 
-[14:07:13] stage done-pass: 
-[14:07:20] phase2 done: [SELFTEST] PASS 7/7 checks | PASS saved rail survived the restart | PASS presets survived the restart | PASS plan after restart | PASS build after restart | PASS render lock released (restart) | PASS ghost cleared (restart) | PASS no mod errors in log
+[15:23:51] fabric loader jar: True
+[15:23:51] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[15:23:51] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[15:23:51] Fabric API 0.138.4+1.21.10
+[15:23:52] launching client (phase1)
+[15:24:32] stage plan-straight: 
+[15:24:41] stage built-straight: 
+[15:24:49] stage built-repeat: CT ELIELCeee tl ite »
+[15:24:56] stage plan-curve: wae re aw we re EG ah ete ee ae me
+[15:25:05] stage built-curve: wae Be os at at ok we eae Pe GG a ee atte ee ae me
+[15:25:13] axiom menu (phase1): + fa fee
+[15:25:16] stage plan-slope: + fa fee
+[15:25:24] stage built-slope: 
+[15:25:33] stage plan-nature: 
+[15:25:41] stage built-nature: 
+[15:25:50] stage plan-zigzag: ae 3 ae
+[15:26:00] stage built-zigzag: ae 3 age
+[15:26:09] stage plan-clutter: See eee) | ee ee
+[15:26:19] stage built-clutter: te the te OE te tee te ee A Be
+[15:26:28] stage plan-water: 
+[15:26:37] stage built-water: 
+[15:26:45] stage plan-long: 
+[15:26:54] stage built-long: 
+[15:27:04] stage plan-many: et es a a a #. ot “hag i ge az
+[15:27:14] stage built-many: paper ne Leet oe = ory "hi n a ef
+[15:27:24] stage built-presets: + lel lege
+[15:27:31] stage built-undo: CT ELELeee file »
+[15:27:37] stage undo-base: 
+[15:27:44] stage undo-built: es rae rae ae m ry ss
+[15:27:44] undo attempt 1: editor + ctrl+z
+[15:28:03] undo: driver finished the key sequence
+[15:28:07] stage undo-accepted: + EE Ee ee ee US Ue te ry fee
+[15:28:17] stage undo-restored: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
+[15:28:21] stage undo-restored late: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
+[15:28:27] stage undo-rebuilt: GG RAR ARBRE EE EEC EH HSS RRR RSS SSeS SS
+[15:28:31] stage undo-cleared: 
+[15:28:45] stage persisted: = ee ee =a ee es N eae or incomplete command. See below Tor error saversll flush<-—fHERET | I = |__| a a L_| el] ELELELELL I Iie)
+[15:28:52] stage done-pass: = ee ee =a ee es N eae or incomplete command. See below Tor error saversll flush<-—fHERET | I = |__| a a L_| el] ELELELELL I Iie)
+[15:29:01] phase1 done: [SELFTEST] PASS 118/118 checks | PASS recompute under 2s (straight) | PASS plan applied (straight) | PASS no side effects (straight) | PASS cores supported (straight) | PASS single ribbon (straight) | PASS no temp wool (straight) | PASS cores match plan (straight) | PASS render lock released (straight) | PASS ghost cleared (straight) | PASS first plan non empty | PASS replan has the same size | PASS replan keeps every core | PASS replan only changes soil | PASS build keeps every core | PASS render lock released (repeat) | PASS ghost cleared (repeat) | PASS recompute under 2s (curve) | PASS plan applied (curve) | PASS no side effects (curve) | PASS cores supported (curve) | PASS single ribbon (curve) | PASS no temp wool (curve) | PASS cores match plan (curve) | PASS render lock released (curve) | PASS ghost cleared (curve) | PASS recompute under 2s (slope) | PASS plan applied (slope) | PASS no side effects (slope) | PASS cores supported (slope) | PASS single ribbon (slope) | PASS no temp wool (slope) | PASS cores match plan (slope) | PASS render lock released (slope) | PASS ghost cleared (slope) | PASS recompute under 2s (nature) | PASS plan applied (nature) | PASS no side effects (nature) | PASS cores supported (nature) | PASS single ribbon (nature) | PASS no temp wool (nature) | PASS cores match plan (nature) | PASS render lock released (nature) | PASS ghost cleared (nature) | PASS recompute under 2s (zigzag) | PASS plan applied (zigzag) | PASS no side effects (zigzag) | PASS cores supported (zigzag) | PASS single ribbon (zigzag) | PASS no temp wool (zigzag) | PASS cores match plan (zigzag) | PASS render lock released (zigzag) | PASS ghost cleared (zigzag) | PASS recompute under 2s (clutter) | PASS plan applied (clutter) | PASS no side effects (clutter) | PASS cores supported (clutter) | PASS single ribbon (clutter) | PASS no temp wool (clutter) | PASS cores match plan (clutter) | PASS render lock released (clutter) | PASS ghost cleared (clutter) | PASS recompute under 2s (water) | PASS plan applied (water) | PASS no side effects (water) | PASS cores supported (water) | PASS single ribbon (water) | PASS no temp wool (water) | PASS cores match plan (water) | PASS render lock released (water) | PASS ghost cleared (water) | PASS recompute under 2s (long) | PASS plan applied (long) | PASS no side effects (long) | PASS cores supported (long) | PASS single ribbon (long) | PASS no temp wool (long) | PASS cores match plan (long) | PASS render lock released (long) | PASS ghost cleared (long) | PASS recompute under 2s (many) | PASS plan applied (many) | PASS no side effects (many) | PASS cores supported (many) | PASS single ribbon (many) | PASS no temp wool (many) | PASS cores match plan (many) | PASS render lock released (many) | PASS ghost cleared (many) | PASS first line planned | PASS crossing replaces decor only | PASS first line intact after the crossing | PASS crossing is one junction | PASS render lock released (cross) | PASS ghost cleared (cross) | PASS preset restores density | PASS preset restores style | PASS config saved to disk | PASS render lock released (presets) | PASS ghost cleared (presets) | PASS delete removes a point | PASS undo plan still builds | PASS undo built the line | PASS undo honours the deleted point | PASS render lock released (undo) | PASS ghost cleared (undo) | PASS undo build planned | PASS undo build applied | PASS undo restored the world | PASS render lock released (undo-build) | PASS ghost cleared (undo-build) | PASS sky click adds no point | PASS empty confirm is harmless | PASS render lock released (edges) | PASS ghost cleared (edges) | PASS persist plan non empty | PASS persist build applied | PASS persist map written | PASS no mod errors in log
+[15:29:01] launching client (phase2)
+[15:29:40] stage restart-plan: “HE, ey As By ey %% aig * if? ae? gat: aoet aasts aask Le, Gi, a Oe ae a a a RE CRE RE CAE
+[15:29:52] stage restart-built: “HE, ey As By ey %% aig * if? ae? gat: aoet aasts aask Le, Gi, a Oe ae a a a RE CRE RE CAE
+[15:29:52] selftest result detected (phase2)
+[15:30:00] phase2 done: [SELFTEST] PASS 7/7 checks | PASS saved rail survived the restart | PASS presets survived the restart | PASS plan after restart | PASS build after restart | PASS render lock released (restart) | PASS ghost cleared (restart) | PASS no mod errors in log
+[15:30:00] both launches passed
