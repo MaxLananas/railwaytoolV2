@@ -57,12 +57,14 @@ jobs:
         continue-on-error: true
         env:
           PANEL_SCRIPT: >-
-            click 350 133; sleep 2; click 350 133; sleep 2; click 350 133; sleep 2;
-            click 350 133; sleep 2; click 350 133; sleep 2; click 350 133; sleep 2;
-            click 350 133; sleep 2; click 350 133; sleep 2;
-            click 459 568; sleep 2; shot 01-clean;
-            click 290 51; sleep 3; shot 02-plus;
-            move 18 63; sleep 2; shot 03-hover1
+            clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue;
+            clicktext Continue; clicktext Continue; clicktext Continue; clicktext Continue; sleep 2;
+            clicktext Skip; sleep 2; shot 01-clean;
+            move 150 140; sleep 1; wheel 150 140 6; sleep 1; shot 02-grid-down;
+            wheel 150 140 6; sleep 1; shot 03-grid-down2;
+            click 313 30; sleep 2; shot 04-plus;
+            click 208 10; sleep 2; shot 05-window-menu;
+            key Escape; sleep 1; click 167 10; sleep 2; shot 06-operations
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1280x720x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &

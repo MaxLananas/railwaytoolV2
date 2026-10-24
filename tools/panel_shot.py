@@ -35,6 +35,47 @@ def key(name):
     drv.shell("xdotool", "key", "--clearmodifiers", name)
 
 
+def click_text(word, out, timeout=1.0):
+    """Click the first on-screen word matching `word` (OCR bounding box)."""
+    path = os.path.join(out, "_ocr.png")
+    drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", path)
+    tsv = subprocess.run(["tesseract", path, "stdout", "--psm", "11", "tsv"],
+                         capture_output=True, text=True, check=False).stdout
+    lines = tsv.splitlines()
+    if not lines:
+        return False
+    header = lines[0].split("\t")
+    try:
+        idx = {name: header.index(name) for name in ("left", "top", "width",
+                                                     "height", "conf", "text")}
+    except ValueError:
+        return False
+    target = word.lower()
+    for line in lines[1:]:
+        cells = line.split("\t")
+        if len(cells) <= max(idx.values()):
+            continue
+        text = cells[idx["text"]].strip().lower()
+        try:
+            conf = float(cells[idx["conf"]])
+        except ValueError:
+            continue
+        if conf < 30 or not text:
+            continue
+        if target not in text:
+            continue
+        x = int(cells[idx["left"]]) + int(cells[idx["width"]]) // 2
+        y = int(cells[idx["top"]]) + int(cells[idx["height"]]) // 2
+        drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
+        time.sleep(0.3)
+        drv.shell("xdotool", "click", "1")
+        drv.log("clicked '%s' at %d,%d" % (word, x, y))
+        time.sleep(timeout)
+        return True
+    drv.log("text not found: " + word)
+    return False
+
+
 def run_script(out, script):
     """Tiny action list: click/move/wheel/key/drag/sleep/shot."""
     for step in script.split(";"):
@@ -52,8 +93,10 @@ def run_script(out, script):
                 drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
             elif verb == "wheel":
                 drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
+                button = "5" if len(rest) > 3 and rest[3] == "down" else "4"
                 for _ in range(int(rest[2])):
-                    drv.shell("xdotool", "click", "4")
+                    drv.shell("xdotool", "click", button)
+                    time.sleep(0.15)
             elif verb == "key":
                 drv.shell("xdotool", "key", "--clearmodifiers", rest[0])
             elif verb == "drag":
@@ -63,6 +106,8 @@ def run_script(out, script):
                 drv.shell("xdotool", "mousemove", "--sync", rest[2], rest[3])
                 time.sleep(0.2)
                 drv.shell("xdotool", "mouseup", "1")
+            elif verb == "clicktext":
+                click_text(" ".join(rest), out)
             elif verb == "sleep":
                 time.sleep(float(rest[0]))
             elif verb == "shot":
