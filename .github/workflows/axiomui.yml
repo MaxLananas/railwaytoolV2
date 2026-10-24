@@ -45,7 +45,13 @@ jobs:
             javap -classpath libs/axiom.jar -p -c com.moulberry.axiom.editor.windows.ToolsWindow 2>&1 | head -400
             echo
             echo "== WrappedCustomTool =="
-            javap -classpath libs/axiom.jar -p 'com.moulberry.axiom.services.ToolRegistryService$WrappedCustomTool' 2>&1 | head -120
+            javap -classpath libs/axiom.jar -p -c 'com.moulberry.axiom.services.ToolRegistryService$WrappedCustomTool' 2>&1 | head -400
+            echo
+            echo "== ToolRegistryService =="
+            javap -classpath libs/axiom.jar -p -c 'com.moulberry.axiom.services.ToolRegistryService' 2>&1 | head -300
+            echo
+            echo "== ToolManager =="
+            javap -classpath libs/axiom.jar -p 'com.moulberry.axiom.tools.ToolManager' 2>&1 | head -120
             echo
             echo "== strings: custom tool =="
             mkdir -p build/probe/classes
