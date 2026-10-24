@@ -2296,6 +2296,147 @@ public class com.moulberry.axiom.services.ToolRegistryService implements com.mou
       11: return
 }
 
+== TutorialManager ==
+Compiled from "TutorialManager.java"
+public class com.moulberry.axiom.editor.tutorial.TutorialManager {
+  private static com.moulberry.axiom.editor.tutorial.TutorialStage currentStage;
+
+  public com.moulberry.axiom.editor.tutorial.TutorialManager();
+    Code:
+       0: aload_0
+       1: invokespecial #11                 // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void reset(com.moulberry.axiom.editor.tutorial.Tutorial);
+    Code:
+       0: aload_0
+       1: invokevirtual #21                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.uncomplete:()V
+       4: getstatic     #25                 // Field com/moulberry/axiom/editor/tutorial/Tutorial.INTRODUCTION:Lcom/moulberry/axiom/editor/tutorial/Tutorial;
+       7: invokevirtual #28                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.initiateIfNotCompleted:()V
+      10: return
+
+  public static void skip();
+    Code:
+       0: invokestatic  #33                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.values:()[Lcom/moulberry/axiom/editor/tutorial/Tutorial;
+       3: astore_0
+       4: aload_0
+       5: arraylength
+       6: istore_1
+       7: iconst_0
+       8: istore_2
+       9: iload_2
+      10: iload_1
+      11: if_icmpge     28
+      14: aload_0
+      15: iload_2
+      16: aaload
+      17: astore_3
+      18: aload_3
+      19: invokevirtual #38                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.complete:()V
+      22: iinc          2, 1
+      25: goto          9
+      28: aconst_null
+      29: invokestatic  #42                 // Method setStage:(Lcom/moulberry/axiom/editor/tutorial/TutorialStage;)V
+      32: return
+
+  public static void initialize();
+    Code:
+       0: getstatic     #25                 // Field com/moulberry/axiom/editor/tutorial/Tutorial.INTRODUCTION:Lcom/moulberry/axiom/editor/tutorial/Tutorial;
+       3: invokevirtual #28                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.initiateIfNotCompleted:()V
+       6: return
+
+  public static void setStage(com.moulberry.axiom.editor.tutorial.TutorialStage);
+    Code:
+       0: aload_0
+       1: putstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       4: return
+
+  public static com.moulberry.axiom.editor.tutorial.TutorialStage getCurrentStage();
+    Code:
+       0: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       3: areturn
+
+  public static com.moulberry.axiom.editor.EditorWindowType getCurrentStageLinkedWindow();
+    Code:
+       0: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       3: ifnonnull     8
+       6: aconst_null
+       7: areturn
+       8: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      11: invokevirtual #56                 // Method com/moulberry/axiom/editor/tutorial/TutorialStage.getLinkedWindow:()Lcom/moulberry/axiom/editor/EditorWindowType;
+      14: areturn
+
+  public static void nextTutorialStage();
+    Code:
+       0: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       3: invokevirtual #60                 // Method com/moulberry/axiom/editor/tutorial/TutorialStage.getNextStage:()Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       6: astore_0
+       7: aload_0
+       8: ifnonnull     27
+      11: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      14: invokevirtual #64                 // Method com/moulberry/axiom/editor/tutorial/TutorialStage.getTutorial:()Lcom/moulberry/axiom/editor/tutorial/Tutorial;
+      17: invokevirtual #38                 // Method com/moulberry/axiom/editor/tutorial/Tutorial.complete:()V
+      20: aconst_null
+      21: putstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      24: goto          55
+      27: aload_0
+      28: putstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      31: getstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      34: getstatic     #67                 // Field com/moulberry/axiom/editor/tutorial/TutorialStage.TOOL_OPTIONS:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+      37: if_acmpne     55
+      40: invokestatic  #73                 // Method com/moulberry/axiom/tools/ToolManager.isToolActive:()Z
+      43: ifne          55
+      46: ldc           #75                 // class com/moulberry/axiom/tools/rock/RockTool
+      48: invokestatic  #79                 // Method com/moulberry/axiom/tools/ToolManager.setTool:(Ljava/lang/Class;)V
+      51: iconst_1
+      52: invokestatic  #83                 // Method com/moulberry/axiom/tools/ToolManager.setToolSelected:(Z)V
+      55: return
+
+  static {};
+    Code:
+       0: aconst_null
+       1: putstatic     #46                 // Field currentStage:Lcom/moulberry/axiom/editor/tutorial/TutorialStage;
+       4: return
+}
+
+== TutorialStage ==
+Compiled from "TutorialStage.java"
+public final class com.moulberry.axiom.editor.tutorial.TutorialStage extends java.lang.Enum<com.moulberry.axiom.editor.tutorial.TutorialStage> {
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage CLIPBOARD;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage HISTORY;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage MAIN_WINDOW;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage ACTIVE_BLOCK;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage TOOL_OPTIONS;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage TOOLS_WINDOW;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage SELECTION2;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage SELECTION1;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage MAGIC_SELECT_TOOL;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage BOX_SELECT_TOOL2;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage BOX_SELECT_TOOL1;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage SLOPE_TOOL2;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage SLOPE_TOOL1;
+  public static final com.moulberry.axiom.editor.tutorial.TutorialStage SCULPT_DRAW_TOOL;
+  private final java.lang.String translationKey;
+  private final com.moulberry.axiom.editor.EditorWindowType linkedWindow;
+  private final com.moulberry.axiom.editor.tutorial.TutorialStage nextStage;
+  com.moulberry.axiom.editor.tutorial.Tutorial tutorial;
+  int stageIndex;
+  private static final com.moulberry.axiom.editor.tutorial.TutorialStage[] $VALUES;
+  public static com.moulberry.axiom.editor.tutorial.TutorialStage[] values();
+  public static com.moulberry.axiom.editor.tutorial.TutorialStage valueOf(java.lang.String);
+  private com.moulberry.axiom.editor.tutorial.TutorialStage(java.lang.String, com.moulberry.axiom.editor.EditorWindowType, com.moulberry.axiom.editor.tutorial.TutorialStage);
+  public com.moulberry.axiom.editor.EditorWindowType getLinkedWindow();
+  public com.moulberry.axiom.editor.tutorial.TutorialStage getNextStage();
+  public com.moulberry.axiom.editor.tutorial.Tutorial getTutorial();
+  public void render(imgui.moulberry92.ImVec2, imgui.moulberry92.ImVec2);
+  public void render();
+  private static com.moulberry.axiom.editor.tutorial.TutorialStage[] $values();
+  static {};
+}
+
+== Tutorial strings ==
+tutorial
+
 == ToolManager ==
 Compiled from "ToolManager.java"
 public class com.moulberry.axiom.tools.ToolManager {
