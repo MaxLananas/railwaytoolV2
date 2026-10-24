@@ -326,7 +326,9 @@ public class RailwayTool implements CustomTool {
 
         ImGui.spacing();
         float half = (ImGui.getContentRegionAvailX() - 10.0f) * 0.5f;
-        ImGui.checkbox(tr("ui.opt.snap"), groundSnap);
+        if (ImGui.checkbox(tr("ui.opt.snap"), groundSnap)) {
+            dirty = true;
+        }
         ImGui.setItemTooltip(tr("ui.tip_snap"));
         ImGui.sameLine(half + 10.0f);
         if (ImGui.checkbox(tr("ui.opt.adaptive"), adaptive)) {
@@ -550,7 +552,7 @@ public class RailwayTool implements CustomTool {
         }
     }
 
-    /** Small right-aligned switch that keeps the primary action obvious. */
+    /** Primary action: full-width button in the rail accent colour. */
     private boolean accentButton(String label, float width, float height, String tooltip) {
         ImGui.pushStyleColor(ImGuiCol.Button, 0.72f, 0.45f, 0.12f, 1.0f);
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.86f, 0.56f, 0.18f, 1.0f);
