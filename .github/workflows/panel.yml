@@ -50,9 +50,11 @@ jobs:
       - name: Build mod
         run: |
           chmod +x ./gradlew
+          set -o pipefail
           ./gradlew build --no-daemon 2>&1 | tail -20
 
       - name: Run client and capture the panel
+        continue-on-error: true
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1280x720x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &
@@ -62,6 +64,14 @@ jobs:
           python3 tools/panel_shot.py \
             --mod "$MOD" --java "$JAVA_HOME/bin/java" \
             --mc-dir run-mc --out panel 2>&1 | tee panel/driver-run.log
+          cat panel/driver-run.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: panel-shots
+          path: panel/
+          retention-days: 7
 
       - name: Publish
         if: always()
@@ -71,7 +81,8 @@ jobs:
           mkdir -p docs/panel
           cp panel/*.png docs/panel/ 2>/dev/null || true
           cp panel/driver-run.log docs/panel/driver.log 2>/dev/null || true
-          cp panel/latest.log docs/panel/latest.log 2>/dev/null || true
+          tail -n 400 panel/console.log > docs/panel/console-tail.log 2>/dev/null || true
+          tail -n 600 panel/latest.log > docs/panel/latest-tail.log 2>/dev/null || true
           ls -l docs/panel
           git add -f docs/panel
           if ! git diff --cached --quiet; then

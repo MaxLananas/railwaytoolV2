@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -16,20 +17,32 @@ import ingame_driver as drv
 def shot(out, name):
     path = os.path.join(out, name + ".png")
     drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", path)
-    if os.path.isfile(path):
-        drv.log("shot %s: %s" % (name, drv.ocr_text(path)))
+    ok = os.path.isfile(path)
+    drv.log("shot %s: %s %s" % (name, ok, drv.ocr_text(path) if ok else ""))
+    return ok
 
 
 def focus():
     ids = drv.shell("xdotool", "search", "--name", "Minecraft").stdout.split()
-    if ids:
-        drv.shell("xdotool", "windowactivate", "--sync", ids[-1])
-        drv.shell("xdotool", "windowfocus", "--sync", ids[-1])
-    return bool(ids)
+    if not ids:
+        return False
+    drv.shell("xdotool", "windowactivate", "--sync", ids[-1])
+    drv.shell("xdotool", "windowfocus", "--sync", ids[-1])
+    return True
 
 
 def key(name):
     drv.shell("xdotool", "key", "--clearmodifiers", name)
+
+
+def save_logs(mc_dir, out):
+    src = os.path.join(mc_dir, "logs", "latest.log")
+    if os.path.isfile(src):
+        shutil.copy2(src, os.path.join(out, "latest.log"))
+    for extra in ("logs/debug.log",):
+        src = os.path.join(mc_dir, extra)
+        if os.path.isfile(src):
+            shutil.copy2(src, os.path.join(out, os.path.basename(extra)))
 
 
 def main():
@@ -39,7 +52,7 @@ def main():
     ap.add_argument("--mod", required=True)
     ap.add_argument("--java", required=True)
     ap.add_argument("--display", default=":99")
-    ap.add_argument("--wait", type=int, default=95)
+    ap.add_argument("--wait", type=int, default=180)
     args = ap.parse_args()
 
     args.mc_dir = os.path.abspath(args.mc_dir)
@@ -53,68 +66,85 @@ def main():
 
     import minecraft_launcher_lib as mcl
 
-    version = drv.install(args.mc_dir, args.java)
-    save = drv.superflat_world(args.mc_dir, args.java, args.out)
-    drv.enable_cheats(save)
-
-    mods = os.path.join(args.mc_dir, "mods")
-    os.makedirs(mods, exist_ok=True)
-    for f in os.listdir(mods):
-        os.remove(os.path.join(mods, f))
-    shutil.copy2(args.mod, os.path.join(mods, os.path.basename(args.mod)))
-    drv.http_download(drv.AXIOM_URL, os.path.join(mods, "axiom.jar"))
-    drv.fabric_api_jar(mods)
-    drv.write_options(args.mc_dir)
-
-    options = {
-        "username": "ArenaTest",
-        "uuid": str(uuid.uuid3(uuid.NAMESPACE_DNS, "ArenaTest")),
-        "token": "",
-        "executablePath": args.java,
-        "gameDirectory": args.mc_dir,
-        "jvmArguments": ["-Xmx2G"],
-    }
-    cmd = mcl.command.get_minecraft_command(version, args.mc_dir, options)
-    cmd += ["--quickPlaySingleplayer", drv.WORLD_NAME,
-            "--width", "1280", "--height", "720"]
-    console = open(os.path.join(args.out, "console.log"), "w",
-                   encoding="utf-8", errors="replace")
-    proc = subprocess.Popen(cmd, cwd=args.mc_dir, stdout=console,
-                            stderr=subprocess.STDOUT)
-
-    drv.log("waiting for the world")
-    deadline = time.time() + args.wait
-    while time.time() < deadline:
-        time.sleep(5)
-        log = drv.tail(os.path.join(args.mc_dir, "logs", "latest.log"), 200)
-        if "Loaded" in log and "Axiom" in log:
-            break
-    time.sleep(20)
-    drv.log("focused: %s" % focus())
-    shot(args.out, "panel-0-world")
-
-    drv.log("opening the editor")
-    key("Shift_R")
-    time.sleep(8)
-    shot(args.out, "panel-1-editor")
-
-    for n in range(1, 10):
-        key(str(n))
-        time.sleep(2.5)
-        shot(args.out, "panel-2-slot%d" % n)
-
-    drv.log("closing")
-    key("Shift_R")
-    time.sleep(2)
-    proc.terminate()
+    proc = None
+    console = None
     try:
-        proc.wait(timeout=30)
-    except subprocess.TimeoutExpired:
-        proc.kill()
-    console.close()
-    src = os.path.join(args.mc_dir, "logs", "latest.log")
-    if os.path.isfile(src):
-        shutil.copy2(src, os.path.join(args.out, "latest.log"))
+        drv.log("mod: %s (%s)" % (args.mod, os.path.isfile(args.mod)))
+        version = drv.install(args.mc_dir, args.java)
+        drv.log("version: " + version)
+        save = drv.superflat_world(args.mc_dir, args.java, args.out)
+        drv.enable_cheats(save)
+
+        mods = os.path.join(args.mc_dir, "mods")
+        os.makedirs(mods, exist_ok=True)
+        for f in os.listdir(mods):
+            os.remove(os.path.join(mods, f))
+        shutil.copy2(args.mod, os.path.join(mods, os.path.basename(args.mod)))
+        drv.http_download(drv.AXIOM_URL, os.path.join(mods, "axiom.jar"))
+        drv.fabric_api_jar(mods)
+        drv.write_options(args.mc_dir)
+
+        options = {
+            "username": "ArenaTest",
+            "uuid": str(uuid.uuid3(uuid.NAMESPACE_DNS, "ArenaTest")),
+            "token": "",
+            "executablePath": args.java,
+            "gameDirectory": args.mc_dir,
+            "jvmArguments": ["-Xmx2G"],
+        }
+        cmd = mcl.command.get_minecraft_command(version, args.mc_dir, options)
+        cmd += ["--quickPlaySingleplayer", drv.WORLD_NAME,
+                "--width", "1280", "--height", "720"]
+        console = open(os.path.join(args.out, "console.log"), "w",
+                       encoding="utf-8", errors="replace")
+        drv.log("launching: " + " ".join(cmd[:6]) + " ...")
+        proc = subprocess.Popen(cmd, cwd=args.mc_dir, stdout=console,
+                                stderr=subprocess.STDOUT)
+
+        drv.log("waiting for the world")
+        log_path = os.path.join(args.mc_dir, "logs", "latest.log")
+        deadline = time.time() + args.wait
+        ready = False
+        while time.time() < deadline and proc.poll() is None:
+            time.sleep(5)
+            text = drv.tail(log_path, 400)
+            if "Started serving on" in text or "Loaded" in text and "Axiom" in text:
+                ready = True
+                break
+            if "Sound engine started" in text:
+                ready = True
+                break
+        drv.log("ready=%s alive=%s" % (ready, proc.poll() is None))
+        time.sleep(12)
+        drv.log("focused: %s" % focus())
+        shot(args.out, "panel-0-world")
+
+        drv.log("opening the editor")
+        key("Shift_R")
+        time.sleep(8)
+        shot(args.out, "panel-1-editor")
+
+        for n in range(1, 10):
+            key(str(n))
+            time.sleep(2.5)
+            shot(args.out, "panel-2-slot%d" % n)
+
+        drv.log("closing")
+        key("Shift_R")
+        time.sleep(2)
+    except Exception:
+        drv.log("driver failed:\n" + traceback.format_exc())
+    finally:
+        if proc is not None and proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=30)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+        if console is not None:
+            console.close()
+        save_logs(args.mc_dir, args.out)
+        drv.log("done")
     return 0
 
 
