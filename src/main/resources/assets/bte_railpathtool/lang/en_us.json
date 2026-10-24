@@ -1,5 +1,5 @@
 {
-  "bte_railpathtool.tool.name": "═ BTE Rail",
+  "bte_railpathtool.tool.name": "BTE Rail",
   "bte_railpathtool.ui.points": "Points: %s",
   "bte_railpathtool.ui.undo": "Remove last point",
   "bte_railpathtool.ui.confirm": "Build",

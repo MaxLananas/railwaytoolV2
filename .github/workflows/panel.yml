@@ -59,9 +59,10 @@ jobs:
           PANEL_SCRIPT: >-
             shot 01-open;
             click 184 222; sleep 2; shot 02-tool-selected;
-            rclick 700 800; sleep 2; rclick 1000 860; sleep 2; rclick 1250 780; sleep 3;
+            clicktext Skip; sleep 1;
+            rclick 700 820; sleep 2; rclick 1000 880; sleep 2; rclick 1280 800; sleep 3;
             shot 03-preview;
-            click 150 498; sleep 4; shot 04-built
+            click 150 498; sleep 5; shot 04-built
         run: |
           export DISPLAY=:99
           Xvfb :99 -screen 0 1920x1080x24 -nolisten tcp >/tmp/xvfb.log 2>&1 &

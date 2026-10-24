@@ -43,7 +43,7 @@ import java.util.Map;
 
 public class RailwayTool implements CustomTool {
 
-    private static final float LABEL_W = 96.0f;
+    private static final float LABEL_W = 122.0f;
     private static final ImVec4 ACCENT = new ImVec4(0.91f, 0.66f, 0.26f, 1.0f);
     private static final ImVec4 OK_TEXT = new ImVec4(0.55f, 0.85f, 0.58f, 1.0f);
     private static final ImVec4 WARN_TEXT = new ImVec4(0.93f, 0.78f, 0.35f, 1.0f);
