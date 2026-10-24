@@ -30,23 +30,20 @@ jobs:
           cd build/api
           unzip -o -j ../../libs/Axiom-5.4.2-for-MC1.21.10.jar '*.jar' >/dev/null
           cd ../..
-          API=$(ls build/api/*.jar | head -1)
-          ls -l build/api
+          FULL=libs/Axiom-5.4.2-for-MC1.21.10.jar
+          ls -l libs build/api
           {
-            echo "== jar =="
-            echo "$API"
+            echo "== imgui entries in the full jar =="
+            unzip -l "$FULL" | awk '{print $4}' | grep -E '^imgui/.*\.class$' | sort
             echo
-            echo "== entries =="
-            unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort
-            echo
-            echo "== signatures =="
-            for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort); do
+            echo "== imgui signatures =="
+            for c in $(unzip -l "$FULL" | awk '{print $4}' | grep -E '^imgui/.*\.class$' | sed 's|/|.|g; s|\.class$||' | sort); do
               echo "### $c"
-              javap -classpath "$API" -p "$c" 2>&1 || true
+              javap -classpath "$FULL" -p "$c" 2>&1 || true
               echo
             done
           } > docs/ci/axiom-api.txt 2>&1
-          wc -l docs/ci/axiom-api.txt
+          wc -l docs/ci/axiom-api.txt 
 
       - name: Publish the dump
         if: always()
