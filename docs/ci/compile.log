@@ -7,27 +7,37 @@ libs/ contains: [Axiom-5.4.2-for-MC1.21.10.jar]
 axiomclientapi extracted from Axiom-5.4.2-for-MC1.21.10.jar -> libs/axiomclientapi.jar
 
 > Task :compileJava
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:114: error: cannot find symbol
-                if (restartPhase()) {
-                    ^
-  symbol:   method restartPhase()
-  location: class InGameSelfTest
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:115: error: cannot find symbol
-                    restartScene().run();
-                    ^
-  symbol:   method restartScene()
-  location: class InGameSelfTest
-/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:165: error: cannot find symbol
-        out.add(persistScene(15, "persist"));
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:118: error: cannot find symbol
+        applySelections();
+        ^
+  symbol:   method applySelections()
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:452: error: cannot find symbol
+                applyData(preset(idx));
+                          ^
+  symbol:   method preset(int)
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:456: error: cannot find symbol
+                setPreset(idx, snapshotData());
+                               ^
+  symbol:   method snapshotData()
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:457: error: cannot find symbol
+                persistConfig();
                 ^
-  symbol:   method persistScene(int,String)
-  location: class InGameSelfTest
+  symbol:   method persistConfig()
+  location: class RailwayTool
+/home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:619: error: cannot find symbol
+        persistConfig();
+        ^
+  symbol:   method persistConfig()
+  location: class RailwayTool
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
-3 errors
+5 errors
 
 > Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1792396827598.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_2-1792805137583.json
 
 [Incubating] Problems report is available at: file:///home/runner/work/railwaytoolV2/railwaytoolV2/build/reports/problems/problems-report.html
 
@@ -38,26 +48,36 @@ Execution failed for task ':compileJava' (registered by plugin class 'org.gradle
 > Compilation failed; see the compiler output below.
   Note: Recompile with -Xlint:deprecation for details.
   Note: Some input files use or override a deprecated API.
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:114: error: cannot find symbol
-                  if (restartPhase()) {
-                      ^
-    symbol:   method restartPhase()
-    location: class InGameSelfTest
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:115: error: cannot find symbol
-                      restartScene().run();
-                      ^
-    symbol:   method restartScene()
-    location: class InGameSelfTest
-  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/dev/InGameSelfTest.java:165: error: cannot find symbol
-          out.add(persistScene(15, "persist"));
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:118: error: cannot find symbol
+          applySelections();
+          ^
+    symbol:   method applySelections()
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:452: error: cannot find symbol
+                  applyData(preset(idx));
+                            ^
+    symbol:   method preset(int)
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:456: error: cannot find symbol
+                  setPreset(idx, snapshotData());
+                                 ^
+    symbol:   method snapshotData()
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:457: error: cannot find symbol
+                  persistConfig();
                   ^
-    symbol:   method persistScene(int,String)
-    location: class InGameSelfTest
-  3 errors
+    symbol:   method persistConfig()
+    location: class RailwayTool
+  /home/runner/work/railwaytoolV2/railwaytoolV2/src/main/java/com/bte/railpathtool/tools/RailwayTool.java:619: error: cannot find symbol
+          persistConfig();
+          ^
+    symbol:   method persistConfig()
+    location: class RailwayTool
+  5 errors
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
 
-BUILD FAILED in 26s
+BUILD FAILED in 31s
 1 actionable task: 1 executed
