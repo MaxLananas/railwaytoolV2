@@ -1,30 +1,24 @@
-[02:55:49] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[02:55:49] fabric loader jar: True
-[02:55:49] version: fabric-loader-0.19.3-1.21.10
-[02:55:49] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[02:55:49] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[02:55:50] Fabric API 0.138.4+1.21.10
-[02:55:50] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[02:55:50] waiting for the world
-[02:56:10] ready=True alive=True
-[02:56:22] focused: True
-[02:56:23] shot panel-0-world: True PLETE LE LT Te
-[02:56:23] opening the editor
-[02:56:32] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target Info — Empty THA s This is the Tools Window. Here you can select tools TA for painting, terraforming, 
-[02:56:35] clicked 'Continue' at 339,178
-[02:56:39] clicked 'Continue' at 341,680
-[02:56:43] clicked 'Continue' at 1311,504
-[02:56:50] clicked 'Continue' at 826,339
-[02:56:54] clicked 'Continue' at 1311,728
-[02:56:58] text not found: Continue
-[02:56:59] text not found: Continue
-[02:57:00] text not found: Continue
-[02:57:01] text not found: Continue
-[02:57:07] clicked 'Skip' at 774,839
-[02:57:15] shot 01-shape-combo: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. if you have a selection you a / i pend SB 4 ay 
-[02:57:22] shot 02-radius: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 oo = Game Menu you can use Ct
-[02:57:32] shot 03-icon2-twice: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 oo = Game Menu you can use Ct
-[02:57:40] shot 04-title-then-icon: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 oo = Game Menu you can use Ct
-[02:57:47] shot 05-icon10: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools: ¥ Clipboard Target Info Os E] em This is your clipboard. If you have a selection you pty /78B8 oo = Game Menu you can use Ct
-[02:57:47] closing
-[02:57:51] done
+[03:04:32] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[03:04:32] fabric loader jar: True
+[03:04:32] version: fabric-loader-0.19.3-1.21.10
+[03:04:32] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[03:04:32] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[03:04:32] Fabric API 0.138.4+1.21.10
+[03:04:33] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Dbte.railtool.ui=true -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[03:04:33] waiting for the world
+[03:04:48] ready=True alive=True
+[03:05:00] focused: True
+[03:05:01] shot panel-0-world: True TT LEE Le
+[03:05:01] opening the editor
+[03:05:13] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
+[03:05:20] text not found: Continue
+[03:05:22] text not found: Continue
+[03:05:26] text not found: Continue
+[03:05:28] text not found: Continue
+[03:05:29] text not found: Continue
+[03:05:30] text not found: Continue
+[03:05:32] shot 01-editor: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ (Tools + ¥ (Clipboard Target info 4 Os EI — Empty /7Te8Eas/ Ss LA “ELTAY Goin ADH *® QALKS a ¥ Tool Options | ¥ (ActiveBlock Stone 
+[03:05:38] shot 02-editor-clean: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + '¥ Clipboard Target Info FEC S*XES = = Empty SHES SS t ) Game Menu Ctrl+C to copy selection to clipboard ¥ELTAY Gola ADH ® 
+[03:05:43] shot 03-reopen: True BE BEBE eas = BRBEEEBSs | a
+[03:05:43] closing
+[03:05:46] done
