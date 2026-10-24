@@ -1,24 +1,18 @@
-[01:38:15] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[01:38:15] fabric loader jar: True
-[01:38:15] version: fabric-loader-0.19.3-1.21.10
-[01:38:15] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[01:38:15] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[01:38:16] Fabric API 0.138.4+1.21.10
-[01:38:16] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[01:38:16] waiting for the world
-[01:38:31] ready=True alive=True
-[01:38:43] focused: True
-[01:38:44] shot panel-0-world: True BREE
-[01:38:44] opening the editor
-[01:38:54] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em £0" Painting, terraform
-[01:38:58] shot panel-2-slot1: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em {0 Painting, terraformi
-[01:39:01] shot panel-2-slot2: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em £0" Painting, terraform
-[01:39:05] shot panel-2-slot3: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty ‘eg _ £0" Painting, terraf
-[01:39:08] shot panel-2-slot4: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em _ £0" Painting, terrafo
-[01:39:11] shot panel-2-slot5: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em _ £0" Painting, terrafo
-[01:39:16] shot panel-2-slot6: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty eg £0" Painting, terraform
-[01:39:20] shot panel-2-slot7: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em _ £0" Painting, terrafo
-[01:39:24] shot panel-2-slot8: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em {0 Painting, terraformi
-[01:39:27] shot panel-2-slot9: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty e _ £0" Painting, terrafor
-[01:39:27] closing
-[01:39:30] done
+[01:42:09] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[01:42:09] fabric loader jar: True
+[01:42:09] version: fabric-loader-0.19.3-1.21.10
+[01:42:09] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[01:42:09] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[01:42:09] Fabric API 0.138.4+1.21.10
+[01:42:10] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[01:42:10] waiting for the world
+[01:42:30] ready=True alive=True
+[01:42:42] focused: True
+[01:42:43] shot panel-0-world: True TT ELLE Ly le
+[01:42:43] opening the editor
+[01:42:53] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty ‘em _ £0" Painting, terraf
+[01:45:03] shot 01-clean: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info > lane 4 O@« | : Empty /T7Tses/ss LA *EaLTAYV ¥ (Palette) inventory a Alin 14 TH ie ¥ Tool Option
+[01:45:08] shot 02-plus: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info sme’ Oe 7 th: a” = 4 a Empty PA 1 pend pj 4 7? ay . Be LA “ELTA ¥ (Palette) inventory & Alin +4 D
+[01:45:11] shot 03-hover1: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard) Target info sme’ Oe 7 th: a” = 4 a Empty PA 1 pend pj 4 7? ay . Be LA “ELTA ¥ (Palette) inventory & Alin +4 D
+[01:45:11] closing
+[01:45:15] done
