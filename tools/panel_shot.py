@@ -135,7 +135,8 @@ def main():
     ap.add_argument("--mod", required=True)
     ap.add_argument("--java", required=True)
     ap.add_argument("--display", default=":99")
-    ap.add_argument("--wait", type=int, default=180)
+    ap.add_argument("--wait", type=int, default=240)
+    ap.add_argument("--size", default="1280x720")
     ap.add_argument("--script", default="")
     args = ap.parse_args()
 
@@ -166,7 +167,15 @@ def main():
         shutil.copy2(args.mod, os.path.join(mods, os.path.basename(args.mod)))
         drv.http_download(drv.AXIOM_URL, os.path.join(mods, "axiom.jar"))
         drv.fabric_api_jar(mods)
+        width, height = (int(v) for v in args.size.lower().split("x"))
         drv.write_options(args.mc_dir)
+        options_path = os.path.join(args.mc_dir, "options.txt")
+        with open(options_path, encoding="utf-8") as f:
+            text = f.read()
+        text = text.replace("overrideWidth:1280", "overrideWidth:%d" % width)
+        text = text.replace("overrideHeight:720", "overrideHeight:%d" % height)
+        with open(options_path, "w", encoding="utf-8") as f:
+            f.write(text)
 
         options = {
             "username": "ArenaTest",
@@ -178,7 +187,7 @@ def main():
         }
         cmd = mcl.command.get_minecraft_command(version, args.mc_dir, options)
         cmd += ["--quickPlaySingleplayer", drv.WORLD_NAME,
-                "--width", "1280", "--height", "720"]
+                "--width", str(width), "--height", str(height)]
         console = open(os.path.join(args.out, "console.log"), "w",
                        encoding="utf-8", errors="replace")
         drv.log("launching: " + " ".join(cmd[:6]) + " ...")
