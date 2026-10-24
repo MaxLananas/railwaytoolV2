@@ -85,6 +85,18 @@ GRID_ROWS = 5
 MARKERS = ("rail", "bte", "density", "preset", "spline", "build")
 
 
+def ocr_full(path):
+    out = subprocess.run(["tesseract", path, "stdout", "--psm", "6"],
+                         capture_output=True, text=True, check=False).stdout
+    return " ".join(out.split())
+
+
+def panel_crop(full, dest):
+    """Tool Options column, where a tool renders its own settings."""
+    drv.shell("convert", full, "-crop", "330x820+0+250", "+repage", dest)
+    return dest
+
+
 def scan_tools(out):
     """Click every tool icon until the rail panel shows up in Tool Options."""
     for index in range(GRID_COLS * GRID_ROWS):
@@ -93,17 +105,19 @@ def scan_tools(out):
         x = int(GRID_X + col * GRID_DX)
         y = int(GRID_Y + row * GRID_DY)
         drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
-        time.sleep(0.3)
+        time.sleep(0.25)
         drv.shell("xdotool", "click", "1")
-        time.sleep(1.6)
-        path = os.path.join(out, "_scan.png")
-        drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", path)
-        text = drv.ocr_text(path).lower()
-        drv.log("tool %d (%d,%d): %s" % (index, x, y, text[:120]))
-        if any(marker in text for marker in MARKERS):
+        time.sleep(1.2)
+        full = os.path.join(out, "_scan.png")
+        drv.shell("import", "-display", os.environ["DISPLAY"], "-window", "root", full)
+        crop = panel_crop(full, os.path.join(out, "scan-%02d.png" % index))
+        text = ocr_full(crop)
+        drv.log("tool %d (%d,%d): %s" % (index, x, y, text[:200]))
+        if any(marker in text.lower() for marker in MARKERS):
             drv.log("rail tool found at index %d" % index)
-            shutil.copy2(path, os.path.join(out, "20-tool-selected.png"))
+            shutil.copy2(full, os.path.join(out, "20-tool-selected.png"))
             return index
+    drv.log("rail tool not in the grid")
     return -1
 
 
