@@ -20,41 +20,40 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
-      - name: Download Axiom and extract the addon API
+      - name: Download and dump
         run: |
-          mkdir -p libs build/api
+          set -x
+          mkdir -p libs build/api docs/ci
           curl -L --retry 3 --retry-delay 5 --fail \
             -o "libs/Axiom-5.4.2-for-MC1.21.10.jar" \
             "https://cdn.modrinth.com/data/N6n5dqoA/versions/65TQdBZB/Axiom-5.4.2-for-MC1.21.10.jar"
           cd build/api
-          unzip -o -j ../../libs/Axiom-5.4.2-for-MC1.21.10.jar "META-INF/jars/*axiomclientapi*" >/dev/null
-          ls -l
-
-      - name: Dump signatures
-        run: |
+          unzip -o -j ../../libs/Axiom-5.4.2-for-MC1.21.10.jar '*.jar' >/dev/null
+          cd ../..
           API=$(ls build/api/*.jar | head -1)
-          mkdir -p docs/ci
+          ls -l build/api
           {
             echo "== jar =="
             echo "$API"
             echo
             echo "== entries =="
-            unzip -l "$API" | awk 'NR>3 {print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort
+            unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort
             echo
             echo "== signatures =="
-            for c in $(unzip -l "$API" | awk 'NR>3 {print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort); do
+            for c in $(unzip -l "$API" | awk '{print $4}' | grep -E '\.class$' | sed 's|/|.|g; s|\.class$||' | sort); do
               echo "### $c"
-              javap -classpath "$API" -p "$c" 2>&1
+              javap -classpath "$API" -p "$c" 2>&1 || true
               echo
             done
-          } > docs/ci/axiom-api.txt
+          } > docs/ci/axiom-api.txt 2>&1
           wc -l docs/ci/axiom-api.txt
 
       - name: Publish the dump
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f docs/ci/axiom-api.txt
+          git add -f docs/ci/axiom-api.txt || true
           if ! git diff --cached --quiet; then
             git commit -m "ci: axiom api dump [skip ci]"
             for i in 1 2 3; do
