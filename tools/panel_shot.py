@@ -168,7 +168,18 @@ def run_script(out, script):
             continue
         verb, rest = parts[0], parts[1:]
         try:
-            if verb == "press":
+            if verb == "rclick":
+                move_to(int(rest[0]), int(rest[1]))
+                time.sleep(0.3)
+                drv.shell("xdotool", "click", "3")
+            elif verb == "dbl":
+                move_to(int(rest[0]), int(rest[1]))
+                time.sleep(0.3)
+                drv.shell("xdotool", "click", "--repeat", "2", "--delay", "120", "1")
+            elif verb == "hover":
+                move_to(int(rest[0]), int(rest[1]))
+                time.sleep(1.5)
+            elif verb == "press":
                 press_at(int(rest[0]), int(rest[1]))
             elif verb == "click":
                 click_at(int(rest[0]), int(rest[1]))
