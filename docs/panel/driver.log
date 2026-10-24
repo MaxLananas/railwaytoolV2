@@ -1,26 +1,29 @@
-[01:56:01] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
-[01:56:01] fabric loader jar: True
-[01:56:01] version: fabric-loader-0.19.3-1.21.10
-[01:56:01] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
-[01:56:01] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
-[01:56:02] Fabric API 0.138.4+1.21.10
-[01:56:03] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
-[01:56:03] waiting for the world
-[01:56:18] ready=True alive=True
-[01:56:30] focused: True
-[01:56:30] shot panel-0-world: True TT ETL LET lie
-[01:56:30] opening the editor
-[01:56:39] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info 7 a a % E * This is the Tools Window. Here you can select tools Empty em £0" Painting, terraform
-[01:56:41] clicked 'Continue' at 341,132
-[01:56:45] clicked 'Continue' at 341,455
-[01:56:51] clicked 'Continue' at 670,342
-[01:56:54] clicked 'Continue' at 506,249
-[01:56:58] clicked 'Continue' at 671,494
-[01:57:01] clicked 'Continue' at 671,114
-[01:57:06] clicked 'Skip' at 454,569
-[01:57:13] shot 01-tools-resized: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target info 4 Os EI /7ees ie ” LA ~BLlTaAv ¥ [Palette Inventory a& Alin AMD ie ¥ Tool Options Sphere ¥) shape
-[01:57:16] shot 02-splitter: True File Edit Select View Operations ToolMasks Window Keybinds... Help ¥ Tools + ¥ (Clipboard Target info 4 Os EI /7ees ie ” LA ~BLlTaAv ¥ [Palette Inventory a Alin 4TH ie ‘¥ ToolOptions, Sphere ¥) shape 
-[01:57:19] shot 03-tools-plus: True File Edit Select View Operations |T@0lMasks) Window Keybinds... Help ¥ Tools Clear ¥ (Clipboard, Target info x ee enn 4 Os E] 4 /rees/ ie - LA ~SLTAY ¥ [Palette Inventory a& Alin AMD ie ¥_ Tool Option
-[01:57:24] shot 04-window-menu: True File Edit Select View Operations |T@0lMasks) Window Keybinds... Help ¥ Tools Clear ¥ (Clipboard, Target info x ee en 4 Os E] 4 /rees/ ie - LA ~SLTAY ¥ [Palette Inventory a& Alin AMD ie ¥_ Tool Options
-[01:57:24] closing
-[01:57:27] done
+[02:00:07] mod: /home/runner/work/railwaytoolV2/railwaytoolV2/build/libs/rail-path-tool-2.0.2.jar (True)
+[02:00:07] fabric loader jar: True
+[02:00:07] version: fabric-loader-0.19.3-1.21.10
+[02:00:07] world reset from the pristine template: /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest
+[02:00:07] cheats enabled in /home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/saves/railtest/level.dat
+[02:00:08] Fabric API 0.138.4+1.21.10
+[02:00:09] launching: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64/bin/java -Xmx2G -Djava.library.path=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Djna.tmpdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dorg.lwjgl.system.SharedLibraryExtractPath=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives -Dio.netty.native.workdir=/home/runner/work/railwaytoolV2/railwaytoolV2/run-mc/versions/fabric-loader-0.19.3-1.21.10/natives ...
+[02:00:09] waiting for the world
+[02:00:24] ready=True alive=True
+[02:00:36] focused: True
+[02:00:37] shot panel-0-world: True TT TELE Le
+[02:00:37] opening the editor
+[02:00:46] shot panel-1-editor: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard) Target info — Empty (Tees ss This is the Tools Window. Here you can select tools x b4 T iA Pp for painting, 
+[02:00:49] clicked 'Continue' at 339,178
+[02:00:52] clicked 'Continue' at 341,680
+[02:00:55] clicked 'Continue' at 1311,504
+[02:00:58] clicked 'Continue' at 826,339
+[02:01:06] clicked 'Continue' at 1311,728
+[02:01:08] text not found: Continue
+[02:01:11] clicked 'Skip' at 774,839
+[02:01:15] shot 01-editor-full: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info We /SXG 7 ms Bl Emp = . a This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:18] shot 10-tool-r1: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:22] shot 11-tool-r2: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:25] shot 12-tool-r3: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. if you have a selection you a / i pend SB 4 ay 
+[02:01:30] shot 13-tool-r4: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:34] shot 14-tool-r5: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:38] shot 15-tool-r6: True File Edit Select View Operations ToolMasks Window Keybinds..._ Help ¥ Tools + ¥ (Clipboard Target Info AB S*%B 7 ms Bl Emp = . “ This is your clipboard. If you have a selection you a / i pend SB 4 ay 
+[02:01:38] closing
+[02:01:41] done
