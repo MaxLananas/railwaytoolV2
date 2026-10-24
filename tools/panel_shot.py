@@ -35,6 +35,44 @@ def key(name):
     drv.shell("xdotool", "key", "--clearmodifiers", name)
 
 
+def run_script(out, script):
+    """Tiny action list: click/move/wheel/key/drag/sleep/shot."""
+    for step in script.split(";"):
+        parts = step.split()
+        if not parts:
+            continue
+        verb, rest = parts[0], parts[1:]
+        try:
+            if verb == "click":
+                x, y = int(rest[0]), int(rest[1])
+                drv.shell("xdotool", "mousemove", "--sync", str(x), str(y))
+                time.sleep(0.3)
+                drv.shell("xdotool", "click", "1")
+            elif verb == "move":
+                drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
+            elif verb == "wheel":
+                drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
+                for _ in range(int(rest[2])):
+                    drv.shell("xdotool", "click", "4")
+            elif verb == "key":
+                drv.shell("xdotool", "key", "--clearmodifiers", rest[0])
+            elif verb == "drag":
+                drv.shell("xdotool", "mousemove", "--sync", rest[0], rest[1])
+                drv.shell("xdotool", "mousedown", "1")
+                time.sleep(0.2)
+                drv.shell("xdotool", "mousemove", "--sync", rest[2], rest[3])
+                time.sleep(0.2)
+                drv.shell("xdotool", "mouseup", "1")
+            elif verb == "sleep":
+                time.sleep(float(rest[0]))
+            elif verb == "shot":
+                shot(out, rest[0])
+            else:
+                drv.log("unknown action: " + step)
+        except Exception:
+            drv.log("action failed (%s):\n%s" % (step, traceback.format_exc()))
+
+
 def save_logs(mc_dir, out):
     src = os.path.join(mc_dir, "logs", "latest.log")
     if os.path.isfile(src):
@@ -53,6 +91,7 @@ def main():
     ap.add_argument("--java", required=True)
     ap.add_argument("--display", default=":99")
     ap.add_argument("--wait", type=int, default=180)
+    ap.add_argument("--script", default="")
     args = ap.parse_args()
 
     args.mc_dir = os.path.abspath(args.mc_dir)
@@ -124,10 +163,13 @@ def main():
         time.sleep(8)
         shot(args.out, "panel-1-editor")
 
-        for n in range(1, 10):
-            key(str(n))
-            time.sleep(2.5)
-            shot(args.out, "panel-2-slot%d" % n)
+        if args.script:
+            run_script(args.out, args.script)
+        else:
+            for n in range(1, 10):
+                key(str(n))
+                time.sleep(2.5)
+                shot(args.out, "panel-2-slot%d" % n)
 
         drv.log("closing")
         key("Shift_R")
