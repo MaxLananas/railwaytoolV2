@@ -76,6 +76,9 @@ the same pipeline, from the same options, with the same Axiom undo entry.
   persist, restart) passes unchanged.
 - `Build & Release` run [40100442633](https://github.com/MaxLananas/railwaytoolV2/actions/runs/40100442633):
   Java/simulator parity (752 scenes) then `./gradlew build`.
+- `In-game test` run [40106634875](https://github.com/MaxLananas/railwaytoolV2/actions/runs/40106634875):
+  **118/118** then **7/7** again, this time on the exact code of this release
+  and with the driver now failing the job whenever a launch reports `FAIL`.
 - `Panel shot` run [40100442642](https://github.com/MaxLananas/railwaytoolV2/actions/runs/40100442642):
   `docs/panel/04-built.png` shows the status line reading `Rail built (48
   blocks)` and Axiom's History reading `(1) Modified 48 blocks` — the build went
@@ -87,6 +90,9 @@ the same pipeline, from the same options, with the same Axiom undo entry.
   shipped inside Axiom 5.4.2 (`docs/ci/axiom-api.txt`), not against a guess.
 - `docs/panel/` keeps only the four curated screenshots; the intermediate probe
   workflows used to locate the editor UI were removed.
+- `tools/ingame_driver.py` used to exit 0 even when a launch reported `FAIL`;
+  it now returns non-zero unless both launches report `[SELFTEST] PASS`, so the
+  in-game job is a real gate.
 - `README.md` documents the panel controls and the screenshot job;
   `BUG_REPORT.md` gains a section on the interface rework and states plainly
   which interactions are not driven by the mouse.

@@ -394,6 +394,9 @@ that `xdotool` does not reproduce on llvmpipe. Both sit behind
   (parity, build, notes from `CHANGELOG.md`, release published). The jar version
   is `mod_version` expanded into `fabric.mod.json` by `processResources`, so the
   published jar reports 2.0.3.
+- CI green on `e0b7463` (same source as the release): `In-game test`
+  `40106634875` reports 118/118 and 7/7 with the driver acting as a gate
+  (`both launches passed` in `docs/ingame/driver.log`).
 - `docs/ci/` holds the Axiom API dump used to check every ImGui call against
   the shipped bindings (`docs/ci/axiom-api.txt`).
 - Artifact: `BTE Rail Path Tool 2.0.3 — MC 1.21.10`, asset
